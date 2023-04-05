@@ -20,6 +20,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(85deg, #2c80b8, #8e44ad);
 }
 
 .cover{
