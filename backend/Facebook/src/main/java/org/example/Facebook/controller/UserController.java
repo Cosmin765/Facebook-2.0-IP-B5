@@ -1,6 +1,7 @@
 package org.example.Facebook.controller;
 
-import org.example.Facebook.model.User;
+import org.example.Facebook.model.dto.UserDto;
+import org.example.Facebook.model.entity.User;
 import org.example.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class UserController {
         userService.registerUser(user);
     }
     @GetMapping(value = "/users")
-    public List<User> getUsers(){
+    public List<UserDto> getUsers(){
         return userService.getUsers();
     }
 

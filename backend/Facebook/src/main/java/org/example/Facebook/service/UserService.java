@@ -1,7 +1,9 @@
 package org.example.Facebook.service;
 
 import org.example.Facebook.adapters.AppSecurityConfig;
-import org.example.Facebook.model.User;
+import org.example.Facebook.mapper.UserMapper;
+import org.example.Facebook.model.dto.UserDto;
+import org.example.Facebook.model.entity.User;
 import org.example.Facebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +21,8 @@ public class UserService implements UserDetailsService {
         user.setPassword(hashedPassword);
         userRepository.save(user);
     }
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getUsers() {
+        return userRepository.findAll().stream().map(UserMapper::toDto).toList();
     }
 
     @Override

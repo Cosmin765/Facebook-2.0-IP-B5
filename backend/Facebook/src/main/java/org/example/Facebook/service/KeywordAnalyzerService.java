@@ -1,8 +1,8 @@
 package org.example.Facebook.service;
 
-import org.example.Facebook.model.AdProfile;
-import org.example.Facebook.model.Post;
-import org.example.Facebook.model.User;
+import org.example.Facebook.model.entity.AdProfile;
+import org.example.Facebook.model.entity.Post;
+import org.example.Facebook.model.entity.User;
 import org.springframework.stereotype.Service;
 
 @Service

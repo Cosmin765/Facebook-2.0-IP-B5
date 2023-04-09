@@ -1,6 +1,6 @@
 package org.example.Facebook.service;
 
-import org.example.Facebook.model.Ad;
+import org.example.Facebook.model.entity.Ad;
 import org.springframework.stereotype.Service;
 
 @Service

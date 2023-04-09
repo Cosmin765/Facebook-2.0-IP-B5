@@ -1,4 +1,4 @@
-package org.example.Facebook.model;
+package org.example.Facebook.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

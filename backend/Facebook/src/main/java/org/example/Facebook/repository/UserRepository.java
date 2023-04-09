@@ -1,6 +1,6 @@
 package org.example.Facebook.repository;
 
-import org.example.Facebook.model.User;
+import org.example.Facebook.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
