@@ -15,7 +15,7 @@ import java.util.List;
 public class AdProfile {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  private Integer Id;
+  private Integer id;
   private Integer userId;
   private String keywords;
 }

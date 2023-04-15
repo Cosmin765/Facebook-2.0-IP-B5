@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 public class UserController {
- @Autowired
+    @Autowired
     private UserService userService;
     @PostMapping(value="/register")
     public void registerUser(@RequestBody User user) {

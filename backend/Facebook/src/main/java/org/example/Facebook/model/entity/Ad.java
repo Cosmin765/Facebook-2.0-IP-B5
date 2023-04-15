@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Ad {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  public String Id;
+  public String id;
   public String title;
   public String content;
   public Integer numberOfClicks;

@@ -6,7 +6,7 @@ import org.example.Facebook.model.entity.User;
 public class UserMapper {
     public static UserDto toDto(User user ){
         return UserDto.builder()
-                .Id(user.getId())
+                .id(user.getId())
                 .name(user.getName())
                 .birthday(user.getBirthday())
                 .email(user.getEmail())

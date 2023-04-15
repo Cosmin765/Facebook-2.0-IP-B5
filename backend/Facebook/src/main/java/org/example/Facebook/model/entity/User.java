@@ -21,7 +21,7 @@ import java.util.Date;
 public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer Id;
+    private Integer id;
     @Column(nullable = false)
     private String name;
     private Date birthday;

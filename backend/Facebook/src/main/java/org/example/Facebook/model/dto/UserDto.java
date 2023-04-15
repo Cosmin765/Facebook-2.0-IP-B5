@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class UserDto {
-    private Integer Id;
+    private Integer id;
     private String name;
     private Date birthday;
     private String email;

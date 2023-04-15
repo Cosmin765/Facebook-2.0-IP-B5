@@ -21,18 +21,18 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 
-        http.authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET,"/", "/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/register").permitAll()
-                .anyRequest().authenticated();
-        http.formLogin();
-        http.httpBasic();
-        http.cors().and().csrf().disable();
+//        http.authorizeHttpRequests());
     }
 
     @Bean
+//                .antMatchers(HttpMethod.GET,"/", "/login").permitAll()
+//                .antMatchers(HttpMethod.POST,"/register").permitAll()
+//                .anyRequest().authenticated();
+//        http.formLogin();
+//        http.httpBasic();
+//        http.cors().and().csrf().disable(
     public AuthenticationProvider authProvider() {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
