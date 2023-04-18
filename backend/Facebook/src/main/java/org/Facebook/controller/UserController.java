@@ -23,6 +23,6 @@ public class UserController {
 
     @GetMapping(value = "/")
     public String getWelcome(){
-        return "Hello world";
+        return "Hello world!";
     }
 }
