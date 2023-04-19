@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdCompanyService {
-  @Autowired
+  /*@Autowired
   private AdRepository adRepository; // presupunem ca AdRepo e un Spring Data Repository, legatura cu docker database
 
   public Ad createAd(String title, String content) {
@@ -19,7 +19,7 @@ public class AdCompanyService {
 
   public void deleteAd(Ad ad) {
     adRepository.delete(ad);
-  }
+  } */
 
   public int checkStats(Ad ad) {
     return ad.getNumberOfClicks();
