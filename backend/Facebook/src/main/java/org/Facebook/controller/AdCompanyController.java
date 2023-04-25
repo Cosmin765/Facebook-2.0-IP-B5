@@ -1,3 +1,4 @@
+/* ??
 package org.Facebook.controller;
 
 import org.Facebook.service.AdCompanyService;
@@ -35,4 +36,4 @@ public class AdCompanyController {
         json.put("clicks", adCompanyService.checkStats(adId));
         return json;
     }
-}
+}*/

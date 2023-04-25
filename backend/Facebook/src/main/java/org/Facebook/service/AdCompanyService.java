@@ -1,24 +1,21 @@
 package org.Facebook.service;
 
-import org.Facebook.repository.AdRepository;
+import org.Facebook.model.entity.Ad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdCompanyService {
-  @Autowired
-  private AdRepository adRepository;
 
-  public void createAd(String title) {
-    adRepository.insertAd(title);
+  public Ad createAd(String title, String content) {
+    return null;
   }
 
-  public void deleteAd(Integer adId) {
-    adRepository.deleteAd(adId);
+  public void deleteAd(Ad ad) {
   }
 
-  public Integer checkStats(Integer adId) {
-    return adRepository.getNumberOfClicks(adId);
+  public int checkStats(Ad ad) {
+    return 0;
   }
 
 }
