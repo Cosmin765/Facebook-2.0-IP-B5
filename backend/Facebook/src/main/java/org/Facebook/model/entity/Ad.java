@@ -12,7 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ads")
 public class Ad {
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String title;
   private String content;

@@ -1,3 +1,4 @@
+package org.FacebookAds.service;/*
 package org.FacebookAds.service;
 
 import org.Facebook.model.entity.Ad;
@@ -27,3 +28,4 @@ public class AdService {
         return ad.getNumberOfClicks();
     }
 }
+*/
