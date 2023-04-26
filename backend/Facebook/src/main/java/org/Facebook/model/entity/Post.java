@@ -29,11 +29,11 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private PostService postService;
+//    private PostService postService;
 
-    public void setNumberOfLikes() {
-        likes = postService.getNumberOfLikes(this.id);
-    }
+//    public void setNumberOfLikes() {
+//        likes = postService.getNumberOfLikes(this.id);
+//    }
 
     public boolean isReported() {
         return false;
