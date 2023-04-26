@@ -35,8 +35,8 @@ public class KeywordController {
     @GetMapping(value = "/test")
     public List<Keyword> test(){
         KeywordExtractor keywordExtractor = new KeywordExtractor(adProfileService);
-        keywordExtractor.analyzeMessage("I really like cars.",1);
+        keywordExtractor.analyzeMessage("I really like cars.",3);
 
-        return keywordService.getKeyByProfile(1);
+        return keywordService.getKeyByProfile(3);
     }
 }
