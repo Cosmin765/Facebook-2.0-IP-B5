@@ -13,8 +13,8 @@ import org.Facebook.model.entity.User;
 @Builder
 public class PostDto {
     private Integer id;
-    private User user;
-    private String title;
+    private Integer userId;
+//    private String title;
     private String content;
     private byte[] image;
 }

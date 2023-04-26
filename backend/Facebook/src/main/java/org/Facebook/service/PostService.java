@@ -1,5 +1,7 @@
 package org.Facebook.service;
 
+import org.Facebook.mapper.PostMapper;
+import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.PostRepository;
@@ -13,13 +15,18 @@ import java.util.List;
 public class PostService {
     @Autowired
     private PostRepository postRepository;
+    @Autowired
     private UserRepository userRepository;
 
     public List<Post> getAllPosts() {
         return postRepository.findAllPostsDesc();
     }
 
-    public void createPost(Post post) {
+    public void createPost(PostDto postDto) {
+        Post post = PostMapper.fromDto(postDto);
+        User user = userRepository.getById(postDto.getUserId());
+        post.setUser(user);
+
         postRepository.save(post);
     }
 

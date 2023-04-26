@@ -1,5 +1,6 @@
 package org.Facebook.controller;
 
+import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.entity.Post;
 import org.Facebook.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ public class PostController {
     }
 
     @PostMapping("/posts/new")
-    public String createPost(Post post, RedirectAttributes redirectAttributes) {
-        postService.createPost(post);
+    public String createPost(@RequestBody PostDto postDto, RedirectAttributes redirectAttributes) {
+        postService.createPost(postDto);
         redirectAttributes.addFlashAttribute("message", "Post created successfully!");
-        return "redirect:/post/?id=" + post.getId();
+        return "redirect:/post/?id=" + postDto.getId();
     }
 
     @GetMapping("/posts/new")

@@ -1,7 +1,7 @@
 package org.FacebookAds.service;/*
 package org.FacebookAds.service;
 
-import org.Facebook.model.entity.Ad;
+import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
