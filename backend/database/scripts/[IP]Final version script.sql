@@ -110,6 +110,26 @@ CREATE TABLE ad_clicks (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE keywords (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  ad_profile_id INT NOT NULL,
+  word VARCHAR(255) NOT NULL,
+  frequency INT,
+  sentiment_score FLOAT,
+  score FLOAT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id)
+);
+
+CREATE TABLE ad_profiles (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 DELIMITER //
 
 CREATE TRIGGER update_conversation_updated_at 
