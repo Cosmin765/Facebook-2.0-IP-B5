@@ -5,33 +5,24 @@ import icon2 from './Group.png';
 import icon3 from './Group (1).png';
 import icon4 from './Chat_alt_2_light.png';
 import icon5 from './Vector.png';
-
+import StretchedMenu from "./stretched_menu";
 class ChatBox extends React.Component{
     render() {
       return (
-        <div>
+        
+          <div className="my-container ">
           <title>Chat</title>
           {/* Bootstrap */}
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
           {/* Font awesome */}
           <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
-          {/* CSS */}
-          <link rel="stylesheet" type="text/css" href="ChatBox.css" />
-          <div className=" w-100">
-            <div className="my-container ">
-              <div className="nav">
-                <div className="grid-container">
-                <div><img src={icon}>
-                </img></div>
-                <div><img src={icon2} />
-            </div>
-                <div><img src={icon3}>
-                </img> </div>
-               <div> <img src={icon4}>
-                </img></div>
-                <div> <img src={icon5}>
-                </img></div>
-              </div></div>
+     
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
+    
+            
+              <StretchedMenu />
+              <div className="chats-container ">
               <div className=" chat"><div className="card contacts_card">
                   <div className="card-header">
                     <div className="input-group">
@@ -281,9 +272,8 @@ class ChatBox extends React.Component{
                         <span className="input-group-text send_btn"><i className="fas fa-location-arrow" /></span>
                       </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
           {/* JQuery */}

@@ -4,7 +4,7 @@ html {
 	width: 100vw;
 	margin: 0;
 	overflow: hidden;
-	background-color: rgba(152, 58, 224, 0.190) !important;
+	background-color: #F1E5FF !important;
     /*background-image: url(https://i.ytimg.com/vi/ZOnQohTePwo/sddefault.jpg);
     background-position: absolute;
     background-repeat: no-repeat;
@@ -12,6 +12,24 @@ html {
     background-size: cover;
     background-position: -10px;
     */
+}
+.my-container{
+	height: 100vh;
+	width: 100vw;
+	margin:0;
+	padding: 0;
+	background-color: #F1E5FF;
+	display: flex;
+	flex-direction: row;
+
+}
+.chats-container{
+	display: grid;
+	height: 100%;
+	width: 100%;
+	grid-template-columns: 35% 64%;
+	gap: 7px;
+	margin-left: 7px;
 }
 .nav{
 	
@@ -74,13 +92,7 @@ margin:0;
 	background-color: transparent !important;
 }
 
-.my-container {
-	width: 100vw;
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 5% 30% 63%;
-	gap: 10px;
-}
+
 
 .search {
 	border-radius: 15px 0 0 15px !important;
