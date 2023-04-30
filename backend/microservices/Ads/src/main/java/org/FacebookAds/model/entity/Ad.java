@@ -1,4 +1,4 @@
-package org.Facebook.model.entity;
+package org.FacebookAds.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +12,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ads")
 public class Ad {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  public String id;
-  public String title;
-  public String content;
-  public Integer numberOfClicks;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
+  private String title;
+  private String content;
+  private Integer numberOfClicks;
 }
