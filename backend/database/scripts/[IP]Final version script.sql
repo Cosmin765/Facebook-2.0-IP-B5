@@ -26,6 +26,19 @@ FOREIGN KEY (user_id1) REFERENCES users(id),
 FOREIGN KEY (user_id2) REFERENCES users(id)
 );
 
+-- Friend Requests table
+CREATE TABLE friend_requests (
+id INT PRIMARY KEY AUTO_INCREMENT,
+sender_id INT NOT NULL,
+receiver_id INT NOT NULL,
+status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (sender_id) REFERENCES users(id),
+FOREIGN KEY (receiver_id) REFERENCES users(id)
+);
+
+
 -- Conversations table
 CREATE TABLE conversations (
 id INT PRIMARY KEY AUTO_INCREMENT,
@@ -91,16 +104,25 @@ FOREIGN KEY (post_id) REFERENCES posts(id),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Comments table
+-- Comments table with reported column
 CREATE TABLE comments (
 id INT PRIMARY KEY AUTO_INCREMENT,
 post_id INT NOT NULL,
 user_id INT NOT NULL,
 content TEXT NOT NULL,
-reported BOOL DEFAULT false, -- New column for reporting
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (post_id) REFERENCES posts(id),
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Comment reports table
+CREATE TABLE comment_reports (
+id INT PRIMARY KEY AUTO_INCREMENT,
+comment_id INT NOT NULL,
+user_id INT NOT NULL,
+reported_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (comment_id) REFERENCES comments(id),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
