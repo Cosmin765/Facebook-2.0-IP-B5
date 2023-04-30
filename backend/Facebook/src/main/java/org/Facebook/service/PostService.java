@@ -1,20 +1,29 @@
 package org.Facebook.service;
 
 import org.Facebook.mapper.PostMapper;
+import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.PostDto;
+import org.Facebook.model.dto.UserDto;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.PostRepository;
 import org.Facebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private UserService userService;
     @Autowired
     private UserRepository userRepository;
 
@@ -68,5 +77,16 @@ public class PostService {
 
     public int getNumberOfLikes(Integer id) {
         return postRepository.getNumberOfLikes(id);
+    }
+
+    public List<Post> getRecommendedPosts(Integer count, Integer cursor) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        List<UserDto> friends = userService.getFriends(user.getId()).stream().map(UserMapper::toDto).toList();
+
+        List<Integer> userIds = friends.stream().map(UserDto::getId).toList();
+        List<Post> posts = postRepository.findByUsersLimit(userIds, count, cursor);
+        System.out.println(Arrays.toString(posts.stream().mapToInt(Post::getId).toArray()));
+        return posts;
     }
 }
