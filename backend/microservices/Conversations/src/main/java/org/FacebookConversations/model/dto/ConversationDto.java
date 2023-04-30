@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDateTime;
 
@@ -11,11 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MessageDto {
+public class ConversationDto {
     private Integer id;
-    private Integer conversationId;
-    private Integer userId;
-    private String content;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }
