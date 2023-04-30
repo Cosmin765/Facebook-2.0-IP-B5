@@ -86,7 +86,6 @@ public class PostService {
 
         List<Integer> userIds = friends.stream().map(UserDto::getId).toList();
         List<Post> posts = postRepository.findByUsersLimit(userIds, count, cursor);
-        System.out.println(Arrays.toString(posts.stream().mapToInt(Post::getId).toArray()));
         return posts;
     }
 }
