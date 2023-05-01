@@ -21,7 +21,7 @@ public class AdProfileController {
     }
 
     @GetMapping(value = "/adProfile")
-    public AdProfile adProfileSing(@RequestParam("value") String value){
+    public AdProfile adProfileSing(@RequestParam("value") String value) {
         int idVal = Integer.parseInt(value);
         return adProfileService.getOneProfile(idVal);
     }

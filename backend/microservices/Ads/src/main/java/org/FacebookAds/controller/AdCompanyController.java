@@ -16,23 +16,29 @@ public class AdCompanyController {
     @Autowired
     private AdCompanyService adCompanyService;
 
-    @PostMapping(value = "/create_ad")
+    @PostMapping(value = "/create_ad_company")
     @ResponseBody
-    public void createAd(@RequestParam String title) {
-        adCompanyService.createAd(title);
+    public void createAdCompany(@RequestParam String name, @RequestParam String description) {
+        adCompanyService.createAdCompany(name, description);
     }
 
-    @PostMapping(value = "/delete_ad")
+    @PostMapping(value = "/delete_ad_company")
     @ResponseBody
-    public void deleteAd(@RequestParam(name = "id") int adId) {
-        adCompanyService.deleteAd(adId);
+    public void deleteAdCompany(@RequestParam Integer id) {
+        adCompanyService.deleteAdCompany(id);
+    }
+
+    @PostMapping(value = "/update_ad_company")
+    @ResponseBody
+    public void updateAdCompany(@RequestParam Integer id, @RequestParam(required = false) String newName, @RequestParam(required = false) String newDescription) {
+        adCompanyService.updateAdCompany(id, newName, newDescription);
     }
 
     @GetMapping(value = "/check_ad_stats")
     @ResponseBody
-    public Map<String, Integer> checkAdStats(@RequestParam(name = "id") int adId) {
+    public Map<String, Integer> checkAdStats(@RequestParam Integer id) {
         Map<String, Integer> json = new HashMap<>();
-        json.put("clicks", adCompanyService.checkStats(adId));
+        json.put("clicks", adCompanyService.checkStats(id));
         return json;
     }
 }

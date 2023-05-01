@@ -1,5 +1,11 @@
--- Dropping all tables, if they exist
-DROP TABLE IF EXISTS users, friendships, conversations, conversation_users, messages, message_files, posts, post_files, likes, comments, notifications, ads, ad_clicks, ad_profiles, keywords;
+-- Dropping the 'koobecaf' database, if it exists
+DROP SCHEMA IF EXISTS koobecaf;
+
+-- Creating the 'koobecaf' database
+CREATE SCHEMA koobecaf;
+
+-- Selecting the 'koobecaf' database
+USE koobecaf;
 
 -- Users table
 CREATE TABLE users (
@@ -12,7 +18,7 @@ CREATE TABLE users (
     bio TEXT DEFAULT NULL,
     profile_picture VARCHAR(1500) DEFAULT NULL,
     cover_picture VARCHAR(1500) DEFAULT NULL,
-    banned BOOLEAN NOT NULL DEFAULT 0,
+    banned BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -22,13 +28,15 @@ CREATE TABLE friendships (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id1 INT NOT NULL,
     user_id2 INT NOT NULL,
-    request BOOLEAN NOT NULL DEFAULT 1,
+    request BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id1)
-        REFERENCES users (id),
+        REFERENCES users (id)
+        ON DELETE CASCADE,
     FOREIGN KEY (user_id2)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Conversations table
@@ -46,9 +54,11 @@ CREATE TABLE conversation_users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (conversation_id)
-        REFERENCES conversations (id),
+        REFERENCES conversations (id)
+        ON DELETE CASCADE,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Messages table
@@ -60,9 +70,11 @@ CREATE TABLE messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (conversation_id)
-        REFERENCES conversations (id),
+        REFERENCES conversations (id)
+        ON DELETE CASCADE,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Message_files table
@@ -72,6 +84,7 @@ CREATE TABLE message_files (
     file_content VARCHAR(1500),
     FOREIGN KEY (message_id)
         REFERENCES messages (id)
+        ON DELETE CASCADE
 );
 
 -- Posts table
@@ -85,6 +98,7 @@ CREATE TABLE posts (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Post_files table
@@ -94,6 +108,7 @@ CREATE TABLE post_files (
     file_content VARCHAR(1500),
     FOREIGN KEY (post_id)
         REFERENCES posts (id)
+        ON DELETE CASCADE
 );
 
 -- Likes table
@@ -106,6 +121,7 @@ CREATE TABLE likes (
         REFERENCES posts (id),
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Comments table
@@ -113,7 +129,7 @@ CREATE TABLE comments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT NOT NULL,
     user_id INT NOT NULL,
-    text_content TEXT NOT NULL,
+    content TEXT NOT NULL,
     reported BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -121,6 +137,7 @@ CREATE TABLE comments (
         REFERENCES posts (id),
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Notifications table
@@ -128,24 +145,46 @@ CREATE TABLE notifications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     type VARCHAR(50) NOT NULL,
-    text_content TEXT NOT NULL,
+    content TEXT NOT NULL,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
+);
+
+-- Ad companies table
+CREATE TABLE ad_companies (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT NULL
 );
 
 -- Ads table
 CREATE TABLE ads (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    title VARCHAR(255) NOT NULL,
+    ad_company_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
     image VARCHAR(1500) DEFAULT NULL,
-    text_content TEXT NOT NULL,
+    description TEXT NOT NULL,
     keywords VARCHAR(1000) NOT NULL,
-    file_content VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (ad_company_id)
+        REFERENCES ad_companies (id)
+        ON DELETE CASCADE
+);
+
+-- Ad impressions table
+CREATE TABLE ad_impressions (
+    user_id INT,
+    ad_id INT,
+    number INT DEFAULT 1,
+    PRIMARY KEY (user_id , ad_id),
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (ad_id)
+        REFERENCES ads (id)
+        ON DELETE CASCADE
 );
 
 -- Ad clicks table
@@ -153,11 +192,14 @@ CREATE TABLE ad_clicks (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ad_id INT NOT NULL,
     user_id INT NOT NULL,
+    clicks INT DEFAULT 1,
     clicked_after INT DEFAULT NULL,
     FOREIGN KEY (ad_id)
-        REFERENCES ads (id),
+        REFERENCES ads (id)
+        ON DELETE CASCADE,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Ad profiles table
@@ -168,6 +210,7 @@ CREATE TABLE ad_profiles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Keywords table
@@ -182,6 +225,7 @@ CREATE TABLE keywords (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (ad_profile_id)
         REFERENCES ad_profiles (id)
+        ON DELETE CASCADE
 );
 
 -- Triggers
@@ -489,67 +533,111 @@ VALUES (
         'otniel1234'
     );
     
+INSERT INTO ad_companies (
+		name,
+        description)
+VALUES (
+        'ElectroTech',
+        'We specialize in selling the latest electronic gadgets and tech accessories.'
+    ),
+    (
+        'FashionForward',
+        'We offer trendy clothing, footwear, and fashion accessories for men and women.'
+    ),
+    (
+        'HomeDecorPlus',
+        'We provide a wide range of stylish furniture, home decor, and interior design solutions.'
+    ),
+    (
+        'OrganicGoodness',
+        'We sell a variety of organic food products, including fresh produce, snacks, and pantry essentials.'
+    ),
+    (
+        'AutoPartsExpress',
+        'We offer a comprehensive selection of automotive parts and accessories for all makes and models.'
+    ),
+    (
+        'FitLifeFitness',
+        'We specialize in fitness equipment, workout gear, and nutritional supplements to support a healthy lifestyle.'
+    ),
+    (
+        'GourmetDelights',
+        'We provide gourmet food and delicacies, including fine wines, cheeses, and luxury ingredients.'
+    ),
+    (
+        'OutdoorAdventures',
+        'We offer outdoor gear, camping equipment, and adventure travel packages for nature enthusiasts.'
+    ),
+    (
+        'PetParadise',
+        'We cater to pet owners with a wide range of pet supplies, including food, toys, and accessories.'
+    ),
+    (
+        'BeautyEssentials',
+        'We specialize in skincare, cosmetics, and beauty products to enhance your natural radiance.'
+    );
+    
 INSERT INTO ads (
-		user_id,
-        title,
-        text_content,
+        ad_company_id,
+        name,
+        description,
         keywords)
 VALUES (
-        14,
+        1,
         'GloBrite',
         'Illuminate your surroundings with GloBrite, a versatile LED lighting solution that creates a vibrant and colorful ambiance.',
         'lighting,colorful,vibrant,LED,versatile'
     ),
     (
-        5,
+        2,
         'AquaPure',
         'Enhance your workout experience with FlexiFit, a flexible and adjustable fitness accessory that provides maximum comfort and support during exercise.',
         'fitness,flexible,adjustable,comfort,support'
     ),
     (
-        8,
+        3,
         'ZenTranquil',
         'Achieve inner peace and tranquility with ZenTranquil, a mindfulness app that offers guided meditation sessions and relaxation techniques.',
         'mindfulness,meditation,tranquility,relaxation,app'
     ),
     (
-        18,
+        4,
         'AquaPure',
         'Stay hydrated and refreshed with AquaPure, a premium water filtration system that ensures pure and clean drinking water.',
         'hydration,water,pure,clean,filtration'
     ),
     (
-        21,
+        5,
         'PowerBoost',
         'Boost your energy levels and stay productive throughout the day with PowerBoost, a natural and energizing dietary supplement.',
         'energy,productivity,natural,dietary,supplement'
     ),
     (
-        9,
+        6,
         'TechGrip',
         'Keep your devices secure and protected with TechGrip, a durable and non-slip grip accessory for smartphones and tablets.',
         'technology,grip,secure,protection,smartphone'
     ),
     (
-        2,
+        7,
         'StyleSense',
         'Discover your unique fashion sense with StyleSense, a fashion app that provides personalized style recommendations and fashion inspiration.',
         'fashion,personalized,style,app,inspiration'
     ),
     (
-        13,
+        8,
         'CleanSweep',
         'Clean your home effortlessly with CleanSweep, a powerful and efficient robotic vacuum cleaner that ensures a spotless and tidy living space.',
         'cleaning,robotic,vacuum,cleaner,efficient'
     ),
     (
-        10,
+        9,
         'MindFocus',
         'Improve your concentration and mental clarity with MindFocus, a cognitive enhancement supplement that supports brain function.',
         'concentration,mental,clarity,cognitive,enhancement'
     ),
     (
-        24,
+        5,
         'PowerPulse',
         'Experience a rejuvenating massage with PowerPulse, a handheld massager that provides deep tissue relief and relaxation.',
         'massage,handheld,deep,tissue,relief'

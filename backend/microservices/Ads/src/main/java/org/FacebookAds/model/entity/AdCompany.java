@@ -3,6 +3,7 @@ package org.FacebookAds.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -10,14 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ads")
-public class Ad {
+@DynamicInsert
+@Table(name = "ad_companies")
+public class AdCompany {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer adCompanyId;
     private String name;
-    private String image;
     private String description;
-    private String keywords;
 }

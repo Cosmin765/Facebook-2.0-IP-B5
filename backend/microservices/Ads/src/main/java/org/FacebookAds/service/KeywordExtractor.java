@@ -11,7 +11,6 @@ import org.FacebookAds.util.Pipeline;
 import org.FacebookAds.util.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,9 +18,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class KeywordExtractor {
-    private Set<String> stopWords;
-
     private final AdProfileService adProfileService;
+    private Set<String> stopWords;
     @Autowired
     private AdProfileRepository adProfileRepository;
 

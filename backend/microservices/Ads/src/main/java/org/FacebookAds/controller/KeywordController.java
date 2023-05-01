@@ -21,21 +21,21 @@ public class KeywordController {
     private AdProfileService adProfileService;
 
     @GetMapping(value = "/keys")
-    public List<KeywordDto> getAllKeys(){
+    public List<KeywordDto> getAllKeys() {
         return keywordService.getAllKeywords();
     }
 
     @GetMapping(value = "/key")
-    public List<Keyword> getKeyByAdProfId(@RequestParam("value") String value){
+    public List<Keyword> getKeyByAdProfId(@RequestParam("value") String value) {
         int num = Integer.parseInt(value);
         return keywordService.getKeyByProfile(num);
     }
 
     //test for keyExt
     @GetMapping(value = "/test")
-    public List<Keyword> test(){
+    public List<Keyword> test() {
         KeywordExtractor keywordExtractor = new KeywordExtractor(adProfileService);
-        keywordExtractor.analyzeMessage("I really like cars.",3);
+        keywordExtractor.analyzeMessage("I really like cars.", 3);
 
         return keywordService.getKeyByProfile(3);
     }
