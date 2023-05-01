@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> searchUsers(String name) {
-        int resultsCount = 10;
+        int resultsCount = 20;
         List<String> tokens = Arrays.stream(name.split("\\s")).map(s -> s.toLowerCase(Locale.ROOT)).toList();
 
         PriorityQueue<Pair<User, Integer>> queue = new PriorityQueue<>(Comparator.comparing(Pair::getSecond));
@@ -57,14 +57,16 @@ public class UserService implements UserDetailsService {
                 List<String> otherTokens = Arrays.stream(user.getName().split("\\s"))
                         .map(s -> s.toLowerCase(Locale.ROOT)).toList();
 
+                String lowerName = user.getName().toLowerCase(Locale.ROOT);
+
                 int score = 0;
                 for(String token : tokens) {
                     if(otherTokens.contains(token)) {
-                        score += 2;
+                        score += 3;
                         continue;
                     }
 
-                    if(user.getName().contains(token)) {
+                    if(lowerName.contains(token)) {
                         score += 1;
                     }
                 }
