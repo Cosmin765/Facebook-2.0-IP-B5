@@ -17,6 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping(value="/register")
+    @ResponseBody
     public void registerUser(@RequestBody User user) {
         userService.registerUser(user);
     }
@@ -30,6 +31,13 @@ public class UserController {
     public List<UserDto> getFriends(@RequestParam int userId) {
         return userService.getFriends(userId).stream().map(UserMapper::toDto).toList();
     }
+
+    @GetMapping("/users/search")
+    @ResponseBody
+    public List<UserDto> searchUsers(@RequestParam String name) {
+        return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
+    }
+
     @GetMapping(value = "/")
     @ResponseBody
     public String getWelcome(){
