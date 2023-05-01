@@ -1,0 +1,13 @@
+name = "manager"
+main = "src/index.js"
+compatibility_date = "2023-04-30"
+usage_model = "bundled"
+env = { }
+
+[triggers]
+crons = [ ]
+
+[[r2_buckets]]
+binding = "MY_BUCKET"
+bucket_name = "koobecaf"
+preview_bucket_name = "koobecaf-dev"
