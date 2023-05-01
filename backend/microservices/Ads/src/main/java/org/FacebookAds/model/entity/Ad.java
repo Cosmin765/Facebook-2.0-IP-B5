@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,8 @@ public class Ad {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String title;
-  private String content;
+  private String textContent;
+  @ElementCollection
+  private List<String> keywords;
   private Integer numberOfClicks;
 }

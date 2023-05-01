@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdCompanyService {
 
-  public Ad createAd(String title, String content) {
+  public Ad createAd(String title) {
     return null;
   }
 
