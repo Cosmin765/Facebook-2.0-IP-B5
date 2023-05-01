@@ -54,24 +54,18 @@ html {
   .grid-container div{
 	text-align: center;
   }
-.chat {
-margin:0;
-}
+
 
 .card {
 	height: 98%;
 	max-height: 100vh;
-	margin-top: 6px;
+	margin: auto 0;
 	overflow-y: auto;
-	border-radius: 15px !important;
+	border-radius: 15px ;
 	background-color: #ffffff !important;
 }
 
-.contacts_body {
-	padding: 0.75rem 0 !important;
-	overflow-y: auto;
-	white-space: nowrap;
-}
+
 
 .msg_card_body {
 	overflow-y: auto;
@@ -79,8 +73,16 @@ margin:0;
 
 .card-header {
 	border-radius: 15px 15px 0 0 !important;
-	border-bottom: 0 !important	 ;
-	background-color: transparent !important;
+	border-bottom: 0 !important;	 
+	background-color: rgb(255, 255, 255) !important;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100%;
+  height: 8%;
+
+  
 }
 .my-heeead{
 	border-bottom: 3px solid  rgba(152, 58, 224, 0.190) !important;
@@ -94,15 +96,23 @@ margin:0;
 
 
 
-.search {
-	border-radius: 15px 0 0 15px !important;
-	background-color: rgba(152, 58, 224, 0.190) !important;
-	border: 0 !important;
-	color: rgb(0, 0, 0) !important;
+.my-search {
+	border-radius: 20px;
+	background-color: rgba(152, 58, 224, 0.190) ;
+	border: 0;
+	width: 90%;
+        padding: 0.5rem;
+    margin-top: 10px;
+		
 }
-
-.search:focus {
-	box-shadow: none !important;
+.my-search input{
+	background-color: transparent;
+	border: 0;
+	text-align: start;
+	font-size: medium;
+	font-family: 'Montserrat';
+	width: 80%;
+	margin-top: 3px;
 	
 }
 
@@ -136,61 +146,62 @@ margin:0;
 	cursor: pointer;
 }
 
-.search_btn {
-	border-radius: 0 15px 15px 0 !important;
-	background-color: rgba(152, 58, 224, 0.190) !important;
-	border: 0 !important;
-	color: rgb(0, 0, 0) !important;
+.search_btn img {
+	margin-right: 5px;
+	float: right;
+	z-index: 1;
 	cursor: pointer;
+	max-width:1.5rem;
+	padding: 0;
 }
+.contacts_body {
+	padding: 0.75rem 0 !important;
+	overflow-y: auto;
+	overflow-x: hidden;
+	display: flex;
+  flex-direction: column;
+ width: 100%;
 
+	
+}
 .contacts {
 	list-style: none;
 	padding: 0;
+	width: 100%;
 }
 
-.contacts li {
-	width: 100% !important;
-	padding: 5px 10px;
-	margin-bottom: 15px !important;
+.person-template{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	padding-top: 10px;
 }
-
-.active {
-	background-color: rgba(152, 58, 224, 0.612);
+.person-template:hover{
+	background-color: #00000016;
+	border-radius: 10px;
 }
-
 .user_img {
 	height: 60px;
 	width: 60px;
 	border: 1.5px solid #000000;
+	border-radius: 50%;
 }
-
-.user_img_msg {
-	height: 40px;
-	width: 40px;
-	border: 1.5px solid #000000;
-}
-
 .img_cont {
-	position: relative;
+	margin-left: 10px;
 	height: 70px;
 	width: 70px;
 }
-
-.img_cont_msg {
-	height: 40px;
-	width: 40px;
-}
-
 .online_icon {
-	position: absolute;
+	float: right;
 	height: 15px;
 	width: 15px;
 	background-color: #4cd137;
 	border-radius: 50%;
-	bottom: 13px;
-	right: 13px;
-	border: 1.5px solid rgb(0, 0, 0);
+	margin-top: -10px;
+	margin-right: 10px;
+	margin-left: auto;
+	
 }
 
 .offline {
@@ -200,18 +211,42 @@ margin:0;
 .user_info {
 	margin-top: auto;
 	margin-bottom: auto;
-	margin-left: 15px;
+	
+
 }
 
 .user_info span {
-	font-size: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	font-family: 'Viga';
 	color: rgb(0, 0, 0);
 }
 
 .user_info p {
-	font-size: 10px;
+	font-size: 12px;
+	font-family: 'Montserrat';
 	color: rgba(0, 0, 0, 0.6);
+	margin-top: 5px;
 }
+
+
+.selected{
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.188);
+}
+
+.user_img_msg {
+	height: 40px;
+	width: 40px;
+	border: 1.5px solid #000000;
+}
+
+
+.img_cont_msg {
+	height: 40px;
+	width: 40px;
+}
+
 
 .video_cam {
 	margin-left: 50px;

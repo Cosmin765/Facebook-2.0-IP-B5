@@ -4,136 +4,54 @@ import icon from './Vectoricon.png';
 import icon2 from './Group.png';
 import icon3 from './Group (1).png';
 import icon4 from './Chat_alt_2_light.png';
-import icon5 from './Vector.png';
+import search from './icons/search.svg';
 import StretchedMenu from "./stretched_menu";
-class ChatBox extends React.Component{
-    render() {
+import PersonTemplate from "./PersonTemplate";
+
+const people = [
+  {name: 'Cohman Teodora', lastMessage: 'You: Ce faci ba', status: 'online', profilePic:'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg'},
+  {name: 'Curcudel Teodor', lastMessage: 'Da-mi tema', status: 'offline', profilePic:'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png'}
+];
+
+function ChatBox (){
       return (
         
           <div className="my-container ">
           <title>Chat</title>
           {/* Bootstrap */}
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
-          {/* Font awesome */}
-          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
-     
+        
+        
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
     
             
               <StretchedMenu />
               <div className="chats-container ">
-              <div className=" chat"><div className="card contacts_card">
+              
+                <div className="card">
                   <div className="card-header">
-                    <div className="input-group">
-                      <input type="text" placeholder="Search..." name className="form-control search" />
-                      <div className="input-group-prepend">
-                        <span className="input-group-text search_btn"><i className="fas fa-search" /></span>
-                      </div>
+                    <div className="my-search">
+                      <input type="text" placeholder="Search..." name="search" />
+                        <span className="search_btn"><img src={search} /></span>
+                    </div>
+                  
+                  </div>
+                  <div className="contacts_body">
+                    <div className="contacts">
+                      {people.map((people) => (
+                        <PersonTemplate
+                        key={people.name}
+                        name={people.name}
+                        profilePic={people.profilePic}
+                        lastMessage={people.lastMessage}
+                        status={people.status}
+                        />
+
+                      ))}
                     </div>
                   </div>
-                  <div className="card-body contacts_body">
-                    <ui className="contacts">
-                      <li className="active">
-                        <div className="d-flex ">
-                          <div className="img_cont">
-                            <img src="https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg" className="rounded-circle user_img" />
-                            <span className="online_icon" />
-                          </div>
-                          <div className="user_info">
-                            <span>Dwayne Johnson</span>
-                            <p>Online</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex ">
-                          <div className="img_cont">
-                            <img src="https://i.imgflip.com/t2c0u.jpg?a467016" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Kevin Boy Hart</span>
-                            <p>Left 7 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex ">
-                          <div className="img_cont">
-                            <img src="https://i.imgflip.com/t2c0u.jpg?a467016" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Kevin Boy Hart</span>
-                            <p>Left 7 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex ">
-                          <div className="img_cont">
-                            <img src="https://i.imgflip.com/t2c0u.jpg?a467016" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Kevin Boy Hart</span>
-                            <p>Left 7 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex bd-highlight">
-                          <div className="img_cont">
-                            <img src="https://cdn.knd.ro/media/521/2942/1703/20297292/1/snapinsta-app-1080-240867563-1505517406491265-2740515728665044693-n.jpg?width=800" className="rounded-circle user_img" />
-                            <span className="online_icon" />
-                          </div>
-                          <div className="user_info">
-                            <span>Dorian Hatzul</span>
-                            <p>Online</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex bd-highlight">
-                          <div className="img_cont">
-                            <img src="https://i.imgflip.com/1etrwu.jpg?a467136" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Jeremy British Clarkson</span>
-                            <p>Left 30 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex bd-highlight">
-                          <div className="img_cont">
-                            <img src="https://i.imgflip.com/1etrwu.jpg?a467136" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Jeremy British Clarkson</span>
-                            <p>Left 30 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="d-flex bd-highlight">
-                          <div className="img_cont">
-                            <img src="https://hips.hearstapps.com/digitalspyuk.cdnds.net/16/42/1476977043-wolverine-3-hugh-jackman-shaves-chops.jpg?crop=0.5xw:1xh;center,top&resize=1200:*" className="rounded-circle user_img" />
-                            <span className="online_icon offline" />
-                          </div>
-                          <div className="user_info">
-                            <span>Hugh Wolverine Jack</span>
-                            <p>Left 50 mins ago</p>
-                          </div>
-                        </div>
-                      </li>
-                    </ui>
-                  </div>
                  
-                </div></div>
+                </div>
               <div className="chat">
                 <div className="card">
                   <div className="card-header my-heeead msg_head">
@@ -280,6 +198,5 @@ class ChatBox extends React.Component{
         </div>
       );
     }
-  };
   export default ChatBox;
 
