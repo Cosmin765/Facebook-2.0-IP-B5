@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService {
 
         PriorityQueue<Pair<User, Integer>> queue = new PriorityQueue<>(Comparator.comparing(Pair::getSecond));
 
-        int pageSize = 2;
+        int pageSize = 20;
         int pageIndex = 0;
         Page<User> page;
         do {
