@@ -38,6 +38,18 @@ public class UserController {
         return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
     }
 
+    @PostMapping(value = "/suggestions")
+    @ResponseBody
+    public List<UserDto> getSuggestions(@RequestParam Integer count, @RequestParam Integer cursor) {
+        return userService.getSuggestions(count,cursor).stream().map(UserMapper::toDto).toList();
+
+    }
+
+    @GetMapping("/suggestions")
+    public String getSuggestionsPage(Model model) {
+        return "suggestions";
+    }
+
     @GetMapping(value = "/")
     @ResponseBody
     public String getWelcome(){

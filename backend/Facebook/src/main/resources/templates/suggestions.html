@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestions</title>
+
+    <style>
+        img {
+            width: 50%;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+        window.onload = main;
+
+        function getElement(name) {
+            const container = document.createElement('div');
+            const contentElement = document.createElement('p');
+
+            container.appendChild(contentElement);
+            contentElement.textContent = name;
+            return container;
+        }
+
+        async function main() {
+            const params = new URLSearchParams(location.search);
+
+            const count = params.get('count');
+            const cursor = params.get('cursor');
+
+            const url = `http://localhost:8084/suggestions?count=${count}&cursor=${cursor}`;
+
+            const response = await fetch(url, {method: 'POST'});
+            const data = await response.json();
+
+            for(const suggestion of data) {
+                const container = getElement(suggestion['name']);
+                document.body.appendChild(container);
+            }
+        }
+    </script>
+</body>
+</html>
