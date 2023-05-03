@@ -2,6 +2,7 @@ package org.FacebookConversations.service;
 
 import org.FacebookConversations.mapper.MessageMapper;
 import org.FacebookConversations.model.dto.MessageDto;
+import org.FacebookConversations.model.entity.Message;
 import org.FacebookConversations.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,27 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public List<MessageDto> getAllMessages(){
+    public List<MessageDto> getAllMessages() {
         return messageRepository.findAll().stream().map(MessageMapper::toDto).toList();
+    }
+
+    public List<MessageDto> getByUserId(Integer id) {
+        List<Message> messages = messageRepository.findByUserId(id);
+        return messages.stream().map(MessageMapper::toDto).toList();
+    }
+
+    public List<MessageDto> getByConversationId(Integer id) {
+        List<Message> messages = messageRepository.findByConversationId(id);
+        return messages.stream().map(MessageMapper::toDto).toList();
+    }
+
+    public List<MessageDto> getByUserAndConversationId(Integer userId, Integer conversationId) {
+        List<Message> messages = messageRepository.findByUserIdAndConversationId(userId, conversationId);
+        return messages.stream().map(MessageMapper::toDto).toList();
+    }
+
+    public Message saveMessage(Message message) {
+        return messageRepository.save(message);
     }
 
 }

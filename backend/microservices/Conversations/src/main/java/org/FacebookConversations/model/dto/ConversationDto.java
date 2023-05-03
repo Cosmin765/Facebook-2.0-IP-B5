@@ -15,4 +15,5 @@ import java.time.LocalDateTime;
 public class ConversationDto {
     private Integer id;
     private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 }

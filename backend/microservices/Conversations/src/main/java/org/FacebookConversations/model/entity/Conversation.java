@@ -18,5 +18,6 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

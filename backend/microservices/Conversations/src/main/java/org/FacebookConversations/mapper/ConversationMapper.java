@@ -8,6 +8,7 @@ public class ConversationMapper {
         return ConversationDto.builder()
                 .id(conversation.getId())
                 .createdAt(conversation.getCreatedAt())
+                .updateAt(conversation.getUpdatedAt())
                 .build();
     }
 }
