@@ -5,9 +5,11 @@
   flex-direction: row;
   height: 100vh; /* inaltimea containerului */
 }
+
 body {
   background-color: rgb(241, 229, 255);
 }
+
 .container-profile > div {
    margin: 2px; 
 }
@@ -19,8 +21,7 @@ body {
   width: 100%;
   height: 100%;
  
-  }
-
+}
 
 input{
   position: absolute;
@@ -32,36 +33,87 @@ input{
  margin-top: 3em;
   flex: 9;
   width: 100%; 
-
 }
 
 .upper-profile{
+  width: 98.5%;
   height: 19em;
   margin-bottom: 1em;
 }
+
 .colored-cover{
+  border-radius: .4em;
   height: 14em;
   background: linear-gradient(85deg, #2c80b8, #8e44ad);
- 
+  /* background: url(./img/hugh-jackman.jpg) no-repeat;
+  background-size: cover;
+  background-position: center; */
 }
-.profile-photo{
+
+.profile-photo {
+  width: 10em;
+  height: 10em;
+
+  background: url(./img/dwayne-johnson.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: .2em solid #7703FC;
   border-radius: 50%;
-  height: 4em;
-  width: 4em;
+  position: relative;
+  float: left;
+  top: 7.5em;
+  left: 5em;
 }
+
+.profile-name{
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-size: 2em;
+}
+
 .white-cover{
+  display: flex;
+  align-items: center;
   height: 5em;
   background-color: white;
+  border-radius: .4em;
 }
+
+.white-cover button{
+  height: 2.1em;
+  background: #7703FC;
+  border-radius: .5em;
+  border: none;
+  color: white;
+}
+
+.white-cover .profile-name{
+  margin-left: auto;
+}
+
+.white-cover .message{
+  margin-right: auto;
+}
+
+.white-cover .add-friend{
+  margin-left: auto;
+  margin-right: 1em;
+}
+
 .bottom-profile{
   display: flex;
   height: 25em;
   flex-direction: row;
   /* background-color: black; */
 }
+
 .left-content-profile{
+  position:relative;
   margin-bottom: -1em;
 }
+
 .bottom-profile .left-content-profile{
   width: 25%;
   margin-right: .5em;
@@ -78,6 +130,37 @@ input{
   width: 75%;
   /* background-color: blue; */
 }
+
+.edit-details{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* margin-bottom: .5em;
+  margin-right: .5em;
+
+  height: 1.7em;
+  background: #7703FC;
+  border-radius: .5em;
+  border: none;
+  color: white; */
+}
+
+.left-content-profile img{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 2em;
+  width: 2em;
+  color: #7703FC;
+  cursor: pointer;
+  margin-bottom: .3em;
+  margin-right: .3em;
+}
+
+button{
+  cursor: pointer;
+}
+
 .search-profile{
   background-color: rgb(255, 255, 255);
   display: flex;
@@ -87,9 +170,11 @@ input{
   margin:7px;
   border-radius: 8px;
 }
+
 .left-profile{
   flex: 1;
 }
+
 .right-profile {
   /* margin-top: 0px; */
   flex-direction: column;
@@ -98,6 +183,7 @@ input{
   height: 100%;
   margin-left: 0em;
   }
+
 .search_box-profile{
   width:60%;
   background-color: hsla(274, 73%, 55%, 0.19);
@@ -109,7 +195,6 @@ input{
     margin-left: 10px;
 }
 
-
 .right_icons-profile {
   margin-right: 0;
   margin-left: auto;
@@ -119,12 +204,13 @@ input{
   padding: 10px;
   margin-top: -0.5em;
 }
+
 .top-bar{
   position: fixed;
   background-color: white;
   margin-left: 0em;
   flex: 1;
-  width: 90%;
+  width: 92%;
   height: 6%;
   border: none;
   border-radius: 10px;

@@ -1,10 +1,12 @@
 import React from "react";
 import "./Profile.css"
 import "./Feed.css"
+import "./edit.css"
 import StretchedMenu from './stretched_menu.js';
 import likeBtn from './icons/like.svg'
 import commentBtn from './icons/comment.svg'
 import shareBtn from './icons/share.svg'
+import editBtn from './icons/edit-pen.svg'
 import arrow from './icons/arrow.svg'
 import icon5 from './icons/search.svg';
 import icon6 from './icons/notif.svg';
@@ -92,6 +94,13 @@ const posts = [
     );
   }
 
+  // To be done tonight
+  // function EditPage(){
+  //   return(
+
+  //   );
+  // }
+
 const Profile = () => {
     return(
         <div className='container-profile'>
@@ -116,16 +125,24 @@ const Profile = () => {
                     <div className="upper-profile">
                         <div className="colored-cover">
                             <div className="profile-photo">
-                            <img src={'./img/dwayne-johnson.jpg'} alt={"PROFILE PICTURE"} /> 
                             </div>  
                           </div>
-                        <div className="white-cover"></div>
+                        <div className="white-cover">
+                          <h2 className="profile-name">Dwayne The Rock Johnson</h2>
+                          <button className="add-friend">
+                            Add Friend
+                          </button>
+                          <button className="message">
+                            Message
+                          </button>
+                        </div>
                     </div>
                     <div className="bottom-profile">
                         <div className="left-content-profile">
                             <p>Data nasterii: 22.09.1999</p>
                             <p>Necasatorit(a)</p>
                             <p>A absolvit Colegiul National din Iasi</p>
+                            <img src={editBtn}></img>
                         </div>
                         <div className="right-content-profile">
                             <Feed />

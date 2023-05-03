@@ -1,0 +1,11 @@
+services:
+  database:
+    container_name: mysql-facebook-dev
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD_FILE=/db-config/passFile
+    volumes:
+      - ./config/:/db-config
+      - C:\docker-data\mysql-facebook:/var/lib/mysql
+    ports:
+      - "3306:3306"
