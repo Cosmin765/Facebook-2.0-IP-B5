@@ -30,7 +30,7 @@ input{
 }
 
 .content-profile{
- margin-top: 3em;
+ margin-top: 4em;
   flex: 9;
   width: 100%; 
 }
@@ -62,15 +62,16 @@ input{
   position: relative;
   float: left;
   top: 7.5em;
-  left: 5em;
+  left: 1em;
 }
 
-.profile-name{
+.profile-name.h2{
   margin-block-start: 0em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   font-size: 2em;
+  margin-left: 10em;
 }
 
 .white-cover{
@@ -112,6 +113,7 @@ input{
 .left-content-profile{
   position:relative;
   margin-bottom: -1em;
+  
 }
 
 .bottom-profile .left-content-profile{
@@ -192,9 +194,11 @@ button{
   margin:auto 0;
   display: flex;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 12px;
 }
-
+.search_box-profile img{
+  margin-left: 5px;
+}
 .right_icons-profile {
   margin-right: 0;
   margin-left: auto;
@@ -206,13 +210,14 @@ button{
 }
 
 .top-bar{
-  position: fixed;
+  position: absolute;
   background-color: white;
   margin-left: 0em;
   flex: 1;
   width: 92%;
-  height: 6%;
+  height: 8%;
   border: none;
   border-radius: 10px;
+  z-index: 1;
   box-shadow: 0px 0px 5px lightgray;
 }
