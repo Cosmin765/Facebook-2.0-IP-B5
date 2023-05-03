@@ -2,7 +2,7 @@ import React from "react";
 import './ChatBox.css';
 function PersonTemplate(props) {
   return (
-      <div className="person-template">
+      <div className={`person-template ${props.className}`} onClick={props.onClick}>
 
           <div className="img_cont">
               <img src={props.profilePic} alt={props.name} className="user_img" />

@@ -10,9 +10,9 @@ import PersonTemplate from "./PersonTemplate";
 import send_msg from './icons/send_msg.png';
 
 const people = [
-  { name: 'Cohman Teodora', lastMessage: 'You: Ce faci ba', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg' },
-  { name: 'Curcudel Teodor', lastMessage: 'Da-mi tema', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' },
-  { name: 'John Doe', lastMessage: 'Vand teme la 10 lei', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968' }
+  { id:1,name: 'Cohman Teodora', lastMessage: 'You: Ce faci ba', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg' },
+  { id:2,name: 'Curcudel Teodor', lastMessage: 'Da-mi tema', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' },
+  { id:3, name: 'John Doe', lastMessage: 'Vand teme la 10 lei', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968' }
 ];
 
 function ChatBox() {
@@ -29,11 +29,21 @@ function ChatBox() {
       const newSender = messages.length % 2 === 0 ? "me" : "other";
       setMessages([
         ...messages,
-        { text: newMessage.trim(), time: new Date().toLocaleTimeString(), sender: newSender }
+        { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT'), sender: newSender }
       ]);
       setNewMessage("");
     }
   };
+  const [selectedPersonId, setSelectedPersonId] = useState(null);
+  const [selectedPersonPic, setSelectedPersonPic] = useState(null);
+  const [selectedPersonName, setSelectedPersonName] = useState(null);
+  const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
+  function handlePersonClick(personId,profile,personName,personStatus) {
+    setSelectedPersonId(personId);
+    setSelectedPersonPic(profile);
+    setSelectedPersonName(personName);
+    setSelectedPersonStatus(personStatus);
+  }
 
   return (
 
@@ -61,11 +71,13 @@ function ChatBox() {
             <div className="contacts">
               {people.map((people) => (
                 <PersonTemplate
-                  key={people.name}
+                  key={people.id}
                   name={people.name}
                   profilePic={people.profilePic}
                   lastMessage={people.lastMessage}
                   status={people.status}
+                  className={` ${people.id === selectedPersonId ? 'selected' : ''}`}
+          onClick={() => handlePersonClick(people.id,people.profilePic,people.name,people.status)}
                 />
 
               ))}
@@ -73,78 +85,60 @@ function ChatBox() {
           </div>
 
         </div>
+ {selectedPersonId === null ? (
 
-
-        <div className="chat">
-          <div className="card">
-
-
-            <div className="card-header my-heeead msg_head">
-              <div className="d-flex bd-highlight">
-                <div className="img_cont">
-                  <img src="https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg" className="rounded-circle user_img" />
-                  <span className="online_icon" />
-                </div>
-                <div className="user_info">
-                  <span>Dwayne Johnson</span>
-                  <p>1767 Messages</p>
-                </div>
-                <div className="video_cam">
-                  <span><i className="fas fa-video" /></span>
-                  <span><i className="fas fa-phone" /></span>
-                </div>
-              </div>
-              <span id="action_menu_btn"><i className="fas fa-ellipsis-v" /></span>
-              <div className="action_menu">
-                <ul>
-                  <li><i className="fas fa-user-circle" /> View profile</li>
-                  <li><i className="fas fa-users" /> Add to close friends</li>
-                  <li><i className="fas fa-plus" /> Add to group</li>
-                  <li><i className="fas fa-ban" /> Block</li>
-                </ul>
-              </div>
-            </div>
-
-
-
-            <div className="chats-container" >
-              <div className="card-body">
-
-                {messages.map((message, index) => (
-                  <div key={index} className={message.sender === "me" ? "d-flex justify-content-end mb-4" : "d-flex justify-content-start mb-4"}>
-                    <div className={message.sender === "me" ? "msg_cotainer_send msg_cotainer_purple" : "msg_cotainer msg_cotainer_grey"}>
-                      {message.text}
-                      <span className="msg_time">{message.time}</span>
+                  <div className="card_chat_nimic">
+                    <span className="nimic">You didn't select any conversation.</span>
                     </div>
-                    <div className="img_cont_msg">
-                      <img src={message.sender === "me" ? icon4 : (index % 2 === 1 ? icon : icon4)} className="rounded-circle user_img_msg" />
+                )
+                  :
+       ( <div className="card_chat">
+               
+                
+
+          <div className="card-header-chat">
+            <div className="card-header-chat-item">
+              <div className="img_cont">
+              
+                <img src={`${selectedPersonPic}`} className="user_img" />
+
+              </div>
+              <div className="user_info">
+                <span>{`${selectedPersonName}`}</span>
+                <p>1767 Messages</p>
+              </div>
+              <span className={`online_icon_chat ${selectedPersonStatus === 'offline' ? 'offline' : ''}`} />
+            </div>
+          </div>
+
+                <div className="messages-container">
+                {messages.map((message, index) => (
+                  <div key={index} className="message" >
+                    {/* <div className="img_cont_msg">
+                      <img src={message.sender === "me" ? "" : (index % 2 === 1 ? selectedPersonPic : "")} className=" user_img_msg" />
+                   </div> */}
+                    <div  className={message.sender === "me" ? "msg_cotainer_send" : "msg_cotainer"}>
+                      
+                   {message.text}
+                      <span className="msg_time">{message.time}</span>
+                    
+                    
                     </div>
                   </div>
                 ))}
+                </div> 
+            
+              <form onSubmit={handleSubmit}>
+              <div className="my-send">
+                <input type="text" className="type_msg" placeholder="Type your message..." value={newMessage} onChange={handleChange} />
+                
+                  <button type="submit" className="send_btn"><img src={send_msg} /></button>
+                </div>
 
-                <form onSubmit={handleSubmit}>
-                  <div className="input-group">
-                    <input type="text" className="form-control type_msg" placeholder="Type your message..." value={newMessage} onChange={handleChange} />
-                    <div className="input-group-append">
-                      <button type="submit" className="input-group-text send_btn"><img src={send_msg} /></button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-
-          </div></div>
-
-
-
-
-
-
-
-
-
-
+              </form>
+           
+              
+            </div>)}
 
       </div>
       {/* JQuery */}
