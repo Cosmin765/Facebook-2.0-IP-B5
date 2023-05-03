@@ -1,0 +1,132 @@
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+.container-profile {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* inaltimea containerului */
+}
+body {
+  background-color: rgb(241, 229, 255);
+}
+.container-profile > div {
+   margin: 2px; 
+}
+
+.right-profile {
+  /* margin-top: 0px; */
+  flex-direction: column;
+  flex: 9;
+  width: 100%;
+  height: 100%;
+ 
+  }
+
+
+input{
+  position: absolute;
+  width: 40em;
+  height: 2em;
+}
+
+.content-profile{
+ margin-top: 3em;
+  flex: 9;
+  width: 100%; 
+
+}
+
+.upper-profile{
+  height: 19em;
+  margin-bottom: 1em;
+}
+.colored-cover{
+  height: 14em;
+  background: linear-gradient(85deg, #2c80b8, #8e44ad);
+ 
+}
+.profile-photo{
+  border-radius: 50%;
+  height: 4em;
+  width: 4em;
+}
+.white-cover{
+  height: 5em;
+  background-color: white;
+}
+.bottom-profile{
+  display: flex;
+  height: 25em;
+  flex-direction: row;
+  /* background-color: black; */
+}
+.left-content-profile{
+  margin-bottom: -1em;
+}
+.bottom-profile .left-content-profile{
+  width: 25%;
+  margin-right: .5em;
+  background-color: var(--card-clr);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 5px 5px lightgray;
+  border: none;
+  padding: 20px;
+}
+
+
+.bottom-profile .right-content-profile{
+  width: 75%;
+  /* background-color: blue; */
+}
+.search-profile{
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-grow: 1;
+  
+  height: 80%;
+  margin:7px;
+  border-radius: 8px;
+}
+.left-profile{
+  flex: 1;
+}
+.right-profile {
+  /* margin-top: 0px; */
+  flex-direction: column;
+  flex: 15;
+  width: 100%;
+  height: 100%;
+  margin-left: 0em;
+  }
+.search_box-profile{
+  width:60%;
+  background-color: hsla(274, 73%, 55%, 0.19);
+  border-radius: 15px;
+  height: 90%;
+  margin:auto 0;
+  display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+
+.right_icons-profile {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.right_icons-profile img {
+  padding: 10px;
+  margin-top: -0.5em;
+}
+.top-bar{
+  position: fixed;
+  background-color: white;
+  margin-left: 0em;
+  flex: 1;
+  width: 90%;
+  height: 6%;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px lightgray;
+}
