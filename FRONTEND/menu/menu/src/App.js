@@ -13,8 +13,8 @@ function App() {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
     
-        {/* <LargeMenu />*/}
-       <StretchedMenu />
+         <LargeMenu />
+       {/*<StretchedMenu />*/}
       <div className="search">
         <div className="search_box">
           <img src={icon5}></img>

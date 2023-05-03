@@ -43,6 +43,7 @@ function ChatBox() {
     setSelectedPersonPic(profile);
     setSelectedPersonName(personName);
     setSelectedPersonStatus(personStatus);
+    messages.length=0;
   }
 
   return (
@@ -105,7 +106,7 @@ function ChatBox() {
               </div>
               <div className="user_info">
                 <span>{`${selectedPersonName}`}</span>
-                <p>1767 Messages</p>
+                <p>{messages.length} Messages</p>
               </div>
               <span className={`online_icon_chat ${selectedPersonStatus === 'offline' ? 'offline' : ''}`} />
             </div>

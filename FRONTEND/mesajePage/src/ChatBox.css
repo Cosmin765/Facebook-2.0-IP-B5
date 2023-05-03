@@ -62,16 +62,21 @@ html {
 	border-radius: 15px ;
 	overflow-x: hidden;
 	overflow-y: hidden;
-	background-color: #ffffff !important;
+	background-color: #fcfcfc !important;
 	margin-right: 5px;display: grid;
 place-content: center center;
+
 }
 .nimic{
 	
 	font-family: 'Viga';
-	font-size: larger;
+	font-size: x-large;
 	font-weight: bold;
-	
+	transition: 0.5s ease;
+}
+.card_chat_nimic:hover .nimic{
+	font-size: xx-large;
+
 }
 .msg_card_body {
 	overflow-y: auto;
