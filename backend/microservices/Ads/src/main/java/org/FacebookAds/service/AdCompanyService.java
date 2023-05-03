@@ -35,8 +35,21 @@ public class AdCompanyService {
         }
     }
 
-    public int checkStats(Integer id) {
-        return companyRepository.getNumberOfClicks(id);
+    public int checkImpressions(Integer id) {
+        Integer result = companyRepository.getNumberOfImpressions(id);
+        if (result == null) {
+            System.out.println("Null found!");
+            return 0;
+        }
+        return result;
     }
 
+    public int checkClicks(Integer id) {
+        Integer result = companyRepository.getNumberOfImpressions(id);
+        if (result == null) {
+            System.out.println("Null found!");
+            return 0;
+        }
+        return result;
+    }
 }

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Integer> {
-    // Add ad impressions too
-    @Query(value = "SELECT COUNT(*) FROM ad_clicks where ad_id = :id", nativeQuery = true)
-    Integer getStats(@Param("id") Integer id);
+    @Query(value = "SELECT SUM(clicks) FROM ad_clicks where ad_id = :id", nativeQuery = true)
+    Integer getNumberOfClicks(@Param("id") Integer id);
+
+    @Query(value = "SELECT SUM(impressions) FROM ad_impressions where ad_id = :id", nativeQuery = true)
+    Integer getNumberOfImpressions(@Param("id") Integer id);
 }

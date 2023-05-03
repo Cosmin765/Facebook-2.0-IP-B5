@@ -177,7 +177,7 @@ CREATE TABLE ads (
 CREATE TABLE ad_impressions (
     user_id INT,
     ad_id INT,
-    number INT DEFAULT 1,
+    impressions INT DEFAULT 1,
     PRIMARY KEY (user_id , ad_id),
     FOREIGN KEY (user_id)
         REFERENCES users (id)

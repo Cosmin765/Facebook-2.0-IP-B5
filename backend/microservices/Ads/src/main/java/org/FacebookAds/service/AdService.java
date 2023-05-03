@@ -3,10 +3,14 @@ package org.FacebookAds.service;
 import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdService {
+
+    @Value("${cdn}")
+    private String cdnPath;
 
     @Autowired
     private AdRepository adRepository;
@@ -37,7 +41,17 @@ public class AdService {
         }
     }
 
-    public Integer checkStats(Integer id) {
-        return adRepository.getStats(id);
+    public Integer checkClicks(Integer id) {
+        Integer result = adRepository.getNumberOfClicks(id);
+        if (result == null)
+            return 0;
+        return result;
+    }
+
+    public Integer checkImpressions(Integer id) {
+        Integer result = adRepository.getNumberOfImpressions(id);
+        if (result == null)
+            return 0;
+        return result;
     }
 }

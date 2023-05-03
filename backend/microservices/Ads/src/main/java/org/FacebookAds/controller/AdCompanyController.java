@@ -34,11 +34,12 @@ public class AdCompanyController {
         adCompanyService.updateAdCompany(id, newName, newDescription);
     }
 
-    @GetMapping(value = "/check_ad_stats")
+    @GetMapping(value = "/check_company_stats")
     @ResponseBody
     public Map<String, Integer> checkAdStats(@RequestParam Integer id) {
         Map<String, Integer> json = new HashMap<>();
-        json.put("clicks", adCompanyService.checkStats(id));
+        json.put("impressions", adCompanyService.checkImpressions(id));
+        json.put("clicks", adCompanyService.checkClicks(id));
         return json;
     }
 }
