@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import './ChatBox.css';
 import icon from './Vectoricon.png';
 import icon2 from './Group.png';
@@ -14,11 +14,26 @@ const people = [
   { id:2,name: 'Curcudel Teodor', lastMessage: 'Da-mi tema', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' },
   { id:3, name: 'John Doe', lastMessage: 'Vand teme la 10 lei', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968' }
 ];
+const mockMessages = [
+  { text: "Hello!", time: "10:00 AM", sender: "other" },
+  { text: "How are you?", time: "10:05 AM", sender: "other" },
+  { text: "I'm fine, thank you.", time: "10:10 AM", sender: "me" },
+  { text: "That's good to hear!", time: "10:15 AM", sender: "other" },
+];
 
 function ChatBox() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-
+  useEffect(() => {
+    if (messages.length % 2 === 1) {
+      setTimeout(() => {
+        setMessages([
+          ...messages,
+          { text: mockMessages[Math.floor(Math.random() * mockMessages.length)].text, time: new Date().toLocaleTimeString('it-IT',{ hour: '2-digit', minute: '2-digit' }), sender: "other" }
+        ]);
+      }, 1000);
+    }
+  }, [messages]);
   const handleChange = (event) => {
     setNewMessage(event.target.value);
   };
@@ -26,12 +41,13 @@ function ChatBox() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newMessage.trim() !== "") {
-      const newSender = messages.length % 2 === 0 ? "me" : "other";
+      const newSender = "me";
       setMessages([
         ...messages,
-        { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT'), sender: newSender }
+        { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT',{ hour: '2-digit', minute: '2-digit' }), sender: newSender }
       ]);
       setNewMessage("");
+      
     }
   };
   const [selectedPersonId, setSelectedPersonId] = useState(null);
