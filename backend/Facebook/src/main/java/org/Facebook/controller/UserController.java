@@ -40,8 +40,8 @@ public class UserController {
 
     @PostMapping(value = "/suggestions")
     @ResponseBody
-    public List<UserDto> getSuggestions(@RequestParam Integer count, @RequestParam Integer cursor) {
-        return userService.getSuggestions(count,cursor).stream().map(UserMapper::toDto).toList();
+    public List<UserDto> getSuggestions(@RequestParam Integer count) {
+        return userService.getSuggestions(count).stream().map(UserMapper::toDto).toList();
 
     }
 

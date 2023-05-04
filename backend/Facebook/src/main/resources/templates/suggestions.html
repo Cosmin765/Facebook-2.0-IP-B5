@@ -32,7 +32,7 @@
             const count = params.get('count');
             const cursor = params.get('cursor');
 
-            const url = `http://localhost:8084/suggestions?count=${count}&cursor=${cursor}`;
+            const url = `http://localhost:8084/suggestions?count=${count}`;
 
             const response = await fetch(url, {method: 'POST'});
             const data = await response.json();
