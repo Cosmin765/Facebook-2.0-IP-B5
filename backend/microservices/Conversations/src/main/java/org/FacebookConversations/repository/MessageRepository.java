@@ -22,7 +22,12 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Query(value = "SELECT * FROM messages where user_id = :user_id and conversation_id = :conversation_id", nativeQuery = true)
     List<Message> findByUserIdAndConversationId(@Param("user_id") Integer userId, @Param("conversation_id") Integer conversationId);
 
+    @Query(value = "SELECT * FROM messages where conversation_id = :conversation_id order by created_at desc limit :count", nativeQuery = true)
+    List<Message> findLastMessagesForConversation(@Param("conversation_id") Integer conversationId, @Param("count") Integer count);
+
     @Modifying
     @Transactional
     Message save(Message message);
+
+
 }

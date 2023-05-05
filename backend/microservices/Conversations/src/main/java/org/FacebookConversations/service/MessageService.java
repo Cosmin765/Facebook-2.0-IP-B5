@@ -1,12 +1,19 @@
 package org.FacebookConversations.service;
 
+import org.Facebook.mapper.UserMapper;
+import org.Facebook.model.dto.UserDto;
+import org.Facebook.model.entity.User;
 import org.FacebookConversations.mapper.MessageMapper;
 import org.FacebookConversations.model.dto.MessageDto;
 import org.FacebookConversations.model.entity.Message;
 import org.FacebookConversations.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,4 +44,9 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
+    public List<MessageDto> getLastMessagesFromConversation(Integer conversationId, Integer count) {
+        List<Message> messages = messageRepository.findLastMessagesForConversation(conversationId, count);
+        Collections.reverse(messages);
+        return messages.stream().map(MessageMapper::toDto).toList();
+    }
 }

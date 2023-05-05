@@ -6,11 +6,14 @@ import org.FacebookConversations.model.entity.Message;
 import org.FacebookConversations.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
+
 @RequestMapping("/api/messages")
 public class MessageController {
     @Autowired
@@ -34,6 +37,18 @@ public class MessageController {
     @GetMapping(value = "/user+conv/{userId}+{convId}")
     public List<MessageDto> getByUseridAndConvId(@PathVariable Integer userId, @PathVariable Integer convId) {
         return messageService.getByUserAndConversationId(userId, convId);
+    }
+
+    @PostMapping("/conv/messages")
+    public List<MessageDto> lastMessages(@RequestParam Integer id, @RequestParam Integer count) {
+        return messageService.getLastMessagesFromConversation(id, count);
+    }
+
+    @RequestMapping(value = "/conv/messages")
+    public ModelAndView lastMessagesPage(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("messages.html");
+        return modelAndView;
     }
 
     @PostMapping(value = "")

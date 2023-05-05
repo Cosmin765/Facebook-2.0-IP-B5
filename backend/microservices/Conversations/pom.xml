@@ -106,6 +106,12 @@
             <artifactId>sockjs-client</artifactId>
             <version>1.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>Facebook</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- -->
 
 
