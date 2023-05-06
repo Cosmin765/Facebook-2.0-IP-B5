@@ -8,11 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Integer> {
     @Query(value = "SELECT COUNT(*) FROM ad_clicks where ad_id = :adId", nativeQuery = true)
     Integer getNumberOfClicks(@Param("adId") Integer adId);
+    @Query(value = "SELECT * FROM ads", nativeQuery = true)
+    List<Ad> getAllAds();
 
     @Modifying
     @Transactional
