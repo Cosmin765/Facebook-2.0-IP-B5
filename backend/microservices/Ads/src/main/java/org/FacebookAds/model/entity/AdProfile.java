@@ -1,4 +1,4 @@
-package org.Facebook.model.entity;
+package org.FacebookAds.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ad_profiles")
 public class AdProfile {
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Id
-  private Integer id;
-  private Integer userId;
-  private String keywords;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer id;
+    private Integer userId;
 }

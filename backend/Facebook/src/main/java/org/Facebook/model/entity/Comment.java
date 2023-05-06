@@ -37,7 +37,7 @@ public class Comment {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-    private Boolean reported = false;
+//    private Boolean reported = false;
 
     public Comment(Post post, User user, String content) {
         this.post = post;
@@ -45,10 +45,10 @@ public class Comment {
         this.content = content;
     }
 
-    public boolean isReported() {
-        this.reported = true;
-        return true;
-    }
+//    public boolean isReported() {
+//        this.reported = true;
+//        return true;
+//    }
 
     public int getId() {
         return id;

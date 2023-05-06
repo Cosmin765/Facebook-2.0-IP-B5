@@ -41,7 +41,7 @@ public class CommentService {
         return commentRepository.findAll().stream().map(CommentMapper::toDto).toList();
     }
     public void hideCom(Comment comment) {
-        comment.isReported();
+//        comment.isReported();
     }
 
     /*public List<Comment> getAllComments() {
