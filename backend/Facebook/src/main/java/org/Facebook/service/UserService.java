@@ -60,7 +60,7 @@ public class UserService implements UserDetailsService {
             page = userRepository.findAll(PageRequest.of(pageIndex++, pageSize));
 
             for (User user : page.getContent()) {
-                String userName = user.getFirstName() + user.getLastName();
+                String userName = user.getFirstName() + " " + user.getLastName();
                 List<String> otherTokens = Arrays.stream(userName.split("\\s"))
                         .map(s -> s.toLowerCase(Locale.ROOT)).toList();
 
