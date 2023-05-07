@@ -1,4 +1,4 @@
-package org.FacebookConversations.util.websocket;
+package org.FacebookConversations.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +19,6 @@ public class ConversationWebSocketConfig implements WebSocketMessageBrokerConfig
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/chat").setAllowedOriginPatterns("*").withSockJS();
     }
 }

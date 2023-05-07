@@ -8,8 +8,7 @@ public class MessageMapper {
         return MessageDto.builder()
                 .id(message.getId())
                 .conversationId(message.getConversationId())
-                .toUserId(message.getToUserId())
-                .fromUserId(message.getFromUserId())
+                .userId(message.getUserId())
                 .content(message.getContent())
                 .createdAt(message.getCreatedAt())
                 .build();

@@ -61,7 +61,7 @@ public class MessageService {
 
     public void sendMessage(Integer toUser, Message message) {
         saveMessage(message);
-        simpMessagingTemplate.convertAndSend("/topic/messages" + toUser, message);
+        simpMessagingTemplate.convertAndSend("/topic/messages/" + toUser, message);
     }
 
 }

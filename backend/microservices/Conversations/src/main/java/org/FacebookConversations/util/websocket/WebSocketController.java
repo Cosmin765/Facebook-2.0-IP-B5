@@ -15,7 +15,7 @@ public class WebSocketController {
     private MessageService messageService;
 
     @MessageMapping("/chat/{to}")
-    public void sendMessageUser(@DestinationVariable Integer to,Message message){
+    public void sendMessageUser(@DestinationVariable Integer to, Message message){
         messageService.sendMessage(to, message);
     }
 }

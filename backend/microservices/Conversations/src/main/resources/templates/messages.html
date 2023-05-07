@@ -39,7 +39,7 @@
             const params = new URLSearchParams(location.search);
 
             const count = params.get('count');
-             const id = params.get('id');
+            const id = params.get('id');
             const url = `http://localhost:8086/api/messages/conv/messages?id=${id}&count=${count}`;
             const response = await fetch(url, {method: 'POST'});
             const data = await response.json();
