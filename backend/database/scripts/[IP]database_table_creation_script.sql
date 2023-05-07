@@ -173,8 +173,7 @@ frequency INT,
 sentiment_score FLOAT,
 score FLOAT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id)
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Ad_profiles table
@@ -184,6 +183,16 @@ user_id INT NOT NULL,
 keyword_id INT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES users(id),
-FOREIGN KEY (keyword_id) REFERENCES keywords(id)
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- many-to-many relation between profile and keyword
+CREATE TABLE keyword_to_profile (
+id INT PRIMARY KEY AUTO_INCREMENT,
+keyword_id INT NOT NULL,
+ad_profile_id INT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (keyword_id) REFERENCES keywords(id),
+FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id)
 );
