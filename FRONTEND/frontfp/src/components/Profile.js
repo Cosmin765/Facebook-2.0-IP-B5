@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Profile.css"
 import "./Feed.css"
 import "./edit.css"
+import Popup from "./Popup";
 import StretchedMenu from './stretched_menu.js';
 import likeBtn from './icons/like.svg'
 import commentBtn from './icons/comment.svg'
 import shareBtn from './icons/share.svg'
-import editBtn from './icons/edit-pen.svg'
+import editButton from './icons/edit-pen.svg'
 import arrow from './icons/arrow.svg'
 import icon5 from './icons/search.svg';
 import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
+
 
 
 const posts = [
@@ -21,11 +23,11 @@ const posts = [
     {account:{name:'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'14.03.2023'}, text:'I’m not homophobic, I enjoy watching lesbians on the internet.', picture:require('./img/jk.jpg'), video:null}
   ];
  
+ 
   function Feed(){
     const feedAccounts = posts.map(post =>
       <Card account={post.account} text={post.text} pictures={post.picture} video={post.video}/>
       );
-  
     return (
       <div className='feed'>
         {feedAccounts}
@@ -94,15 +96,31 @@ const posts = [
     );
   }
 
-  // To be done tonight
-  // function EditPage(){
-  //   return(
-
-  //   );
-  // }
-
+  function Description({ descriptionText, setDescriptionText }) {
+    const [buttonPopup, setButtonPopup] = useState(false);
+  
+    return (
+      <div className="left-content-profile">
+        <div class="profile-info">
+          <h2>Description</h2>
+          <p>{descriptionText}</p>
+        </div>
+        <img src={editButton} width="20px" alt="edit button" onClick={() => setButtonPopup(true)} />
+        <Popup
+          trigger={buttonPopup}
+          setTrigger={setButtonPopup}
+          descriptionText={descriptionText}
+          setDescriptionText={setDescriptionText}
+        >
+          <h3>Edit description</h3>
+        </Popup>
+      </div>
+    );
+  }
+  
 const Profile = () => {
-    return(
+  
+  return(
         <div className='container-profile'>
            <div className="left-profile">
            <StretchedMenu />
@@ -128,31 +146,32 @@ const Profile = () => {
                             </div>  
                           </div>
                         <div className="white-cover">
+                          <div className="nothing"></div>
                           <h2 className="profile-name">Dwayne The Rock Johnson</h2>
-                          <button className="add-friend">
+                         <div className="buttons">
+                           <button className="add-friend">
                             Add Friend
                           </button>
-                          <button className="message">
-                            Message
+                          <button className="change-photo">
+                            Change photo
                           </button>
+                          </div>
                         </div>
                     </div>
                     <div className="bottom-profile">
-                        <div className="left-content-profile">
-                            <p>Data nasterii: 22.09.1999</p>
-                            <p>Necasatorit(a)</p>
-                            <p>A absolvit Colegiul National din Iasi</p>
-                            <img src={editBtn}></img>
-                        </div>
+                        <Description descriptionText="This is my description."/>
+                  
                         <div className="right-content-profile">
                             <Feed />
                         </div>
                     </div>
+
                 </div>
            
              </div>
         </div>
     )
-}
+
+  }
 
 export default Profile
