@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class MessageDto {
     private Integer id;
     private Integer conversationId;
-    private Integer userId;
+    private Integer fromUserId;
+    private Integer toUserId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

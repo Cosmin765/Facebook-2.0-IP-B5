@@ -19,7 +19,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer conversationId;
-    private Integer userId;
+    private Integer fromUserId;
+    private Integer toUserId;
     private String content;
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
