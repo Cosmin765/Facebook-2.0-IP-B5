@@ -1,17 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Viga);
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 .container-profile {
   display: flex;
   flex-direction: row;
-  height: 100vh; /* inaltimea containerului */
+  height: 100vh;
+  /* inaltimea containerului */
 }
 
 body {
   background-color: rgb(241, 229, 255);
 }
 
-.container-profile > div {
-   margin: 2px; 
+.container-profile>div {
+  margin: 2px;
 }
 
 .right-profile {
@@ -20,28 +22,27 @@ body {
   flex: 9;
   width: 100%;
   height: 100%;
- 
 }
 
-input{
+input {
   position: absolute;
   width: 40em;
   height: 2em;
 }
 
-.content-profile{
- margin-top: 4em;
+.content-profile {
+  margin-top: 4em;
   flex: 9;
-  width: 100%; 
+  width: 100%;
 }
 
-.upper-profile{
+.upper-profile {
   width: 98.5%;
   height: 19em;
   margin-bottom: 1em;
 }
 
-.colored-cover{
+.colored-cover {
   border-radius: .4em;
   height: 14em;
   background: linear-gradient(85deg, #2c80b8, #8e44ad);
@@ -54,7 +55,7 @@ input{
   width: 10em;
   height: 10em;
 
-  background: url(./img/dwayne-johnson.jpg) no-repeat;
+  background-color: lightgray;
   background-size: cover;
   background-position: center;
   border: .2em solid #7703FC;
@@ -65,7 +66,7 @@ input{
   left: 1em;
 }
 
-.profile-name.h2{
+.profile-name.h2 {
   margin-block-start: 0em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
@@ -74,7 +75,7 @@ input{
   margin-left: 10em;
 }
 
-.white-cover{
+.buttons-name {
   display: flex;
   align-items: center;
   height: 5em;
@@ -82,7 +83,12 @@ input{
   border-radius: .4em;
 }
 
-.white-cover button{
+.buttons-name .profile-info {
+  margin-left: auto;
+  margin-right: 50em;
+}
+
+.white-cover button {
   height: 2.1em;
   background: #7703FC;
   border-radius: .5em;
@@ -90,33 +96,25 @@ input{
   color: white;
 }
 
-.white-cover .profile-name{
-  margin-left: auto;
-}
-
-.white-cover .message{
-  margin-right: auto;
-}
-
-.white-cover .add-friend{
-  margin-left: auto;
+.white-cover .add-friend {
+  margin-left: 1em;
   margin-right: 1em;
 }
 
-.bottom-profile{
+.bottom-profile {
   display: flex;
   height: 25em;
   flex-direction: row;
   /* background-color: black; */
 }
 
-.left-content-profile{
-  position:relative;
+.left-content-profile {
+  position: relative;
   margin-bottom: -1em;
-  
+
 }
 
-.bottom-profile .left-content-profile{
+.bottom-profile .left-content-profile {
   width: 25%;
   margin-right: .5em;
   background-color: var(--card-clr);
@@ -128,12 +126,12 @@ input{
 }
 
 
-.bottom-profile .right-content-profile{
+.bottom-profile .right-content-profile {
   width: 75%;
   /* background-color: blue; */
 }
 
-.edit-details{
+.edit-details {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -147,7 +145,7 @@ input{
   color: white; */
 }
 
-.left-content-profile img{
+.left-content-profile img {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -159,14 +157,14 @@ input{
   margin-right: .3em;
 }
 
-button{
+button {
   cursor: pointer;
-    display: inline-block;
-  
+  display: inline-block;
+
 
 }
 
-.buttons{
+.buttons {
   flex-direction: row;
   flex: 2;
   justify-content: center;
@@ -176,35 +174,37 @@ button{
   display: flex;
   margin-top: -2.5em;
   margin-left: -2em;
-  
+
 }
-.nothing{
+
+.nothing {
   flex-direction: column;
   flex: 2;
   width: 100%;
   height: 100%;
 }
-.profile-name{
+
+.profile-name {
   flex-direction: column;
   flex: 5;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  
+
 }
 
-.search-profile{
+.search-profile {
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-grow: 1;
-  
+
   height: 80%;
-  margin:7px;
+  margin: 7px;
   border-radius: 8px;
 }
 
-.left-profile{
+.left-profile {
   flex: 1;
 }
 
@@ -215,21 +215,23 @@ button{
   width: 100%;
   height: 100%;
   margin-left: 0em;
-  }
+}
 
-.search_box-profile{
-  width:60%;
+.search_box-profile {
+  width: 60%;
   background-color: hsla(274, 73%, 55%, 0.19);
   border-radius: 15px;
   height: 90%;
-  margin:auto 0;
+  margin: auto 0;
   display: flex;
-    align-items: center;
-    margin-left: 12px;
+  align-items: center;
+  margin-left: 12px;
 }
-.search_box-profile img{
+
+.search_box-profile img {
   margin-left: 5px;
 }
+
 .right_icons-profile {
   margin-right: 0;
   margin-left: auto;
@@ -240,7 +242,7 @@ button{
   margin-top: -0.5em;
 }
 
-.top-bar{
+.top-bar {
   position: absolute;
   background-color: white;
   margin-left: 0em;
@@ -253,3 +255,6 @@ button{
   box-shadow: 0px 0px 5px lightgray;
 }
 
+button:focus {
+  outline: none;
+}

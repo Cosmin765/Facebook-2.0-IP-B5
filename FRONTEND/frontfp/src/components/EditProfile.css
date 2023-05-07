@@ -1,0 +1,40 @@
+.ep-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-popup {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 30em;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px lightgray;
+    border-radius: 10px;
+    height: 60%;
+    max-height: 15em;
+}
+
+.open-popup .x-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.open-popup .saving-btn {
+    position: absolute;
+    bottom: 1em;
+    right: 2em;
+}
+
+.inputBox {
+    min-width: 20em;
+    min-height: 2em;
+}
