@@ -9,10 +9,10 @@ import StretchedMenu from "./stretched_menu";
 import PersonTemplate from "./PersonTemplate";
 import send_msg from './icons/send_msg.png';
 
-const people = [
-  { id:1,name: 'Cohman Teodora', lastMessage: 'You: Ce faci ba', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg' },
-  { id:2,name: 'Curcudel Teodor', lastMessage: 'Da-mi tema', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' },
-  { id:3, name: 'John Doe', lastMessage: 'Vand teme la 10 lei', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968' }
+let people = [
+  { id:1,name: 'Cohman Teodora', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg', lastChecked:null} ,
+  { id:2,name: 'Curcudel Teodor', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' ,lastChecked:null},
+  { id:3, name: 'John Doe', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968' ,lastChecked:null}
 ];
 const mockMessages = [
   { text: "Hello!", time: "10:00 AM", sender: "other" },
@@ -21,19 +21,88 @@ const mockMessages = [
   { text: "That's good to hear!", time: "10:15 AM", sender: "other" },
 ];
 
-function ChatBox() {
+const friends = ["Enea Iustin", "Hrebenciuc Alex"];
+let newMessageObj = {text: "Nothing here!"};
+let convFound=0,friendFound=0;
+let result;
+function ChatBox() {  
+  const [selectedPersonId, setSelectedPersonId] = useState(null);
+  const [selectedPersonPic, setSelectedPersonPic] = useState(null);
+  const [selectedPersonTime, setSelectedPersonTime] = useState(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
+  const [selectedPersonName, setSelectedPersonName] = useState(null);
+  const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
+  const [searchName, setSearchName] = useState("");
+  const handleChangeSearch = (event) => {
+    setSearchName(event.target.value);
+  };
+  
+  const handleKeyDown = (event) => {
+    
+      people.forEach(conv => {
+      if(searchName.toLowerCase() === conv.name.toLowerCase())
+      {
+        convFound = 1;
+         result = people.find((conv) => conv.name.toLowerCase() === searchName.toLowerCase());
+      console.log(conv.name.toLowerCase() );
+        console.log(searchName.toLowerCase());
+      }
+    });
+      
+    
+    if(convFound===1)
+    {
+         handlePersonClick(result.id,result.profilePic,result.name,result.status);
+         setSearchName("");
+        convFound=0;
+    }
+    else
+      {
+        friends.forEach(i => {
+        if (searchName.toLowerCase() === i.toLowerCase()) {
+          friendFound=1;
+          result = friends.find((i) => i.toLowerCase() === searchName.toLowerCase());
+ 
+        }
+         });
+      if(friendFound===1)
+      {
+
+         people.push({ id: people.length + 1, name: result, status: 'online', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' });
+          handlePersonClick(people[people.length - 1].id, people[people.length - 1].profilePic, people[people.length - 1].name, people[people.length - 1].status);
+          friendFound=0;
+          setSearchName("");
+        }
+        else
+        window.alert("You can't have a conversation with someone who is not your friend.");
+      }
+      event.target.value='';
+    };
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  //const [unread,setUnread] =useState({});
   useEffect(() => {
-    if (messages.length % 2 === 1) {
-      setTimeout(() => {
-        setMessages([
+    const interval=setInterval(() => {
+      people.forEach((conv)=>{
+    const personId = conv.id;
+    if (messages[personId]?.length % 2 === 1) {
+ 
+        newMessageObj =  { text: mockMessages[Math.floor(Math.random() * mockMessages.length)].text, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other" };
+        setMessages({
           ...messages,
-          { text: mockMessages[Math.floor(Math.random() * mockMessages.length)].text, time: new Date().toLocaleTimeString('it-IT',{ hour: '2-digit', minute: '2-digit' }), sender: "other" }
-        ]);
-      }, 1000);
-    }
-  }, [messages]);
+          [personId]:[...messages[personId],newMessageObj]
+         
+      });
+     
+      }
+      // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
+       //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
+       //const isUnread = lastCheckedTime < lastMessageTime;
+       }
+      );
+      }, 5000);
+      return () => clearInterval(interval);
+  }, [messages,people]);
+
   const handleChange = (event) => {
     setNewMessage(event.target.value);
   };
@@ -42,26 +111,44 @@ function ChatBox() {
     event.preventDefault();
     if (newMessage.trim() !== "") {
       const newSender = "me";
-      setMessages([
+      newMessageObj={ text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
+      setMessages({
         ...messages,
-        { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT',{ hour: '2-digit', minute: '2-digit' }), sender: newSender }
-      ]);
+        [selectedPersonId]:[...messages[selectedPersonId],newMessageObj]
+      });
+      
       setNewMessage("");
       
     }
   };
-  const [selectedPersonId, setSelectedPersonId] = useState(null);
-  const [selectedPersonPic, setSelectedPersonPic] = useState(null);
-  const [selectedPersonName, setSelectedPersonName] = useState(null);
-  const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
+
   function handlePersonClick(personId,profile,personName,personStatus) {
     setSelectedPersonId(personId);
+    setSelectedPersonTime(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) );
+    const person = people.find(p => p.id === personId);
+    person.lastChecked=selectedPersonTime;
+    
     setSelectedPersonPic(profile);
     setSelectedPersonName(personName);
     setSelectedPersonStatus(personStatus);
-    messages.length=0;
-  }
+    // setUnread({
+    //   ...unread,
+    //   [personId]:false,
+    // });
 
+     if(!messages[personId]){
+      setMessages({
+        ...messages,
+        [personId]:[]
+      })
+
+    }
+    
+  }
+  // function getSecondsFromTimeString(timeString) {
+  //   const [hours, minutes, seconds] = timeString.split(':').map(Number);
+  //   return hours * 3600 + minutes * 60 + seconds;
+  // }
   return (
 
     <div className="my-container ">
@@ -79,8 +166,8 @@ function ChatBox() {
         <div className="card">
           <div className="card-header">
             <div className="my-search">
-              <input type="text" placeholder="Search..." name="search" />
-              <span className="search_btn"><img src={search} /></span>
+              <input type="text" placeholder="Search..." name="search" onChange={handleChangeSearch} onKeyDown={(event) => event.key === "Enter" && handleKeyDown(event)}/>
+              <span className="search_btn" onClick={(event) => handleKeyDown(event)}><img src={search} /></span>
             </div>
 
           </div>
@@ -91,11 +178,16 @@ function ChatBox() {
                   key={people.id}
                   name={people.name}
                   profilePic={people.profilePic}
-                  lastMessage={people.lastMessage}
+                  lastMessage={messages[people.id]?.length>0 ? 
+                    (messages[people.id][messages[people.id].length-1].sender === "me" ?
+                    `You: ${messages[people.id][messages[people.id].length-1].text}`
+                    : messages[people.id][messages[people.id].length-1].text) 
+                    : "Nothing here."}
                   status={people.status}
+                 //classUnread={unread[people.id]}
                   className={` ${people.id === selectedPersonId ? 'selected' : ''}`}
           onClick={() => handlePersonClick(people.id,people.profilePic,people.name,people.status)}
-                />
+                  />
 
               ))}
             </div>
@@ -122,14 +214,14 @@ function ChatBox() {
               </div>
               <div className="user_info">
                 <span>{`${selectedPersonName}`}</span>
-                <p>{messages.length} Messages</p>
+                <p>{messages[selectedPersonId] ? messages[selectedPersonId].length : 0} Messages</p>
               </div>
               <span className={`online_icon_chat ${selectedPersonStatus === 'offline' ? 'offline' : ''}`} />
             </div>
           </div>
 
                 <div className="messages-container">
-                {messages.map((message, index) => (
+                {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => (
                   <div key={index} className="message" >
                     {/* <div className="img_cont_msg">
                       <img src={message.sender === "me" ? "" : (index % 2 === 1 ? selectedPersonPic : "")} className=" user_img_msg" />
@@ -137,6 +229,7 @@ function ChatBox() {
                     <div  className={message.sender === "me" ? "msg_cotainer_send" : "msg_cotainer"}>
                       
                    {message.text}
+                  
                       <span className="msg_time">{message.time}</span>
                     
                     

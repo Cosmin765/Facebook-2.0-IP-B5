@@ -353,7 +353,9 @@ margin-top: 10px;
 	max-width: 70%;
 	word-break: break-all;
 }
-
+.unread{
+	font-weight: bold;
+}
 .msg_time {
 	
 	position: absolute;
