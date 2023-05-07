@@ -60,10 +60,11 @@ public class UserService implements UserDetailsService {
             page = userRepository.findAll(PageRequest.of(pageIndex++, pageSize));
 
             for (User user : page.getContent()) {
-                List<String> otherTokens = Arrays.stream(user.getName().split("\\s"))
+                String userName = user.getFirstName() + user.getLastName();
+                List<String> otherTokens = Arrays.stream(userName.split("\\s"))
                         .map(s -> s.toLowerCase(Locale.ROOT)).toList();
 
-                String lowerName = user.getName().toLowerCase(Locale.ROOT);
+                String lowerName = userName.toLowerCase(Locale.ROOT);
 
                 int score = 0;
                 for (String token : tokens) {
