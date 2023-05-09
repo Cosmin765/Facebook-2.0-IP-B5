@@ -16,7 +16,7 @@ public class Keyword {
     @Id
     private Integer id;
     private Integer adProfileId;
-    private String word;
+    public String word;
     private Integer frequency;
     private Double sentimentScore;
     private Double score;

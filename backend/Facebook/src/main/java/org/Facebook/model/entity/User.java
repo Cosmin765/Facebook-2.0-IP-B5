@@ -23,7 +23,9 @@ public class User implements UserDetails {
     @Id
     private Integer id;
     @Column(nullable = false)
-    private String name;
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
     private Date birthday;
     @Column(nullable = false, unique = true)
     private String email;

@@ -13,7 +13,8 @@ import java.util.Date;
 @Builder
 public class UserDto {
     private Integer id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private Date birthday;
     private String email;
     private String bio;

@@ -20,6 +20,10 @@ public interface KeywordRepository extends JpaRepository<Keyword, Integer> {
     Keyword findKeyByWordAndProfId(@Param("ad_profile_id") Integer adProfileId,
                                    @Param("word") String word);
 
+    @Query(value = "SELECT * FROM keywords WHERE ad_profile_id = :ad_profile_id AND score > 0.75 ORDER BY score DESC", nativeQuery = true)
+    List<Keyword> getTopKeywordsByAdProfileId(@Param("ad_profile_id") Integer adProfileId);
+
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE keywords SET frequency = :frequency, sentiment_score = :sentimentScore, score = :score WHERE ad_profile_id = :adProfileId AND word = :word", nativeQuery = true)

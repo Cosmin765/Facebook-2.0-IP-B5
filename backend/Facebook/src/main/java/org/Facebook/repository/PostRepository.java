@@ -19,6 +19,9 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query(value = "SELECT * FROM posts where user_id= :id", nativeQuery = true)
     List<Post> findByUserId(@Param("id") Integer id);
 
+    @Query(value = "SELECT * from posts where user_id in :users and id > :cursor limit :count", nativeQuery = true)
+    List<Post> findByUsersLimit(@Param("users") List<Integer> users, @Param("count") Integer count, @Param("cursor") Integer cursor);
+
     @Query(value = "SELECT posts.id,posts.user_id,content, image FROM posts join users on posts.user_id=users.id where email = :email", nativeQuery = true)
     List<Post> findByEmail(@Param("email") String email);
 

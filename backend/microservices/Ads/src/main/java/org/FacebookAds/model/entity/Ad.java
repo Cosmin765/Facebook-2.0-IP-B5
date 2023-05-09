@@ -17,5 +17,5 @@ public class Ad {
   private Integer id;
   private String title;
   private String content;
-  private Integer numberOfClicks;
+  public String keywords;
 }
