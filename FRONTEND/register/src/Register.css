@@ -35,7 +35,7 @@ body
     box-shadow: 0 0.188em 1.550em rgb(236, 204, 239);
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    
     align-items: center;
 }
 
@@ -44,7 +44,7 @@ body
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-left: 20 px;
+    margin-left: 20px;
     margin-right: 15px;
     height: 90%;
     width: 45%;
