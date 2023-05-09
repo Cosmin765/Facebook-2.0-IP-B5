@@ -1,0 +1,46 @@
+.homepage{
+  margin: none;
+  padding: none;
+  width: 100%;
+  display: flex;
+
+  /* padding-top: 85px; */
+}
+
+.a{
+  /* height: 100px; */
+  /* background-color: blue; */
+  width: 100%;
+}
+
+.b{
+  /* height: 100px; */
+  /* height: 100vh; */
+  background-color: blue;
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  justify-content: end;
+  background-color: transparent;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .a{
+      width: 150px;
+  }
+
+  .b{
+      width: 50px;
+      margin: 0;
+      justify-content: center;
+  }
+}
+
+
+.mid{
+  display: wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
