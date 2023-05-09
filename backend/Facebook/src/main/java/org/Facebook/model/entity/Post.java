@@ -25,9 +25,10 @@ public class Post {
     // TODO: Like ar trebui sa fie un model separat, iar un post dto sa contina o lista de likes
 //    private Integer likes;
 
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
+    // TODO: model separat pentru PostImage
+//    @Lob
+//    @Column(name = "image")
+//    private byte[] image;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

@@ -7,7 +7,7 @@ public class CommentMapper {
         return CommentDto.builder()
                 .id(comment.getId())
                 .post(comment.getPost())
-                .user(comment.getUser())
+                .user(UserMapper.toDto(comment.getUser()))
                 .content(comment.getContent())
                 .build();
     }
