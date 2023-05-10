@@ -30,8 +30,15 @@
     flex-direction: row;
     align-items: center;
     width: 45%;
+    opacity: 1;
+    transition: opacity 0.5s ease-out, transform 0.3s ease-out;
   }
-
+.mc_remove {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease-out, transform 0.3s ease-out;
+  
+}
   .mc_photo {
     width: 100px;
     height: 100px;
@@ -43,6 +50,7 @@
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    font-family: 'Viga';
   }
 
   .mc_buttons {
@@ -62,6 +70,7 @@
   color: #7C3AED;
   font-size: 18px;
   font-weight: 500;
+  font-family: 'Viga';
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -95,10 +104,11 @@
   .mc_add_friend_button {
     background-color: #7C3AED; 
     display: flex;
-    left: 45%;
+    left: 43%;
     justify-content: flex-start;
     border: transparent;
     position:relative;
+    font-family: 'Montserrat';
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -111,8 +121,18 @@
   .mc_add_friend_button:hover {
     background-color: magenta; 
   }    
-
+.mc_request{
+ left:40%;
+ background-color: magenta; 
+}
+.mc_request_buttons{
+  position: fixed;
+  display: flex;
+  transform: translateX(70%);
+  
+}
   .mc_add_friend_button2 {
+    
     background-color: #7C3AED; 
     display: flex;
     left: 10%;
@@ -120,7 +140,8 @@
     right: 5%;
     justify-content: flex-start;
     border: transparent;
-    position:relative;
+    
+    font-family: 'Montserrat';
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;

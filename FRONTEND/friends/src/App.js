@@ -31,8 +31,8 @@ function App() {
           </div>
         </div>
         {/* {<MainContainer />} */}
-        {<MainContainer_Friend_Request/>}
-        {/* {<Sugestions_Friends/>} */}
+        {/* {<MainContainer_Friend_Request/>}*/}
+        {<Sugestions_Friends/> }
       </div>
       
     </div>
