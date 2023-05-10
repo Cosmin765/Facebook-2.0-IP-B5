@@ -13,15 +13,15 @@ public class PostMapper {
         return PostDto.builder()
                 .id(post.getId())
                 .content(post.getContent())
-                .userId(post.getUser().getId())
-                .image(post.getImage())
+                .user(UserMapper.toDto(post.getUser()))
+//                .image(post.getImage())
                 .build();
     }
 
     public static Post fromDto(PostDto postDto) {
         return Post.builder()
                 .id(postDto.getId())
-                .content(postDto.getContent())
-                .image(postDto.getImage()).build();
+                .content(postDto.getContent()).build();
+//                .image(postDto.getImage()).build();
     }
 }

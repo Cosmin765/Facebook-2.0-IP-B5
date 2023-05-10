@@ -115,5 +115,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.15" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:sockjs-client:1.5.1" level="project" />
+    <orderEntry type="module" module-name="Facebook" />
   </component>
 </module>

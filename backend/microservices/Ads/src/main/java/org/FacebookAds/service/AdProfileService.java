@@ -2,6 +2,7 @@ package org.FacebookAds.service;
 
 import org.FacebookAds.mapper.AdProfileMapper;
 import org.FacebookAds.model.dto.AdProfileDto;
+import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.model.entity.AdProfile;
 import org.FacebookAds.model.entity.Keyword;
 import org.FacebookAds.repository.AdProfileRepository;
@@ -70,5 +71,11 @@ public class AdProfileService {
         }
         return null;
     }
+
+
+
+
+
+
 
 }
