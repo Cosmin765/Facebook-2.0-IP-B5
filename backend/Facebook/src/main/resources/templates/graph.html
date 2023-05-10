@@ -72,7 +72,7 @@
 
         nodeEl
         .append("text")
-        .text(d => d.name)
+        .text(d => d.firstName + ' ' + d.lastName)
         .style("text-anchor", "middle")
 
         function drag(simulation) {    
@@ -117,12 +117,14 @@
             if(!seen.has(first.id)) {
                 seen.add(first.id);
                 first.group = groups[first.id];
+                first.name = first.firstName + ' ' + first.lastName;
                 nodes.push(first);
             }
 
             if(!seen.has(second.id)) {
                 seen.add(second.id);
                 second.group = groups[second.id];
+                first.name = first.firstName + ' ' + first.lastName;
                 nodes.push(second);
             }
 

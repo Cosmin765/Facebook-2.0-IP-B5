@@ -37,7 +37,6 @@ public class CommentController {
     }
 
     @GetMapping(value = "/comments")
-    // TODO: nu merge endpoint-ul, imi da eroare. Pls verifica
     public List<CommentDto> posts() {
         return commentService.getAllComments();
     }
