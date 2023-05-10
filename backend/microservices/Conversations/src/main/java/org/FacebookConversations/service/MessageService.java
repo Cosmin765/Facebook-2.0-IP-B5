@@ -55,7 +55,7 @@ public class MessageService {
     }
 
     public List<MessageDto> getToFrom(Integer to,Integer from){
-        List<Message> messages = messageRepository.findFromTo(to,from);
+        List<Message> messages = messageRepository.findToFromConv(from,to);
         return messages.stream().map(MessageMapper::toDto).toList();
     }
 

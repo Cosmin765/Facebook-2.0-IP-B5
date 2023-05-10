@@ -25,6 +25,6 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Query(value = "SELECT * FROM messages where conversation_id = :conversation_id order by created_at desc limit :count", nativeQuery = true)
     List<Message> findLastMessagesForConversation(@Param("conversation_id") Integer conversationId, @Param("count") Integer count);
 
-    @Query(value = "SELECT * FROM messages where to_user_id = :to_user_id and from_user_id = :from_user_id",nativeQuery = true)
-    List<Message> findFromTo(@Param("to_user_id") Integer toUser, @Param("from_user_id") Integer fromUser);
+    @Query(value = "SELECT * FROM messages WHERE user_id = :from_user_id AND conversation_id IN (SELECT conversation_id FROM conversation_users WHERE user_id = :to_user_id)", nativeQuery = true)
+    List<Message> findToFromConv(@Param("from_user_id") Integer fromUser, @Param("to_user_id") Integer toUser);
 }
