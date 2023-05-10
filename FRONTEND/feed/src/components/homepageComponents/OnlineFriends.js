@@ -1,74 +1,48 @@
-import React from "react";
-import ShowAccount from "./ShowAccount";
-import '../../styles/homepageStyles/onlineFriends.css';
-import arrow from '../../icons/arrow.svg';
-import { useState, useEffect } from 'react';
+// components
+import ShowAccount from './ShowAccount';
 
-function useWindowSize() {
-    const [size, setSize] = useState([window.innerHeight, window.innerWidth]);
-    useEffect(() => {
-        const handleResize = () => {
-            setSize([window.innerHeight, window.innerWidth]);
-        };
+// style
+import '../../styles/homepageStyles/onlineFriends.css'
 
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+// icons
+import arrow from '../../icons/homepageIcons/arrow.svg';
+
+import { useState } from 'react';
+
+export default function OnlineFriends({friends, openAcount, toggle}) {
+    const [burgerState, setBurgerState] = useState(false);
     
-    return (size);
-}
-
-export default function OnlineFriends({friends, openAcount}) {
-    const [show, setShow] = useState(true);
-
-    const [height, width] = useWindowSize();
-
-    const burgerToggle = () => {
-        setShow(!show);
-        console.log(document.body.getElementsByClassName("test"));
-        
-        alert();
+    const clickBurger = () => {
+        toggle();
+        setBurgerState(!burgerState);
     }
+
+    // 
+    const goToProfile = () => {
+        alert("Go to profile");
+    }
+    // 
 
     const showFriends = friends.map((friend) => {
         return (
-            <div className='firends'>
+            <div className='friend' onClick={goToProfile}>
                 <ShowAccount account={friend.account}/>
             </div>
         );
     });
 
     return (
-        <>
-        <div className='onlineFriends'>
-            <div className='burger' onClick={burgerToggle}>
-                <img src={arrow} alt='menu'/>
+        <div className={burgerState ? 'card onlineFriends active' : 'card onlineFriends'}>
+            <div className='burger' onClick={clickBurger}>
+                <img src={arrow} alt='toggleButton' className='arrowButton'/>
             </div>
-                <div className={"test" || (width < 1000 && 'panel')}>
-                    {show && (
-                    <>
-                        <div className="top">
-                            <p>Online friends</p>
-                        </div>
-                        <div className="commentsList friendsList">
-                            {showFriends}
-                        </div>
-                    </>
-                )}
+
+            <div className={burgerState ? 'friends active' : 'friends'}>
+                <div className="top">
+                    <p>Online friends</p>
                 </div>
-            </div>
-
-
-        {/* <div className='card showComments' style={{boxShadow: 'none', width: '60%'}}>
-            <div>
-                <p>Online friends</p>
-            </div>
-            <div className="commentsList friendsList">
                 {showFriends}
             </div>
-        </div> */}
-        </>
+        </div>
     );
 }

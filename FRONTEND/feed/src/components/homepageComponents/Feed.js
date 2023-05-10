@@ -1,15 +1,29 @@
-import React from "react";
-import Card from "./Card";
+// components
+import Card from './Card';
+import ShowComments from './ShowComments';
+import Friends from './Friends';
+
+// style
 import '../../styles/homepageStyles/feed.css'
 
-export default function Feed({toggleModalFunc, posts, openPostPopupFunc}) {
-    const feedAccounts = posts.map(post =>
-        <Card toggleModal={toggleModalFunc} post={post} openFriendsMenu={openPostPopupFunc}/>
+export default function Feed({togglePosts, posts, showComments, showFriends, toggleFriends, friends}) {
+    const feed = posts.map(post =>
+        <>
+            <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/>
+
+            <div className={showComments ? 'spacer active' : 'spacer'}>
+                <ShowComments comments={post.comments} toggleFunction={togglePosts} showComments={showComments} />
+            </div>
+
+            <div className={showFriends ? 'spacer active' : 'spacer'}>
+                <Friends friends={friends} toggleFunction={toggleFriends} showFriends={showFriends} />
+            </div>
+        </>
     );
     
     return (
     <div className='feed'>
-        {feedAccounts}
+        {feed}
 
         {/* {
         ads.map(ad =>

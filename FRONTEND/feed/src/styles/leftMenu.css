@@ -1,7 +1,7 @@
-
 .menu{
     background-color: white;
-    width: 20%;
+    /* width: 20%; */
+    width: var(--left-menu-width);
     overflow-y: hidden;
     height: 100vh;
     position: fixed;

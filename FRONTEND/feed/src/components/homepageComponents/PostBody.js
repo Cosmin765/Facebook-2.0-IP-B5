@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
-import '../../styles/homepageStyles/PostBody.css';
-import loadImg from '../../icons/loadImg.svg';
+import '../../styles/homepageStyles/postBody.css';
+import loadImg from '../../icons/homepageIcons/loadImg.svg';
 
 export default function PostBody(props) {
   const [postDataType, setPostDataType] = useState({
@@ -23,7 +23,7 @@ export default function PostBody(props) {
   }
 
   const PostMessage = () => {
-    // alert("Posted");
+    alert("Posted");
 
     props.toggleFunction();
     console.log(postDataType);
