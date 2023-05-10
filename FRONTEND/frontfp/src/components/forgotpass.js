@@ -2,10 +2,10 @@ import React from "react";
 import "./forgotpass.css"
 const ForgotPass = () => {
     return(
-        <div className='cover'>
-            <h1 className="Title">koobecaf.</h1>
-            <input type="text" placeholder="Enter your email"></input>
-            <div className="send-btn">
+        <div className='forgotpass_cover'>
+            <h1 className="forgotpass_Title">koobecaf.</h1>
+            <input className="forgotpass_input" type="text" placeholder="Enter your email"></input>
+            <div className="forgotpass_send-btn">
                 Send Code
             </div>
         </div>

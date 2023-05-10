@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
 :root{
   --background-clr: #F1E5FF;
   --main-clr: #7703FC;
@@ -16,9 +19,6 @@ body{
   width: 100%;
   display: flex;
 }
-
-
-
 
 
 

@@ -3,6 +3,7 @@ import React from "react";
 //import Verify from "./components/verify.js";
 import Profile from "./components/Profile.js";
  // import NewPass from "./components/newpass.js";
+
 function App() {
   return (
     <div className="page">

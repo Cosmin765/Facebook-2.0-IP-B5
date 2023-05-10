@@ -1,57 +1,53 @@
 @import url(https://fonts.googleapis.com/css?family=Viga);
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
-.container-profile {
+.profile_container-profile {
   display: flex;
   flex-direction: row;
   height: 100vh;
-  /* inaltimea containerului */
 }
 
 body {
   background-color: rgb(241, 229, 255);
 }
 
-.container-profile>div {
+.profile_container-profile>div {
   margin: 2px;
 }
 
-.right-profile {
-  /* margin-top: 0px; */
+.profile_right-profile {
   flex-direction: column;
   flex: 9;
   width: 100%;
   height: 100%;
 }
 
+/* TO BE CHANGED */
 input {
   position: absolute;
   width: 40em;
   height: 2em;
 }
 
-.content-profile {
+.profile_content-profile {
   margin-top: 4em;
   flex: 9;
   width: 100%;
 }
 
-.upper-profile {
+.profile_upper-profile {
   width: 98.5%;
   height: 19em;
   margin-bottom: 1em;
 }
 
-.colored-cover {
+.profile_colored-cover {
   border-radius: .4em;
   height: 14em;
   background: linear-gradient(85deg, #2c80b8, #8e44ad);
-  /* background: url(./img/hugh-jackman.jpg) no-repeat;
-  background-size: cover;
-  background-position: center; */
 }
 
-.profile-photo {
+.profile_profile-photo {
   width: 10em;
   height: 10em;
 
@@ -66,7 +62,7 @@ input {
   left: 1em;
 }
 
-.profile-name.h2 {
+.profile_profile-name.h2 {
   margin-block-start: 0em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
@@ -75,7 +71,7 @@ input {
   margin-left: 10em;
 }
 
-.buttons-name {
+.profile_buttons-name {
   display: flex;
   align-items: center;
   height: 5em;
@@ -83,12 +79,12 @@ input {
   border-radius: .4em;
 }
 
-.buttons-name .profile-info {
+.profile_buttons-name .profile_profile-info {
   margin-left: auto;
   margin-right: 50em;
 }
 
-.white-cover button {
+.profile_white-cover button {
   height: 2.1em;
   background: #7703FC;
   border-radius: .5em;
@@ -96,25 +92,24 @@ input {
   color: white;
 }
 
-.white-cover .add-friend {
+.profile_white-cover .profile_add-friend {
   margin-left: 1em;
   margin-right: 1em;
 }
 
-.bottom-profile {
+.profile_bottom-profile {
   display: flex;
   height: 25em;
   flex-direction: row;
-  /* background-color: black; */
 }
 
-.left-content-profile {
+.profile_left-content-profile {
   position: relative;
   margin-bottom: -1em;
 
 }
 
-.bottom-profile .left-content-profile {
+.profile_bottom-profile .profile_left-content-profile {
   width: 25%;
   margin-right: .5em;
   background-color: var(--card-clr);
@@ -125,27 +120,17 @@ input {
   padding: 20px;
 }
 
-
-.bottom-profile .right-content-profile {
+.profile_bottom-profile .profile_right-content-profile {
   width: 75%;
-  /* background-color: blue; */
 }
 
-.edit-details {
+.profile_edit-details {
   position: absolute;
   right: 0;
   bottom: 0;
-  /* margin-bottom: .5em;
-  margin-right: .5em;
-
-  height: 1.7em;
-  background: #7703FC;
-  border-radius: .5em;
-  border: none;
-  color: white; */
 }
 
-.left-content-profile img {
+.profile_left-content-profile img {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -157,14 +142,17 @@ input {
   margin-right: .3em;
 }
 
+/* TO BE CHANGED */
 button {
   cursor: pointer;
   display: inline-block;
-
-
 }
 
-.buttons {
+button:focus {
+  outline: none;
+}
+
+.profile_buttons {
   flex-direction: row;
   flex: 2;
   justify-content: center;
@@ -177,14 +165,14 @@ button {
 
 }
 
-.nothing {
+.profile_nothing {
   flex-direction: column;
   flex: 2;
   width: 100%;
   height: 100%;
 }
 
-.profile-name {
+.profile_profile-name {
   flex-direction: column;
   flex: 5;
   width: 100%;
@@ -194,7 +182,7 @@ button {
 
 }
 
-.search-profile {
+.profile_search-profile {
   background-color: rgb(255, 255, 255);
   display: flex;
   flex-grow: 1;
@@ -204,12 +192,11 @@ button {
   border-radius: 8px;
 }
 
-.left-profile {
+.profile_left-profile {
   flex: 1;
 }
 
-.right-profile {
-  /* margin-top: 0px; */
+.profile_right-profile {
   flex-direction: column;
   flex: 15;
   width: 100%;
@@ -217,7 +204,7 @@ button {
   margin-left: 0em;
 }
 
-.search_box-profile {
+.profile_search_box-profile {
   width: 60%;
   background-color: hsla(274, 73%, 55%, 0.19);
   border-radius: 15px;
@@ -228,21 +215,21 @@ button {
   margin-left: 12px;
 }
 
-.search_box-profile img {
+.profile_search_box-profile img {
   margin-left: 5px;
 }
 
-.right_icons-profile {
+.profile_right_icons-profile {
   margin-right: 0;
   margin-left: auto;
 }
 
-.right_icons-profile img {
+.profile_right_icons-profile img {
   padding: 10px;
   margin-top: -0.5em;
 }
 
-.top-bar {
+.profile_top-bar {
   position: absolute;
   background-color: white;
   margin-left: 0em;
@@ -253,8 +240,4 @@ button {
   border-radius: 10px;
   z-index: 1;
   box-shadow: 0px 0px 5px lightgray;
-}
-
-button:focus {
-  outline: none;
 }

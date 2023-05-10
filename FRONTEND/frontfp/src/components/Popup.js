@@ -10,15 +10,15 @@ function Popup(props) {
     };
   
     return props.trigger ? (
-      <div className="popup">
-        <div className="popup-inner">
-          <button className="close-btn" onClick={() => props.setTrigger(false)}>
+      <div className="profile_popup">
+        <div className="profile_popup-inner">
+          <button className="profile_close-btn" onClick={() => props.setTrigger(false)}>
             close
           </button>
           <h2>Edit your description</h2>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+          <textarea className="profile_setDescription" value={description} onChange={(e) => setDescription(e.target.value)} />
           <br></br>
-          <button className="save-btn" onClick={handleSave}>Save</button>
+          <button className="profile_save-btn" onClick={handleSave}>Save</button>
         </div>
       </div>
     ) : null;

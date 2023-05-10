@@ -4,17 +4,18 @@
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family:"Montserrat";
-    background-color: rgb(241,229,255);
+    font-family: "Montserrat";
+    background-color: rgb(241, 229, 255);
 }
 
-.Title{
-    font-family:"Viga" ;
+.verify_Title {
+    font-family: "Viga";
     font-size: 350%;
     background-color: white;
 }
 
-.page{
+/* Need to find where this is */
+.page {
     height: 100vh;
     width: 100%;
     display: flex;
@@ -23,22 +24,22 @@
     background: linear-gradient(85deg, #2c80b8, #8e44ad);
 }
 
-.cover{
+.verify_cover {
     background-color: white;
     width: 30em;
     height: 20em;
     position: relative;
     border-radius: 2em;
-    box-shadow: 0 0.188em 1.550em rgb(236,204,239);
+    box-shadow: 0 0.188em 1.550em rgb(236, 204, 239);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
 }
 
-input{
+.verify_input {
     border: none;
-    background-color:  rgb(236,204,239);
+    background-color: rgb(236, 204, 239);
     height: 4em;
     width: 70%;
     border-radius: 1em;
@@ -46,14 +47,14 @@ input{
     padding: 2em;
 }
 
-input:focus{
-    outline-color: rgb(119,3,252);
+.verify_input:focus {
+    outline-color: rgb(119, 3, 252);
 }
 
-.verify-btn{
+.verify_btn {
     width: 30%;
     height: 3em;
-    background-color: rgb(119,3,252);
+    background-color: rgb(119, 3, 252);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,29 +65,26 @@ input:focus{
     font-weight: bold;
 }
 
-.verify-btn:hover{transform: scale(1.1);}
+.verify_btn:hover {
+    transform: scale(1.1);
+}
 
 
-.secsText {
+.verify_secsText {
     display: flex;
     width: 70%;
     align-items: center;
     justify-content: center;
     background-color: white;
-  }
-  
-  .secText {
+}
+
+.verify_secText {
     margin-left: 0.5em;
     background-color: white;
-    color: rgb(119,3,252);
+    color: rgb(119, 3, 252);
     font-weight: bold;
-  }
+}
 
-  .text{
+.verify_text {
     background-color: white;
-  }
-
-  
-  
-  
-
+}

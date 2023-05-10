@@ -96,8 +96,8 @@ function Description({ descriptionText, setDescriptionText }) {
   const [buttonPopup, setButtonPopup] = useState(false);
 
   return (
-    <div className="left-content-profile">
-      <div class="profile-info">
+    <div className="profile_left-content-profile">
+      <div class="profile_profile-info">
         <h2>Description</h2>
         <p>{descriptionText}</p>
       </div>
@@ -118,12 +118,12 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
 
   return (
-    <div className="buttons-name">
-      <div class="profile-info">
+    <div className="profile_buttons-name">
+      <div class="profile_profile-info">
         <h2>{nameText}</h2>
       </div>
-      <button className="change-photo" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
-      <button className="add-friend"> Add Friend </button>
+      <button className="profile_change-photo" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
+      <button className="profile_add-friend"> Add Friend </button>
       <EditProfile
         isOpen={isEditProfileOpen}
         onClose={() => setIsEditProfileOpen(false)}
@@ -150,38 +150,38 @@ const Profile = () => {
   };
 
   return (
-    <div className='container-profile'>
-      <div className="left-profile">
+    <div className='profile_container-profile'>
+      <div className="profile_left-profile">
         <StretchedMenu />
       </div>
-      <div className="right-profile">
-        <div className="top-bar">
-          <div className="search-profile">
-            <div className="search_box-profile">
+      <div className="profile_right-profile">
+        <div className="profile_top-bar">
+          <div className="profile_search-profile">
+            <div className="profile_search_box-profile">
               <img src={icon5}></img>
             </div>
-            <div className="right_icons-profile">
+            <div className="profile_right_icons-profile">
               <img src={icon6}></img>
               <img src={icon7}></img>
             </div>
           </div>
         </div>
 
-        <div className="content-profile">
-          <div className="upper-profile">
-            <div className="colored-cover">
-              <img id="profile-photo" className="profile-photo" src={imageUrl} />
+        <div className="profile_content-profile">
+          <div className="profile_upper-profile">
+            <div className="profile_colored-cover">
+              <img id="profile-photo" className="profile_profile-photo" src={imageUrl} />
             </div>
-            <div className="white-cover">
-              <div className="photo-name-profile">
+            <div className="profile_white-cover">
+              <div className="profile_photo-name-profile">
                 <EditProfileFCT nameText={name} setNameText={handleNameUpdate} setImageUrl={handleImageUpdate} />
               </div>
             </div>
           </div>
-          <div className="bottom-profile">
+          <div className="profile_bottom-profile">
             <Description descriptionText="This is my description." />
 
-            <div className="right-content-profile">
+            <div className="profile_right-content-profile">
               <Feed />
             </div>
           </div>
