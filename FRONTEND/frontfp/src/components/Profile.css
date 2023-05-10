@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Viga);
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
+* {
+  font-family: 'Montserrat';
+}
+
 .profile_container-profile {
   display: flex;
   flex-direction: row;
@@ -93,8 +97,7 @@ input {
 }
 
 .profile_white-cover .profile_add-friend {
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-right: 2em;
 }
 
 .profile_bottom-profile {

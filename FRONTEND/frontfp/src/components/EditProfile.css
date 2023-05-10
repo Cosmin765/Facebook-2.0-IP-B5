@@ -41,3 +41,11 @@
     min-width: 20em;
     min-height: 2em;
 }
+
+.profile_name{
+    font-family: 'Viga';
+}
+
+.profile_descriptionTitle{
+    font-family: 'Viga';
+}

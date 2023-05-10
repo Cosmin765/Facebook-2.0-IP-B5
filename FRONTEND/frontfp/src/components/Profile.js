@@ -98,10 +98,9 @@ function Description({ descriptionText, setDescriptionText }) {
   return (
     <div className="profile_left-content-profile">
       <div class="profile_profile-info">
-        <h2>Description</h2>
+        <h2 className="profile_descriptionTitle">Description</h2>
         <p>{descriptionText}</p>
       </div>
-      <img src={editButton} width="20px" alt="edit button" onClick={() => setButtonPopup(true)} />
       <Popup
         trigger={buttonPopup}
         setTrigger={setButtonPopup}
@@ -120,9 +119,8 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
   return (
     <div className="profile_buttons-name">
       <div class="profile_profile-info">
-        <h2>{nameText}</h2>
+        <h2 className="profile_name">{nameText}</h2>
       </div>
-      <button className="profile_change-photo" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
       <button className="profile_add-friend"> Add Friend </button>
       <EditProfile
         isOpen={isEditProfileOpen}
