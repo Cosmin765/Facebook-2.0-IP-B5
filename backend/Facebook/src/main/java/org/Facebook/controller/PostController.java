@@ -20,8 +20,8 @@ public class PostController {
 
     @GetMapping(value = "/posts")
     @ResponseBody
-    public List<Post> posts() {
-        return postService.getAllPosts();
+    public List<PostDto> posts() {
+        return postService.getAllPosts().stream().map(PostMapper::toDto).toList();
     }
 
     @PostMapping("/posts/recommended")
@@ -37,8 +37,8 @@ public class PostController {
 
     @GetMapping(value = "/posts/user")
     @ResponseBody
-    public List<Post> userPosts(@RequestParam Integer id) throws Exception {
-        return postService.getPostsByUserId(id);
+    public List<PostDto> userPosts(@RequestParam Integer id) throws Exception {
+        return postService.getPostsByUserId(id).stream().map(PostMapper::toDto).toList();
     }
 
     @PostMapping("/posts/new")

@@ -33,9 +33,6 @@ public class PostService {
 
     public void createPost(PostDto postDto) {
         Post post = PostMapper.fromDto(postDto);
-        User user = userRepository.getById(postDto.getUserId());
-        post.setUser(user);
-
         postRepository.save(post);
     }
 
