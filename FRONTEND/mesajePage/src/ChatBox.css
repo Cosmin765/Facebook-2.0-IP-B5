@@ -342,7 +342,8 @@ margin-top: 10px;
 .msg_cotainer_send {
 	display: inline-flex;
 	margin-top: 10px;
-	margin-bottom: auto;
+	margin-bottom: 10px;
+	color: white;
 	
 	float: right;
 	margin-right: 10px;
