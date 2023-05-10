@@ -23,6 +23,18 @@ export default function Sugestions_Friends() {
     )
    
   };
+
+  const handleRemoveRequest = (friendId) => {
+    // Make API call to send friend request
+    
+    setRequestSent({
+      ...requestSent,
+      [friendId]:false
+    }
+    )
+   
+  };
+  
   const friends = [
     { id: 1, name: 'John Wick', photo: 'https://cdn.vox-cdn.com/thumbor/mfZr4TZ1MD-u_tsUZbiFQn9cjxo=/0x0:6000x3650/1400x1400/filters:focal(3000x1825:3001x1826)/cdn.vox-cdn.com/uploads/chorus_asset/file/24510842/john_wick_chapter_4_JW4_Unit_211027_00134_R2_rgb.jpeg', active: 1 },
     { id: 2, name: 'John Wick', photo: 'https://cdn.vox-cdn.com/thumbor/mfZr4TZ1MD-u_tsUZbiFQn9cjxo=/0x0:6000x3650/1400x1400/filters:focal(3000x1825:3001x1826)/cdn.vox-cdn.com/uploads/chorus_asset/file/24510842/john_wick_chapter_4_JW4_Unit_211027_00134_R2_rgb.jpeg', active: 0 },
@@ -70,8 +82,9 @@ export default function Sugestions_Friends() {
         <div key={friend.id} className="mc_box">
           <img src={friend.photo} alt={friend.name} className="mc_photo" />
           <div className="mc_name">{friend.name}</div>
-          <button className={`mc_add_friend_button ${requestSent[friend.id]===true ? 'mc_request' : ""}`} onClick={() => handleAddFriend(friend.id)}>
+          <button className={`mc_add_friend_button ${requestSent[friend.id]===true ? 'mc_request' : ""}`} onClick={!requestSent[friend.id]?() => handleAddFriend(friend.id):()=>handleRemoveRequest(friend.id)}>
           {requestSent[friend.id]===true ? 'Request Sent' : 'Add Friend'}
+
           </button>
         </div>
       ))}
