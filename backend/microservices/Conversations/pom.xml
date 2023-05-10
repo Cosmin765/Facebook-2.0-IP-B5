@@ -79,7 +79,7 @@
             <scope>compile</scope>
         </dependency>
 
-       <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
@@ -113,6 +113,16 @@
             <scope>compile</scope>
         </dependency>
         <!-- -->
+
+
+        <!-- JUNIT -->
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
