@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import '../../styles/homepageStyles/postBody.css';
+import '../../styles/homepageStyles/PostBody.css';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
 
 export default function PostBody(props) {

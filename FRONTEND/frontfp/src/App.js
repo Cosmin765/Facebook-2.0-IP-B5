@@ -8,8 +8,8 @@ import MyProfile from "./components/MyProfile.js";
 function App() {
   return (
     <div className="page">
-      {/* <Profile /> */}
-      <MyProfile />
+      <Profile />
+      {/* <MyProfile /> */}
     </div>
   );
 }
