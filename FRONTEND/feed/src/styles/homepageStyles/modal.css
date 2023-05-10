@@ -1,0 +1,31 @@
+/* modal -> pop-up postare */
+body.active-modal{
+    overflow-y: hidden;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+
+.modal-content {
+        
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    padding: 14px 28px;
+    border-radius: 3px;
+    height: 80vh;
+    /* width: 80vw; */
+
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}

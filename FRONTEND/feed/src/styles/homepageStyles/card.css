@@ -1,0 +1,162 @@
+.card{
+    background-color: var(--card-clr);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 5px lightgray;
+    border: none;
+    padding: 20px;
+    margin: 20px;
+
+}
+
+.bottomCard{
+    margin-top: 20px;
+    border-top: 1px solid gray;
+    padding: 0;
+}
+
+.bottomCard{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+    justify-items: center;
+}
+
+.postBody .media{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.postBody img{
+    width: 40%;
+}
+
+.likes{
+    display: flex;
+}
+
+.likes img{
+    padding: 10px;
+}
+
+.comments{
+    display: flex;
+}
+
+.comments img{
+    padding: 10px;
+}
+
+.shares{
+    display: flex;
+}
+
+.shares img{
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.commentsBtn{
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.likeBtn{
+    display: flex;
+}
+
+.likeBtn p{
+    padding-top: 18px;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.likeBtn button{
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    width: 20px;
+    /* height: 20px; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+}
+
+.like{
+    background-image: url('../../icons/like.svg');
+}
+
+.like-clicked{
+    background-image: url('../../icons/like-clicked.svg');
+}
+
+
+
+
+
+
+
+
+

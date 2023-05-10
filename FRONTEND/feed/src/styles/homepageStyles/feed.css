@@ -1,0 +1,24 @@
+.feed{
+    width: 700px;
+    /* margin: 10px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 1400px) {
+    .feed{
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .feed{
+        max-width: 500px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .feed{
+        width: 100%;
+    }
+}

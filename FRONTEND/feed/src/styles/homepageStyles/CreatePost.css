@@ -1,0 +1,12 @@
+.createPostContainer{
+    margin: 0;
+    padding: 10px;
+    background-color: var(--card-clr);
+    width: 500px;
+}
+
+@media only screen and (max-width: 550px) {
+    .createPostContainer{
+        width: 90%;
+    }
+}  
