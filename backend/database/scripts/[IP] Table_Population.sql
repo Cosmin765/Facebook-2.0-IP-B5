@@ -1,17 +1,16 @@
 -- Adding mock data to the users table
 INSERT INTO users (first_name, last_name, birthday, email, password, bio, profile_picture, cover_picture, is_logged_in)
 VALUES 
-("John", "Doe", "1990-05-01", "john.doe@example.com", "password", "I'm a professional procrastinator and a part-time ninja.", NULL, NULL, FALSE),
-("Jane", "Doe", "1992-09-12", "jane.doe@example.com", "password", "I'm a cat person who is secretly in love with dogs.", NULL, NULL, FALSE),
-("Bob", "Smith", "1985-12-24", "bob.smith@example.com", "password", "I like to watch the sunset while sipping coffee and listening to jazz.", NULL, NULL, FALSE),
-("Alice", "Jones", "1998-07-17", "alice.jones@example.com", "password", "I'm a bookworm who dreams of becoming a mermaid.", NULL, NULL, FALSE),
-("Mike", "Johnson", "1995-02-28", "mike.johnson@example.com", "password", "I'm a professional video gamer who loves to eat pizza.", NULL, NULL, FALSE),
-("Emily", "Davis", "1989-10-06", "emily.davis@example.com", "password", "I love to dance in the rain and make funny faces in the mirror.", NULL, NULL, FALSE),
-("David", "Wilson", "1976-03-15", "david.wilson@example.com", "password", "I'm a superhero who fights crime in my dreams.", NULL, NULL, FALSE),
-("Sarah", "Clark", "1991-11-23", "sarah.clark@example.com", "password", "I'm a master chef who specializes in burnt toast.", NULL, NULL, FALSE),
-("Adam", "Brown", "1983-06-12", "adam.brown@example.com", "password", "I'm a professional couch potato who dreams of winning a marathon.", NULL, NULL, FALSE),
-("Olivia", "Wilson", "1996-08-29", "olivia.wilson@example.com", "password", "I'm a travel enthusiast who is afraid of flying.", NULL, NULL, FALSE);
-
+("John", "Doe", "1990-05-01", "john.doe@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a professional procrastinator and a part-time ninja.", NULL, NULL, FALSE),
+("Jane", "Doe", "1992-09-12", "jane.doe@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a cat person who is secretly in love with dogs.", NULL, NULL, FALSE),
+("Bob", "Smith", "1985-12-24", "bob.smith@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I like to watch the sunset while sipping coffee and listening to jazz.", NULL, NULL, FALSE),
+("Alice", "Jones", "1998-07-17", "alice.jones@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a bookworm who dreams of becoming a mermaid.", NULL, NULL, FALSE),
+("Mike", "Johnson", "1995-02-28", "mike.johnson@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a professional video gamer who loves to eat pizza.", NULL, NULL, FALSE),
+("Emily", "Davis", "1989-10-06", "emily.davis@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I love to dance in the rain and make funny faces in the mirror.", NULL, NULL, FALSE),
+("David", "Wilson", "1976-03-15", "david.wilson@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a superhero who fights crime in my dreams.", NULL, NULL, FALSE),
+("Sarah", "Clark", "1991-11-23", "sarah.clark@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a master chef who specializes in burnt toast.", NULL, NULL, FALSE),
+("Adam", "Brown", "1983-06-12", "adam.brown@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a professional couch potato who dreams of winning a marathon.", NULL, NULL, FALSE),
+("Olivia", "Wilson", "1996-08-29", "olivia.wilson@example.com", "$2a$12$unNzYUAvPxa9q7Q.G4wxKeIXesDWfC9eOZSos9.sVJjv.pTMEUOhC", "I'm a travel enthusiast who is afraid of flying.", NULL, NULL, FALSE);
 
 -- Adding mock data to the friendships table
 INSERT INTO friendships (user_id1, user_id2)
