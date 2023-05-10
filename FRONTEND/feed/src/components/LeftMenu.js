@@ -7,7 +7,7 @@ import icon4 from '../icons/Chat_alt_2_light.svg';
 // import '../styles/large_menu.css';
 import '../styles/leftMenu.css'
 
-export default function LargeMenu() {
+export default function LeftMenu() {
     return (
           <div className="menu">
             <h1>koobecaf.</h1>

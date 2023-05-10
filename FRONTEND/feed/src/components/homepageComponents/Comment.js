@@ -1,6 +1,8 @@
-import React from "react";
-import '../../styles/homepageStyles/comment.css';
+// components
 import ShowAccount from "./ShowAccount";
+
+// styles
+import '../../styles/homepageStyles/comment.css';
 
 export default function Comment({comment}) {
     return (

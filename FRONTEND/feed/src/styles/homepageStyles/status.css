@@ -1,5 +1,7 @@
 .status{
     margin: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .statusInput{
@@ -35,15 +37,21 @@
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1270px) {
     .statusInput{
-        max-width: 500px;
+        max-width: 550px;
 
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1075px) {
     .statusInput{
-        min-width: 100%;
+        width: 100%;
     }
 }
+
+/* @media screen and (max-width: 560px) {
+    .statusInput{
+        width: 70%;
+    }
+} */

@@ -1,5 +1,5 @@
-import React from "react";
-import '../../styles/ShowAccount.css';
+// style
+import '../../styles/homepageStyles/ShowAccount.css';
 
 export default function ShowAccount({account:{name, picture, uploadDate}}) {
 

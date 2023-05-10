@@ -119,6 +119,7 @@ input {
     padding: 20px;
 }
 
+
 .myprofile_bottom-profile .myprofile_right-content-profile {
     width: 75%;
 }
@@ -182,9 +183,15 @@ button:focus {
     height: 100%;
     display: flex;
     justify-content: center;
+    
 
 }
-
+.myprofile_name{
+    font-family: 'Viga';
+}
+.myprofile_descriptionTitle{
+    font-family: 'Viga';
+}
 .myprofile_search-profile {
     background-color: rgb(255, 255, 255);
     display: flex;

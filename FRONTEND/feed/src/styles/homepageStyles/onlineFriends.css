@@ -1,57 +1,112 @@
 .onlineFriends{
-    width: 70%;
-    background-color: var(--card-clr);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 2px 5px 5px lightgray;
-
+    position: sticky;
+    overflow-y: scroll;
+    top: 100px;
+    /* height: 80vh; */
+    height: calc(100vh - 150px);
     /* height: 100%; */
+    /* width: 100%; */
+    /* width: 300px; */
+    width: 20vw;
+    /* width: var(--online-friends-width); */
+    /* width: var(60vw); */
 
+    margin: 0;
 }
 
-@media screen and (max-width: 1500px) {
-    .onlineFriends{
-        width: 250px;
-    }
+.friends{
+    position: relative;
+    display: block;
 }
 
-@media screen and (max-width: 1200px) {
-    .onlineFriends{
-        width: 200px;
-    }
+.friend{
+    margin: 10px;
 }
-
-@media screen and (max-width: 1000px) {
-    .onlineFriends .burger{
-        display:block;
-    }
-
-    .onlineFriends{
-        justify-self: center;
-        height: 50px;
-        width: 50px;
-        padding: 5px;
-        margin-top: 20px;
-    }
-}
-
-
-
-
-
-
-
-
 
 .burger{
     display: none;
+    cursor: pointer;
 }
 
-.burger img{
-    width: 50px;
-    height: 50px;
+.arrowButton{
+    width: 44px;
+    height: 44px;
 }
 
-.panel{
-    display: none;
+.onlineFriends::-webkit-scrollbar-thumb {
+	background-color: var(--main-clr);
+}
+
+.onlineFriends::-webkit-scrollbar {
+    width: 6px;
+    background-color: white;
+}
+
+.onlineFriends::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+@media screen and (max-width: 980px) {
+    .burger{
+        display: block;
+        display: flex;
+        justify-content: end;
+    }
+
+    .friends{
+        right: 400px;
+        flex-direction: column;
+    }
+
+    .friends.active{
+        right: 0px;
+    }
+
+    .onlineFriends{
+        width: 44px;
+        height: 44px;
+        /* padding: 100px; */
+        overflow-y: hidden;
+    }
+
+    .onlineFriends.card{
+        padding: 0;
+    }
+
+    .onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        /* padding: 20px; */
+        overflow-y: scroll;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 748x) {
+    .card{
+        margin: 0;
+        padding: 0;
+    }
+
+    .burger{
+        margin: 0;
+        padding: 0;
+    }
+
+    .onlineFriends{
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .onlineFriends.card{
+        padding: 0;
+        margin: 0;
+    }
+
+    .onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        padding: 20px;
+        overflow-y: scroll;
+    }
 }

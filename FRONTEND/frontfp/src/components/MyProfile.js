@@ -139,6 +139,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 const MyProfile = () => {
   const [name, setName] = useState("Your name");
   const [imageUrl, setImageUrl] = useState(null);
+  const [description, setDescription] = useState("This is my description.");
 
   const handleNameUpdate = (newName) => {
     setName(newName);
@@ -146,6 +147,10 @@ const MyProfile = () => {
 
   const handleImageUpdate = (newImageUrl) => {
     setImageUrl(newImageUrl);
+  };
+
+  const handleDescriptionUpdate = (newDescription) => {
+    setDescription(newDescription);
   };
 
   return (
@@ -157,11 +162,11 @@ const MyProfile = () => {
         <div className="myprofile_top-bar">
           <div className="myprofile_search-profile">
             <div className="myprofile_search_box-profile">
-              <img src={icon5}></img>
+              <img src={icon5} alt="search icon" />
             </div>
             <div className="myprofile_right_icons-profile">
-              <img src={icon6}></img>
-              <img src={icon7}></img>
+              <img src={icon6} alt="notification icon" />
+              <img src={icon7} alt="logout icon" />
             </div>
           </div>
         </div>
@@ -169,7 +174,7 @@ const MyProfile = () => {
         <div className="myprofile_content-profile">
           <div className="myprofile_upper-profile">
             <div className="myprofile_colored-cover">
-              <img id="profile-photo" className="myprofile_profile-photo" src={imageUrl} />
+              <img id="profile-photo" className="myprofile_profile-photo" src={imageUrl} alt="profile" />
             </div>
             <div className="myprofile_white-cover">
               <div className="myprofile_photo-name-profile">
@@ -178,7 +183,7 @@ const MyProfile = () => {
             </div>
           </div>
           <div className="myprofile_bottom-profile">
-            <Description descriptionText="This is my description." />
+            <Description descriptionText={description} setDescriptionText={handleDescriptionUpdate} />
 
             <div className="myprofile_right-content-profile">
               <Feed />
@@ -190,4 +195,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile
+export default MyProfile;

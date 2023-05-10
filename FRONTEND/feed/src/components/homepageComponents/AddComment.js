@@ -1,10 +1,13 @@
-import React from "react";
 import { useState } from "react";
+
+// components
 import ShowAccount from "./ShowAccount";
+
+// styles
 import '../../styles/homepageStyles/addComment.css';
-import '../../styles/ColorScheme.css';
-import sendImg from '../../icons/send.svg';
-import loadImg from '../../icons/loadImg.svg';
+
+import sendImg from '../../icons/homepageIcons/send.svg';
+import loadImg from '../../icons/homepageIcons/loadImg.svg';
 
 export default function AddComment() {
     const [postDataType, setPostDataType] = useState({

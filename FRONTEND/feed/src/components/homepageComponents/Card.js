@@ -1,19 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
-import cn from "classnames";
 import ShowAccount from './ShowAccount';
 import '../../styles/homepageStyles/card.css';
-import likeBtn from '../../icons/like.svg';
-import commentBtn from '../../icons/comment.svg';
-import shareBtn from '../../icons/share.svg';
-import arrow from '../../icons/arrow.svg';
+import likeBtn from '../../icons/homepageIcons/like.svg';
+import commentBtn from '../../icons/homepageIcons/comment.svg';
+import shareBtn from '../../icons/homepageIcons/share.svg';
+
 import AddComment from './AddComment';
 
-// export default function Card({account: {name, picture, uploadDate}, text, pictures, video, toggleModal}) {
-// export default function Card({toggleModal, posts:{account:{name, profilePicture, uploadDate}, text, picture, video, comments}}) {
-export default function Card({toggleModal, post, openFriendsMenu}) {
+export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   const showComments = () => {
-    toggleModal();
+    openCommentsMenu();
   }
 
   const sharePressed = () => {
@@ -41,11 +38,11 @@ export default function Card({toggleModal, post, openFriendsMenu}) {
               <img src={post.picture} alt={post.account.name}/>
             }
 
-            {post.video != undefined &&
+            {/* {post.video != undefined &&
               <div>
                 <iframe id="ytplayer" type="text/html" src={post.video} frameborder="0"></iframe>
               </div>
-            }
+            } */}
           </div>
           
       </div>

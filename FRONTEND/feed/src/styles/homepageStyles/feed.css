@@ -1,6 +1,5 @@
 .feed{
     width: 700px;
-    /* margin: 10px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -11,14 +10,20 @@
     }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1270px) {
     .feed{
-        max-width: 500px;
+        max-width: 550px;
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1075px) {
     .feed{
         width: 100%;
     }
 }
+
+/* @media screen and (max-width: 560px) {
+    .feed{
+        width: 70%;
+    }
+} */

@@ -23,7 +23,11 @@
 }
 
 .profile_setDescription {
+    width: 85%;
+    min-width: 85%;
     max-width: 85%;
+    height: 75%;
+    min-height: 75%;
     max-height: 75%;
     min-width: 300px;
     min-height: 250px;
