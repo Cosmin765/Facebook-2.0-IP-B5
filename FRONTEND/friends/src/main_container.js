@@ -51,9 +51,10 @@ export default function MainContainer_Friend_Request() {
       <div className="mc_content">
         {friends.map(friend => (
           <div key={friend.id} className="mc_box">
-            <img src={friend.photo} alt={friend.name} className="mc_photo" />
-            <div className="mc_name">{friend.name}</div>
-          </div>
+          <img src={friend.photo} alt={friend.name} className="mc_photo" />
+          <div className="mc_name">{friend.name}</div>
+          {friend.active ? <div className="green-dot"></div> : <div className="red-dot"></div>}
+        </div>        
         ))}
       </div>
     </div>

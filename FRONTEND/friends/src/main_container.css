@@ -111,3 +111,40 @@
   .mc_add_friend_button:hover {
     background-color: magenta; 
   }    
+
+  .mc_add_friend_button2 {
+    background-color: #7C3AED; 
+    display: flex;
+    left: 30%;
+    margin-right: 30px;
+    right: 5%;
+    justify-content: flex-start;
+    border: transparent;
+    position:relative;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .mc_add_friend_button2:hover {
+    background-color: magenta; 
+  } 
+   
+  .green-dot, .red-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 20px;
+  }
+  
+  .green-dot {
+    background-color: green;
+  }
+  
+  .red-dot {
+    background-color: red;
+  }
