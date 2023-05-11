@@ -1,64 +1,67 @@
 package org.FacebookAds.controller;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.env.Environment;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.util.Objects;
 
 @Controller
 public class FileUploadController {
-
-    private final org.FacebookAds.storage.StorageService storageService;
-    private final String root = "/upload";
-
     @Autowired
-    public FileUploadController(org.FacebookAds.storage.StorageService storageService) {
-        this.storageService = storageService;
-    }
+    private Environment environment;
 
-    @GetMapping(root)
-    public String listUploadedFiles(Model model) throws IOException {
-
-        model.addAttribute("files", storageService.loadAll().map(
-                        path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                                "serveFile", path.getFileName().toString()).build().toUri().toString())
-                .collect(Collectors.toList()));
-
+    @GetMapping("/upload")
+    public String testForm() {
         return "uploadForm";
     }
 
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    @PostMapping("/cloudflare/upload")
+    public ResponseEntity<String> handleUpload(@RequestParam("file") MultipartFile file) {
+        try {
+            // It should be checked in front-end that the file is not larger than the limit set in properties file,
+            // otherwise the server resets the connection
 
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+            // URL to PUT to
+            String serverUrl = environment.getProperty("cdn.url") + Base64.getUrlEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(file.getBytes())) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+
+            // Request header
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.valueOf(Objects.requireNonNull(file.getContentType())));
+            headers.set("X-Custom-Auth-Key", environment.getProperty("cdn.key"));
+
+            // Check if the file is already on the server
+            try {
+                new RestTemplate().exchange(serverUrl, HttpMethod.HEAD, new HttpEntity<>("", headers), String.class);
+            } catch (HttpClientErrorException e) {
+                // File doesn't exist on the server
+                if (e.getStatusCode().value() == 404) {
+                    // Request entity = body + headers
+                    HttpEntity<byte[]> requestEntity = new HttpEntity<>(file.getBytes(), headers);
+
+                    // Make the PUT request
+                    new RestTemplate().put(serverUrl, requestEntity);
+                    return ResponseEntity.status(HttpStatus.OK).body("Success!");
+                }
+                // Handle any other HttpClientErrorException
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Failed to upload!");
+            }
+            // There is already a byte-for-byte identical file on the server
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("File already exists on the server!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Failed to upload!");
+        }
     }
-
-    @PostMapping("/")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
-
-        return "redirect:/";
-    }
-
-    @ExceptionHandler(org.FacebookAds.storage.StorageFileNotFoundException.class)
-    public ResponseEntity<?> handleStorageFileNotFound(org.FacebookAds.storage.StorageFileNotFoundException exc) {
-        return ResponseEntity.notFound().build();
-    }
-
 }

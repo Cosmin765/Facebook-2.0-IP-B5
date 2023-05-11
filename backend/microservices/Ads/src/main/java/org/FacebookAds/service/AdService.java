@@ -3,14 +3,10 @@ package org.FacebookAds.service;
 import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdService {
-
-    @Value("${cdn}")
-    private String cdnPath;
 
     @Autowired
     private AdRepository adRepository;
