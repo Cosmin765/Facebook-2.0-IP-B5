@@ -1,0 +1,7 @@
+controller uploader/downloader/deleter fisiere -> service
+varchar -> text in db
+trigger cerere de prietenie in baza de date la tabelul notificarilor
+trigger primire cerere prietenie
+trigger trimitere/citire mesaje (+ camp sent/seen la mesaje)
+trigger zi de nastere
+statistici reclame (nr de clickuri, nr de impresii, timp mediu pana la click, )
