@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.Facebook.repository.PostRepository;
 import org.Facebook.service.PostService;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,17 +22,25 @@ public class Post {
     @Id
     private Integer id;
     private String content;
-
-    // TODO: Like ar trebui sa fie un model separat, iar un post dto sa contina o lista de likes
+    
 //    private Integer likes;
 
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
+//    @Lob
+//    @Column(name = "image")
+//    private byte[] image;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostImage> images;
+
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "ad_location")
+    private String adLocation;
+
+    @Column(name = "ad_status")
+    private String adStatus;
 //    private PostService postService;
 
 //    public void setNumberOfLikes() {

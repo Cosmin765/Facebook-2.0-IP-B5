@@ -33,9 +33,10 @@ public class PostService {
 
     public void createPost(PostDto postDto) {
         Post post = PostMapper.fromDto(postDto);
-        User user = userRepository.getById(postDto.getUserId());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
+        User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
-
         postRepository.save(post);
     }
 

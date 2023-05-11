@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Post</title>
+</head>
+<body>
+<h1>Update Post</h1>
+
+<form id="updateForm">
+    <label for="content">Content:</label>
+    <input type="text" id="content" name="content" required><br><br>
+
+    <label for="adLocation">Location:</label>
+    <input type="text" id="adLocation" name="adLocation"><br><br>
+
+    <label for="adStatus">Status:</label>
+    <input type="text" id="adStatus" name="adStatus"><br><br>
+
+    <input type="submit" value="Update Post">
+</form>
+
+<script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        document.getElementById("updateForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            var form = event.target;
+            var content = form.elements['content'].value;
+            var adLocation = form.elements['adLocation'].value;
+            var adStatus = form.elements['adStatus'].value;
+
+            // Create a data object to send in the request
+            var data = {
+                id: id,
+                content: content,
+                adLocation: adLocation,
+                adStatus: adStatus
+            };
+
+            // Send the AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/post/update?id=" + id);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert("Post updated successfully!");
+                    // Redirect to the post details page
+                    window.location.href = "/post?id=" + id;
+                } else {
+                    alert("Failed to update post. Please try again.");
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        });
+    </script>
+</body>
+</html>

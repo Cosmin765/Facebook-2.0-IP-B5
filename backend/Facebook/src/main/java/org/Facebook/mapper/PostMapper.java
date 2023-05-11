@@ -14,7 +14,9 @@ public class PostMapper {
                 .id(post.getId())
                 .content(post.getContent())
                 .userId(post.getUser().getId())
-                .image(post.getImage())
+                .adLocation(post.getAdLocation())
+                .adStatus(post.getAdStatus())
+                .images(post.getImages())
                 .build();
     }
 
@@ -22,6 +24,8 @@ public class PostMapper {
         return Post.builder()
                 .id(postDto.getId())
                 .content(postDto.getContent())
-                .image(postDto.getImage()).build();
+                .adLocation(postDto.getAdLocation())
+                .adStatus(postDto.getAdStatus())
+                .images(postDto.getImages()).build();
     }
 }

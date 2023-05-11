@@ -2,13 +2,17 @@ package org.Facebook.controller;
 
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.model.dto.PostDto;
+import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
+import org.Facebook.repository.PostRepository;
+import org.Facebook.service.CommentService;
 import org.Facebook.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -17,6 +21,11 @@ import java.util.List;
 public class PostController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping(value = "/posts")
     @ResponseBody
@@ -43,48 +52,61 @@ public class PostController {
 
     @PostMapping("/posts/new")
     @ResponseBody
-    public String createPost(@RequestBody PostDto postDto, RedirectAttributes redirectAttributes) {
+    public RedirectView createPost(@RequestParam String content, @RequestParam String adLocation, @RequestParam String adStatus, RedirectAttributes redirectAttributes) {
+        PostDto postDto = PostDto.builder()
+                .content(content)
+                .adLocation(adLocation)
+                .adStatus(adStatus)
+                .build();
         postService.createPost(postDto);
         redirectAttributes.addFlashAttribute("message", "Post created successfully!");
-        return "redirect:/post/?id=" + postDto.getId();
+        return new RedirectView("/posts/recommended?count=10&cursor=0");
     }
 
     @GetMapping("/posts/new")
-    @ResponseBody
+    //   @ResponseBody
     public String showCreateForm(Model model) {
         model.addAttribute("post", new Post());
         return "create-post";
     }
 
     @GetMapping("/post/delete")
-    @ResponseBody
-    public String showDeleteForm(@RequestParam("id") Integer id) throws Exception {
-        Post post = postService.getPostById(id);
-        postService.deletePost(id);
+    //@ResponseBody
+    public String showDeleteForm(Model model) throws Exception {
         return "delete-post";
     }
 
     @PostMapping("/post/delete")
     @ResponseBody
-    public String deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+    public RedirectView deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) throws Exception {
+        System.out.println("id: " + id);
+        List<Comment> comments = commentService.getCommentsByPost(postService.getPostById(id));
+        for (Comment comment : comments) {
+            commentService.deleteComment(comment.getId());
+        }
         postService.deletePost(id);
         redirectAttributes.addFlashAttribute("message", "Post deleted successfully!");
-        return "redirect:/posts";
+        return new RedirectView("/posts/recommended?count=10&cursor=0");
     }
 
     @GetMapping("/post/update")
-    @ResponseBody
-    public String showUpdateForm(@RequestParam("id") Integer id) throws Exception {
-        Post post = postService.getPostById(id);
+    //@ResponseBody
+    public String showUpdateForm() {
         return "update-post";
     }
+
     @PostMapping(value = "/post/update")
     @ResponseBody
-    public String updatePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) throws Exception {
-        postService.updatePost(postService.getPostById(id));
+    public RedirectView updatePost(@RequestParam("id") Integer id, @RequestBody PostDto postDto, RedirectAttributes redirectAttributes) throws Exception {
+        Post post = postService.getPostById(id);
+        post.setContent(postDto.getContent());
+        post.setAdLocation(postDto.getAdLocation());
+        post.setAdStatus(postDto.getAdStatus());
+        postService.updatePost(post);
         redirectAttributes.addFlashAttribute("message", "Post updated successfully!");
-        return "redirect:/post/?id=" + id;
+        return new RedirectView("/post?id=" + id);
     }
+
     @GetMapping("/post")
     @ResponseBody
     public Post getPostById(@RequestParam("id") Integer id) throws Exception {

@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.Facebook.model.entity.User;
+import org.Facebook.model.entity.PostImage;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +16,11 @@ import org.Facebook.model.entity.User;
 public class PostDto {
     private Integer id;
     private Integer userId;
-//    private String title;
+    //    private String title;
     private String content;
-    private byte[] image;
+    private List<PostImage> images;
+
+    private String adLocation;
+
+    private String adStatus;
 }
