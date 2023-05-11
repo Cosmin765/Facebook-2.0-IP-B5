@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -29,9 +30,12 @@ public class CommentController {
         return commentService.postComment(comment);
     }*/
 
-    @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable Integer id) {
+    @PostMapping ("/comments/delete")
+    @ResponseBody
+    public String deleteComment(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
         commentService.deleteComment(id);
+        redirectAttributes.addFlashAttribute("message", "Comment deleted!");
+        return "redirect:/posts";
     }
 
     @PostMapping("/postcomment")
