@@ -8,24 +8,24 @@ import icon4 from '../icons/Chat_alt_2_light.svg';
 export default function StretchedMenu() {
     return (
     
-          <div className="feed_smenu">
+          <div className="smenu">
             <h1>k.</h1>
-            <div className="feed_sgrid_wrapper">
-            <div className="feed_sgrid_container">
-              <div class="feed_sgrid-item">
+            <div className="sgrid_wrapper">
+            <div className="sgrid_container">
+              <div class="sgrid-item">
                 <img src={icon}></img>
               
               </div>
-              <div className="feed_sgrid-item">
+              <div className="sgrid-item">
                 <img src={icon2}></img>
         
               </div>
-              <div className="feed_sgrid-item">
+              <div className="sgrid-item">
                 <img src={icon3}></img>
        
               </div>
-              <div className="feed_sgrid-item feed_stretch_last">
-                <img src={icon4}></img>
+              <div className="sgrid-item">
+                <img src={icon4} style={{marginLeft : -5 + 'px' }}></img>
 
               </div>
             </div>

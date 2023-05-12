@@ -18,22 +18,22 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   }
   
   return (
-        <div className='feed_card'>
-      <div className='feed_topCard'>
+        <div className='card'>
+      <div className='topCard'>
         <ShowAccount account={post.account}/>
-        <div className='feed_options'>
+        <div className='options'>
           {/* <p>dsfsdf</p> */}
         </div>
       </div>
 
-      <div className='feed_postBody'>
+      <div className='postBody'>
           <div>
             {post.text.length > 0 &&
               <p>{post.text}</p>
             }
           </div>
           
-          <div className='feed_media'>
+          <div className='media'>
             {post.picture != undefined &&
               <img src={post.picture} alt={post.account.name}/>
             }
@@ -47,18 +47,18 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
           
       </div>
 
-      <div className='feed_bottomCard'>
-        <div className='feed_likes'>
+      <div className='bottomCard'>
+        <div className='likes'>
           <LikeBtn nrLikes={post.likes}/>
         </div>
 
-        <div className='feed_comments'>
-          <button className='feed_commentsBtn' onClick={showComments}><img src={commentBtn} alt='like button'/></button>
+        <div className='comments'>
+          <button className='commentsBtn' onClick={showComments}><img src={commentBtn} width='20px' alt='like button'/></button>
           {post.comments ? <p>{post.comments.length}</p> : <p>0</p>}
         </div>
 
-        <div className='feed_shares'>
-          <button className='feed_commentsBtn' onClick={sharePressed}><img src={shareBtn} alt='like button'/></button>
+        <div className='shares'>
+          <button className='commentsBtn' onClick={sharePressed}><img src={shareBtn} width='20px' alt='like button'/></button>
         </div>
 
       </div>
@@ -75,8 +75,8 @@ function LikeBtn({nrLikes}) {
   }
 
   return (
-    <div className='feed_likeBtn'>
-      <button id="feed_likeBtn" onClick={clickLike} className={liked ? 'feed_like-clicked' : 'feed_like'}></button>
+    <div className='likeBtn'>
+      <button id="likeBtn" onClick={clickLike} className={liked ? 'like-clicked' : 'like'}></button>
       {<p>{nrLikes}</p>}
     </div>
   );

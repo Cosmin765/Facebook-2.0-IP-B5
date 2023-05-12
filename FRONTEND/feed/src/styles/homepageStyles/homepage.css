@@ -1,4 +1,4 @@
-.feed_homepageContainer{
+.homepageContainer{
     width: calc(100% - var(--left-menu-width));
     margin-left: var(--left-menu-width);
     display: flex;
@@ -9,7 +9,7 @@
 
 }
 
-.feed_modal{
+.modal{
     background: rgba(49,49,49,0.8);
     position: fixed;
     top: 0;
@@ -20,35 +20,35 @@
     z-index: 1;
 }
 
-.feed_spacer{
+.spacer{
     display: none;
 }
 
-.feed_spacer.active{
+.spacer.active{
     display: block;
 }
 
-.feed_middlePanel.active{
+.middlePanel.active{
     margin-right: var(--online-friends-width);
 }
 
-.feed_middlePanel{
+.middlePanel{
     margin: 10px;
     margin-top: 80px;
 }
 
-.feed_rightPanel{
+.rightPanel{
     margin: 10px;
     /* width: auto; */
     /* width: var(--online-friends-width); */
 }
 
-.feed_rightPanel.active{
+.rightPanel.active{
     position: absolute;
     right: 0;
 }
 
-.feed_card{
+.card{
     background-color: var(--card-clr);
     border: none;
     border-radius: 10px;
@@ -63,7 +63,7 @@
 
 /* notifications */
 
-.feed_notificationPanel{
+.notificationPanel{
     position: fixed;
     top: 80px;
     width: calc(var(--online-friends-width));
@@ -72,12 +72,12 @@
     display: none;
   }
   
-.feed_notificationPanel.active{
+  .notificationPanel.active{
     right: 10px;
     display: block;
   }
 
-.feed_notif{
+  .notif{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -86,11 +86,7 @@
     padding: 10px;
   }
 
-  .feed_notif p{
+  .notif p{
     padding-left: 5px;
     margin: 0;
   }
-
-.feed_card_border{
-    box-shadow: none;
-}

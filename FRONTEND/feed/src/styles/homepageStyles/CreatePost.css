@@ -1,4 +1,4 @@
-.feed_createPostContainer{
+.createPostContainer{
     margin: 0;
     padding: 10px;
     background-color: var(--card-clr);
@@ -12,7 +12,7 @@
 }
 
 @media only screen and (max-width: 550px) {
-    .feed_createPostContainer{
+    .createPostContainer{
         width: 70%;
     }
 }  

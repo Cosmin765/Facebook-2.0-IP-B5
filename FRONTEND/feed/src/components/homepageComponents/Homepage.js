@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 // components
 import TopBar from '../TopBar';
-// import LeftMenu from '../LeftMenu';
+import LeftMenu from '../LeftMenu';
 import OnlineFriends from './OnlineFriends';
 import Status from "./Status";
 import Feed from "./Feed";
@@ -195,31 +195,31 @@ export default function Homepage() {
     return(
         <>
             <TopBar notifications={notifications}   showNotifications={showNotifications} />
-            <div className={showNotifications ? 'feed_card feed_notificationPanel active' : 'feed_card feed_notificationPanel'}>
+            <div className={showNotifications ? 'card notificationPanel active' : 'card notificationPanel'}>
                 <h2>Notifications</h2>
                 
-                <div className="feed_notif">
+                <div className="notif">
                     <div>
                         <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
-                <div className="feed_notif">
+                <div className="notif">
                     <div>
                         <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
-                <div className="feed_notif">
+                <div className="notif">
                     <div>
                         <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
-                <div className="feed_notif">
+                <div className="notif">
                     <div>
                         <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
                     </div>
@@ -230,20 +230,20 @@ export default function Homepage() {
             {width < 1200 ? <StretchedMenu /> : <LargeMenu />}
             {/* <LeftMenu /> */}
 
-            <div className="feed_homepageContainer">
-                <div className={modal ? 'feed_modal' : null}>
+            <div className="homepageContainer">
+                <div className={modal ? 'modal' : null}>
                 </div>
 
-                <div className={modal ? 'feed_spacer active' : 'feed_spacer'}></div>
+                <div className={modal ? 'spacer active' : 'spacer'}></div>
 
                 {/* <div className='middlePanel'> */}
-                <div className={onlineFriendsToggle ? 'feed_middlePanel active' : 'feed_middlePanel'}>
+                <div className={onlineFriendsToggle ? 'middlePanel active' : 'middlePanel'}>
                     <Status openPostPopup={openPostPopup} createPost={createPost} />
                     <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends    } />
                 </div>
 
                 {/* <div className='rightPanel'> */}
-                <div className={onlineFriendsToggle ? 'feed_rightPanel active' : 'feed_rightPanel'}>
+                <div className={onlineFriendsToggle ? 'rightPanel active' : 'rightPanel'}>
                     <OnlineFriends friends={myFriends} toggle={toggleFriendsPanel}/>
                 </div>
             </div>

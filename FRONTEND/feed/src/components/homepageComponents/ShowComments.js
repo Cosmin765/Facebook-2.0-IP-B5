@@ -10,12 +10,12 @@ export default function ShowComments({comments, toggleFunction, showComments}) {
     });
 
     return (
-        <div className={showComments ? 'feed_card feed_showComments feed_card_border active' : 'feed_card feed_showComments feed_card_border'}>
-            <div className="feed_top">
+        <div className={showComments ? 'card showComments active' : 'card showComments'} style={{boxShadow: 'none'}}>
+            <div className="top">
                 <p>Comments</p>
-                <button className='feed_btn' onClick={toggleFunction}>Close</button>
+                <button className='btn' onClick={toggleFunction}>Close</button>
             </div>
-            <div className="feed_commentsList">
+            <div className="commentsList">
                 {commentList}
             </div>
         </div>

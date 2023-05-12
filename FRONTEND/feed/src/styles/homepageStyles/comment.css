@@ -1,4 +1,4 @@
-.feed_comment{
+.comment{
     background-color: #ebebeb;
 
     /* width:100%; */
@@ -10,10 +10,10 @@
     padding: 10px;
 }
 
-.feed_comentText{
+.comentText{
     font-size: 14px;
 }
 
-.feed_test{
+.test{
     display: fixed;
 }

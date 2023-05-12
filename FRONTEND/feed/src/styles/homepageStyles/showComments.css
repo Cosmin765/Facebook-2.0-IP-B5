@@ -1,4 +1,4 @@
-.feed_top{
+.top{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -7,21 +7,21 @@
     border-bottom: 2px solid lightgray;
 }
 
-.feed_top p{
+.top p{
     font-size: 20px;
     color: gray;
     padding: 0;
     margin: 0;
 }
 
-.feed_showComments{
+.showComments{
     height: 80%;
     width: 80%;
     overflow-y:scroll;
     overflow-x:hidden;
 }
 
-.feed_showComments.active{
+.showComments.active{
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -29,21 +29,21 @@
     transform: translate(-50%, -50%);
 }
 
-.feed_showComments::-webkit-scrollbar-thumb {
+.showComments::-webkit-scrollbar-thumb {
 	background-color: var(--main-clr);
 }
 
-.feed_showComments::-webkit-scrollbar {
+.showComments::-webkit-scrollbar {
     width: 6px;
     background-color: white;
 }
 
-.feed_showComments::-webkit-scrollbar-track {
+.showComments::-webkit-scrollbar-track {
 	/* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
 	background-color: transparent;
 }
 
-.feed_showComments .btn{
+.showComments .btn{
     height: 40px;
     padding: 5px;
     margin-bottom: 5px;
@@ -54,18 +54,14 @@
 
 
 
-.feed_friendsList{
+.friendsList{
     padding: 10px;
     width: 100%;
 }
 
-.feed_firends{
+.firends{
     margin: 10px;
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-
-.feed_friends_width{
-    width: 400px;
 }

@@ -25,20 +25,20 @@ export default function OnlineFriends({friends, openAcount, toggle}) {
 
     const showFriends = friends.map((friend) => {
         return (
-            <div className='feed_friend' onClick={goToProfile}>
+            <div className='friend' onClick={goToProfile}>
                 <ShowAccount account={friend.account}/>
             </div>
         );
     });
 
     return (
-        <div className={burgerState ? 'feed_card feed_card_border feed_onlineFriends active' : 'feed_card feed_card_border feed_onlineFriends'}>
-            <div className='feed_burger' onClick={clickBurger}>
-                <img src={arrow} alt='toggleButton' className='feed_arrowButton'/>
+        <div className={burgerState ? 'card onlineFriends active' : 'card onlineFriends'}>
+            <div className='burger' onClick={clickBurger}>
+                <img src={arrow} alt='toggleButton' className='arrowButton'/>
             </div>
 
-            <div className={burgerState ? 'feed_friends active' : 'feed_friends'}>
-                <div className="feed_top">
+            <div className={burgerState ? 'friends active' : 'friends'}>
+                <div className="top">
                     <p>Online friends</p>
                 </div>
                 {showFriends}

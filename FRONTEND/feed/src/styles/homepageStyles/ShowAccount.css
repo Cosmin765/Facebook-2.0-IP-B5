@@ -1,21 +1,21 @@
-.feed_account{
+.account{
     display: flex;
     justify-self: start;
     width: 100%;
 }
 
-.feed_account .feed_accountDetails{
+.account .accountDetails{
     margin: 0;
 }
 
-.feed_account img{
+.account img{
     border-radius: 50%;
     width: 44px;
     height: 44px;
     object-fit: cover;
 }
 
-.feed_account .feed_name{
+.account .name{
     padding-top: 5px;
     padding-left: 20px;
     font-size: 14px;
@@ -23,7 +23,7 @@
     font-weight: bold;
 }
 
-.feed_account .feed_date{
+.account .date{
     margin: 0;
     padding-left: 20px;
     font-size: 14px;

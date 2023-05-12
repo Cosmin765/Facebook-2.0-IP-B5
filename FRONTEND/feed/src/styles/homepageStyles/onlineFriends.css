@@ -1,4 +1,4 @@
-.feed_onlineFriends{
+.onlineFriends{
     position: sticky;
     overflow-y: scroll;
     top: 100px;
@@ -14,66 +14,66 @@
     margin: 0;
 }
 
-.feed_friends{
+.friends{
     position: relative;
     display: block;
 }
 
-.feed_friend{
+.friend{
     margin: 10px;
 }
 
-.feed_burger{
+.burger{
     display: none;
     cursor: pointer;
 }
 
-.feed_arrowButton{
+.arrowButton{
     width: 44px;
     height: 44px;
 }
 
-.feed_onlineFriends::-webkit-scrollbar-thumb {
+.onlineFriends::-webkit-scrollbar-thumb {
 	background-color: var(--main-clr);
 }
 
-.feed_onlineFriends::-webkit-scrollbar {
+.onlineFriends::-webkit-scrollbar {
     width: 6px;
     background-color: white;
 }
 
-.feed_onlineFriends::-webkit-scrollbar-track {
+.onlineFriends::-webkit-scrollbar-track {
 	background-color: transparent;
 }
 
 @media screen and (max-width: 980px) {
-    .feed_burger{
+    .burger{
         display: block;
         display: flex;
         justify-content: end;
     }
 
-    .feed_friends{
+    .friends{
         right: 400px;
         flex-direction: column;
     }
 
-    .feed_friends.active{
+    .friends.active{
         right: 0px;
     }
 
-    .feed_onlineFriends{
+    .onlineFriends{
         width: 44px;
         height: 44px;
         /* padding: 100px; */
         overflow-y: hidden;
     }
 
-    .feed_onlineFriends.card{
+    .onlineFriends.card{
         padding: 0;
     }
 
-    .feed_onlineFriends.active{
+    .onlineFriends.active{
         height: 80vh;
         width: auto;
         /* padding: 20px; */
@@ -83,27 +83,27 @@
 }
 
 @media screen and (max-width: 748x) {
-    .feed_card{
+    .card{
         margin: 0;
         padding: 0;
     }
 
-    .feed_burger{
+    .burger{
         margin: 0;
         padding: 0;
     }
 
-    .feed_onlineFriends{
+    .onlineFriends{
         padding: 5px;
         margin: 5px;
     }
 
-    .feed_onlineFriends.card{
+    .onlineFriends.card{
         padding: 0;
         margin: 0;
     }
 
-    .feed_onlineFriends.active{
+    .onlineFriends.active{
         height: 80vh;
         width: auto;
         padding: 20px;
