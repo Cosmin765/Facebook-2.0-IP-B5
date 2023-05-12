@@ -1,6 +1,7 @@
 package org.Facebook.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class PostImage {
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
+    @JsonBackReference("post-images")
     @JsonIgnore
     private Post post;
     private String imageLink;

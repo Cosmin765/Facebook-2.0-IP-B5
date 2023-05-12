@@ -12,6 +12,8 @@ public class PostMapper {
                 .likes(post.getLikes().stream().map(LikeMapper::toDto).toList())
                 .comments(post.getComments().stream().map(CommentMapper::toDto).toList())
                 .postImages(post.getPostImages().stream().map(PostImageMapper::toDto).toList())
+                .location(post.getLocation())
+                .status(post.getStatus())
                 .build();
     }
 
@@ -22,6 +24,8 @@ public class PostMapper {
                 .likes(postDto.getLikes().stream().map(LikeMapper::fromDto).toList())
                 .comments(postDto.getComments().stream().map(CommentMapper::fromDto).toList())
                 .postImages(postDto.getPostImages().stream().map(PostImageMapper::fromDto).toList())
+                .location(postDto.getLocation())
+                .status(postDto.getStatus())
                 .build();
     }
 }

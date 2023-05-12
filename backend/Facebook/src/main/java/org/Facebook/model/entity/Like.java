@@ -1,11 +1,11 @@
 package org.Facebook.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -21,6 +21,7 @@ public class Like {
     private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
+    @JsonBackReference
     @JsonIgnore
     private Post post;
     @ManyToOne(cascade = CascadeType.ALL)
