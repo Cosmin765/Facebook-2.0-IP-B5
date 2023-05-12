@@ -12,12 +12,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-//@RestController
 @Controller
 public class PostController {
     @Autowired
     private PostService postService;
-
     @GetMapping(value = "/posts")
     @ResponseBody
     public List<PostDto> posts() {
@@ -88,7 +86,6 @@ public class PostController {
     @GetMapping("/post")
     @ResponseBody
     public Post getPostById(@RequestParam("id") Integer id) throws Exception {
-        Post post = postService.getPostById(id);
-        return post;
+        return postService.getPostById(id);
     }
 }

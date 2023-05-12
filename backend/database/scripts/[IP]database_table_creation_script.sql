@@ -76,8 +76,8 @@ CREATE TABLE posts (
 id INT PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL,
 content TEXT NOT NULL,
-ad_location VARCHAR(255),
-ad_status VARCHAR(255),
+location VARCHAR(255),
+status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users(id)
@@ -129,9 +129,9 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 -- Ads table: add location and status columns
 CREATE TABLE ads (
 id INT PRIMARY KEY AUTO_INCREMENT,
-user_id INT NOT NULL,
+publisher_id INT NOT NULL,
 title VARCHAR(255) NOT NULL,
-image LONGBLOB,
+image_link VARCHAR(255),
 content TEXT NOT NULL,
 keywords VARCHAR(255) NOT NULL,
 link VARCHAR(255) NOT NULL,
@@ -139,7 +139,7 @@ location VARCHAR(255),
 status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES users(id)
+FOREIGN KEY (publisher_id) REFERENCES users(id)
 );
 
 -- Ad clicks table: add clicks_count column

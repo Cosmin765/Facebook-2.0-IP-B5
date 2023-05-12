@@ -40,20 +40,15 @@ public class CommentController {
 
     @PostMapping("/postcomment")
     @ResponseBody
-    // TODO: ar trebui sa primesti obiectul cu @RequestBody, in loc de @RequestParam si dupa doar sa dai save
-    /*public void postComment(@RequestBody Integer postId, @RequestParam Integer userId, @RequestParam String content) {
-        commentService.postComment(postId, userId, content);
-    }*/
     public String postComment (@RequestBody CommentDto commentDto) {
         commentService.postComment(commentDto);
         return "comment posted";
     }
 
-    @RequestMapping(value = "/comments")
+    @GetMapping(value = "/comments")
     @ResponseBody
-    // TODO: nu merge endpoint-ul, imi da eroare. Pls verifica
-    public List<Comment> posts() {
-        return commentService.getAllComments();
+    public List<CommentDto> comments() {
+        return commentService.getAllComments().stream().map(CommentMapper::toDto).toList();
     }
 
 
