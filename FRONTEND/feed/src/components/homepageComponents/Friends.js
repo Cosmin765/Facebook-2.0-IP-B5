@@ -1,14 +1,17 @@
-import React from 'react';
-import '../../styles/homepageStyles/showComments.css';
+// components
 import ShowAccount from './ShowAccount';
-import sendImg from '../../icons/send.svg';
 
-export default function Friends({friends, toggleFunction, sharePannel}) {
+// styles
+import '../../styles/homepageStyles/showComments.css';
+
+import sendImg from '../../icons/homepageIcons/send.svg';
+
+export default function Friends({friends, toggleFunction, sharePannel, showFriends}) {
     const sharePost = () => {
         alert("AM TRIMIIIS");
     }
 
-    const showFriends = friends.map((friend) => {
+    const displayFriends = friends.map((friend) => {
         return (
             <div className='firends'>
                 <ShowAccount account={friend.account}/>
@@ -18,13 +21,14 @@ export default function Friends({friends, toggleFunction, sharePannel}) {
     });
 
     return (
-        <div className='card showComments' style={{boxShadow: 'none', width: 400}}>
+        // <div className='card showComments' style={{boxShadow: 'none', width: 400}}>
+        <div className={showFriends ? 'card showComments active' : 'card showComments'} style={{boxShadow: 'none', width: 400}}>
             <div className="top">
                 <p>Friends</p>
                 <button className='btn' onClick={toggleFunction}>Close</button>
             </div>
             <div className="commentsList friendsList">
-                {showFriends}
+                {displayFriends}
             </div>
         </div>
     );

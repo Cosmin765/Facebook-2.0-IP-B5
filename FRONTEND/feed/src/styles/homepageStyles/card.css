@@ -145,11 +145,11 @@
 }
 
 .like{
-    background-image: url('../../icons/like.svg');
+    background-image: url('../../icons/homepageIcons/like.svg');
 }
 
 .like-clicked{
-    background-image: url('../../icons/like-clicked.svg');
+    background-image: url('../../icons/homepageIcons/like-clicked.svg');
 }
 
 

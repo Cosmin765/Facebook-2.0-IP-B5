@@ -21,6 +21,14 @@
     overflow-x:hidden;
 }
 
+.showComments.active{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .showComments::-webkit-scrollbar-thumb {
 	background-color: var(--main-clr);
 }

@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 :root{
     --card-clr: white;
 }
@@ -14,10 +17,8 @@
     box-shadow: 2px 5px 5px lightgray;
 }
 
-
 .feed{
     min-width: 700px;
-    /* margin: 10px; */
 }
 
 .card{
@@ -29,16 +30,6 @@
     padding: 20px;
     margin: 20px;
 
-}
-
-.topCard{
-    /* display: flex;
-    flex-wrap: wrap; */
-    /* flex-direction: row; */
-}
-
-.options{
-    /* justify-content: end; */
 }
 
 .bottomCard{
@@ -55,11 +46,6 @@
 .postBody img{
     width: 80%;
 }
-
-
-
-
-
 
 .bottomCard{
     width: 100%;
@@ -96,13 +82,6 @@
     padding: 10px;
 }
 
-
-
-
-
-
-
-
 .account{
     display: flex;
     justify-self: start;
@@ -132,35 +111,6 @@
     padding-left: 20px;
 }
 
-.topCard{
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .a{
     height: 100px;
     background-color: blue;
@@ -168,7 +118,6 @@
 }
 
 .b{
-    /* height: 100px; */
     background-color: blue;
     width: 100%;
 }
@@ -279,18 +228,6 @@
     }
 }
 
-
-
-
-
-
-
-/* .mid{
-    display: wrap;
-    flex-direction: column;
-    flex-wrap: wrap;
-} */
-
 .status{
     margin: 20px;
 }
@@ -313,8 +250,6 @@
     justify-content: center;
     border-radius: 10px;
     background-color: var(--background-clr);
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
     width: 70%;
 }
 

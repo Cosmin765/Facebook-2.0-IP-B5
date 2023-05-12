@@ -1,10 +1,9 @@
-import React from "react";
+// components
 import ShowAccount from "./ShowAccount";
 import PostBody from "./PostBody";
 
-import '../../styles/ColorScheme.css'
+// styles
 import '../../styles/homepageStyles/CreatePost.css';
-import '../../styles/homepageStyles/a.css';
 
 export default function CreatePost(props) {
 

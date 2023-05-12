@@ -1,4 +1,7 @@
-.ep-popup {
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+.editprofile_ep-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,31 +13,38 @@
     align-items: center;
 }
 
-.open-popup {
+.editprofile_open-popup {
     position: relative;
     padding: 32px;
     width: 100%;
     max-width: 30em;
     background-color: #fff;
-    box-shadow: 0px 0px 5px lightgray;
     border-radius: 10px;
     height: 60%;
     max-height: 15em;
 }
 
-.open-popup .x-btn {
+.editprofile_open-popup .editprofile_x-btn {
     position: absolute;
     top: 16px;
     right: 16px;
 }
 
-.open-popup .saving-btn {
+.editprofile_open-popup .editprofile_saving-btn {
     position: absolute;
     bottom: 1em;
     right: 2em;
 }
 
-.inputBox {
+.editprofile_inputBox {
     min-width: 20em;
     min-height: 2em;
+}
+
+.profile_name{
+    font-family: 'Viga';
+}
+
+.profile_descriptionTitle{
+    font-family: 'Viga';
 }

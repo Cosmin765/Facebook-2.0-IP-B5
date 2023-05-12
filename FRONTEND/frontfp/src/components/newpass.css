@@ -8,12 +8,13 @@
     background-color: rgb(241,229,255);
 }
 
-.Title{
+.newpass_Title{
     font-family:"Viga" ;
     font-size: 350%;
     background-color: white;
 }
 
+/* Needs rechange */
 .page{
     height: 100vh;
     width: 100%;
@@ -23,7 +24,7 @@
     background: linear-gradient(85deg, #2c80b8, #8e44ad);
 }
 
-.cover{
+.newpass_cover{
     background-color: white;
     width: 30em;
     height: 23em;
@@ -36,7 +37,7 @@
     justify-content: space-around;
 }
 
-input{
+.newpass_input{
     border: none;
     background-color:  rgb(236,204,239);
     height: 4em;
@@ -46,11 +47,11 @@ input{
     padding: 1em;
 }
 
-input:focus{
+.newpass_input:focus{
     outline-color: rgb(119,3,252);
 }
 
-.change-btn{
+.newpass_change-btn{
     width: 30%;
     height: 3em;
     background-color: rgb(119,3,252);
@@ -64,9 +65,9 @@ input:focus{
     font-weight: bold;
 }
 
-.change-btn:hover{transform: scale(1.1);}
+.newpass_change-btn:hover{transform: scale(1.1);}
 
-.text{
+.newpass_Text{
     position: relative;
     bottom: -2em;
 }

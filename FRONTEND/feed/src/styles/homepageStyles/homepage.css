@@ -1,46 +1,92 @@
-.homepage{
-  margin: none;
-  padding: none;
-  width: 100%;
-  display: flex;
+.homepageContainer{
+    width: calc(100% - var(--left-menu-width));
+    margin-left: var(--left-menu-width);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-  /* padding-top: 85px; */
+    position: static;
+
 }
 
-.a{
-  /* height: 100px; */
-  /* background-color: blue; */
-  width: 100%;
+.modal{
+    background: rgba(49,49,49,0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    z-index: 1;
 }
 
-.b{
-  /* height: 100px; */
-  /* height: 100vh; */
-  background-color: blue;
-  width: 100%;
-  margin: 10px;
-  display: flex;
-  justify-content: end;
-  background-color: transparent;
+.spacer{
+    display: none;
+}
+
+.spacer.active{
+    display: block;
+}
+
+.middlePanel.active{
+    margin-right: var(--online-friends-width);
+}
+
+.middlePanel{
+    margin: 10px;
+    margin-top: 80px;
+}
+
+.rightPanel{
+    margin: 10px;
+    /* width: auto; */
+    /* width: var(--online-friends-width); */
+}
+
+.rightPanel.active{
+    position: absolute;
+    right: 0;
+}
+
+.card{
+    background-color: var(--card-clr);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 5px lightgray;
+    border: none;
+    padding: 20px;
+    margin: 20px;
 }
 
 
 
-@media screen and (max-width: 1000px) {
-  .a{
-      width: 150px;
+
+/* notifications */
+
+.notificationPanel{
+    position: fixed;
+    top: 80px;
+    width: calc(var(--online-friends-width));
+    height: calc(100vh - 150px);
+    z-index: 2;
+    display: none;
+  }
+  
+  .notificationPanel.active{
+    right: 10px;
+    display: block;
   }
 
-  .b{
-      width: 50px;
-      margin: 0;
-      justify-content: center;
+  .notif{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
   }
-}
 
-
-.mid{
-  display: wrap;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
+  .notif p{
+    padding-left: 5px;
+    margin: 0;
+  }
