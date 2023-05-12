@@ -3,7 +3,7 @@ import ShowAccount from "./ShowAccount";
 import PostBody from "./PostBody";
 
 // styles
-import '../../styles/homepageStyles/CreatePost.css';
+import '../../styles/homepageStyles/createPost.css';
 
 export default function CreatePost(props) {
 
