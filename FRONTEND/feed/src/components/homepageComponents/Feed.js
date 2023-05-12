@@ -11,18 +11,18 @@ export default function Feed({togglePosts, posts, showComments, showFriends, tog
         <>
             <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/>
 
-            <div className={showComments ? 'spacer active' : 'spacer'}>
+            <div className={showComments ? 'feed_spacer active' : 'feed_spacer'}>
                 <ShowComments comments={post.comments} toggleFunction={togglePosts} showComments={showComments} />
             </div>
 
-            <div className={showFriends ? 'spacer active' : 'spacer'}>
+            <div className={showFriends ? 'feed_spacer active' : 'feed_spacer'}>
                 <Friends friends={friends} toggleFunction={toggleFriends} showFriends={showFriends} />
             </div>
         </>
     );
     
     return (
-    <div className='feed'>
+    <div className='feed_feed'>
         {feed}
 
         {/* {

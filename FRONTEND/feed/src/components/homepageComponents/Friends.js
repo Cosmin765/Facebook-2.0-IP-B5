@@ -13,21 +13,21 @@ export default function Friends({friends, toggleFunction, sharePannel, showFrien
 
     const displayFriends = friends.map((friend) => {
         return (
-            <div className='firends'>
+            <div className='feed_firends'>
                 <ShowAccount account={friend.account}/>
-                {sharePannel && <button className='sendBtn' onClick={sharePost}><img src={sendImg} alt="send" /></button>}
+                {sharePannel && <button className='feed_sendBtn' onClick={sharePost}><img src={sendImg} alt="send" /></button>}
             </div>
         );
     });
 
     return (
         // <div className='card showComments' style={{boxShadow: 'none', width: 400}}>
-        <div className={showFriends ? 'card showComments active' : 'card showComments'} style={{boxShadow: 'none', width: 400}}>
-            <div className="top">
+        <div className={showFriends ? 'feed_card feed_showComments feed_card_border feed_friends_width active' : 'feed_card feed_showComments feed_card_border feed_friends_width'}>
+            <div className="feed_top">
                 <p>Friends</p>
-                <button className='btn' onClick={toggleFunction}>Close</button>
+                <button className='feed_btn' onClick={toggleFunction}>Close</button>
             </div>
-            <div className="commentsList friendsList">
+            <div className="feed_commentsList feed_friendsList">
                 {displayFriends}
             </div>
         </div>

@@ -1,4 +1,4 @@
-.addComment{
+.feed_addComment{
     padding: 10px;
     display: flex;
     border-top: 1px solid gray;
@@ -7,7 +7,7 @@
 }
 
 
-.commentInput{
+.feed_commentInput{
     background-color: var(--background-clr);
     border-radius: 40px;
     padding: 5px;
@@ -17,7 +17,7 @@
     width: 100%;
 }
 
-.commentInput input{
+.feed_commentInput input{
     background-color: var(--background-clr);
     margin-left: 10px;
     border: none;
@@ -25,15 +25,15 @@
     width: 100%;
 }
 
-.commentInput input:focus{
+.feed_commentInput input:focus{
     outline: none;
 }
 
-.commentInput button{
+.feed_commentInput button{
     margin: 5px;
 }
 
-.btn {
+.feed_btn {
     display: inline-block;
     outline: 0;
     cursor: pointer;
@@ -52,7 +52,7 @@
     transition-property: color, background-color, border-color;
 }
 
-.btn:hover {
+.feed_btn:hover {
     color: #ffffff;
     background-color: var(--main-clr);
     border-color: #1b1f2326;
@@ -60,23 +60,23 @@
     transition-duration: 0.1s;
 }
 
-.file-input{
+.feed_file-input{
     cursor: pointer;
     height: 100%;
     display: flex;
     
 }
 
-.file-input img{
+.feed_file-input img{
     width: 20px;
 }
 
-.sendBtn{
+.feed_sendBtn{
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.sendBtn img{
+.feed_sendBtn img{
     width: 20px;
 }

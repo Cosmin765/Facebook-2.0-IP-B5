@@ -1,14 +1,14 @@
-.typeArea{
+.feed_typeArea{
     padding: 10px;
 }
 
-.typeArea textarea{
+.feed_typeArea textarea{
     /* width: 450px; */
     width: 90%;
     height: 150px;
 }
 
-.typeAreaField{
+.feed_typeAreaField{
     border: none;
     overflow: auto;
     outline: none;
@@ -21,28 +21,28 @@
     color: var(--text-clr);
 }
 
-.typeAreaField::placeholder {
+.feed_typeAreaField::placeholder {
     opacity: 0.5;
     color: var(--text-textarea-clr);
 }
 
-.bottomButtons{
+.feed_bottomButtons{
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.bottomButtons button{
+.feed_bottomButtons button{
     margin: 5px;
 }
 
-.bottomButtonsLeft{
+.feed_bottomButtonsLeft{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.uploadPictureBtn{
+.feed_uploadPictureBtn{
     display: inline-block;
     /* width: 20px; */
     /* height: 20px; */
@@ -55,11 +55,11 @@
     /* cursor: pointer; */
 }
 
-.uploadPictureBtn img{
+.feed_uploadPictureBtn img{
     width: 20px;
 }
 
-.btn {
+.feed_btn {
     display: inline-block;
     outline: 0;
     cursor: pointer;
@@ -78,7 +78,7 @@
     transition-property: color, background-color, border-color;
 }
 
-.btn:hover {
+.feed_btn:hover {
     color: #ffffff;
     background-color: var(--main-clr);
     border-color: #1b1f2326;
@@ -86,7 +86,7 @@
     transition-duration: 0.1s;
 }
 
-.picturesList{
+.feed_picturesList{
     width: 100%;
     padding: 5px;
     color: var(--text-clr);
@@ -95,11 +95,11 @@
     flex-wrap: wrap;
 }
 
-.pictureItem{
+.feed_pictureItem{
     padding: 5px;
 }
 
-.removePicture{
+.feed_removePicture{
     border: none;
     cursor: pointer;
     background: none;

@@ -7,17 +7,17 @@ import '../styles/topBar.css'
 
 export default function TopBar({notifications, showNotifications}) {
     return (
-        <div className="container">
+        <div className="feed_container">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
     
-            <div className="search">
-                <div className="search_box">
+            <div className="feed_search">
+                <div className="feed_search_box">
                     <img src={icon5}></img>
                 </div>
-                <div className="right_icons">
+                <div className="feed_right_icons">
                     {/* notificari */}
-                    <img src={icon6} onClick={notifications} className="notificationsIcon"></img>
+                    <img src={icon6} onClick={notifications} className="feed_notificationsIcon"></img>
                     <img src={icon7}></img>
                 </div>
             </div>

@@ -1,5 +1,4 @@
-
-.smenu{
+.feed_smenu{
     position: fixed;
     background-color: white;
     width: var(--left-menu-width);
@@ -18,11 +17,11 @@
     justify-content: center;
     margin-top: 30%;
   }
-  .sgrid_wrapper{
+  .feed_sgrid_wrapper{
     display: flex;
     justify-content: center;
   }
-  .sgrid_container{
+  .feed_sgrid_container{
     display: grid;
     grid-template-rows: repeat(4,1fr);
     gap: 20px;
@@ -31,14 +30,15 @@
    margin-top: 70%;
   }
   
-  .sgrid-item {
+  .feed_sgrid-item {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
-
   }
   
-
+.feed_stretch_last img{
+  margin-left: -5px;
+}
 
   

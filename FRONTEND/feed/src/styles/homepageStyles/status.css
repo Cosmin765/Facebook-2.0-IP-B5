@@ -1,10 +1,10 @@
-.status{
+.feed_status{
     margin: 20px;
     display: flex;
     justify-content: center;
 }
 
-.statusInput{
+.feed_statusInput{
     display: flex;
     justify-content: center;
     color: gray;
@@ -17,7 +17,7 @@
     padding-bottom: 10px;
 }
 
-.input{
+.feed_input{
     justify-content: center;
     width: 85%;
     text-align: center;
@@ -27,25 +27,25 @@
     height: 25px;
 }
 
-.statusInput input:focus{
+.feed_statusInput input:focus{
     outline: none;
 }
 
 @media screen and (max-width: 1400px) {
-    .statusInput{
+    .feed_statusInput{
         max-width: 600px;
     }
 }
 
 @media screen and (max-width: 1270px) {
-    .statusInput{
+    .feed_statusInput{
         max-width: 550px;
 
     }
 }
 
 @media screen and (max-width: 1075px) {
-    .statusInput{
+    .feed_statusInput{
         width: 100%;
     }
 }
