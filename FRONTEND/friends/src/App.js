@@ -32,7 +32,7 @@ function App() {
         </div>
         {/* {<MainContainer />} */}
         {<MainContainer_Friend_Request/>}
-        {/* {<Sugestions_Friends/>} */}
+        {/* {<Sugestions_Friends/> } */}
       </div>
       
     </div>

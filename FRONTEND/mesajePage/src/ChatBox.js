@@ -1,9 +1,9 @@
 import React, { useState ,useEffect} from "react";
 import './ChatBox.css';
-import icon from './Vectoricon.png';
-import icon2 from './Group.png';
-import icon3 from './Group (1).png';
-import icon4 from './Chat_alt_2_light.png';
+// import icon from './Vectoricon.png';
+// import icon2 from './Group.png';
+// import icon3 from './Group (1).png';
+// import icon4 from './Chat_alt_2_light.png';
 import search from './icons/search.svg';
 import StretchedMenu from "./stretched_menu";
 import PersonTemplate from "./PersonTemplate";
@@ -101,7 +101,7 @@ function ChatBox() {
       );
       }, 5000);
       return () => clearInterval(interval);
-  }, [messages,people]);
+  }, [messages]);
 
   const handleChange = (event) => {
     setNewMessage(event.target.value);
@@ -151,7 +151,7 @@ function ChatBox() {
   // }
   return (
 
-    <div className="my-container ">
+    <div className="msg_my-container ">
       <title>Chat</title>
       {/* Bootstrap */}
 
@@ -161,18 +161,18 @@ function ChatBox() {
 
 
       <StretchedMenu />
-      <div className="chats-container ">
+      <div className="msg_chats-container ">
 
-        <div className="card">
-          <div className="card-header">
-            <div className="my-search">
+        <div className="msg_card">
+          <div className="msg_card-header">
+            <div className="msg_my-search">
               <input type="text" placeholder="Search..." name="search" onChange={handleChangeSearch} onKeyDown={(event) => event.key === "Enter" && handleKeyDown(event)}/>
-              <span className="search_btn" onClick={(event) => handleKeyDown(event)}><img src={search} /></span>
+              <span className="msg_search_btn" onClick={(event) => handleKeyDown(event)}><img src={search} alt="imagine_search" /></span>
             </div>
 
           </div>
-          <div className="contacts_body">
-            <div className="contacts">
+          <div className="msg_contacts_body">
+            <div className="msg_contacts">
               {people.map((people) => (
                 <PersonTemplate
                   key={people.id}
@@ -185,7 +185,7 @@ function ChatBox() {
                     : "Nothing here."}
                   status={people.status}
                  //classUnread={unread[people.id]}
-                  className={` ${people.id === selectedPersonId ? 'selected' : ''}`}
+                  className={`msg_${people.id === selectedPersonId ? 'msg_selected' : ''}`}
           onClick={() => handlePersonClick(people.id,people.profilePic,people.name,people.status)}
                   />
 
@@ -196,33 +196,33 @@ function ChatBox() {
         </div>
  {selectedPersonId === null ? (
 
-                  <div className="card_chat_nimic">
-                    <span className="nimic">You didn't select any conversation.</span>
+                  <div className="msg_card_chat_nimic">
+                    <span className="msg_nimic">You didn't select any conversation.</span>
                     </div>
                 )
                   :
-       ( <div className="card_chat">
+       ( <div className="msg_card_chat">
                
                 
 
-          <div className="card-header-chat">
-            <div className="card-header-chat-item">
-              <div className="img_cont">
+          <div className="msg_card-header-chat">
+            <div className="msg_card-header-chat-item">
+              <div className="msg_img_cont">
               
-                <img src={`${selectedPersonPic}`} className="user_img" />
+                <img src={`${selectedPersonPic}`} className="msg_user_img" alt="imagine_profil"/>
 
               </div>
-              <div className="user_info">
+              <div className="msg_user_info">
                 <span>{`${selectedPersonName}`}</span>
                 <p>{messages[selectedPersonId] ? messages[selectedPersonId].length : 0} Messages</p>
               </div>
-              <span className={`online_icon_chat ${selectedPersonStatus === 'offline' ? 'offline' : ''}`} />
+              <span className={`msg_online_icon_chat ${selectedPersonStatus === 'offline' ? 'msg_offline' : ''}`} />
             </div>
           </div>
 
-                <div className="messages-container">
+                <div className="msg_messages-container">
                 {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => (
-                  <div key={index} className="message" >
+                  <div key={index} className="msg_message" >
                     {/* <div className="img_cont_msg">
                       <img src={message.sender === "me" ? "" : (index % 2 === 1 ? selectedPersonPic : "")} className=" user_img_msg" />
                    </div> */}
@@ -238,11 +238,11 @@ function ChatBox() {
                 ))}
                 </div> 
             
-              <form onSubmit={handleSubmit}>
-              <div className="my-send">
-                <input type="text" className="type_msg" placeholder="Type your message..." value={newMessage} onChange={handleChange} />
+              <form className="msg_form" onSubmit={handleSubmit}>
+              <div className="msg_my-send">
+                <input type="text" className="msg_type_msg" placeholder="Type your message..." value={newMessage} onChange={handleChange} />
                 
-                  <button type="submit" className="send_btn"><img src={send_msg} /></button>
+                  <button type="submit" className="msg_send_btn" ><img src={send_msg} alt="send_button_image"/></button>
                 </div>
 
               </form>
