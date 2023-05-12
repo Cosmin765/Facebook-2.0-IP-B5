@@ -41,6 +41,7 @@ public class PostService {
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
         User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
+        postDto.getImages().forEach(postImage -> postImage.setPost(post));
         postRepository.save(post);
     }
 

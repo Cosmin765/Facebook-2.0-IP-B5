@@ -33,8 +33,10 @@ public class Post {
 //    private byte[] image;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    @JsonManagedReference("post")
+    @JsonManagedReference("post-images")
     private List<PostImage> images;
+
+
 
     @ManyToOne()
     @JoinColumn(name = "user_id")

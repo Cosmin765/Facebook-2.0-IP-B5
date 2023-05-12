@@ -6,7 +6,7 @@
 <body>
 <h1>Create Post</h1>
 
-<form action="/posts/new" method="post">
+<form action="/posts/new" method="post" enctype="multipart/form-data">
     <label for="content">Content:</label>
     <input type="text" name="content" id="content" required><br><br>
 
@@ -16,6 +16,8 @@
     <label for="adStatus">Status:</label>
     <input type="text" name="adStatus" id="adStatus"><br><br>
 
+    <label for="image">Images:</label>
+    <input type="file" name="image" id="image" multiple><br><br>
     <input type="submit" value="Create Post">
 </form>
 </body>
