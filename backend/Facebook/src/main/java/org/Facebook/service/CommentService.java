@@ -38,9 +38,6 @@ public class CommentService {
     }*/
     public void postComment(CommentDto commentDto) {
         Comment comment = CommentMapper.fromDto(commentDto);
-        User user = userRepository.getById(commentDto.getUserId());
-        comment.setUser(user);
-
         commentRepository.save(comment);
     }
 

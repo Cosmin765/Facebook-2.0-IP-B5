@@ -14,10 +14,8 @@ import java.util.Objects;
 public class KeywordDto /*implements Comparable<KeywordDto>*/
 {
     private Integer id;
-    private Integer adProfileId;
     private String word;
     private Integer frequency;
     private Double sentimentScore;
     private Double score;
-
 }

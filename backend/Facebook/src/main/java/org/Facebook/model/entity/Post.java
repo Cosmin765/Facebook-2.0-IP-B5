@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.Facebook.repository.PostRepository;
-import org.Facebook.service.PostService;
-
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -20,27 +18,21 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    private String content;
-
-    // TODO: Like ar trebui sa fie un model separat, iar un post dto sa contina o lista de likes
-//    private Integer likes;
-
-    // TODO: model separat pentru PostImage
-//    @Lob
-//    @Column(name = "image")
-//    private byte[] image;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-//    private PostService postService;
-
-//    public void setNumberOfLikes() {
-//        likes = postService.getNumberOfLikes(this.id);
-//    }
-
-    public boolean isReported() {
-        return false;
-    }
-
+    private String content;
+    private String location;
+    private String status;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Like> likes;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Comment> comments;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<PostImage> postImages;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

@@ -3,6 +3,7 @@ package org.FacebookConversations.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.Facebook.model.entity.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,8 +19,12 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer conversationId;
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private String content;
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp

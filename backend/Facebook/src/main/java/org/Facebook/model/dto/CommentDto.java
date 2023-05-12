@@ -15,8 +15,5 @@ import java.util.Date;
 
 public class CommentDto {
     private Integer id;
-    private Integer postId;
-    private Integer userId;
     private String content;
-    //private Boolean reported;
 }
