@@ -5,19 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostDto {
+public class NotificationDto {
     private Integer id;
     private UserDto user;
-    private String content;
-    private String location;
-    private String status;
-    private List<LikeDto> likes;
-    private List<CommentDto> comments;
-    private List<PostImageDto> postImages;
+    private String message;
+    private Boolean isRead;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

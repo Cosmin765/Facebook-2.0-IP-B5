@@ -6,11 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.Facebook.repository.PostRepository;
-import org.Facebook.service.PostService;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -25,36 +23,25 @@ public class Post {
     private Integer id;
     private String content;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Like> likes;
-
-//    @Lob
-//    @Column(name = "image")
-//    private byte[] image;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
     @JsonManagedReference("post-images")
     private List<PostImage> images;
 
-
-
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(name = "ad_location")
-    private String adLocation;
-
-    @Column(name = "ad_status")
-    private String adStatus;
-//    private PostService postService;
-
-//    public void setNumberOfLikes() {
-//        likes = postService.getNumberOfLikes(this.id);
-//    }
-
-    public boolean isReported() {
-        return false;
-    }
-
+    private String location;
+    private String status;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Like> likes;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<Comment> comments;
+    @OneToMany
+    @JoinColumn(name = "post_id")
+    private List<PostImage> postImages;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

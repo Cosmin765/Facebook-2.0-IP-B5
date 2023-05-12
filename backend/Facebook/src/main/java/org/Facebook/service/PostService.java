@@ -1,5 +1,6 @@
 package org.Facebook.service;
 
+import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.PostDto;
@@ -41,7 +42,7 @@ public class PostService {
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
         User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
-        postDto.getImages().forEach(postImage -> postImage.setPost(post));
+        postDto.getPostImages().forEach(postImage -> post.getImages().add(PostImageMapper.fromDto(postImage)));
         postRepository.save(post);
     }
 

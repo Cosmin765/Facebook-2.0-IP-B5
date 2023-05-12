@@ -1,7 +1,9 @@
 package org.Facebook.controller;
 
+import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.model.dto.PostDto;
+import org.Facebook.model.dto.PostImageDto;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.PostImage;
 import org.Facebook.repository.PostImageRepository;
@@ -62,14 +64,14 @@ public class PostController {
 //                .adLocation(adLocation)
 //                .adStatus(adStatus)
 //                .build();
-        postDto.setImages(new ArrayList<>());
+        postDto.setPostImages(new ArrayList<>());
         for(MultipartFile image : images) {
             String fileName = UUID.randomUUID().toString() + "-" + image.getOriginalFilename();;
             String uploadDir = "/images/";
             FileUploadUtil.saveFile(uploadDir, fileName, image);
             PostImage postImage = new PostImage();
             postImage.setImageLink("/images/" + fileName);
-            postDto.getImages().add(postImage);
+            postDto.getPostImages().add(PostImageMapper.toDto(postImage));
         }
 
         postService.createPost(postDto);
@@ -103,28 +105,23 @@ public class PostController {
     public String showUpdateForm() {
         return "update-post";
     }
-
     @PostMapping(value = "/post/update")
     @ResponseBody
     public RedirectView updatePost(@RequestParam("id") Integer id, @RequestBody PostDto postDto, RedirectAttributes redirectAttributes) throws Exception {
         Post post = postService.getPostById(id);
-        if (postDto.getContent() != "")
+        if (!postDto.getContent().equals(""))
             post.setContent(postDto.getContent());
-        if (postDto.getAdLocation() !="")
-            post.setAdLocation(postDto.getAdLocation());
-        if (postDto.getAdStatus() != "")
-            post.setAdStatus(postDto.getAdStatus());
+        if (!postDto.getLocation().equals(""))
+            post.setLocation(postDto.getLocation());
+        if (!postDto.getLocation().equals(""))
+            post.setStatus(postDto.getLocation());
         postService.updatePost(post);
         redirectAttributes.addFlashAttribute("message", "Post updated successfully!");
         return new RedirectView("/post?id=" + id);
     }
-
     @GetMapping("/post")
     @ResponseBody
     public Post getPostById(@RequestParam("id") Integer id) throws Exception {
-        Post post = postService.getPostById(id);
-        return post;
+        return postService.getPostById(id);
     }
-
-
 }

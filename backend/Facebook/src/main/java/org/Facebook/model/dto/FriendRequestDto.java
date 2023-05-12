@@ -1,25 +1,26 @@
-package org.FacebookAds.model.entity;
+package org.Facebook.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "keywords")
-public class Keyword {
+@Builder
+public class FriendRequestDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    public String word;
-    private Integer frequency;
-    private Double sentimentScore;
-    private Double score;
+    private UserDto sender;
+    private UserDto receiver;
+    private String status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

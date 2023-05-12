@@ -1,6 +1,7 @@
 package org.FacebookAds.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,16 +11,19 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "keywords")
-public class Keyword {
+@Table(name = "keyword_to_profile")
+public class KeywordToProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    public String word;
-    private Integer frequency;
-    private Double sentimentScore;
-    private Double score;
+    @OneToOne
+    @JoinColumn(name = "keyword_id")
+    private Keyword keyword;
+    @OneToOne
+    @JoinColumn(name = "ad_profile_id")
+    private AdProfile adProfile;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

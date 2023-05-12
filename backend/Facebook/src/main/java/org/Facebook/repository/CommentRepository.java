@@ -14,9 +14,6 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByPostId(int postId);
-    @Query(value = "SELECT * FROM comments order by id", nativeQuery = true)
-    List<Comment> findAll();
-
     //@Query(value = "SELECT * FROM comments user_id = :user_id", nativeQuery = true)
     List<Comment> findByUser(User user);
     List<Comment> findByPost(Post post);

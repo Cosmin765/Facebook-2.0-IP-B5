@@ -6,8 +6,6 @@ public class CommentMapper {
     public static CommentDto toDto(Comment comment){
         return CommentDto.builder()
                 .id(comment.getId())
-                .postId(comment.getPost().getId())
-                .userId(comment.getUser().getId())
                 .content(comment.getContent())
                 .build();
     }

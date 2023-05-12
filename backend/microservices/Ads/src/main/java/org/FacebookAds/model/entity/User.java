@@ -1,4 +1,4 @@
-package org.Facebook.model.entity;
+package org.FacebookAds.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
