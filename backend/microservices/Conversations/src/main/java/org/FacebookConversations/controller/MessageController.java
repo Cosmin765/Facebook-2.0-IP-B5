@@ -44,6 +44,7 @@ public class MessageController {
 
     @GetMapping(value = "/conv/{to}/{from}")
     public List<MessageDto> findToFrom(@PathVariable Integer to, @PathVariable Integer from){
+//         TODO: not working - s-a schimbat schema
         return messageService.getToFrom(to,from);
     }
 
