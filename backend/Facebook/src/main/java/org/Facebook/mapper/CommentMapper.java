@@ -6,9 +6,16 @@ public class CommentMapper {
     public static CommentDto toDto(Comment comment){
         return CommentDto.builder()
                 .id(comment.getId())
-                .post(comment.getPost())
-                .user(UserMapper.toDto(comment.getUser()))
+                .postId(comment.getPost().getId())
+                .userId(comment.getUser().getId())
                 .content(comment.getContent())
+                .build();
+    }
+
+    public static Comment fromDto(CommentDto commentDto) {
+        return Comment.builder()
+                .id(commentDto.getId())
+                .content(commentDto.getContent())
                 .build();
     }
 }
