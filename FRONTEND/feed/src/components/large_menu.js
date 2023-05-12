@@ -9,24 +9,24 @@ import '../styles/leftMenu.css'
 
 export default function LargeMenu() {
     return (
-          <div className="menu">
+          <div className="feed_menu">
             <h1>koobecaf.</h1>
-            <div className="grid_container">
-              <div className="grid-item">
+            <div className="feed_grid_container">
+              <div className="feed_grid-item">
                 <img src={icon}></img>
                 <span>Home</span>
               </div>
-              <div className="grid-item">
+              <div className="feed_grid-item">
                 <img src={icon2}></img>
                 <span>Profile</span>
               </div>
-              <div className="grid-item">
+              <div className="feed_grid-item">
                 <img src={icon3}></img>
                 <span>Friends</span>
               </div>
-              <div className="grid-item">
-                <img src={icon4} style={{marginLeft : -5 + 'px' }}></img>
-                <span style={{marginLeft : -5 + 'px' }}>Messages</span>
+              <div className="feed_grid-item feed_last">
+                <img src={icon4}></img>
+                <span>Messages</span>
               </div>
     
             </div>

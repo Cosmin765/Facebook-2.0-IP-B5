@@ -32,17 +32,17 @@ export default function AddComment() {
     }
 
     return (
-        <div className="addComment">
+        <div className="feed_addComment">
             <div>
                 <ShowAccount account={{name:null, picture: require('../../photos/KevinHart.jpg'), uploadDate:null}}/>
             </div>
-            <div className="commentInput">
-                <input id="comment-input" onChange={updateTypeAreaVal} type="text" placeholder="Write a comment..."/>
-                <label htmlFor="file-input" className="file-input">
+            <div className="feed_commentInput">
+                <input id="feed_comment-input" onChange={updateTypeAreaVal} type="text" placeholder="Write a comment..."/>
+                <label htmlFor="file-input" className="feed_file-input">
                     <img src={loadImg} />
                 </label>
-                <input id="file-input" type="file" onChange={UploadFilesHandler} hidden/>
-                <button className='sendBtn' onClick={postComment}><img src={sendImg} alt="send" /></button>
+                <input id="feed_file-input" type="file" onChange={UploadFilesHandler} hidden/>
+                <button className='feed_sendBtn' onClick={postComment}><img src={sendImg} alt="send" /></button>
             </div>
         </div>
     );
