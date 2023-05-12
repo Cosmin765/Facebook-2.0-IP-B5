@@ -15,6 +15,7 @@ public class PostMapper {
                 .content(post.getContent())
                 .userId(post.getUser().getId())
                 .adLocation(post.getAdLocation())
+                .likes(post.getLikes())
                 .adStatus(post.getAdStatus())
                 .images(post.getImages())
                 .build();
@@ -26,6 +27,7 @@ public class PostMapper {
                 .content(postDto.getContent())
                 .adLocation(postDto.getAdLocation())
                 .adStatus(postDto.getAdStatus())
-                .images(postDto.getImages()).build();
+                .images(postDto.getImages())
+                .likes(postDto.getLikes()).build();
     }
 }

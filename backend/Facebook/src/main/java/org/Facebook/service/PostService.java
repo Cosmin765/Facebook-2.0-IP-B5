@@ -4,6 +4,7 @@ import org.Facebook.mapper.PostMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.dto.UserDto;
+import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.PostRepository;
@@ -26,6 +27,9 @@ public class PostService {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommentService commentService;
+
 
     public List<Post> getAllPosts() {
         return postRepository.findAllPostsDesc();
@@ -40,7 +44,16 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public void deletePost(Integer id) {
+    public void deletePost(Integer id) throws Exception {
+        List<Comment> comments = new ArrayList<>();
+        try {
+            comments = commentService.getCommentsByPost(getPostById(id));
+        } catch (Exception e) {
+            throw new Exception("Post not found.");
+        }
+        for (Comment comment : comments) {
+            commentService.deleteComment(comment.getId());
+        }
         postRepository.deleteById(id);
     }
 

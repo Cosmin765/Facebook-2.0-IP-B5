@@ -3,6 +3,7 @@ package org.Facebook.controller;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.entity.Comment;
+import org.Facebook.model.entity.Like;
 import org.Facebook.model.entity.Post;
 import org.Facebook.repository.PostRepository;
 import org.Facebook.service.CommentService;
@@ -24,8 +25,6 @@ public class PostController {
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    private CommentService commentService;
 
     @GetMapping(value = "/posts")
     @ResponseBody
@@ -79,11 +78,6 @@ public class PostController {
     @PostMapping("/post/delete")
     @ResponseBody
     public RedirectView deletePost(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) throws Exception {
-        System.out.println("id: " + id);
-        List<Comment> comments = commentService.getCommentsByPost(postService.getPostById(id));
-        for (Comment comment : comments) {
-            commentService.deleteComment(comment.getId());
-        }
         postService.deletePost(id);
         redirectAttributes.addFlashAttribute("message", "Post deleted successfully!");
         return new RedirectView("/posts/recommended?count=10&cursor=0");
@@ -99,9 +93,12 @@ public class PostController {
     @ResponseBody
     public RedirectView updatePost(@RequestParam("id") Integer id, @RequestBody PostDto postDto, RedirectAttributes redirectAttributes) throws Exception {
         Post post = postService.getPostById(id);
-        post.setContent(postDto.getContent());
-        post.setAdLocation(postDto.getAdLocation());
-        post.setAdStatus(postDto.getAdStatus());
+        if (postDto.getContent() != "")
+            post.setContent(postDto.getContent());
+        if (postDto.getAdLocation() !="")
+            post.setAdLocation(postDto.getAdLocation());
+        if (postDto.getAdStatus() != "")
+            post.setAdStatus(postDto.getAdStatus());
         postService.updatePost(post);
         redirectAttributes.addFlashAttribute("message", "Post updated successfully!");
         return new RedirectView("/post?id=" + id);
@@ -113,4 +110,6 @@ public class PostController {
         Post post = postService.getPostById(id);
         return post;
     }
+
+
 }

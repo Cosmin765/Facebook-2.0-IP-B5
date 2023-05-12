@@ -8,7 +8,7 @@
 
 <form id="updateForm">
     <label for="content">Content:</label>
-    <input type="text" id="content" name="content" required><br><br>
+    <input type="text" id="content" name="content"><br><br>
 
     <label for="adLocation">Location:</label>
     <input type="text" id="adLocation" name="adLocation"><br><br>
@@ -24,7 +24,7 @@
         const id = urlParams.get('id');
 
         document.getElementById("updateForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
+            event.preventDefault();
 
             var form = event.target;
             var content = form.elements['content'].value;
@@ -39,21 +39,21 @@
                 adStatus: adStatus
             };
 
-            // Send the AJAX request
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/post/update?id=" + id);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     alert("Post updated successfully!");
-                    // Redirect to the post details page
                     window.location.href = "/post?id=" + id;
                 } else {
                     alert("Failed to update post. Please try again.");
+                     window.location.href = '/posts/recommended?count=10&cursor=0';
                 }
             };
             xhr.send(JSON.stringify(data));
         });
-    </script>
+
+</script>
 </body>
 </html>

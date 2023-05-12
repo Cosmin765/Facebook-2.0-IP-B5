@@ -112,7 +112,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.15" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.15" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.9.7" level="project" />
-    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.13.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />
   </component>
 </module>

@@ -24,8 +24,8 @@ public interface LikeRepository extends JpaRepository<Like, Integer> {
     @Query(value = "SELECT * FROM likes where user_id= :id", nativeQuery = true)
     List<Like> findByUserId(@Param("id") Integer id);
 
-    @Query(value = "SELECT * FROM likes where post = :post_id", nativeQuery = true)
-    List<Like> findByPostId(@Param("post_id") Integer post);
+    @Query(value = "SELECT * FROM likes where post_id = :post_id", nativeQuery = true)
+    List<Like> findByPostId(@Param("post_id") Integer post_id);
 
     @Query(value = "SELECT count(*) FROM posts join likes on posts.id=likes.post_id", nativeQuery = true)
     Integer getNumberOfLikes(@Param("id") Integer id);

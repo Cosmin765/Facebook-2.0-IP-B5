@@ -1,5 +1,7 @@
 package org.Facebook.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,14 +24,16 @@ public class Post {
     @Id
     private Integer id;
     private String content;
-    
-//    private Integer likes;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Like> likes;
 
 //    @Lob
 //    @Column(name = "image")
 //    private byte[] image;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference("post")
     private List<PostImage> images;
 
     @ManyToOne()

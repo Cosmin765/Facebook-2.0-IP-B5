@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Controller
 public class LikeController {
     @Autowired
@@ -17,10 +18,16 @@ public class LikeController {
 
     @GetMapping("/likes")
     @ResponseBody
-    public Like getPostById(@RequestParam("id") Integer id) throws Exception {
+    public Like getLikeById(@RequestParam("id") Integer id) throws Exception {
         Like like = likeService.getLikesById(id);
         return like;
     }
 
+    @GetMapping("/likes/post")
+    @ResponseBody
+    public List<Like> getPostLikes(@RequestParam("id") Integer id) throws Exception {
+        List<Like> likes = likeService.getLikesByPostId(id);
+        return likes;
+    }
 
 }

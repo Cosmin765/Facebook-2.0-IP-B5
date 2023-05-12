@@ -24,7 +24,7 @@
                 .then(response => {
                     if (response.ok) {
                         console.log('Post deleted successfully.');
-                         window.location.href = '/posts/recommended/count=10&cursor=0';
+                         window.location.href = '/posts/recommended?count=10&cursor=0';
                     } else {
                         console.log('Failed to delete post.');
                     }
@@ -34,7 +34,7 @@
                 });
             } else {
                 console.log('No post found.');
-                 window.location.href = '/posts/recommended/count=10&cursor=0';
+                 window.location.href = '/posts/recommended?count=10&cursor=0';
             }
         }
     </script>
