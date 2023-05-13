@@ -35,6 +35,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
     private String bio;
+    private Short isLoggedIn;
 
     @Override
     public String getUsername() {

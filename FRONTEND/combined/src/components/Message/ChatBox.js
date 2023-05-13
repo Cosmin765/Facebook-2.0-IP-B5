@@ -11,18 +11,89 @@ import StretchedMenu from "./stretched_menu";
 import PersonTemplate from "./PersonTemplate";
 import send_msg from './icons/send_msg.png';
 
+const SERVER_ADDRESS = 'http://localhost:8084';
+const CONVERSATIONS_ADDRESS = 'http://localhost:8086';
 
-let people = [
-  { id: 1, name: 'Cohman Teodora', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg', lastChecked: null },
-  { id: 2, name: 'Curcudel Teodor', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png', lastChecked: null },
-  { id: 3, name: 'John Doe', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968', lastChecked: null }
-];
+
+// let people = [
+//   { id: 1, name: 'Cohman Teodora', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg', lastChecked: null },
+//   { id: 2, name: 'Curcudel Teodor', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png', lastChecked: null },
+//   { id: 3, name: 'John Doe', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968', lastChecked: null }
+// ];
+
 const mockMessages = [
   { text: "Hello!", time: "10:00 AM", sender: "other" },
   { text: "How are you?", time: "10:05 AM", sender: "other" },
   { text: "I'm fine, thank you.", time: "10:10 AM", sender: "me" },
   { text: "That's good to hear!", time: "10:15 AM", sender: "other" },
 ];
+
+const socketAddress = CONVERSATIONS_ADDRESS;
+  let stompClient;
+  let socket;
+
+  function connect(conversationId, handler) {
+    socket = new SockJS(socketAddress + '/chat');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe("/topic/messages/" + conversationId, function (response) {
+        let data = JSON.parse(response.body);
+        if(handler) handler(data);
+      });
+    });
+  }
+
+  function sendMessage(me, to, messageText) {
+    const message = {
+      conversationId: to,
+      userId: me,
+      content: messageText
+    };
+    stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
+    // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
+  }
+
+
+async function getRaw(url, method='POST', body=null) {
+  const options = {
+    method,
+    credentials: 'include', // include cookies in the request
+    body
+  };
+  const res = await fetch(url, options);
+  return res;
+}
+
+async function getData(url, method='POST', body=null) {
+  const res = await getRaw(url, method, body);
+  const data = await res.json();
+  return data;
+}
+
+async function getUser() {
+  return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
+}
+
+async function getPeople() {
+  const url = new URL(SERVER_ADDRESS + '/friends');
+  const user = await getUser();
+  url.searchParams.append('userId', user.id)
+  return await getData(url, 'GET');
+}
+
+async function getConversations() {
+  const user = await getUser();
+  const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/user/${user.id}`);
+  const conversations =  await getData(url, 'GET');
+  return conversations;
+}
+
+async function getConversation(otherId) {
+  const user = await getUser();
+  const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/findPair/${user.id}/${otherId}`);
+  const conversation =  await getData(url, 'GET');
+  return conversation;
+}
 
 const friends = ["Enea Iustin", "Hrebenciuc Alex"];
 let newMessageObj = { text: "Nothing here!" };
@@ -35,9 +106,49 @@ function ChatBox() {
   const [selectedPersonName, setSelectedPersonName] = useState(null);
   const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
   const [searchName, setSearchName] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
   const handleChangeSearch = (event) => {
     setSearchName(event.target.value);
   };
+
+  const [people, setPeople] = useState([]);
+
+  if(!people.length) {
+    getPeople().then(data => {
+      setPeople(data.map(p => {
+        p.profilePic = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXIzB_kc5Nif4Z1-HFgBglche-F55frSnLj9BTUY3ewg&s`;
+        return p;
+      }));
+    });
+  }
+
+  function handleReceiveMessage(message) {
+    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other" };
+
+    const newMessages = {
+      ...messages,
+    };
+
+    if(messages[message.userId]) {
+      newMessages[message.userId] = [...messages[message.userId], newMessageObj];
+    }
+    setMessages(newMessages);
+        // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
+        //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
+        //const isUnread = lastCheckedTime < lastMessageTime;
+  }
+
+  if(selectedPersonId !== null) {
+    getConversation(selectedPersonId).then(conversation => {
+      if(!socket) {
+        connect(conversation.id, handleReceiveMessage);
+      } else {
+        // socket.close();
+        // socket = null;
+      }
+    });
+  }
 
   const handleKeyDown = (event) => {
 
@@ -45,14 +156,12 @@ function ChatBox() {
       if (searchName.toLowerCase() === conv.name.toLowerCase()) {
         convFound = 1;
         result = people.find((conv) => conv.name.toLowerCase() === searchName.toLowerCase());
-        console.log(conv.name.toLowerCase());
-        console.log(searchName.toLowerCase());
       }
     });
 
 
     if (convFound === 1) {
-      handlePersonClick(result.id, result.profilePic, result.name, result.status);
+      handlePersonClick(result.id, result.profilePic, result.furstname + ' ' + result.lastName, result.status);
       setSearchName("");
       convFound = 0;
     }
@@ -67,7 +176,7 @@ function ChatBox() {
       if (friendFound === 1) {
 
         people.push({ id: people.length + 1, name: result, status: 'online', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' });
-        handlePersonClick(people[people.length - 1].id, people[people.length - 1].profilePic, people[people.length - 1].name, people[people.length - 1].status);
+        handlePersonClick(people[people.length - 1].id, people[people.length - 1].profilePic, people[people.length - 1].firstName + ' ' + people[people.length - 1].lastName, people[people.length - 1].status);
         friendFound = 0;
         setSearchName("");
       }
@@ -76,37 +185,13 @@ function ChatBox() {
     }
     event.target.value = '';
   };
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
   //const [unread,setUnread] =useState({});
-  useEffect(() => {
-    const interval = setInterval(() => {
-      people.forEach((conv) => {
-        const personId = conv.id;
-        if (messages[personId]?.length % 2 === 1) {
-
-          newMessageObj = { text: mockMessages[Math.floor(Math.random() * mockMessages.length)].text, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other" };
-          setMessages({
-            ...messages,
-            [personId]: [...messages[personId], newMessageObj]
-
-          });
-
-        }
-        // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
-        //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
-        //const isUnread = lastCheckedTime < lastMessageTime;
-      }
-      );
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [messages]);
 
   const handleChange = (event) => {
     setNewMessage(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (newMessage.trim() !== "") {
       const newSender = "me";
@@ -118,57 +203,14 @@ function ChatBox() {
 
       setNewMessage("");
 
+      const user = await getUser();
+      const conversation = await getConversation(selectedPersonId);
+      sendMessage(user.id, conversation.id, newMessage);
+
     }
   };
 
-  const socketAddress = 'http://localhost:8086';
-  let stompClient;
-
-  function connect(me) {
-    const socket = new SockJS(socketAddress + '/chat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-      // console.log("Connected to: " + frame);
-      console.log("Listening to");
-      stompClient.subscribe("/topic/messages/" + me, function (response) {
-        let data = JSON.parse(response.body);
-        console.log(data);
-      });
-    });
-  }
-
-  function sendMessage(me, to) {
-    const message = {
-      conversationId: to,
-      userId: me,
-      content: "hello!"
-    };
-    stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
-    // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
-  }
-
-  function getUser() {
-    console.log("helloMessage");
-    fetch('http://localhost:8084/getOwnId', {
-      method: 'GET',
-      credentials: 'include', // include cookies in the request
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        // handle the error
-        console.error(error);
-      });
-  }
-
-
   function handlePersonClick(personId, profile, personName, personStatus) {
-    //getuser function returns session?
-    //getUser();
-
-    connect(1);
     setSelectedPersonId(personId);
     setSelectedPersonTime(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
     const person = people.find(p => p.id === personId);
@@ -222,17 +264,17 @@ function ChatBox() {
               {people.map((people) => (
                 <PersonTemplate
                   key={people.id}
-                  name={people.name}
+                  name={people.firstName + ' ' + people.lastName}
                   profilePic={people.profilePic}
                   lastMessage={messages[people.id]?.length > 0 ?
                     (messages[people.id][messages[people.id].length - 1].sender === "me" ?
                       `You: ${messages[people.id][messages[people.id].length - 1].text}`
                       : messages[people.id][messages[people.id].length - 1].text)
                     : "Nothing here."}
-                  status={people.status}
+                  status={people.isLoggedIn}
                   //classUnread={unread[people.id]}
                   className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
-                  onClick={() => handlePersonClick(people.id, people.profilePic, people.name, people.status)}
+                  onClick={() => handlePersonClick(people.id, people.profilePic, people.firstName + ' ' + people.lastName, people.status)}
                 />
 
               ))}
@@ -262,7 +304,7 @@ function ChatBox() {
                   <span>{`${selectedPersonName}`}</span>
                   <p>{messages[selectedPersonId] ? messages[selectedPersonId].length : 0} Messages</p>
                 </div>
-                <span className={`msg_online_icon_chat ${selectedPersonStatus === 'offline' ? 'msg_offline' : ''}`} />
+                <span className={`msg_online_icon_chat ${selectedPersonStatus === 0 ? 'msg_offline' : ''}`} />
               </div>
             </div>
 
@@ -294,10 +336,9 @@ function ChatBox() {
             </form>
 
 
-          </div>)}
 
+          </div>)}
       </div>
-      {/* JQuery */}
     </div>
   );
 }

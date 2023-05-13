@@ -12,6 +12,7 @@ public class UserMapper {
                 .birthday(user.getBirthday())
                 .email(user.getEmail())
                 .bio(user.getBio())
+                .isLoggedIn(user.getIsLoggedIn())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class UserMapper {
                 .birthday(userDto.getBirthday())
                 .email(userDto.getEmail())
                 .bio(userDto.getBio())
+                .isLoggedIn(userDto.getIsLoggedIn())
                 .build();
     }
 }
