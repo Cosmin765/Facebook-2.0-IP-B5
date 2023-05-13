@@ -7,6 +7,7 @@ import NewPass from './components/Forgot/newpass';
 import Verify from './components/Forgot/verify';
 import Homepage from "./components/HomePage/App";
 import MyProfile from './components/MyProfile/App';
+import Profile from './components/Profile/App';
 function App() {
   return (
     <Router> 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/new" element={<NewPass/>} />
         <Route path="/home" element={<Homepage/>}/>
         <Route path="/myprofile" element={<MyProfile/>}/>
+        <Route path="/profile" element={<Profile/>}/>
 
         </Routes>
    </Router>
