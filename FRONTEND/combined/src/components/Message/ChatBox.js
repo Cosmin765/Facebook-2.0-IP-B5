@@ -185,7 +185,7 @@ function ChatBox() {
                     : "Nothing here."}
                   status={people.status}
                  //classUnread={unread[people.id]}
-                  className={`msg_${people.id === selectedPersonId ? 'msg_selected' : ''}`}
+                  className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
           onClick={() => handlePersonClick(people.id,people.profilePic,people.name,people.status)}
                   />
 
