@@ -6,10 +6,10 @@ import '../../styles/homepageStyles/comment.css';
 
 export default function Comment({comment}) {
     return (
-        <div className="test">
-            <div className="comment">
+        <div className="feed_test">
+            <div className="feed_comment">
                 <ShowAccount account={comment.account} />
-                <div className="comentText">
+                <div className="feed_comentText">
                     <p>{comment.comment}</p>
                 </div>
             </div>

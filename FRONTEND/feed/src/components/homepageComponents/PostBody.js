@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import '../../styles/homepageStyles/PostBody.css';
+import '../../styles/homepageStyles/postBody.css';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
 
 export default function PostBody(props) {
@@ -40,9 +40,9 @@ export default function PostBody(props) {
   return (
     <>
       {/* TypeArea */}
-      <div className='typeArea'>
+      <div className='feed_typeArea'>
         <textarea
-          className='typeAreaField'
+          className='feed_typeAreaField'
           name="postContent"
           placeholder="What's on your mind?"
           onChange={updateTypeAreaVal}
@@ -51,16 +51,16 @@ export default function PostBody(props) {
 
       {/* Imported pictures */}
       {postDataType.files.length > 0 && 
-        <div className='picturesList'>
-          <p className='pictureItem'>Pictures: {postDataType.files[0].name}</p>
-          <button className='removePicture'>x</button>
+        <div className='feed_picturesList'>
+          <p className='feed_pictureItem'>Pictures: {postDataType.files[0].name}</p>
+          <button className='feed_removePicture'>x</button>
         </div>
       }
 
       {/* BottomButtons */}
-      <div className='bottomButtons'>
-        <div className='bottomButtonsLeft'>
-          <div className="uploadPictureBtn">
+      <div className='feed_bottomButtons'>
+        <div className='feed_bottomButtonsLeft'>
+          <div className="feed_uploadPictureBtn">
             <label htmlFor="file-input">
               <img src={loadImg} />
             </label>
@@ -68,9 +68,9 @@ export default function PostBody(props) {
           </div>
         </div>
 
-        <div className='bottomButtonsRight'>
-          <button className='btn' onClick={PostMessage} >Post</button>
-          <button className='btn' onClick={CancelPost}>Cancel</button>
+        <div className='feed_bottomButtonsRight'>
+          <button className='feed_btn' onClick={PostMessage} >Post</button>
+          <button className='feed_btn' onClick={CancelPost}>Cancel</button>
         </div>
       </div>
     </>

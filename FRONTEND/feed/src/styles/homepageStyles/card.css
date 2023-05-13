@@ -1,4 +1,4 @@
-.card{
+.feed_card{
     background-color: var(--card-clr);
     border: none;
     border-radius: 10px;
@@ -9,13 +9,13 @@
 
 }
 
-.bottomCard{
+.feed_bottomCard{
     margin-top: 20px;
     border-top: 1px solid gray;
     padding: 0;
 }
 
-.bottomCard{
+.feed_bottomCard{
     width: 100%;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -26,38 +26,38 @@
     justify-items: center;
 }
 
-.postBody .media{
+.feed_postBody .feed_media{
     display: flex;
     justify-content: center;
 }
 
 
 
-.postBody img{
+.feed_postBody img{
     width: 40%;
 }
 
-.likes{
+.feed_likes{
     display: flex;
 }
 
-.likes img{
+.feed_likes img{
     padding: 10px;
 }
 
-.comments{
+.feed_comments{
     display: flex;
 }
 
-.comments img{
+.feed_comments img{
     padding: 10px;
 }
 
-.shares{
+.feed_shares{
     display: flex;
 }
 
-.shares img{
+.feed_shares img{
     padding: 10px;
 }
 
@@ -88,11 +88,15 @@
 
 
 
-.commentsBtn{
+.feed_commentsBtn{
     border: none;
     cursor: pointer;
     background: none;
 }
+    
+.feed_commentsBtn img{
+    width: 20px;
+}
 
 
 
@@ -122,18 +126,17 @@
 
 
 
-
-.likeBtn{
+.feed_likeBtn{
     display: flex;
 }
 
-.likeBtn p{
+.feed_likeBtn p{
     padding-top: 18px;
     padding-left: 10px;
     margin: 0;
 }
 
-.likeBtn button{
+.feed_likeBtn button{
     background-color: transparent;
     cursor: pointer;
     border: none;
@@ -144,11 +147,11 @@
     background-size: 20px;
 }
 
-.like{
+.feed_like{
     background-image: url('../../icons/homepageIcons/like.svg');
 }
 
-.like-clicked{
+.feed_like-clicked{
     background-image: url('../../icons/homepageIcons/like-clicked.svg');
 }
 
