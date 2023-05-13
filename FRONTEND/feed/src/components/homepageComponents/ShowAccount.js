@@ -1,5 +1,5 @@
 // style
-import '../../styles/homepageStyles/ShowAccount.css';
+import '../../styles/homepageStyles/showAccount.css';
 
 export default function ShowAccount({account:{name, picture, uploadDate}}) {
 
