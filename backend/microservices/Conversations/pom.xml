@@ -79,7 +79,7 @@
             <scope>compile</scope>
         </dependency>
 
-       <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
@@ -106,12 +106,13 @@
             <artifactId>sockjs-client</artifactId>
             <version>1.5.1</version>
         </dependency>
-        <dependency>
+
+        <!--dependency>
             <groupId>com.example</groupId>
             <artifactId>Facebook</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency-->
         <!-- -->
 
 
