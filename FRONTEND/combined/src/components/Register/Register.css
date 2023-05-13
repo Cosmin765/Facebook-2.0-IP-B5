@@ -68,12 +68,20 @@
 .register_input:focus {
     outline-color: #da3cf3;
 }
-
+.register_input_birth {
+    height: 2em;
+    padding: 1.5em;
+   
+}
 .reg_birthday{
     background-color: white;
     color: #C3C3C3;
-    font-weight: bold;
+    font-size: 15px;
     font-family: "Montserrat";
+    margin:0;
+    padding: 0;
+    margin-bottom: -9px;
+    margin-left: 5px;
 }
 
 .reg_dropdown-container{
@@ -120,7 +128,7 @@
     align-items: center;
     transition: 0.5s;
     font-family: 'Montserrat';
-
+margin-left: 10%;
     border-radius: 25px;
     cursor: pointer;
     color: white;

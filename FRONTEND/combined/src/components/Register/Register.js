@@ -30,7 +30,8 @@ const RegisterAccount = () => {
         <input name="firstName" className="register_input" type="text" placeholder="First Name" required/>
         <input name="lastName" className="register_input" type="text" placeholder="Surname" required/>
         <div className="reg_birthday"> Birthday: </div>
-        <input name="birthday" className="register_input" type="date" required/>
+
+        <input name="birthday" className="register_input register_input_birth" type="date" required/>
         <input name="email" className="register_input"  type="email" placeholder="Email" required/>
         <input name="password" className="register_input" type="password" placeholder="Password" required/>
         <input className="register_input" type="password" placeholder="Confirm Password" required/>
@@ -41,7 +42,7 @@ const RegisterAccount = () => {
           Already have an account? <Link to='/login'>Log in</Link>
         </div>
         
-        <input className="reg_change-btn" type="submit" value = "Register" />
+        <Link className="router_link" to='/login'> <input className="reg_change-btn" type="submit" value = "Register" /></Link>
         <div className="reg_check-container">
           <input  className="register_input" type="checkbox" id="agreement" name="agreement" required/>
           <label className="register_label"  htmlFor="agreement">I agree to the terms and conditions</label>
