@@ -7,27 +7,29 @@
 
 
     <script>
-    var socket = new SockJS('http://localhost:8086/chat');
-    var stompClient = Stomp.over(socket);
+    // create a new SocketJS connection
+    const socket = new SockJS('http://localhost:8086/chat');
 
-    stompClient.connect({}, function(frame) {
-      console.log('Connected: ' + frame);
-      stompClient.subscribe('/topic/messages', function(message) {
-        console.log('Received: ' + message.body);
-      });
-    });
+    // add event listener for when the connection is established
+    socket.onopen = () => {
+      console.log('Connection established');
+      // send a message to the server
+      socket.send('Hello, server!');
+    };
 
-    function sendMessage() {
-      var messageInput = document.getElementById('messageInput');
-      stompClient.send("/app/chat/1", {}, JSON.stringify({'content': messageInput.value}));
-      messageInput.value = '';
-    }
+    // add event listener for when a message is received from the server
+    socket.onmessage = (event) => {
+      console.log('Message received:', event.data);
+    };
 
-
-    </script>
+    // add event listener for when the connection is closed
+    socket.onclose = () => {
+      console.log('Connection closed');
+    };
+  </script>
 </head>
 <body>
-<input id="messageInput" type="text">
-<button onclick="sendMessage()">Send</button>
+<--input id="messageInput" type="text">
+<--button onclick="sendMessage()">Send</--button>
 </body>
 </html>

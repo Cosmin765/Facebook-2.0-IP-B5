@@ -1,9 +1,11 @@
 package org.Facebook.service;
 
+import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.dto.UserDto;
+import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.PostRepository;
@@ -26,6 +28,9 @@ public class PostService {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CommentService commentService;
+
 
     public List<Post> getAllPosts() {
         return postRepository.findAllPostsDesc();
@@ -33,13 +38,24 @@ public class PostService {
 
     public void createPost(PostDto postDto) {
         Post post = PostMapper.fromDto(postDto);
-        User user = userRepository.getById(postDto.getUserId());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
+        User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
-
+        postDto.getPostImages().forEach(postImage -> post.getImages().add(PostImageMapper.fromDto(postImage)));
         postRepository.save(post);
     }
 
-    public void deletePost(Integer id) {
+    public void deletePost(Integer id) throws Exception {
+        List<Comment> comments = new ArrayList<>();
+        try {
+            comments = commentService.getCommentsByPost(getPostById(id));
+        } catch (Exception e) {
+            throw new Exception("Post not found.");
+        }
+        for (Comment comment : comments) {
+            commentService.deleteComment(comment.getId());
+        }
         postRepository.deleteById(id);
     }
 

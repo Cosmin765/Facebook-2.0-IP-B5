@@ -26,9 +26,8 @@ public class KeywordController {
     }
 
     @GetMapping(value = "/key")
-    public List<Keyword> getKeyByAdProfId(@RequestParam("value") String value){
-        int num = Integer.parseInt(value);
-        return keywordService.getKeyByProfile(num);
+    public List<Keyword> getKeyByAdProfId(@RequestParam("value") Integer value){
+        return keywordService.getKeyByProfile(value);
     }
 
     //test for keyExt

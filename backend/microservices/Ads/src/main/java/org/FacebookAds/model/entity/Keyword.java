@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -15,9 +16,10 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    private Integer adProfileId;
-    private String word;
+    public String word;
     private Integer frequency;
     private Double sentimentScore;
     private Double score;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

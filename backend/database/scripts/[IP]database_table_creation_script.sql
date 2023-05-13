@@ -76,8 +76,8 @@ CREATE TABLE posts (
 id INT PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL,
 content TEXT NOT NULL,
-ad_location VARCHAR(255),
-ad_status VARCHAR(255),
+location VARCHAR(255),
+status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users(id)
@@ -88,7 +88,7 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 CREATE TABLE post_images (
 id INT PRIMARY KEY AUTO_INCREMENT,
 post_id INT NOT NULL,
-image_data LONGBLOB NOT NULL,
+image_link VARCHAR(255) NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (post_id) REFERENCES posts(id)
@@ -129,9 +129,9 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 -- Ads table: add location and status columns
 CREATE TABLE ads (
 id INT PRIMARY KEY AUTO_INCREMENT,
-user_id INT NOT NULL,
+publisher_id INT NOT NULL,
 title VARCHAR(255) NOT NULL,
-image LONGBLOB,
+image_link VARCHAR(255),
 content TEXT NOT NULL,
 keywords VARCHAR(255) NOT NULL,
 link VARCHAR(255) NOT NULL,
@@ -139,7 +139,7 @@ location VARCHAR(255),
 status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES users(id)
+FOREIGN KEY (publisher_id) REFERENCES users(id)
 );
 
 -- Ad clicks table: add clicks_count column
@@ -167,23 +167,30 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 -- Keywords table
 CREATE TABLE keywords (
 id INT PRIMARY KEY AUTO_INCREMENT,
-ad_profile_id INT NOT NULL,
 word VARCHAR(255) NOT NULL,
 frequency INT,
 sentiment_score FLOAT,
 score FLOAT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id)
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Ad_profiles table
 CREATE TABLE ad_profiles (
 id INT PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL,
-keyword_id INT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (user_id) REFERENCES users(id),
-FOREIGN KEY (keyword_id) REFERENCES keywords(id)
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- many-to-many relation between profile and keyword
+CREATE TABLE keyword_to_profile (
+id INT PRIMARY KEY AUTO_INCREMENT,
+keyword_id INT NOT NULL,
+ad_profile_id INT NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (keyword_id) REFERENCES keywords(id),
+FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id)
 );

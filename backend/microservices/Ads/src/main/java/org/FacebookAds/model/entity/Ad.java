@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,14 @@ public class Ad {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+  @ManyToOne
+  @JoinColumn(name = "publisher_id")
+  private User publisher;
   private String title;
+  private String imageLink;
   private String content;
-  private Integer numberOfClicks;
+  private String link;
+  @OneToMany
+  @JoinColumn(name = "ad_id")
+  private List<Keyword> keywords;
 }
