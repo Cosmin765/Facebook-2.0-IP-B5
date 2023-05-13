@@ -44,8 +44,8 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public List<MessageDto> getLastMessagesFromConversation(Integer conversationId, Integer count) {
-        List<Message> messages = messageRepository.findLastMessagesForConversation(conversationId, count);
+    public List<MessageDto> getLastMessagesFromConversation(Integer conversationId, Integer count, Integer cursor) {
+        List<Message> messages = messageRepository.findLastMessagesForConversation(conversationId, count, cursor);
         Collections.reverse(messages);
         return messages.stream().map(MessageMapper::toDto).toList();
     }

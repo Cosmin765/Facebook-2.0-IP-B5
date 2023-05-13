@@ -40,8 +40,8 @@ public class MessageController {
     }
 
     @PostMapping("/conv/messages")
-    public List<MessageDto> lastMessages(@RequestParam Integer id, @RequestParam Integer count) {
-        return messageService.getLastMessagesFromConversation(id, count);
+    public List<MessageDto> lastMessages(@RequestParam Integer id, @RequestParam Integer count,@RequestParam Integer cursor) {
+        return messageService.getLastMessagesFromConversation(id, count,cursor);
     }
 
     @RequestMapping(value = "/conv/messages")

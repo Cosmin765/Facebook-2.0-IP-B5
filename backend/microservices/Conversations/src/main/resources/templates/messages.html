@@ -40,7 +40,8 @@
 
             const count = params.get('count');
              const id = params.get('id');
-            const url = `http://localhost:8086/api/messages/conv/messages?id=${id}&count=${count}`;
+            const cursor = params.get('cursor');
+            const url = `http://localhost:8086/api/messages/conv/messages?id=${id}&count=${count}&cursor=${cursor}`;
             const response = await fetch(url, {method: 'POST'});
             const data = await response.json();
             for(const message of data) {
