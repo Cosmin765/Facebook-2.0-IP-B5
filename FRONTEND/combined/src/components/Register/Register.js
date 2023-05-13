@@ -21,22 +21,23 @@ const RegisterAccount = () => {
 
   return (
    
-      <form className="reg_cover">
+      <form className="reg_cover" action="http://localhost:8084/register" method="POST">
         <div className="reg_input-container">
         
         <h1 className="reg_Title">Sign up</h1>
         <h1 className="reg_name1">       </h1>
         
-        <input className="register_input" type="text" placeholder="First Name" required/>
-        <input  className="register_input" type="text" placeholder="Surname" required/>
+        <input name="firstName" className="register_input" type="text" placeholder="First Name" required/>
+        <input name="lastName" className="register_input" type="text" placeholder="Surname" required/>
         <div className="reg_birthday"> Birthday: </div>
-       <input className="register_input register_input_birth" type="date" placeholder="Birthday" required></input>
-        <input className="register_input"  type="email" placeholder="Email" required/>
-        <input  className="register_input" type="password" placeholder="Password" required/>
-        <input  className="register_input" type="password" placeholder="Confirm Password" required/>
+
+        <input name="birthday" className="register_input register_input_birth" type="date" required/>
+        <input name="email" className="register_input"  type="email" placeholder="Email" required/>
+        <input name="password" className="register_input" type="password" placeholder="Password" required/>
+        <input className="register_input" type="password" placeholder="Confirm Password" required/>
       </div>
       <div className="reg_input-container">
-        <div className="reg_text">koobecaf.</div>
+        <div className="reg_text">koobecaf.</div> 
         <div className="reg_name2">
           Already have an account? <Link to='/login'>Log in</Link>
         </div>

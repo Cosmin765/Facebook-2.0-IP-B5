@@ -13,8 +13,9 @@ import java.util.Date;
 @Builder
 public class UserDto {
     private Integer id;
-    private String name;
-    private Date birthday;
+    private String firstName;
+    private String lastName;
+    private String birthday;
     private String email;
     private String bio;
 }
