@@ -5,7 +5,7 @@ import RegisterAccount from './components/Register/App';
 import ForgotPass from './components/Forgot/forgotpass';
 import NewPass from './components/Forgot/newpass';
 import Verify from './components/Forgot/verify';
-import Homepage from "./components/Home/components/homepageComponents/Homepage";
+import Homepage from "./components/HomePage/App";
 function App() {
   return (
     <Router> 
