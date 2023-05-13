@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <title>CTU test</title>
+</head>
+<body>
+    <input type="text" id="ci" />
+    <button id="c" onclick="connect(handleClick('ci'))">Connect</button>
+    <br>
+    <input type="text" id="si" />
+    <button id="s" onclick="sendMessage(handleClick('si'))">Send</button>
+    <script>
+        function handleClick(elementId) {
+            const username = document.getElementById(elementId).value;
+            return username;
+        }
+
+        const socketAddress = 'http://localhost:8086';
+        let stompClient;
+
+        function connect(userId) {
+            const socket = new SockJS(socketAddress + '/chat');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                // console.log("Connected to: " + frame);
+                console.log("Listening to");
+                stompClient.subscribe("/topic/messages/" + userId, function (response) {
+                    let data = JSON.parse(response.body);
+                    console.log(data);
+                });
+            });
+        }
+
+        function sendMessage(to) {
+            const message = {
+                conversationId: 1,
+                userId: 1,
+                content: "hello, bitch"
+            };
+            stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
+            // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
+        }
+
+    </script>
+</body>
+</html>
