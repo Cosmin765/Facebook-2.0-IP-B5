@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+ 
+
+
+.newpass_Title{
+    font-family:"Viga" ;
+    font-size: 350%;
+    background-color: white;
+    margin: 0;
+    margin-top: 5px;
+}
+
+
+.new_page{
+     box-sizing: border-box;
+    font-family:"Montserrat";
+    background-color: rgb(241,229,255);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(85deg, #2c80b8, #8e44ad);
+}
+
+.newpass_cover{
+    background-color: white;
+    width: 30em;
+    height: 23em;
+    position: relative;
+    border-radius: 2em;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.newpass_input{
+    border: none;
+    background-color:  rgb(236,204,239);
+    height: 2em;
+    width: 70%;
+    border-radius: 20px;
+    font-family: 'Montserrat';
+
+    text-align: center;
+    font-size: 14px;
+    padding: 1em;
+    margin-top: -5px;
+}
+
+.newpass_input:focus{
+    outline-color: rgb(119,3,252);
+}
+
+.newpass_change-btn{
+    width: 12em;
+    height: 3em;
+    background-color: rgb(119,3,252);
+    display: flex;
+    font-family: 'Montserrat';
+
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    border-radius: 25px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+  margin-bottom: 10px;
+}
+
+.newpass_change-btn:hover{transform: scale(1.1);}
+
+.newpass_Text{
+    position: relative;
+    bottom: -2em;
+}

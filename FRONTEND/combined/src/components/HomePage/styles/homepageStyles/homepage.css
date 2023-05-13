@@ -1,0 +1,96 @@
+.feed_homepageContainer{
+    width: calc(100% - var(--left-menu-width));
+    margin-left: var(--left-menu-width);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    position: static;
+
+}
+
+.feed_modal{
+    background: rgba(49,49,49,0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    z-index: 1;
+}
+
+.feed_spacer{
+    display: none;
+}
+
+.feed_spacer.active{
+    display: block;
+}
+
+.feed_middlePanel.active{
+    margin-right: var(--online-friends-width);
+}
+
+.feed_middlePanel{
+    margin: 10px;
+    margin-top: 80px;
+}
+
+.feed_rightPanel{
+    margin: 10px;
+    /* width: auto; */
+    /* width: var(--online-friends-width); */
+}
+
+.feed_rightPanel.active{
+    position: absolute;
+    right: 0;
+}
+
+.feed_card{
+    background-color: var(--card-clr);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 5px lightgray;
+    border: none;
+    padding: 20px;
+    margin: 20px;
+}
+
+
+
+
+/* notifications */
+
+.feed_notificationPanel{
+    position: fixed;
+    top: 80px;
+    width: calc(var(--online-friends-width));
+    height: calc(100vh - 150px);
+    z-index: 2;
+    display: none;
+  }
+  
+.feed_notificationPanel.active{
+    right: 10px;
+    display: block;
+  }
+
+.feed_notif{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .feed_notif p{
+    padding-left: 5px;
+    margin: 0;
+  }
+
+.feed_card_border{
+    box-shadow: none;
+}

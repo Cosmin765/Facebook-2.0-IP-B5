@@ -1,0 +1,19 @@
+.feed_comment{
+    background-color: #ebebeb;
+
+    /* width:100%; */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.feed_comentText{
+    font-size: 14px;
+}
+
+.feed_test{
+    display: fixed;
+}
