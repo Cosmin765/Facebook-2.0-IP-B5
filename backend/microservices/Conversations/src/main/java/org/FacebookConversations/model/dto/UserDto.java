@@ -1,23 +1,19 @@
 package org.FacebookConversations.model.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
-public class ConversationUserDto {
+public class UserDto {
     private Integer id;
-    private ConversationDto conversation;
-    private UserDto user;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String email;
+    private String bio;
 }

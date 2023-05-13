@@ -8,8 +8,8 @@ public class ConversationUserMapper {
     public static ConversationUserDto toDto(ConversationUser conversationUser){
         return ConversationUserDto.builder()
                 .id(conversationUser.getId())
-                .conversationId(conversationUser.getConversationId())
-                .userId(conversationUser.getUserId())
+                .conversation(ConversationMapper.toDto(conversationUser.getConversation()))
+                .user(UserMapper.toDto(conversationUser.getUser()))
                 .createdAt(conversationUser.getCreatedAt())
                 .updatedAt(conversationUser.getUpdatedAt())
                 .build();

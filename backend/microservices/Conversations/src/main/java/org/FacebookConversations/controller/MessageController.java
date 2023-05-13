@@ -60,7 +60,7 @@ public class MessageController {
     }
 
     @PostMapping(value = "")
-    public MessageDto createMessage(@RequestBody Message message) {
+    public MessageDto createMessage(@RequestBody MessageDto message) {
         Message mess = messageService.saveMessage(message);
         return MessageMapper.toDto(mess);
     }

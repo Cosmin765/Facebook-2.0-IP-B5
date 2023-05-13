@@ -1,7 +1,7 @@
-package org.Facebook.mapper;
+package org.FacebookConversations.mapper;
 
-import org.Facebook.model.dto.UserDto;
-import org.Facebook.model.entity.User;
+import org.FacebookConversations.model.dto.UserDto;
+import org.FacebookConversations.model.entity.User;
 
 public class UserMapper {
     public static UserDto toDto(User user){
