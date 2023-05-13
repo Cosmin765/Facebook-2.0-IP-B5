@@ -42,7 +42,7 @@ const RegisterAccount = () => {
           Already have an account? <Link to='/login'>Log in</Link>
         </div>
         
-        <Link className="router_link" to='/login'> <input className="reg_change-btn" type="submit" value = "Register" /></Link>
+        <input className="reg_change-btn" type="submit" value = "Register" />
         <div className="reg_check-container">
           <input  className="register_input" type="checkbox" id="agreement" name="agreement" required/>
           <label className="register_label"  htmlFor="agreement">I agree to the terms and conditions</label>
