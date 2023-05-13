@@ -29,13 +29,13 @@ function EditProfile(prop) {
   return prop.isOpen ? (
     <div className="editprofile_ep-popup">
       <div className="editprofile_open-popup">
-        <button className="editprofile_x-btn" onClick={() => prop.onClose(false)}> x </button>
+        <button className="editprofile_x-btn profile_button" onClick={() => prop.onClose(false)}> x </button>
         <h2>Change your name</h2>
         <textarea className="editprofile_inputBox" value={name} onChange={(n) => setName(n.target.value)} />
         <br></br>
         <h2>Select profile photo</h2>
-        <input type='file' onChange={handleImageUpload} />
-        <button className="editprofile_saving-btn" onClick={handleSave}>Save</button>
+        <input className="myprofile_input" type='file' onChange={handleImageUpload} />
+        <button className="editprofile_saving-btn profile_button" onClick={handleSave}>Save</button>
       </div>
     </div>
   ) : null;

@@ -122,7 +122,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
       <div class="myprofile_profile-info">
         <h2 className="myprofile_name">{nameText}</h2>
       </div>
-      <button className="myprofile_change-photo" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
+      <button className="myprofile_change-photo profile_button" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
       <EditProfile
         isOpen={isEditProfileOpen}
         onClose={() => setIsEditProfileOpen(false)}

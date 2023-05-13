@@ -9,7 +9,7 @@ export default function StretchedMenu() {
     return (
     
           <div className="smenu">
-            <h1>k.</h1>
+            <h1 className='stitle'>k.</h1>
             <div className="sgrid_wrapper">
             <div className="sgrid_container">
               <div class="sgrid-item">

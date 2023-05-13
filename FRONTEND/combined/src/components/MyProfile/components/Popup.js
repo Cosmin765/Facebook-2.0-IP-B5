@@ -14,7 +14,7 @@ function Popup({ trigger, setTrigger, descriptionText, setDescriptionText }) {
   return trigger ? (
     <div className="profile_popup">
       <div className="profile_popup-inner">
-        <button className="profile_close-btn" onClick={() => setTrigger(false)}>
+        <button className="profile_close-btn profile_button" onClick={() => setTrigger(false)}>
           Close
         </button>
         <h2>Edit your description</h2>
@@ -24,7 +24,7 @@ function Popup({ trigger, setTrigger, descriptionText, setDescriptionText }) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <br />
-        <button className="profile_save-btn" onClick={handleSave}>
+        <button className="profile_save-btn profile_button" onClick={handleSave}>
           Save
         </button>
       </div>

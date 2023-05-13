@@ -6,6 +6,7 @@ import icon4 from '../icons/Chat_alt_2_light.svg';
 
 // import '../styles/large_menu.css';
 import '../styles/leftMenu.css'
+import { Link } from "react-router-dom";
 
 export default function LargeMenu() {
     return (
@@ -18,7 +19,10 @@ export default function LargeMenu() {
               </div>
               <div className="feed_grid-item">
                 <img src={icon2}></img>
-                <span>Profile</span>
+                <span>
+                 <Link className="router_link" to='/myprofile'>
+                  Profile</Link>
+                  </span>
               </div>
               <div className="feed_grid-item">
                 <img src={icon3}></img>
