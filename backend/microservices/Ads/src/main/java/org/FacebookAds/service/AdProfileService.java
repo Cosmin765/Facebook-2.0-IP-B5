@@ -16,10 +16,8 @@ import java.util.List;
 
 @Service
 public class AdProfileService {
-
-    private AdProfileRepository adProfileRepository;
-
-    private KeywordRepository keywordRepository;
+    private final AdProfileRepository adProfileRepository;
+    private final KeywordRepository keywordRepository;
 
     @Autowired
     public AdProfileService(AdProfileRepository adProfileRepository, KeywordRepository keywordRepository) {
@@ -41,15 +39,21 @@ public class AdProfileService {
 
         for (UserToken userToken : userTokenList) {
             Keyword keyword = checkIfExists(keywordList, userToken);
+            if (userToken.getScore() == 0) {
+                userToken.setScore(0.5);
+            }
+
             if (keyword != null) {
                 //ad exists -> update
                 int frequency = keyword.getFrequency() + 1;
                 double sentimentScore = keyword.getSentimentScore();
                 double score = keyword.getScore();
 
-                //calc new score ???
-                sentimentScore = (sentimentScore + userToken.getScore()) / frequency;
-                score = (sentimentScore * frequency + userToken.getScore()) / (frequency + 1);
+                double alpha = 0.2;
+
+                //calc new score
+                sentimentScore = (sentimentScore + userToken.getScore()) * 0.5;
+                score = (alpha * score) + (sentimentScore * Math.pow(frequency, 2) + userToken.getScore()) / (frequency + 1);
                 keywordRepository.updateKeyword(adProfileId, userToken.getLemma(), frequency, sentimentScore, score);
             } else {
                 //ad doesn't exist -> add key
@@ -71,11 +75,4 @@ public class AdProfileService {
         }
         return null;
     }
-
-
-
-
-
-
-
 }
