@@ -1,4 +1,6 @@
 import React, { useState ,useEffect} from "react";
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
 import './ChatBox.css';
 // import icon from './Vectoricon.png';
 // import icon2 from './Group.png';
@@ -8,6 +10,7 @@ import search from './icons/search.svg';
 import StretchedMenu from "./stretched_menu";
 import PersonTemplate from "./PersonTemplate";
 import send_msg from './icons/send_msg.png';
+
 
 let people = [
   { id:1,name: 'Cohman Teodora', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg', lastChecked:null} ,
@@ -122,7 +125,34 @@ function ChatBox() {
     }
   };
 
+  const socketAddress = 'http://localhost:8086';
+  let stompClient;
+
+  function connect(me) {
+    const socket = new SockJS(socketAddress + '/chat');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+      // console.log("Connected to: " + frame);
+      console.log("Listening to");
+      stompClient.subscribe("/topic/messages/" + me, function (response) {
+        let data = JSON.parse(response.body);
+        console.log(data);
+      });
+    });
+  }
+
+  function sendMessage(me, to) {
+    const message = {
+        conversationId: to,
+        userId: me,
+        content: "hello!"
+    };
+    stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
+    // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
+  }
+
   function handlePersonClick(personId,profile,personName,personStatus) {
+    connect(1);
     setSelectedPersonId(personId);
     setSelectedPersonTime(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) );
     const person = people.find(p => p.id === personId);
@@ -185,7 +215,7 @@ function ChatBox() {
                     : "Nothing here."}
                   status={people.status}
                  //classUnread={unread[people.id]}
-                  className={`msg_${people.id === selectedPersonId ? 'msg_selected' : ''}`}
+                  className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
           onClick={() => handlePersonClick(people.id,people.profilePic,people.name,people.status)}
                   />
 

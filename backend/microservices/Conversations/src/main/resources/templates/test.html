@@ -40,7 +40,7 @@
             const message = {
                 conversationId: 1,
                 userId: 1,
-                content: "hello, bitch"
+                content: "hello!"
             };
             stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
             // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));

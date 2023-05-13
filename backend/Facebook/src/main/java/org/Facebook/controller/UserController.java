@@ -6,6 +6,8 @@ import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +59,13 @@ public class UserController {
     @ResponseBody
     public String getWelcome(){
         return "Hello world!";
+    }
+
+    @GetMapping(value = "/getOwnId")
+    @ResponseBody
+    public Integer getOwnId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        return user.getId();
     }
 }

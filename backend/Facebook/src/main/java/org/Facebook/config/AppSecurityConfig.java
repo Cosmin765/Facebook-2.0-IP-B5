@@ -24,7 +24,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 
         http.authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET,"/", "/login").permitAll()
+                .antMatchers(HttpMethod.GET,"/", "/login", "/getOwnId").permitAll()
                 .antMatchers(HttpMethod.POST,"/register").permitAll()
                 .anyRequest().authenticated();
         http.formLogin().loginPage("http://localhost:3000/login").loginProcessingUrl("/login");
