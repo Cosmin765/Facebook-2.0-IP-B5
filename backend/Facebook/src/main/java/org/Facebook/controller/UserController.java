@@ -5,9 +5,11 @@ import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -18,8 +20,9 @@ public class UserController {
     private UserService userService;
     @PostMapping(value="/register")
     @ResponseBody
-    public void registerUser(@RequestBody User user) {
+    public RedirectView registerUser(@ModelAttribute User user) {
         userService.registerUser(user);
+        return new RedirectView("http://localhost:3000/login");
     }
     @GetMapping(value = "/users")
     @ResponseBody
