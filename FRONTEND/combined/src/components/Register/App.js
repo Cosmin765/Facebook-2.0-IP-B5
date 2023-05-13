@@ -3,13 +3,13 @@ import "./Register.css";
 
 function App() {
   return (
-    <div>
+    <div className="reg_body">
       {/* <Navbar bg="dark" variant="dark">
         <Container> 
           <Navbar.Brand>Koobecaf</Navbar.Brand>
         </Container>s
       </Navbar> */}
-      <div className="page">
+      <div className="reg_page">
         <RegisterAccount/>
       </div>
     </div>

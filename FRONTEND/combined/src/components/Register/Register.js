@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
+import { Link } from "react-router-dom";
 
 const RegisterAccount = () => {
   const [day, setDay] = useState("Day");
@@ -19,15 +20,18 @@ const RegisterAccount = () => {
   };
 
   return (
-    <div className="cover">
-      <div className="input-container">
-        <h1 className="Title">Sign up</h1>
-        <h1 className="name1">It’s quick and easy</h1>
-        <input className="register_input" type="text" placeholder="First Name" />
-        <input  className="register_input" type="text" placeholder="Surname" />
-        <div className="birthday"> Birthday: </div>
-        <div className="dropdown-container">
-          <select className="dropdown" value={day} onChange={handleDayChange}>
+   
+      <form className="reg_cover">
+        <div className="reg_input-container">
+        
+        <h1 className="reg_Title">Sign up</h1>
+        <h1 className="reg_name1">       </h1>
+        
+        <input className="register_input" type="text" placeholder="First Name" required/>
+        <input  className="register_input" type="text" placeholder="Surname" required/>
+        <div className="reg_birthday"> Birthday: </div>
+        <div className="reg_dropdown-container">
+          <select className="reg_dropdown" value={day} onChange={handleDayChange}>
             <option value="Day" disabled>
               Day
             </option>
@@ -37,7 +41,7 @@ const RegisterAccount = () => {
               </option>
             ))}
           </select>
-          <select className="dropdown" value={month} onChange={handleMonthChange}>
+          <select className="reg_dropdown" value={month} onChange={handleMonthChange}>
             <option value="Month" disabled>
               Month
             </option>
@@ -54,7 +58,7 @@ const RegisterAccount = () => {
             <option value="November">November</option>
             <option value="December">December</option>
           </select>
-          <select className="dropdown2" value={year} onChange={handleYearChange}>
+          <select className="reg_dropdown2" value={year} onChange={handleYearChange}>
             <option value="Year" disabled>
               Year
             </option>
@@ -65,22 +69,25 @@ const RegisterAccount = () => {
             ))}
           </select>
         </div>
-        <input className="register_input"  type="text" placeholder="Email" />
-        <input  className="register_input" type="text" placeholder="Password" />
-        <input  className="register_input" type="text" placeholder="Confirm Password" />
+        <input className="register_input"  type="email" placeholder="Email" required/>
+        <input  className="register_input" type="password" placeholder="Password" required/>
+        <input  className="register_input" type="password" placeholder="Confirm Password" required/>
       </div>
-      <div className="input-container">
-        <div className="text">koobecaf.</div>
-        <div className="name2">
-          Already have an account? <a href="#">Log in</a>
+      <div className="reg_input-container">
+        <div className="reg_text">koobecaf.</div>
+        <div className="reg_name2">
+          Already have an account? <a href="#"><Link to='/login'>Log in</Link></a>
         </div>
-        <div className="change-btn">Register</div>
-        <div className="check-container">
-          <input  className="register_input" type="checkbox" id="agreement" name="agreement" />
+        
+        <input className="reg_change-btn" type="submit" value = "Register" />
+        <div className="reg_check-container">
+          <input  className="register_input" type="checkbox" id="agreement" name="agreement" required/>
           <label className="register_label"  htmlFor="agreement">I agree to the terms and conditions</label>
         </div>
+        
       </div>
-    </div>
+      </form>
+   
   );
 };
 

@@ -1,0 +1,112 @@
+.onlineFriends{
+    position: sticky;
+    overflow-y: scroll;
+    top: 100px;
+    /* height: 80vh; */
+    height: calc(100vh - 150px);
+    /* height: 100%; */
+    /* width: 100%; */
+    /* width: 300px; */
+    width: 20vw;
+    /* width: var(--online-friends-width); */
+    /* width: var(60vw); */
+
+    margin: 0;
+}
+
+.friends{
+    position: relative;
+    display: block;
+}
+
+.friend{
+    margin: 10px;
+}
+
+.burger{
+    display: none;
+    cursor: pointer;
+}
+
+.arrowButton{
+    width: 44px;
+    height: 44px;
+}
+
+.onlineFriends::-webkit-scrollbar-thumb {
+	background-color: var(--main-clr);
+}
+
+.onlineFriends::-webkit-scrollbar {
+    width: 6px;
+    background-color: white;
+}
+
+.onlineFriends::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+@media screen and (max-width: 980px) {
+    .burger{
+        display: block;
+        display: flex;
+        justify-content: end;
+    }
+
+    .friends{
+        right: 400px;
+        flex-direction: column;
+    }
+
+    .friends.active{
+        right: 0px;
+    }
+
+    .onlineFriends{
+        width: 44px;
+        height: 44px;
+        /* padding: 100px; */
+        overflow-y: hidden;
+    }
+
+    .onlineFriends.card{
+        padding: 0;
+    }
+
+    .onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        /* padding: 20px; */
+        overflow-y: scroll;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 748x) {
+    .card{
+        margin: 0;
+        padding: 0;
+    }
+
+    .burger{
+        margin: 0;
+        padding: 0;
+    }
+
+    .onlineFriends{
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .onlineFriends.card{
+        padding: 0;
+        margin: 0;
+    }
+
+    .onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        padding: 20px;
+        overflow-y: scroll;
+    }
+}

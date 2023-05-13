@@ -7,12 +7,11 @@
     overflow: hidden;
    
 }
-.title{
+.log_title{
     font-family: 'Viga';
+    font-size: xx-large;
 }
-input {
-    font-family: 'Montserrat';
-}
+
 .banner{
     width:100%;
     height:60px;
@@ -24,7 +23,7 @@ input {
     padding-top: 7px;
     padding-left: 10px;
 }
-.center{
+.log_center{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -34,46 +33,42 @@ input {
     border-radius: 10px;
 }
 
-.center h1{
+.log_center h1{
     text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid silver;
 }
 
-.center form{
+.log_center form{
     padding: 0 40px;
     box-sizing: border-box;
 }
 
-form .txt_field{
+form .log_txt_field{
     position: relative;
     background-color: #ecccef;
     border-radius: 15px;
     margin: 30px 0;
-}
 
-.txt_field input{
+}
+.log_link{
+    text-decoration: none;
+    color: #a6a6a6;
+}
+.log_txt_field input{
     width: 100%;
     padding: 0 5px;
+    text-indent: 5px;
     height: 40px;
     font-size: 16px;
     border: none;
+    font-family: 'Montserrat';
     background: none;
     outline: none;
 }
 
-.txt_field label{
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    color: #5e5e5e;
-    transform: translateY(-50%);
-    font-size: 16px;
-    pointer-events: none;
-    transition: .5s;
-}
 
-.txt_field span::before{
+.log_txt_field span::before{
     content: '';
     position: absolute;
     top: 40px;
@@ -84,28 +79,28 @@ form .txt_field{
     transition: .5s;
 }
 
-.txt_field input:focus ~ label,
-.txt_field input:valid ~ label{
+.log_txt_field input:focus ~ label,
+.log_txt_field input:valid ~ label{
     top: -10px;
     color: #da3cf3
 }
 
-.txt_field input:focus ~ span::before,
-.txt_field input:valid ~ span::before{
+.log_txt_field input:focus ~ span::before,
+.log_txt_field input:valid ~ span::before{
     width:93%;
 }
 
-.pass{
+.log_pass{
     margin: -5px 0 20px 5px;
     color: #a6a6a6;
     cursor: pointer;
 }
 
-.pass:hover{
+.log_pass:hover{
     text-decoration: underline;
 }
 
-input[type="submit"]{
+.log_submit[type="submit"]{
     width: 100%;
     height: 50px;
     border: 2px solid;
@@ -114,27 +109,32 @@ input[type="submit"]{
     font-size:18px;
     color: #e8f4fb;
     font-weight: 700;
+    font-family: 'Montserrat';
+
     cursor: pointer;
     outline: none;
-}
-
-input[type="submit"]:hover{
-    border-color: #350170;
     transition: .5s;
 }
 
-.signup_link{
+.log_submit[type="submit"]:hover{
+    padding-right: 25px;
+    padding-left: 25px;
+    transform: scale(1.05);
+    
+}
+
+.log_signup_link{
     margin: 30px 0;
     text-align: center;
     font-size: 16px;
     color: #666666;
 }
 
-.signup_link a{
+.log_signup_link a{
     color: #2691d9;
     text-decoration: none;
 }
 
-.signup_link a:hover{
+.log_signup_link a:hover{
     text-decoration: underline;
 }

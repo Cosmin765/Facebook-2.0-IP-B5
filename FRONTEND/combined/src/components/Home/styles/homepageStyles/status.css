@@ -1,0 +1,57 @@
+.status{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.statusInput{
+    display: flex;
+    justify-content: center;
+    color: gray;
+    background-color: var(--card-clr);
+    width: 700px;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 2px 5px 5px lightgray;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.input{
+    justify-content: center;
+    width: 85%;
+    text-align: center;
+    background-color: var(--background-clr);
+    border-radius: 10px;
+    border: none;
+    height: 25px;
+}
+
+.statusInput input:focus{
+    outline: none;
+}
+
+@media screen and (max-width: 1400px) {
+    .statusInput{
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    .statusInput{
+        max-width: 550px;
+
+    }
+}
+
+@media screen and (max-width: 1075px) {
+    .statusInput{
+        width: 100%;
+    }
+}
+
+/* @media screen and (max-width: 560px) {
+    .statusInput{
+        width: 70%;
+    }
+} */
