@@ -76,10 +76,10 @@ const RegisterAccount = () => {
       <div className="reg_input-container">
         <div className="reg_text">koobecaf.</div>
         <div className="reg_name2">
-          Already have an account? <a href="#"><Link to='/login'>Log in</Link></a>
+          Already have an account? <Link to='/login'>Log in</Link>
         </div>
         
-        <input className="reg_change-btn" type="submit" value = "Register" />
+        <Link className="router_link" to='/login'> <input className="reg_change-btn" type="submit" value = "Register" /></Link>
         <div className="reg_check-container">
           <input  className="register_input" type="checkbox" id="agreement" name="agreement" required/>
           <label className="register_label"  htmlFor="agreement">I agree to the terms and conditions</label>
