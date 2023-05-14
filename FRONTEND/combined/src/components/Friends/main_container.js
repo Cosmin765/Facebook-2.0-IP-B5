@@ -5,6 +5,7 @@ import icon7 from './icons/out.svg';
 import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 const SERVER_ADDRESS = 'http://localhost:8084';
 async function getRaw(url, method='POST', body=null) {
   const options = {
@@ -43,18 +44,18 @@ export default function MainContainer_Friend_Request() {
   ];
 
   const handleFriendClick = () => {
-    alert('Clicked on Prieteni');
+   
     setActiveButton('prieteni');
     // navigate();
   };
 
   const handleActiveFriend = () => {
-    alert('Clicked on Prieteni Activi');
+    
     setActiveButton('cereri');
   };
 
   const handleFriendSugestion= () => {
-    alert('Clicked on Sugestii');
+   
     setActiveButton('sugestii');
   };
 
@@ -64,15 +65,18 @@ export default function MainContainer_Friend_Request() {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
      
       <div className="mc_buttons">
+
       <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
           Prieteni
         </button>
+        <Link to='/requests'>
         <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
           Cereri de Prietenie
-        </button>
+        </button></Link>
+       <Link to='/suggestions'>
         <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
           Sugestii
-        </button>
+        </button></Link>
       </div>
 
       <div className="mc_content">

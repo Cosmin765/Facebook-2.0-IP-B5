@@ -4,7 +4,7 @@ import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
 import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
-import { NavLink, Route, Switch } from 'react-router-dom';
+import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import React, { useState } from 'react';
 
 export default function Sugestions_Friends() {
@@ -19,17 +19,17 @@ export default function Sugestions_Friends() {
   ];
 
   const handleFriendClick = () => {
-    alert('Clicked on Prieteni');
+  
     setActiveButton('prieteni');
   };
 
   const handleActiveFriend = () => {
-    alert('Clicked on Prieteni Activi');
+    
     setActiveButton('cereri');
   };
 
   const handleFriendSugestion= () => {
-    alert('Clicked on Sugestii');
+
     setActiveButton('sugestii');
   };
 
@@ -39,12 +39,14 @@ export default function Sugestions_Friends() {
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Viga" />
      
       <div className="mc_buttons">
+     <Link to='/friends'>
       <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
           Prieteni
-        </button>
+        </button></Link>
+        <Link to='/requests'>
         <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
           Cereri de Prietenie
-        </button>
+        </button></Link>
         <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
           Sugestii
         </button>
