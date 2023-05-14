@@ -94,12 +94,31 @@ async function getConversation(otherId) {
   const conversation =  await getData(url, 'GET');
   return conversation;
 }
+async function getMessages(otherId){
+  const user = await getUser();
+  const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/findPair/${user.id}/${otherId}`);
+  const conversation =  await getData(url, 'GET');
+  const messUrl = new URL(CONVERSATIONS_ADDRESS  + `/api/messages/conv/messages/?id=${conversation.id}&count=3000&cursor=0`);
+  return await getData(messUrl,'POST');
 
-const friends = ["Enea Iustin", "Hrebenciuc Alex"];
+}
+async function convertMess(messages)
+{
+  const user = await getUser();
+  const newMessages = messages.map(message => {
+    const newSender = (user.id === message.userId ? "me" : "other");
+    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
+    return newMessageObj;
+  })
+  return newMessages;
+}
+
+
 let newMessageObj = { text: "Nothing here!" };
 let convFound = 0, friendFound = 0;
 let result;
 function ChatBox() {
+ 
   const [selectedPersonId, setSelectedPersonId] = useState(null);
   const [selectedPersonPic, setSelectedPersonPic] = useState(null);
   const [selectedPersonTime, setSelectedPersonTime] = useState(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
@@ -107,7 +126,14 @@ function ChatBox() {
   const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
   const [searchName, setSearchName] = useState("");
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
+  const [newMessage, setNewMessage] = useState(""); 
+  if(selectedPersonId)
+  getMessages(selectedPersonId).then(messages => {
+    convertMess(messages).then(newMessages => setMessages({
+      [selectedPersonId]:newMessages
+    }
+    ));
+  });
   const handleChangeSearch = (event) => {
     setSearchName(event.target.value);
   };
@@ -153,36 +179,22 @@ function ChatBox() {
   const handleKeyDown = (event) => {
 
     people.forEach(conv => {
-      if (searchName.toLowerCase() === conv.name.toLowerCase()) {
+      if (searchName.toLowerCase() === (conv.firstName+" "+conv.lastName).toLowerCase()) {
         convFound = 1;
-        result = people.find((conv) => conv.name.toLowerCase() === searchName.toLowerCase());
+        result = people.find((conv) => (conv.firstName+" "+conv.lastName).toLowerCase() === searchName.toLowerCase());
       }
     });
 
 
     if (convFound === 1) {
-      handlePersonClick(result.id, result.profilePic, result.furstname + ' ' + result.lastName, result.status);
+      handlePersonClick(result.id, result.profilePic, result.firstName + ' ' + result.lastName, result.status);
       setSearchName("");
       convFound = 0;
     }
-    else {
-      friends.forEach(i => {
-        if (searchName.toLowerCase() === i.toLowerCase()) {
-          friendFound = 1;
-          result = friends.find((i) => i.toLowerCase() === searchName.toLowerCase());
-
-        }
-      });
-      if (friendFound === 1) {
-
-        people.push({ id: people.length + 1, name: result, status: 'online', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png' });
-        handlePersonClick(people[people.length - 1].id, people[people.length - 1].profilePic, people[people.length - 1].firstName + ' ' + people[people.length - 1].lastName, people[people.length - 1].status);
-        friendFound = 0;
-        setSearchName("");
-      }
-      else
+    else 
+     
         window.alert("You can't have a conversation with someone who is not your friend.");
-    }
+    
     event.target.value = '';
   };
   //const [unread,setUnread] =useState({});
@@ -275,7 +287,7 @@ function ChatBox() {
                   status={people.isLoggedIn}
                   //classUnread={unread[people.id]}
                   className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
-                  onClick={() => handlePersonClick(people.id, people.profilePic, people.firstName + ' ' + people.lastName, people.status)}
+                  onClick={() => handlePersonClick(people.id, people.profilePic, people.firstName + ' ' + people.lastName, people.isLoggedIn)}
                 />
 
 

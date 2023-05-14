@@ -9,6 +9,7 @@ import Homepage from "./components/HomePage/App";
 import MyProfile from './components/MyProfile/App';
 import Profile from './components/Profile/App';
 import ChatBox from './components/Message/ChatBox';
+import Friends from './components/Friends/App';
 function App() {
   return (
     <Router> 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/mess" element={<ChatBox/>}/>
+        <Route path="/friends" element={<Friends/>}/>
 
         </Routes>
    </Router>
