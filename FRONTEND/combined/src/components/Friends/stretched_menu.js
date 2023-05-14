@@ -4,6 +4,7 @@ import icon from './icons/Vectorhome.svg';
 import icon2 from './icons/Groupprofile.svg'; 
 import icon3 from './icons/Groupfriends.svg';
 import icon4 from './icons/Chat_alt_2_light.svg';
+import { Link } from 'react-router-dom';
 
 export default function StretchedMenu() {
     return (
@@ -25,8 +26,9 @@ export default function StretchedMenu() {
        
               </div>
               <div className="sgrid-item">
+                <Link to='/mess'>
                 <img src={icon4} ></img>
-
+              </Link>
               </div>
             </div>
             </div>

@@ -41,6 +41,7 @@ const socketAddress = CONVERSATIONS_ADDRESS;
         if(handler) handler(data);
       });
     });
+    return socket;
   }
 
   function sendMessage(me, to, messageText) {
@@ -127,19 +128,17 @@ function ChatBox() {
   const [searchName, setSearchName] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState(""); 
-  if(selectedPersonId)
-  getMessages(selectedPersonId).then(messages => {
-    convertMess(messages).then(newMessages => setMessages({
-      [selectedPersonId]:newMessages
-    }
-    ));
-  });
+  const [loaded, setLoaded] = useState(false); 
+
+ 
+   
+
   const handleChangeSearch = (event) => {
     setSearchName(event.target.value);
   };
 
   const [people, setPeople] = useState([]);
-
+  useEffect(()=>{
   if(!people.length) {
     getPeople().then(data => {
       setPeople(data.map(p => {
@@ -148,18 +147,52 @@ function ChatBox() {
       }));
     });
   }
+},[]);
+const [sockets, setSockets] = useState({});
 
+function connectSocket(conversationId) {
+  if (sockets[conversationId]) {
+    return; // socket already exists for this conversation
+  }
+
+  sockets[conversationId] = connect(conversationId, handleReceiveMessage)
+   
+}
+
+  useEffect(() => {
+    getPeople().then(data => {
+      const tempMessages = {};
+      data.forEach(p => {
+        getConversation(p.id).then(conversation => { 
+          connectSocket(conversation.id);
+        });
+        getMessages(p.id).then(messages => {
+          convertMess(messages).then(newMessages => {
+            tempMessages[p.id] = newMessages;
+            if (Object.keys(tempMessages).length === data.length) {
+              setMessages(tempMessages);
+              setLoaded(true);
+            }
+          }
+          );
+
+        });
+      })
+    });
+  }, []);
+  
   function handleReceiveMessage(message) {
     const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other" };
-
-    const newMessages = {
-      ...messages,
-    };
-
-    if(messages[message.userId]) {
-      newMessages[message.userId] = [...messages[message.userId], newMessageObj];
-    }
-    setMessages(newMessages);
+    setMessages(prevMessages => {
+      const newMessages = { ...prevMessages };
+      if (newMessages[message.userId]) {
+        newMessages[message.userId] = [...newMessages[message.userId], newMessageObj];
+      } else {
+        newMessages[message.userId] = [newMessageObj];
+      }
+      
+      return newMessages;
+    });
         // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
         //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
         //const isUnread = lastCheckedTime < lastMessageTime;
@@ -167,15 +200,37 @@ function ChatBox() {
 
   if(selectedPersonId !== null) {
     getConversation(selectedPersonId).then(conversation => {
-      if(!socket) {
-        connect(conversation.id, handleReceiveMessage);
-      } else {
+      
+        connectSocket(conversation.id);
+    
         // socket.close();
         // socket = null;
-      }
+      
     });
   }
+ const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (newMessage.trim() !== "") {
+      const newSender = "me";
+      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
+      setMessages(prevMessages => {
+        const newMessages = { ...prevMessages };
+        if (newMessages[selectedPersonId]) {
+          newMessages[selectedPersonId] = [...newMessages[selectedPersonId], newMessageObj];
+        } else {
+          newMessages[selectedPersonId] = [newMessageObj];
+        }
+        return newMessages;
+      });
 
+      setNewMessage("");
+
+      const user = await getUser();
+      const conversation = await getConversation(selectedPersonId);
+      sendMessage(user.id, conversation.id, newMessage);
+
+    }
+  };
   const handleKeyDown = (event) => {
 
     people.forEach(conv => {
@@ -203,24 +258,7 @@ function ChatBox() {
     setNewMessage(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (newMessage.trim() !== "") {
-      const newSender = "me";
-      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
-      setMessages({
-        ...messages,
-        [selectedPersonId]: [...messages[selectedPersonId], newMessageObj]
-      });
-
-      setNewMessage("");
-
-      const user = await getUser();
-      const conversation = await getConversation(selectedPersonId);
-      sendMessage(user.id, conversation.id, newMessage);
-
-    }
-  };
+ 
 
   function handlePersonClick(personId, profile, personName, personStatus) {
     setSelectedPersonId(personId);
@@ -273,7 +311,7 @@ function ChatBox() {
           </div>
           <div className="msg_contacts_body">
             <div className="msg_contacts">
-              {people.map((people) => (
+              {loaded===true && people.map((people) => (
                 <PersonTemplate
                   key={people.id}
                   name={people.firstName + ' ' + people.lastName}

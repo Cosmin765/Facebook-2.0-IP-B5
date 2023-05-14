@@ -74,7 +74,7 @@ html {
 	font-weight: bold;
 	transition: 0.5s ease;
 }
-.msg_card_chat_nimic:hover .nimic{
+.msg_card_chat_nimic:hover .msg_nimic{
 	font-size: xx-large;
 
 }
@@ -304,6 +304,8 @@ html {
 
 .msg_messages-container {
 	overflow-y:scroll;
+	
+	overflow:visible;
 	overflow-x: hidden;
 	display: flex;
   	position: relative;
