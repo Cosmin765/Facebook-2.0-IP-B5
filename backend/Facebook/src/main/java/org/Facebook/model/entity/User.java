@@ -1,5 +1,6 @@
 package org.Facebook.model.entity;
 
+import javassist.bytecode.ByteArray;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +32,6 @@ public class User implements UserDetails {
     private String birthday;
     @Column(nullable = false, unique = true)
     private String email;
-
     @Column(nullable = false)
     private String password;
     private String bio;
