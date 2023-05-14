@@ -10,6 +10,8 @@ import MyProfile from './components/MyProfile/App';
 import Profile from './components/Profile/App';
 import ChatBox from './components/Message/ChatBox';
 import Friends from './components/Friends/App';
+import FriendRequests from './components/Friends/FriendRequests';
+import Suggestions from './components/Friends/Suggestions';
 function App() {
   return (
     <Router> 
@@ -25,6 +27,9 @@ function App() {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/mess" element={<ChatBox/>}/>
         <Route path="/friends" element={<Friends/>}/>
+        <Route path="/requests" element={<FriendRequests/>}/>
+        <Route path="/suggestions" element={<Suggestions/>}/>
+
 
         </Routes>
    </Router>
