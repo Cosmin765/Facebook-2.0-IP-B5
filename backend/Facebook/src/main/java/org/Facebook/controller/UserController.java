@@ -3,6 +3,7 @@ package org.Facebook.controller;
 import org.Facebook.mapper.FriendRequestMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.FriendRequestDto;
+import org.Facebook.model.entity.FriendRequest;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.FriendRequestService;
@@ -83,5 +84,11 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
         return friendRequestService.getFriendRequestsByUser(user).stream().map(FriendRequestMapper::toDto).toList();
+    }
+
+    @PostMapping(value = "/friendRequest")
+    @ResponseBody
+    public FriendRequestDto updateFriendReq(@RequestParam Integer id, @RequestParam String status) {
+        return FriendRequestMapper.toDto(friendRequestService.updateR(id, status));
     }
 }
