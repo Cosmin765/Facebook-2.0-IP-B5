@@ -271,11 +271,13 @@ function ChatBox() {
                       `You: ${messages[people.id][messages[people.id].length - 1].text}`
                       : messages[people.id][messages[people.id].length - 1].text)
                     : "Nothing here."}
+
                   status={people.isLoggedIn}
                   //classUnread={unread[people.id]}
                   className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
                   onClick={() => handlePersonClick(people.id, people.profilePic, people.firstName + ' ' + people.lastName, people.status)}
                 />
+
 
               ))}
             </div>
