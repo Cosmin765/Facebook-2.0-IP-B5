@@ -1,5 +1,5 @@
 .mc_container{
-  margin: 20px; /* Updated */
+  margin: 7px; /* Updated */
   margin-top: 60px;
   padding: 20px; /* Updated */
   background-color: white; /* Updated */
@@ -89,7 +89,7 @@ color: black;
   top: 0;
   right: -10px;
   bottom: 0;
-  border-right: 1px solid black;
+ 
 } 
 
 .mc_button:last-child::before { /* Added */
