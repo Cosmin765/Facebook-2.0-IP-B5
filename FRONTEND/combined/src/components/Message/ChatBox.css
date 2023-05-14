@@ -303,13 +303,13 @@ html {
 
 
 .msg_messages-container {
-	overflow-y: auto;
+	overflow-y:scroll;
 	overflow-x: hidden;
 	display: flex;
   	position: relative;
  	width: 100%;
  	height: 80%;
-	overflow-y: auto;
+	
 	flex-direction: column;
 	justify-content: flex-end;
 	flex: 1;
