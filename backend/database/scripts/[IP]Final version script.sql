@@ -10,14 +10,14 @@ USE koobecaf;
 -- Users table
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
     birthday DATE,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password TEXT NOT NULL,
     bio TEXT DEFAULT NULL,
-    profile_picture VARCHAR(1500) DEFAULT NULL,
-    cover_picture VARCHAR(1500) DEFAULT NULL,
+    profile_picture TEXT DEFAULT NULL,
+    cover_picture TEXT DEFAULT NULL,
     banned BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -28,7 +28,7 @@ CREATE TABLE friendships (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id1 INT NOT NULL,
     user_id2 INT NOT NULL,
-    request BOOLEAN NOT NULL DEFAULT TRUE,
+    status ENUM('pending', 'accepted', 'rejected') NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id1)
@@ -81,7 +81,7 @@ CREATE TABLE messages (
 CREATE TABLE message_files (
     id INT PRIMARY KEY AUTO_INCREMENT,
     message_id INT NOT NULL,
-    file_content VARCHAR(1500),
+    file_content TEXT,
     FOREIGN KEY (message_id)
         REFERENCES messages (id)
         ON DELETE CASCADE
@@ -91,8 +91,8 @@ CREATE TABLE message_files (
 CREATE TABLE posts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    user_status VARCHAR(255),
-    user_location VARCHAR(500),
+    user_status TEXT,
+    user_location TEXT,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -105,7 +105,7 @@ CREATE TABLE posts (
 CREATE TABLE post_files (
     id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT NOT NULL,
-    file_content VARCHAR(1500),
+    file_content TEXT,
     FOREIGN KEY (post_id)
         REFERENCES posts (id)
         ON DELETE CASCADE
@@ -144,8 +144,9 @@ CREATE TABLE comments (
 CREATE TABLE notifications (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    type VARCHAR(50) NOT NULL,
+    type TEXT NOT NULL,
     content TEXT NOT NULL,
+    seen BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id)
         REFERENCES users (id)
         ON DELETE CASCADE
@@ -154,7 +155,7 @@ CREATE TABLE notifications (
 -- Ad companies table
 CREATE TABLE ad_companies (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
+    name TEXT NOT NULL,
     description TEXT DEFAULT NULL
 );
 
@@ -162,10 +163,10 @@ CREATE TABLE ad_companies (
 CREATE TABLE ads (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ad_company_id INT NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    image VARCHAR(1500) DEFAULT NULL,
+    name TEXT NOT NULL,
+    image TEXT DEFAULT NULL,
     description TEXT NOT NULL,
-    keywords VARCHAR(1000) NOT NULL,
+    keywords TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (ad_company_id)
@@ -217,7 +218,7 @@ CREATE TABLE ad_profiles (
 CREATE TABLE keywords (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ad_profile_id INT NOT NULL,
-    word VARCHAR(255) NOT NULL,
+    word TEXT NOT NULL,
     frequency INT,
     sentiment_score FLOAT,
     score FLOAT,
@@ -228,7 +229,10 @@ CREATE TABLE keywords (
         ON DELETE CASCADE
 );
 
--- Triggers
+-- Unique user_id1, user_id2 (in this order) not deleted combinations index
+CREATE UNIQUE INDEX friendships_index ON friendships(user_id1, user_id2);
+
+-- Update updated_at in conversations when a conversation receives any new message
 delimiter $
 CREATE TRIGGER update_conversation_updated_at
 AFTER
@@ -236,6 +240,46 @@ INSERT ON messages FOR EACH ROW BEGIN
 UPDATE conversations
 SET updated_at = NOW()
 WHERE id = NEW.conversation_id;
+END $
+delimiter ;
+
+-- Insert new notification for user when he receives a friendship request
+delimiter $
+CREATE TRIGGER new_friendship_request_notification
+AFTER
+INSERT ON friendships FOR EACH ROW
+BEGIN
+DECLARE firstName TEXT;
+DECLARE lastName TEXT;
+SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id1;
+INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id2, 'friendship request', CONCAT(firstName, ' ', lastName, ' sent you a friendship request!'));
+END $
+delimiter ;
+
+-- insert into friendships(user_id1,user_id2) values (2,5);
+
+-- update friendships set status = 'rejected' where user_id1 = 2 and user_id2 = 5;
+
+-- insert into friendships(user_id1,user_id2) values (2,5);
+
+-- select * from users;
+-- select * from friendships;
+-- select * from notifications;
+
+-- Insert new notification for user when his sent friendship request is accepted/rejected
+delimiter $
+CREATE TRIGGER accepted_or_rejected_friendship_request_notification
+AFTER
+UPDATE ON friendships FOR EACH ROW
+BEGIN
+DECLARE firstName TEXT;
+DECLARE lastName TEXT;
+if (not NEW.status <=> OLD.status) then
+SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id2;
+if (NEW.status='accepted' or NEW.status='rejected') then
+INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id1, 'friendship request', CONCAT(firstName, ' ', lastName, NEw.status,' your friendship request!'));
+end if;
+end if;
 END $
 delimiter ;
 
