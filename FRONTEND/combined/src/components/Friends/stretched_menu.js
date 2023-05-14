@@ -25,7 +25,7 @@ export default function StretchedMenu() {
        
               </div>
               <div className="sgrid-item">
-                <img src={icon4} style={{marginLeft : -5 + 'px' }}></img>
+                <img src={icon4} ></img>
 
               </div>
             </div>
