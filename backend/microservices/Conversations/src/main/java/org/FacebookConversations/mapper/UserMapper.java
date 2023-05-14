@@ -1,7 +1,7 @@
-package org.Facebook.mapper;
+package org.FacebookConversations.mapper;
 
-import org.Facebook.model.dto.UserDto;
-import org.Facebook.model.entity.User;
+import org.FacebookConversations.model.dto.UserDto;
+import org.FacebookConversations.model.entity.User;
 
 public class UserMapper {
     public static UserDto toDto(User user){
@@ -12,7 +12,6 @@ public class UserMapper {
                 .birthday(user.getBirthday())
                 .email(user.getEmail())
                 .bio(user.getBio())
-                .isLoggedIn(user.getIsLoggedIn())
                 .build();
     }
 
@@ -24,7 +23,6 @@ public class UserMapper {
                 .birthday(userDto.getBirthday())
                 .email(userDto.getEmail())
                 .bio(userDto.getBio())
-                .isLoggedIn(userDto.getIsLoggedIn())
                 .build();
     }
 }

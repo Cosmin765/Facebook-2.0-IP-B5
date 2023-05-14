@@ -12,7 +12,7 @@ function PersonTemplate(props) {
               <span>{props.name}</span>
               <p>{props.lastMessage}</p>
           </div>
-          <div className={`msg_online_icon ${props.status === 'offline' ? 'msg_offline' : ''}`} />
+          <div className={`msg_online_icon ${props.status === 0 ? 'msg_offline' : ''}`} />
       </div>
   );
 }

@@ -6,6 +6,8 @@ import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +20,20 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @PostMapping(value="/register")
+
+    @PostMapping(value = "/register")
     @ResponseBody
     public RedirectView registerUser(@ModelAttribute User user) {
         userService.registerUser(user);
         return new RedirectView("http://localhost:3000/login");
     }
+
     @GetMapping(value = "/users")
     @ResponseBody
-    public List<UserDto> getUsers(){
+    public List<UserDto> getUsers() {
         return userService.getUsers();
     }
+
     @GetMapping(value = "/friends")
     @ResponseBody
     public List<UserDto> getFriends(@RequestParam int userId) {
@@ -55,7 +60,15 @@ public class UserController {
 
     @GetMapping(value = "/")
     @ResponseBody
-    public String getWelcome(){
+    public String getWelcome() {
         return "Hello world!";
+    }
+
+    @GetMapping(value = "/getOwnId")
+    @ResponseBody
+    public UserDto getOwnId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        return user;
     }
 }

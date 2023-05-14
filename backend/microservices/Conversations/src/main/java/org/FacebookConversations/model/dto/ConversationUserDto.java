@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 
 public class ConversationUserDto {
     private Integer id;
-    private Integer conversationId;
-    private Integer userId;
+    private ConversationDto conversation;
+    private UserDto user;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

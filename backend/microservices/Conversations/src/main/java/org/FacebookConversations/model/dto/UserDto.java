@@ -1,11 +1,9 @@
-package org.Facebook.model.dto;
+package org.FacebookConversations.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,5 +16,4 @@ public class UserDto {
     private String birthday;
     private String email;
     private String bio;
-    private Short isLoggedIn;
 }

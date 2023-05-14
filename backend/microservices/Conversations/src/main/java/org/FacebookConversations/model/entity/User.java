@@ -1,4 +1,4 @@
-package org.Facebook.model.entity;
+package org.FacebookConversations.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 
 @Data
@@ -35,7 +34,6 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
     private String bio;
-    private Short isLoggedIn;
 
     @Override
     public String getUsername() {

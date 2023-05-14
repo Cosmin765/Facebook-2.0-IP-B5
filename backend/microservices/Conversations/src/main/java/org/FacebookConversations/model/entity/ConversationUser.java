@@ -1,9 +1,9 @@
 package org.FacebookConversations.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.Facebook.model.entity.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "conversation_users")
 public class ConversationUser {

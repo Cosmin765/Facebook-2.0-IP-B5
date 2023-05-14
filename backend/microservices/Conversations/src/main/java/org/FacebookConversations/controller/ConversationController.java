@@ -26,6 +26,16 @@ public class ConversationController {
         return conversationService.getConversationById(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<ConversationDto> getUserConversations(@PathVariable Integer userId) {
+        return conversationService.getUserConversations(userId).stream().map(ConversationMapper::toDto).toList();
+    }
+
+    @GetMapping("/findPair/{myId}/{otherId}")
+    public Conversation findPair(@PathVariable Integer myId, @PathVariable Integer otherId) {
+        return conversationService.findPair(myId, otherId);
+    }
+
     @PostMapping(value = "")
     public ConversationDto createConversation(@RequestBody Conversation conversation) {
         Conversation conv = conversationService.saveConversation(conversation);
