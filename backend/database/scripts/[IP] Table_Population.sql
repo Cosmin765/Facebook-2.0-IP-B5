@@ -108,7 +108,7 @@ VALUES
 (10, 1, 'Good point. Thanks for the advice.');
 
 -- Adding mock data to the posts table
-INSERT INTO posts (user_id, content, ad_location, ad_status)
+INSERT INTO posts (user_id, content, location, status)
 VALUES
 (4, 'I am selling my used car, it is in good condition. Contact me if interested.', 'Los Angeles', 'active'),
 (5, 'I am looking for a roommate to share a two-bedroom apartment. The apartment is located downtown and rent includes all utilities.', 'Chicago', 'active'),

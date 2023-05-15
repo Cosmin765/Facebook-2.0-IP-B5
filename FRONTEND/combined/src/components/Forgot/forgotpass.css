@@ -1,0 +1,86 @@
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+
+.forgotpass_Title{
+    margin: 0;
+    font-family:"Viga" ;
+    font-size: 350%;
+    background-color: white;
+}
+
+
+.forgot_page{
+    margin: 0;
+    box-sizing: border-box;
+    font-family:"Montserrat";
+    background-color: rgb(241,229,255);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(85deg, #2c80b8, #8e44ad);
+}
+
+.forgotpass_cover{
+    margin: 0;
+    background-color: white;
+    width: 30em;
+    height: 20em;
+    position: relative;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.forgotpass_input{
+    margin: 0;
+    border: none;
+    background-color:  rgb(236,204,239);
+    height: 2.5em;
+    width: 70%;
+    font-family: 'Montserrat';
+
+    border-radius: 20px;
+    text-align: center;
+    padding: 1em;
+    font-size: 16px;
+    margin-top: -20px;
+    outline-color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+
+.forgotpass_input:focus{
+    outline-color: #da3cf3;
+}
+.forgot_link{
+    text-decoration: none;
+    outline: none;
+    background-color: transparent;
+}
+.forgotpass_send-btn{
+    margin: 0;
+    width: 12em;
+    height: 3em;
+    background-color: rgb(119,3,252);
+    display: flex;
+    font-family: 'Montserrat';
+
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    border-radius: 25px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+    border: 0;
+}
+
+.forgotpass_send-btn:hover{transform: scale(1.1);}

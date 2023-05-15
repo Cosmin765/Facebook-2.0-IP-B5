@@ -1,5 +1,6 @@
 package org.FacebookConversations.util.websocket;
 
+import org.FacebookConversations.model.dto.MessageDto;
 import org.FacebookConversations.model.entity.Message;
 import org.FacebookConversations.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class WebSocketController {
     private MessageService messageService;
 
     @MessageMapping("/chat/{to}")
-    public void sendMessageUser(@DestinationVariable Integer to, Message message){
+    public void sendMessageUser(@DestinationVariable Integer to, MessageDto message){
         messageService.sendMessage(to, message);
     }
 }

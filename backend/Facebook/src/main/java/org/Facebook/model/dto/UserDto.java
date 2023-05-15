@@ -15,7 +15,8 @@ public class UserDto {
     private Integer id;
     private String firstName;
     private String lastName;
-    private Date birthday;
+    private String birthday;
     private String email;
     private String bio;
+    private Short isLoggedIn;
 }

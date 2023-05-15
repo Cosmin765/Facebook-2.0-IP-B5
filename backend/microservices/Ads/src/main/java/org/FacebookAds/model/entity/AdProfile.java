@@ -17,18 +17,12 @@ public class AdProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-
     @Column(name = "user_id")
     private Integer userId;
-
     @Column(name = "keyword_id")
     private Integer keywordId;
-
     @Column(name = "created_at")
     private Date createdAt;
-
     @Column(name = "updated_at")
     private Date updatedAt;
-
-
 }

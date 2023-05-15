@@ -1,0 +1,211 @@
+@import url(https://fonts.googleapis.com/css?family=Viga);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+.reg_body
+{ 
+    
+    box-sizing: border-box;
+    background: linear-gradient(85deg, #2c80b8, #8e44ad);
+}
+
+.reg_Title {
+    font-family: "Viga";
+    font-size: 350%;
+    background-color: white;
+    margin: 0;
+}
+
+.reg_page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg_cover {
+    background-color: white;
+    width: 50em;
+    height: 32em;
+    position: relative;
+    border-radius: 2em;
+   
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center;
+}
+
+.reg_input-container {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 15px;
+    height: 90%;
+    width: 45%;
+    padding: 1em;
+    font-family: "Montserrat";
+}
+
+.register_input {
+    border: none;
+    background-color: rgb(236, 204, 239);
+    height: 1em;
+    border-radius: 15px;
+    text-align: center;
+    padding: 1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    text-align: left;
+    font-family: "Montserrat";
+    outline-color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+
+.register_input:focus {
+    outline-color: #da3cf3;
+}
+.register_input_birth {
+    height: 2em;
+    padding: 1.5em;
+   
+}
+.reg_birthday{
+    background-color: white;
+    color: #C3C3C3;
+    font-size: 15px;
+    font-family: "Montserrat";
+    margin:0;
+    padding: 0;
+    margin-bottom: -9px;
+    margin-left: 5px;
+}
+
+.reg_dropdown-container{
+    background-color: white;
+    font-family: "Montserrat";
+}
+
+.reg_dropdown{
+    border-radius: 1em;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 45px;
+    font-family: "Montserrat";
+    margin-bottom: 7.5px;
+}
+
+.reg_dropdown2{
+    border-radius: 1em;
+}
+
+.reg_check-container {
+    background-color: white;
+    display: flex;
+    align-items: center;    
+    margin-bottom: 130px;
+}
+
+.register_label {
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+
+.register_input[type="checkbox"] {
+    margin-right: 0.5em;
+}
+
+.reg_change-btn[type="submit"] {
+    width: 70%;
+    height: 2.5em;
+    background-color: rgb(119, 3, 252);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    font-family: 'Montserrat';
+
+    border-radius: 25px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    align-self: center;
+    margin-top: 1em;
+    border:0;
+}
+
+.reg_change-btn[type="submit"]:hover {
+    border:0;
+    transform: scale(1.1);
+    padding-right: 25px;
+    padding-left: 25px;
+    animation: animatedBackground 5s linear infinite alternate;
+    background-image: url("https://t4.ftcdn.net/jpg/04/31/82/57/360_F_431825797_gbFmyO0sBt29VljKwxyYxDjcV5oJCHzi.jpg");}
+
+@keyframes animatedBackground {
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 100% 0;
+	}
+}
+
+
+.reg_text {
+    margin-top: 5px;
+    position: relative;
+    bottom: -2em;
+}
+
+.reg_name1 {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    height: 24px;
+    color: #C3C3C3;
+    background-color: white;
+    margin-top: -0.4em;
+    margin-bottom: 5px;
+}
+
+.reg_text {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #C3C3C3;
+    background-color: white;
+    margin-top: -1em;
+    text-align: center;
+    font-family: 'Viga';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 75px;
+    line-height: 101px;
+    margin-bottom: -0.5em;
+    color: #000000;
+}
+  .reg_name2 {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #C3C3C3;
+    background-color: white;
+    margin-top: 180px;
+    text-align: center;
+    z-index: 1;
+  }
+  .reg_name2, .reg_name2 a {
+    background-color: white;
+  }

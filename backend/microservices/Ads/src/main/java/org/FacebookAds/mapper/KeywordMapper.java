@@ -7,7 +7,6 @@ public class KeywordMapper {
     public static KeywordDto toDto(Keyword keyword){
         return KeywordDto.builder()
                 .id(keyword.getId())
-                .adProfileId(keyword.getAdProfileId())
                 .word(keyword.getWord())
                 .frequency(keyword.getFrequency())
                 .sentimentScore(keyword.getSentimentScore())
