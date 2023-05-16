@@ -95,10 +95,13 @@ function ChatBox() {
           [personId]:[...messages[personId],newMessageObj]
          
       });
+
       const messageContainer = document.querySelector('.msg_messages-container');
     requestAnimationFrame(() => {
       messageContainer.scrollTop = messageContainer.scrollHeight;
     });  
+    
+     
       }
       // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
        //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
