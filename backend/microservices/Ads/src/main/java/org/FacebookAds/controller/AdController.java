@@ -19,8 +19,8 @@ public class AdController {
 
     @PostMapping(value = "/create_ad")
     @ResponseBody
-    public void createAdCompany(@RequestParam User publisher, @RequestParam String title, @RequestParam String image, @RequestParam String content, @RequestParam String keywords) {
-        adService.createAd(publisher, title, image, content, keywords);
+    public void createAdCompany(@RequestParam User publisher, @RequestParam String title, @RequestParam String imageLink, String link, @RequestParam String content, @RequestParam String keywords) {
+        adService.createAd(publisher, title, imageLink, link, content, keywords);
     }
 
     @PostMapping(value = "/delete_ad")

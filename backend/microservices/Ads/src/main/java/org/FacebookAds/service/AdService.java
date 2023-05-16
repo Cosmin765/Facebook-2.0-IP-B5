@@ -12,13 +12,14 @@ public class AdService {
     @Autowired
     private AdRepository adRepository;
 
-    public void createAd(User publisher, String title, String image, String content, String keywords) {
+    public void createAd(User publisher, String title, String imageLink, String link, String content, String keywords) {
         Ad ad = new Ad();
         ad.setPublisher(publisher);
         ad.setTitle(title);
-        ad.setImageLink(image);
+        ad.setImageLink(imageLink);
         ad.setContent(content);
         ad.setKeywords(keywords);
+        ad.setLink(link);
         adRepository.save(ad);
     }
 
