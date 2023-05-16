@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "cdn",
+      "type": "org.FacebookAds.util.CdnProperties",
+      "sourceType": "org.FacebookAds.util.CdnProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
