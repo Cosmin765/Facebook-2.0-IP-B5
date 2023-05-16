@@ -17,7 +17,7 @@ const SERVER_ADDRESS = 'http://localhost:8084';
 const CONVERSATIONS_ADDRESS = 'http://localhost:8086';
 
 
-const messageContainerRef = useRef(null);
+
 const socketAddress = CONVERSATIONS_ADDRESS;
   let stompClient;
   let socket;
@@ -97,8 +97,9 @@ async function convertMess(messages)
 {
   const user = await getUser();
   const newMessages = messages.map(message => {
-    const newSender = (user.id === message.userId ? "me" : "other");
-    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
+    const newSender = (user.id === message.userId ? "me" : "other" );
+  console.log(message);
+    const newMessageObj = { text: message.content, time: message.createdAt[3]+":"+message.createdAt[4], sender: newSender, date: (message.createdAt[2]<10?`0${message.createdAt[2]}`:`${message.createdAt[2]}`)+"."+(message.createdAt[1]<10?`0${message.createdAt[1]}`:`${message.createdAt[1]}`)+"."+message.createdAt[0]};
     return newMessageObj;
   })
   return newMessages;
@@ -120,7 +121,7 @@ function ChatBox() {
   const [newMessage, setNewMessage] = useState(""); 
   const [loaded, setLoaded] = useState(false); 
 
- 
+ const messageContainerRef = useRef(null);
    
 
   const handleChangeSearch = (event) => {
@@ -163,6 +164,7 @@ function connectSocket(conversationId) {
               setMessages(tempMessages);
               setLoaded(true);
             }
+            
           }
           );
 
@@ -262,7 +264,7 @@ function connectSocket(conversationId) {
     setSelectedPersonTime(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
     const person = people.find(p => p.id === personId);
     person.lastChecked = selectedPersonTime;
-
+     
     setSelectedPersonPic(profile);
     setSelectedPersonName(personName);
     setSelectedPersonStatus(personStatus);
@@ -278,7 +280,12 @@ function connectSocket(conversationId) {
       })
 
     }
-
+    setTimeout(()=>{
+    const messageContainer = document.querySelector('.msg_messages-container');
+    requestAnimationFrame(() => {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    });  
+  },1);
   }
   // function getSecondsFromTimeString(timeString) {
   //   const [hours, minutes, seconds] = timeString.split(':').map(Number);
@@ -357,22 +364,29 @@ function connectSocket(conversationId) {
               </div>
             </div>
 
-            <div className="msg_messages-container"  ref={messageContainerRef}>
-              {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => (
+            <div className="msg_messages-container" ref={messageContainerRef}>
+              {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => {
+               const messageDate=message.date;
+            // Get the previous message's date and time
+              const previousMessage = messages[selectedPersonId][index - 1];
+              const previousDate = previousMessage ? previousMessage.date : null;
+            
+              // Determine if the current message has a different date than the previous message
+              const displayDate = messageDate !== previousDate;
+            
+             return (
                 <div key={index} className="msg_message" >
-                  {/* <div className="img_cont_msg">
-                      <img src={message.sender === "me" ? "" : (index % 2 === 1 ? selectedPersonPic : "")} className=" user_img_msg" />
-                   </div> */}
+                    {displayDate && <div className="message-date">{messageDate}</div>}
                   <div className={message.sender === "me" ? "msg_cotainer_send" : "msg_cotainer"}>
 
                     {message.text}
 
-                    <span className="msg_time">{message.time}</span>
+                    <span className={message.sender === "me" ? "msg_time_me" : "msg_time"}>{message.time}</span>
 
 
                   </div>
                 </div>
-              ))}
+              )})}
             </div>
 
             <form className="msg_form" onSubmit={handleSubmit}>

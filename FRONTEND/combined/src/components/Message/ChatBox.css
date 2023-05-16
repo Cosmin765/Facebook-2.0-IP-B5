@@ -360,6 +360,22 @@ html {
 	color: rgba(0, 0, 0, 0.47);
 	font-size: 9px;
 }
+.message-date{
+	text-align: center;
+	color: #939393;
+	font-size: small;
+	margin: 5px 0;
+}
+.msg_time_me {
+	
+	position: absolute;
+	
+	right: 4px;
+	float: right;
+	bottom: -15px;
+	color: rgba(0, 0, 0, 0.47);
+	font-size: 9px;
+}
 
 .msg_time_send {
 	display: block;
