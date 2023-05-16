@@ -46,13 +46,15 @@ public class CloudflareService {
         return "";
     }
 
-    public boolean upload(MultipartFile file) {
+    public String upload(MultipartFile file) {
         try {
             // It should be checked in front-end that the file is not larger than the limit set in properties file,
             // otherwise the server resets the connection
 
+            String filename = Base64.getUrlEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(file.getBytes())) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+
             // URL to PUT to
-            String serverUrl = environment.getProperty("cdn.url") + Base64.getUrlEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(file.getBytes())) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+            String serverUrl = environment.getProperty("cdn.url") + filename;
 
             // Request header
             HttpHeaders headers = new HttpHeaders();
@@ -70,17 +72,17 @@ public class CloudflareService {
 
                     // Make the PUT request
                     new RestTemplate().put(serverUrl, requestEntity);
-                    return true;
+                    return filename;
                 }
                 // Handle any other HttpClientErrorException
                 e.printStackTrace();
-                return false;
+                return "Not uploaded";
             }
             // There is already a byte-for-byte identical file on the server
-            return true;
+            return filename;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "Not uploaded";
         }
     }
 
