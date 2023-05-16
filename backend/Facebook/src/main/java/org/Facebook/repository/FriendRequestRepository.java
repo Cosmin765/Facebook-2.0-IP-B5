@@ -20,5 +20,4 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
     @Modifying
     @Query(value = "update friend_requests set status= :status where id=:id",nativeQuery = true)
     void updateRequest(@Param("id") Integer id, @Param("status") String status);
-
 }
