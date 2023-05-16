@@ -21,6 +21,7 @@ public class FileUploadController {
     @Autowired
     private Environment environment;
 
+    //TODO remove after debugging
     @GetMapping("/upload")
     public String testForm() {
         return "uploadForm";
