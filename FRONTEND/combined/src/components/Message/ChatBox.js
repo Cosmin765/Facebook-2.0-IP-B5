@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import './ChatBox.css';
+import { useRef } from "react";
+
 // import icon from './Vectoricon.png';
 // import icon2 from './Group.png';
 // import icon3 from './Group (1).png';
@@ -15,19 +17,7 @@ const SERVER_ADDRESS = 'http://localhost:8084';
 const CONVERSATIONS_ADDRESS = 'http://localhost:8086';
 
 
-// let people = [
-//   { id: 1, name: 'Cohman Teodora', status: 'online', profilePic: 'https://www.mcanhealth.com/wp-content/uploads/2022/03/The-Rock-WWE-Debut-e1646723600689.jpg', lastChecked: null },
-//   { id: 2, name: 'Curcudel Teodor', status: 'offline', profilePic: 'https://freewaysocial.com/wp-content/uploads/2020/02/how-to-create-the-perfect-facebook-profile-picture.png', lastChecked: null },
-//   { id: 3, name: 'John Doe', status: 'offline', profilePic: 'https://i.imgflip.com/6w7arw.png?a466968', lastChecked: null }
-// ];
-
-const mockMessages = [
-  { text: "Hello!", time: "10:00 AM", sender: "other" },
-  { text: "How are you?", time: "10:05 AM", sender: "other" },
-  { text: "I'm fine, thank you.", time: "10:10 AM", sender: "me" },
-  { text: "That's good to hear!", time: "10:15 AM", sender: "other" },
-];
-
+const messageContainerRef = useRef(null);
 const socketAddress = CONVERSATIONS_ADDRESS;
   let stompClient;
   let socket;
@@ -193,6 +183,10 @@ function connectSocket(conversationId) {
       
       return newMessages;
     });
+    const messageContainer = document.querySelector('.msg_messages-container');
+    requestAnimationFrame(() => {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    });  
         // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
         //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
         //const isUnread = lastCheckedTime < lastMessageTime;
@@ -224,7 +218,10 @@ function connectSocket(conversationId) {
       });
 
       setNewMessage("");
-
+      const messageContainer = document.querySelector('.msg_messages-container');
+      requestAnimationFrame(() => {
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      });  
       const user = await getUser();
       const conversation = await getConversation(selectedPersonId);
       sendMessage(user.id, conversation.id, newMessage);
@@ -360,7 +357,7 @@ function connectSocket(conversationId) {
               </div>
             </div>
 
-            <div className="msg_messages-container">
+            <div className="msg_messages-container"  ref={messageContainerRef}>
               {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => (
                 <div key={index} className="msg_message" >
                   {/* <div className="img_cont_msg">
