@@ -174,7 +174,12 @@ function connectSocket(conversationId) {
   }, []);
   
   function handleReceiveMessage(message) {
-    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other" };
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}.${month}.${year}`;
+    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other",date: formattedDate};
     setMessages(prevMessages => {
       const newMessages = { ...prevMessages };
       if (newMessages[message.userId]) {
@@ -208,7 +213,12 @@ function connectSocket(conversationId) {
     event.preventDefault();
     if (newMessage.trim() !== "") {
       const newSender = "me";
-      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender };
+      const currentDate = new Date();
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const year = currentDate.getFullYear();
+      const formattedDate = `${day}.${month}.${year}`;
+      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender,date: formattedDate};
       setMessages(prevMessages => {
         const newMessages = { ...prevMessages };
         if (newMessages[selectedPersonId]) {
