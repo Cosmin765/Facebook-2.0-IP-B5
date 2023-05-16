@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+<!--    <script src="./d3.min.js"></script>-->
+</head>
+<body>
+    <script th:inline="javascript">
+    function forceGraph(nodes, links, width = 640, height = 400) {
+        const forceCollideValue = 50;
+        const radius = 20;
+
+        const color = d3.scaleOrdinal(d3.map(nodes, v => v.group || 1), d3.schemeTableau10);
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(node => node.id).strength(1))
+            .force("charge", d3.forceManyBody().strength(1))
+            .force("collide", d3.forceCollide().radius(forceCollideValue))
+            .force("center",  d3.forceCenter())
+            .on("tick", () => {
+                link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+                node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .select(function() { return this.parentNode; })
+                .selectAll("text")
+                .attr("x", d => d.x)
+                .attr("y", d => d.y + 35)
+            });
+
+        const svg = d3.create("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("viewBox", [-width / 2, -height / 2, width, height])
+            .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+        const link = svg.append("g")
+            .attr("stroke", 'black')
+            .attr("stroke-opacity", 0.6)
+            .attr("stroke-linecap", 'round')
+            .selectAll("line")
+            .data(links)
+            .join("line");
+
+        const nodesContainer = svg.append("g")
+            .attr("stroke", 'black')
+            .attr("stroke-opacity", 1)
+            .attr("stroke-width", 1.5);
+
+
+        const nodeEl = nodesContainer
+            .selectAll("g")
+            .data(nodes)
+            .join("g");
+            
+
+        const node = nodeEl
+        .append("circle")
+        .attr("fill", v => color(v.group || 1))
+        .attr("r", radius)  // radius
+        .call(drag(simulation));
+
+
+        nodeEl
+        .append("text")
+        .text(d => d.firstName + ' ' + d.lastName)
+        .style("text-anchor", "middle")
+
+        function drag(simulation) {    
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+            
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+            
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+            
+            return d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended);
+        }
+
+        return Object.assign(svg.node(), {scales: {color}});
+    }
+
+    function parseGraphData(graphData) {
+        const nodes = [];
+        const links = [];
+
+        const seen = new Set();
+
+        const graph = graphData.first;
+        const groups = graphData.second;
+
+        for(const pair of graph) {
+            const {first, second} = pair;
+
+            if(!seen.has(first.id)) {
+                seen.add(first.id);
+                first.group = groups[first.id];
+                first.name = first.firstName + ' ' + first.lastName;
+                nodes.push(first);
+            }
+
+            if(!seen.has(second.id)) {
+                seen.add(second.id);
+                second.group = groups[second.id];
+                first.name = first.firstName + ' ' + first.lastName;
+                nodes.push(second);
+            }
+
+            links.push({source: first.id, target: second.id});
+        }
+
+        return [nodes, links];
+    }
+
+    // const nodes = [
+    //     {id: 1, name: "Muriel", group: 1},
+    //     {id: 2, name: "Courage", group: 1},
+    //     {id: 3, name: "Eustache", group: 2},
+    // ];
+
+    // const links = [
+    //     [0, 1],
+    //     [0, 2],
+    //     [1, 2],
+    // ].map(([from, to]) => ({source: nodes[from].id, target: nodes[to].id}));
+
+    /*<![CDATA[*/
+    var graphData = /*[[${graphData}]]*/ 'default';
+    console.log(graphData);
+    /*]]>*/
+
+    const [nodes, links] = parseGraphData(graphData);
+
+    const chart = forceGraph(nodes, links, innerWidth, innerHeight);
+    document.body.appendChild(chart);
+
+    </script>
+</body>
+</html>

@@ -60,7 +60,8 @@ public class RecommendService {
         Map<Ad, Double> map = new HashMap<>();
 
         for (Ad ad : allAds) {
-            List<String> adsKeywords = ad.getKeywords().stream().map(keyword -> keyword.word).toList();
+            String adsKeywordsUnsplited = ad.getKeywords();//Elementele sa fie cu , in tabel!
+            String[] adsKeywords = adsKeywordsUnsplited.split(",");
             Map<String, Integer> adKeywords = new HashMap<>();
             for (String keyword : adsKeywords) {
                 adKeywords.put(keyword, 1);

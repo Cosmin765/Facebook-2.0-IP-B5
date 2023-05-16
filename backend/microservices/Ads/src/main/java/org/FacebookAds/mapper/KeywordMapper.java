@@ -4,7 +4,7 @@ import org.FacebookAds.model.dto.KeywordDto;
 import org.FacebookAds.model.entity.Keyword;
 
 public class KeywordMapper {
-    public static KeywordDto toDto(Keyword keyword){
+    public static KeywordDto toDto(Keyword keyword) {
         return KeywordDto.builder()
                 .id(keyword.getId())
                 .word(keyword.getWord())

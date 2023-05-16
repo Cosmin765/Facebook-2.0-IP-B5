@@ -1,5 +1,13 @@
--- Users table: separate name and last name columns, add logon and cover_picture columns
+-- Dropping the 'koobecaf' database, if it exists
+DROP SCHEMA IF EXISTS koobecaf;
 
+-- Creating the 'koobecaf' database
+CREATE SCHEMA koobecaf;
+
+-- Selecting the 'koobecaf' database
+USE koobecaf;
+
+-- Users table
 CREATE TABLE users (
 id INT PRIMARY KEY AUTO_INCREMENT,
 first_name VARCHAR(255) NOT NULL,
@@ -8,8 +16,8 @@ birthday DATE,
 email VARCHAR(255) NOT NULL UNIQUE,
 password VARCHAR(255) NOT NULL,
 bio TEXT,
-profile_picture LONGBLOB,
-cover_picture LONGBLOB,
+profile_picture VARCHAR(1500),
+cover_picture VARCHAR(1500),
 is_logged_in BOOLEAN DEFAULT FALSE,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -48,13 +56,17 @@ updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 
 -- Conversation_users table
 CREATE TABLE conversation_users (
-id INT PRIMARY KEY AUTO_INCREMENT,
-conversation_id INT NOT NULL,
-user_id INT NOT NULL,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-FOREIGN KEY (conversation_id) REFERENCES conversations(id),
-FOREIGN KEY (user_id) REFERENCES users(id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    conversation_id INT NOT NULL,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id)
+        REFERENCES conversations (id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (user_id)
+        REFERENCES users (id)
+        ON DELETE CASCADE
 );
 
 -- Messages table
@@ -70,14 +82,13 @@ FOREIGN KEY (conversation_id) REFERENCES conversations(id),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Posts table: add ad_location and status columns, allow multiple images
-
+-- Posts table
 CREATE TABLE posts (
 id INT PRIMARY KEY AUTO_INCREMENT,
 user_id INT NOT NULL,
 content TEXT NOT NULL,
-ad_location VARCHAR(255),
-ad_status VARCHAR(255),
+location VARCHAR(255),
+status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users(id)
@@ -104,7 +115,7 @@ FOREIGN KEY (post_id) REFERENCES posts(id),
 FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Comments table with reported column
+-- Comments table
 CREATE TABLE comments (
 id INT PRIMARY KEY AUTO_INCREMENT,
 post_id INT NOT NULL,
@@ -133,10 +144,7 @@ user_id INT NOT NULL,
 title VARCHAR(255) NOT NULL,
 image LONGBLOB,
 content TEXT NOT NULL,
-keywords VARCHAR(255) NOT NULL,
 link VARCHAR(255) NOT NULL,
-location VARCHAR(255),
-status VARCHAR(255),
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users(id)
@@ -243,6 +251,16 @@ VALUES
 ('Unlucky 2G', '1984-03-03', 'trick.forty.year.old@example.com', 'password123', '🎂👴🏼 Getting older but not necessarily wiser!', null, NOW(), NOW()),
 ('Tyler Two', '1995-03-07', 'tyler.one.wannabe@example.com', 'password123', 'I can beat Tyler1 whenever I want to!', null, NOW(), NOW()),
 ('Adin Not Ross', '2000-11-11', 'little.topG@example.com', 'password123', 'Bald and girlfriendless.', null, NOW(), NOW());
+-- Triggers
+delimiter $
+CREATE TRIGGER update_conversation_updated_at
+AFTER
+INSERT ON messages FOR EACH ROW BEGIN
+UPDATE conversations
+SET updated_at = NOW()
+WHERE id = NEW.conversation_id;
+END $
+delimiter ;
 
 insert into users (name, email, password) values ('Gorgos Razvan', 'razvang@yahoo.com', 'razvan1234');
 insert into users (name, email, password) values ('Hrebenciuc Alexandru', 'alexandruh@yahoo.com', 'alexandru1234');

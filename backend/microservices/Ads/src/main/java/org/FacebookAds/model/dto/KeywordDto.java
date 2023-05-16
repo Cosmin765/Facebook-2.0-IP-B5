@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class KeywordDto /*implements Comparable<KeywordDto>*/
-{
+public class KeywordDto /*implements Comparable<KeywordDto>*/ {
     private Integer id;
     private String word;
     private Integer frequency;
