@@ -12,6 +12,7 @@ import ChatBox from './components/Message/ChatBox';
 import Friends from './components/Friends/App';
 import FriendRequests from './components/Friends/FriendRequests';
 import Suggestions from './components/Friends/Suggestions';
+import CreateAds from './components/CreateAds/CreateAds';
 function App() {
   return (
     <Router> 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/friends" element={<Friends/>}/>
         <Route path="/requests" element={<FriendRequests/>}/>
         <Route path="/suggestions" element={<Suggestions/>}/>
+        <Route path="/createAds" element={<CreateAds/>}/>
 
 
         </Routes>
