@@ -37,12 +37,15 @@ export default function AddComment() {
                 <ShowAccount account={{name:null, picture: require('../../photos/KevinHart.jpg'), uploadDate:null}}/>
             </div>
             <div className="feed_commentInput">
-                <input id="feed_comment-input" onChange={updateTypeAreaVal} type="text" placeholder="Write a comment..."/>
-                <label htmlFor="file-input" className="feed_file-input">
-                    <img src={loadImg} />
-                </label>
-                <input id="feed_file-input" type="file" onChange={UploadFilesHandler} hidden/>
-                <button className='feed_sendBtn' onClick={postComment}><img src={sendImg} alt="send" /></button>
+                <form>
+                    <input id="" className="feed_commentInput_input" onChange={updateTypeAreaVal} type="text" placeholder="Write a comment..."/>
+                    <label htmlFor="file-input" className="feed_file-input">
+                        <img src={loadImg} />
+                    </label>
+                    <input id="" className="feed_commentInput_input" type="file" onChange={UploadFilesHandler} hidden/>
+                    {/* <button className='feed_sendBtn' onClick={postComment}><img src={sendImg} alt="send" /></button> */}
+                    <input className='feed_sendBtn' onClick={postComment} type="submit" value=""></input>
+                </form>
             </div>
         </div>
     );

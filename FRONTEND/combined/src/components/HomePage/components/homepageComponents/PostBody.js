@@ -39,6 +39,7 @@ export default function PostBody(props) {
 
   return (
     <>
+    <form>
       {/* TypeArea */}
       <div className='feed_typeArea'>
         <textarea
@@ -50,12 +51,12 @@ export default function PostBody(props) {
       </div>
 
       {/* Imported pictures */}
-      {postDataType.files.length > 0 && 
+      {/* {postDataType.files.length > 0 && 
         <div className='feed_picturesList'>
           <p className='feed_pictureItem'>Pictures: {postDataType.files[0].name}</p>
           <button className='feed_removePicture'>x</button>
         </div>
-      }
+      } */}
 
       {/* BottomButtons */}
       <div className='feed_bottomButtons'>
@@ -69,10 +70,12 @@ export default function PostBody(props) {
         </div>
 
         <div className='feed_bottomButtonsRight'>
-          <button className='feed_btn' onClick={PostMessage} >Post</button>
+          {/* <button className='feed_btn' onClick={PostMessage} >Post</button> */}
+          <input className='feed_btn' onClick={PostMessage} type="submit" value="Post"></input>
           <button className='feed_btn' onClick={CancelPost}>Cancel</button>
         </div>
       </div>
+      </form>
     </>
   );
 }

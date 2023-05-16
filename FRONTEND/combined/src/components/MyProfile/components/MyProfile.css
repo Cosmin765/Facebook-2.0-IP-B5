@@ -27,7 +27,7 @@ body {
 }
 
 /* TO BE CHANGED */
-input {
+.myprofile_input {
     position: absolute;
     width: 40em;
     height: 2em;
@@ -143,12 +143,12 @@ input {
 }
 
 /* TO BE CHANGED */
-button {
+.profile_button {
     cursor: pointer;
     display: inline-block;
 }
 
-button:focus {
+.profile_button:focus {
     outline: none;
 }
 

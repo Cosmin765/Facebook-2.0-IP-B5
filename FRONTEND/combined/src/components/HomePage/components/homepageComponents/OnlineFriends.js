@@ -8,6 +8,7 @@ import '../../styles/homepageStyles/onlineFriends.css'
 import arrow from '../../icons/homepageIcons/arrow.svg';
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function OnlineFriends({friends, openAcount, toggle}) {
     const [burgerState, setBurgerState] = useState(false);
@@ -25,9 +26,10 @@ export default function OnlineFriends({friends, openAcount, toggle}) {
 
     const showFriends = friends.map((friend) => {
         return (
-            <div className='feed_friend' onClick={goToProfile}>
-                <ShowAccount account={friend.account}/>
-            </div>
+           <div className='feed_friend' onClick={goToProfile}>
+             <Link className='router_link' to='/profile'>    <ShowAccount account={friend.account}/>
+            </Link></div>
+            
         );
     });
 

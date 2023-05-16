@@ -6,6 +6,12 @@ import ForgotPass from './components/Forgot/forgotpass';
 import NewPass from './components/Forgot/newpass';
 import Verify from './components/Forgot/verify';
 import Homepage from "./components/HomePage/App";
+import MyProfile from './components/MyProfile/App';
+import Profile from './components/Profile/App';
+import ChatBox from './components/Message/ChatBox';
+import Friends from './components/Friends/App';
+import FriendRequests from './components/Friends/FriendRequests';
+import Suggestions from './components/Friends/Suggestions';
 function App() {
   return (
     <Router> 
@@ -17,6 +23,14 @@ function App() {
         <Route path="/verify" element={<Verify/>} />
         <Route path="/new" element={<NewPass/>} />
         <Route path="/home" element={<Homepage/>}/>
+        <Route path="/myprofile" element={<MyProfile/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/mess" element={<ChatBox/>}/>
+        <Route path="/friends" element={<Friends/>}/>
+        <Route path="/requests" element={<FriendRequests/>}/>
+        <Route path="/suggestions" element={<Suggestions/>}/>
+
+
         </Routes>
    </Router>
   );
