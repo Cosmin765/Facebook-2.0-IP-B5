@@ -3,7 +3,6 @@ html {
 	height: 100vh;
 	width: 100vw;
 	margin: 0;
-	overflow: hidden;
 	background-color: #F1E5FF !important;
     /*background-image: url(https://i.ytimg.com/vi/ZOnQohTePwo/sddefault.jpg);
     background-position: absolute;
@@ -37,7 +36,7 @@ html {
 	height: 98%;
 	max-height: 100vh;
 	margin: auto 0;
-	overflow-y: auto;
+	overflow-y: scroll;
 	border-radius: 15px ;
 	background-color: #ffffff !important;
 }
@@ -79,7 +78,7 @@ html {
 
 }
 .msg_msg_card_body {
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
 .msg_card-footer {
@@ -303,19 +302,18 @@ html {
 
 
 .msg_messages-container {
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 	display: flex;
-  	position: relative;
- 	width: 100%;
- 	height: 80%;
-	overflow-y: auto;
+	position: relative;
+	width: 100%;
+	height: 80%;
 	flex-direction: column;
-	justify-content: flex-end;
-	flex: 1;
+	justify-content: flex-start;
 	font-family: 'Montserrat';
 	font-size: small;
-  }
+	flex:1;
+}
   
 .msg_cotainer {
 	display: inline-flex;
