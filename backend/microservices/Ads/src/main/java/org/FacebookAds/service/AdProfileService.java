@@ -2,6 +2,7 @@ package org.FacebookAds.service;
 
 import org.FacebookAds.mapper.AdProfileMapper;
 import org.FacebookAds.model.dto.AdProfileDto;
+import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.model.entity.AdProfile;
 import org.FacebookAds.model.entity.Keyword;
 import org.FacebookAds.repository.AdProfileRepository;
@@ -14,9 +15,7 @@ import java.util.List;
 
 @Service
 public class AdProfileService {
-
     private final AdProfileRepository adProfileRepository;
-
     private final KeywordRepository keywordRepository;
 
     @Autowired
@@ -39,15 +38,21 @@ public class AdProfileService {
 
         for (UserToken userToken : userTokenList) {
             Keyword keyword = checkIfExists(keywordList, userToken);
+            if (userToken.getScore() == 0) {
+                userToken.setScore(0.5);
+            }
+
             if (keyword != null) {
                 //ad exists -> update
                 int frequency = keyword.getFrequency() + 1;
                 double sentimentScore = keyword.getSentimentScore();
                 double score = keyword.getScore();
 
-                //calc new score ???
-                sentimentScore = (sentimentScore + userToken.getScore()) / frequency;
-                score = (sentimentScore * frequency + userToken.getScore()) / (frequency + 1);
+                double alpha = 0.2;
+
+                //calc new score
+                sentimentScore = (sentimentScore + userToken.getScore()) * 0.5;
+                score = (alpha * score) + (sentimentScore * Math.pow(frequency, 2) + userToken.getScore()) / (frequency + 1);
                 keywordRepository.updateKeyword(adProfileId, userToken.getLemma(), frequency, sentimentScore, score);
             } else {
                 //ad doesn't exist -> add key

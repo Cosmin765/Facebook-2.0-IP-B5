@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class KeywordDto /*implements Comparable<KeywordDto>*/ {
     private Integer id;
-    private Integer adProfileId;
     private String word;
     private Integer frequency;
     private Double sentimentScore;

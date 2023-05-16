@@ -1,0 +1,112 @@
+.feed_onlineFriends{
+    position: sticky;
+    overflow-y: scroll;
+    top: 100px;
+    /* height: 80vh; */
+    height: calc(100vh - 150px);
+    /* height: 100%; */
+    /* width: 100%; */
+    /* width: 300px; */
+    width: 20vw;
+    /* width: var(--online-friends-width); */
+    /* width: var(60vw); */
+
+    margin: 0;
+}
+
+.feed_friends{
+    position: relative;
+    display: block;
+}
+
+.feed_friend{
+    margin: 10px;
+}
+
+.feed_burger{
+    display: none;
+    cursor: pointer;
+}
+
+.feed_arrowButton{
+    width: 44px;
+    height: 44px;
+}
+
+.feed_onlineFriends::-webkit-scrollbar-thumb {
+	background-color: var(--main-clr);
+}
+
+.feed_onlineFriends::-webkit-scrollbar {
+    width: 6px;
+    background-color: white;
+}
+
+.feed_onlineFriends::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+@media screen and (max-width: 980px) {
+    .feed_burger{
+        display: block;
+        display: flex;
+        justify-content: end;
+    }
+
+    .feed_friends{
+        right: 400px;
+        flex-direction: column;
+    }
+
+    .feed_friends.active{
+        right: 0px;
+    }
+
+    .feed_onlineFriends{
+        width: 44px;
+        height: 44px;
+        /* padding: 100px; */
+        overflow-y: hidden;
+    }
+
+    .feed_onlineFriends.card{
+        padding: 0;
+    }
+
+    .feed_onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        /* padding: 20px; */
+        overflow-y: scroll;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 748x) {
+    .feed_card{
+        margin: 0;
+        padding: 0;
+    }
+
+    .feed_burger{
+        margin: 0;
+        padding: 0;
+    }
+
+    .feed_onlineFriends{
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .feed_onlineFriends.card{
+        padding: 0;
+        margin: 0;
+    }
+
+    .feed_onlineFriends.active{
+        height: 80vh;
+        width: auto;
+        padding: 20px;
+        overflow-y: scroll;
+    }
+}

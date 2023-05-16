@@ -1,0 +1,105 @@
+.feed_addComment{
+    padding: 10px;
+    display: flex;
+    border-top: 1px solid gray;
+    padding-top: 20px;
+    /* width: 100%; */
+}
+
+
+.feed_commentInput{
+    background-color: var(--background-clr);
+    border-radius: 40px;
+    padding: 5px;
+    height: 40px;
+    display: flex;
+
+    width: 100%;
+}
+
+.feed_commentInput_input{
+    background-color: var(--background-clr);
+    margin-left: 10px;
+    border: none;
+    border-radius: 40px;
+    width: 100%;
+
+}
+
+.feed_commentInput input:focus{
+    outline: none;
+}
+
+/* .feed_commentInput button{
+    margin: 5px;
+} */
+
+.feed_commentInput form{
+    background-color: var(--background-clr);
+    border-radius: 40px;
+    padding: 5px;
+    height: 40px;
+    display: flex;
+
+    width: 100%;
+}
+
+
+.feed_btn {
+    display: inline-block;
+    outline: 0;
+    cursor: pointer;
+    padding: 5px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    vertical-align: middle;
+    border: 1px solid;
+    border-radius: 6px;
+    color: var(--main-clr);
+    background-color: #fafbfc;
+    border-color: #1b1f2326;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset;
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: color, background-color, border-color;
+}
+
+.feed_btn:hover {
+    color: #ffffff;
+    background-color: var(--main-clr);
+    border-color: #1b1f2326;
+    box-shadow: rgba(27, 31, 35, 0.1) 0px 1px 0px 0px, rgba(255, 255, 255, 0.03) 0px 1px 0px 0px inset;
+    transition-duration: 0.1s;
+}
+
+.feed_file-input{
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    
+}
+
+.feed_file-input img{
+    width: 20px;
+}
+
+.feed_sendBtn{
+    background: none;
+    border: none;
+    cursor: pointer;
+
+
+    background-image: url("../../icons/homepageIcons/send.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    width: 50px;
+
+    margin: auto;
+}
+
+
+
+/* .feed_sendBtn img{
+    width: 20px;
+} */

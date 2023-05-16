@@ -2,19 +2,18 @@ package org.Facebook.mapper;
 
 import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.entity.Post;
-import org.Facebook.model.entity.User;
-import org.Facebook.repository.UserRepository;
-import org.Facebook.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 
 public class PostMapper {
     public static PostDto toDto(Post post) {
         return PostDto.builder()
                 .id(post.getId())
+                .user(UserMapper.toDto(post.getUser()))
                 .content(post.getContent())
-                .userId(post.getUser().getId())
-                .image(post.getImage())
+                .likes(post.getLikes().stream().map(LikeMapper::toDto).toList())
+                .comments(post.getComments().stream().map(CommentMapper::toDto).toList())
+                .postImages(post.getPostImages().stream().map(PostImageMapper::toDto).toList())
+                .location(post.getLocation())
+                .status(post.getStatus())
                 .build();
     }
 
@@ -22,6 +21,11 @@ public class PostMapper {
         return Post.builder()
                 .id(postDto.getId())
                 .content(postDto.getContent())
-                .image(postDto.getImage()).build();
+                .likes(postDto.getLikes().stream().map(LikeMapper::fromDto).toList())
+                .comments(postDto.getComments().stream().map(CommentMapper::fromDto).toList())
+                .postImages(postDto.getPostImages().stream().map(PostImageMapper::fromDto).toList())
+                .location(postDto.getLocation())
+                .status(postDto.getStatus())
+                .build();
     }
 }

@@ -1,9 +1,9 @@
 package org.FacebookAds.util;
 
 public class UserToken {
-    private final double score;
     private String lemma;
     private String pos;
+    private double score;
     private int sentenceIndex;
 
     public UserToken(String lemma, String pos, double score, int sentenceIndex) {
@@ -40,5 +40,9 @@ public class UserToken {
 
     public double getScore() {
         return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }

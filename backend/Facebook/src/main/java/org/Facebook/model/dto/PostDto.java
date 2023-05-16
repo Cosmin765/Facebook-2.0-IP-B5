@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.Facebook.model.entity.User;
 
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,8 +13,11 @@ import org.Facebook.model.entity.User;
 @Builder
 public class PostDto {
     private Integer id;
-    private Integer userId;
-//    private String title;
+    private UserDto user;
     private String content;
-    private byte[] image;
+    private String location;
+    private String status;
+    private List<LikeDto> likes;
+    private List<CommentDto> comments;
+    private List<PostImageDto> postImages;
 }

@@ -1,0 +1,29 @@
+.feed_feed{
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 1400px) {
+    .feed_feed{
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 1270px) {
+    .feed_feed{
+        max-width: 550px;
+    }
+}
+
+@media screen and (max-width: 1075px) {
+    .feed_feed{
+        width: 100%;
+    }
+}
+
+/* @media screen and (max-width: 560px) {
+    .feed{
+        width: 70%;
+    }
+} */
