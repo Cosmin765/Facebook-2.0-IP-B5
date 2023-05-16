@@ -56,17 +56,17 @@ public class UserController {
         return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
     }
 
-    @PostMapping(value = "/suggestions")
+    @GetMapping(value = "/suggestions")
     @ResponseBody
     public List<UserDto> getSuggestions(@RequestParam Integer count) {
         return userService.getSuggestions(count).stream().map(UserMapper::toDto).toList();
 
     }
 
-    @GetMapping("/suggestions")
+    /*@GetMapping("/suggestions")
     public String getSuggestionsPage(Model model) {
         return "suggestions";
-    }
+    }*/
 
     @GetMapping(value = "/")
     @ResponseBody
