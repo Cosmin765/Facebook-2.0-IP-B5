@@ -18,6 +18,20 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
 
     @Transactional
     @Modifying
-    @Query(value = "update friend_requests set status= :status where id=:id",nativeQuery = true)
+    @Query(value = "update friend_requests set status= :status where id=:id", nativeQuery = true)
     void updateRequest(@Param("id") Integer id, @Param("status") String status);
+
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO friend_requests (sender_id, receiver_id, status) " +
+            "VALUES (:senderId, :receiverId, :status)", nativeQuery = true)
+    void addFriendRequest(@Param("senderId") Integer senderId,
+                          @Param("receiverId") Integer receiverId,
+                          @Param("status") String status);
+
+    @Query(value = "SELECT * FROM friend_requests WHERE " +
+            "sender_id = :senderId AND receiver_id = :receiverId", nativeQuery = true)
+    FriendRequest findBySenderAndReceiverIds(@Param("senderId") Integer senderId,
+                                             @Param("receiverId") Integer receiverId);
+
 }

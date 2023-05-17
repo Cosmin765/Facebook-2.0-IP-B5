@@ -95,7 +95,7 @@ public class UserController {
     public FriendRequestDto updateFriendReq(@RequestParam Integer id, @RequestParam String status) {
         FriendRequestDto friendRequestDto = FriendRequestMapper.toDto(friendRequestService.updateR(id, status));
 
-        if(status.equals("accepted")) {
+        if (status.equals("accepted")) {
             Friendship friendship = Friendship.builder()
                     .user1(UserMapper.fromDto(friendRequestDto.getReceiver()))
                     .user2(UserMapper.fromDto(friendRequestDto.getSender()))
@@ -105,4 +105,14 @@ public class UserController {
 
         return friendRequestDto;
     }
+
+    @PostMapping(value = "/addFriendRequest")
+    @ResponseBody
+    public FriendRequestDto addFriendRequest(@RequestParam Integer id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+
+        return FriendRequestMapper.toDto(friendRequestService.saveFriendRequest(user.getId(), id, "pending"));
+    }
+
 }

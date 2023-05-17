@@ -34,8 +34,8 @@ async function getSuggestions() {
   return await getData(url, 'GET');
 }
 
-async function addFriend(){
-  const url = new URL(SERVER_ADDRESS + '/friendRequest?id={}&status=pending');
+async function addFriend(idReceiver){
+  await getData(SERVER_ADDRESS+`/addFriendRequest?id=${idReceiver}&status=pending`,'POST');
 }
 
 export default function Sugestions_Friends() {
@@ -45,7 +45,7 @@ export default function Sugestions_Friends() {
 
   const handleAddFriend = (friendId) => {
     // Make API call to send friend request
-
+    addFriend(friendId);
 
     setRequestSent({
       ...requestSent,
@@ -67,6 +67,7 @@ export default function Sugestions_Friends() {
 
   const [friends, setFriends] = useState([]);
   const [removingFriendId, setRemovingFriendId] = useState(null);
+
 
   useEffect(() => {
     getSuggestions().then(suggestions => setFriends(suggestions.map(f => {
