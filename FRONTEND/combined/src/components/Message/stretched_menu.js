@@ -14,12 +14,14 @@ export default function StretchedMenu() {
             <div className="msg_sgrid_wrapper">
             <div className="msg_sgrid_container">
               <div className="msg_sgrid-item">
+                <Link to='/home'>
                 <img src={icon} alt="imagine_home"></img>
-              
+              </Link>
               </div>
               <div className="msg_sgrid-item">
+                <Link to='/myprofile'>
                 <img src={icon2} alt="imagine_profil"></img>
-        
+        </Link>
               </div>
               <div className="msg_sgrid-item">
                <Link to='/friends'> <img src={icon3} alt="imagine_grup_prieteni"></img>
