@@ -2,14 +2,17 @@ package org.Facebook.controller;
 
 import org.Facebook.mapper.CommentMapper;
 import org.Facebook.model.dto.CommentDto;
+import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.User;
 import org.Facebook.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -24,25 +27,26 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    /*@PostMapping("/postcomment")
-    @ResponseBody
-    public Comment postComment(@RequestBody Comment comment) {
-        return commentService.postComment(comment);
-    }*/
+//    @PostMapping("/comments/post")
+//    @ResponseBody
+//    public Comment postComment(@RequestBody Comment comment) {
+//        return commentService.postComment(comment);
+//    }
 
-    @PostMapping ("/comments/delete")
-    @ResponseBody
-    public String deleteComment(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-        commentService.deleteComment(id);
-        redirectAttributes.addFlashAttribute("message", "Comment deleted!");
-        return "redirect:/posts";
-    }
+//    @PostMapping("/postcomment")
+//    @ResponseBody
+//    public String postComment (@RequestBody CommentDto commentDto) {
+//        commentService.postComment(commentDto);
+//        return "comment posted";
+//    }
 
-    @PostMapping("/postcomment")
+    @PostMapping
     @ResponseBody
-    public String postComment (@RequestBody CommentDto commentDto) {
+    public RedirectView postComment(@ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes) {
+
         commentService.postComment(commentDto);
-        return "comment posted";
+        redirectAttributes.addFlashAttribute("message", "Comment posted successfully!");
+        return new RedirectView("/comments");
     }
 
     @GetMapping(value = "/comments")
@@ -51,16 +55,23 @@ public class CommentController {
         return commentService.getAllComments().stream().map(CommentMapper::toDto).toList();
     }
 
-
-    @GetMapping(value = "/rep_com")
+    @GetMapping(value = "/comment")
     @ResponseBody
-    public void hideCom(@RequestBody Comment comment) {
-        commentService.hideCom(comment);
+    public Comment getCommentById(@RequestParam("id") Integer id) throws Exception {
+        return commentService.getCommentById(id);
     }
 
-    /*@GetMapping(value = "/comments")
-    public List<Comment> posts() {
-        return commentService.getAllComments();
-    }*/
+    @PostMapping(value = "comment/delete")
+    @ResponseBody
+    public RedirectView deleteComment(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+        commentService.deleteComment(id);
+        redirectAttributes.addFlashAttribute("message", "Comment deleted!");
+        return new RedirectView("/comments");
+    }
 
+//    @GetMapping(value = "/rep_com")
+//    @ResponseBody
+//    public void hideCom(@RequestBody Comment comment) {
+//        commentService.hideCom(comment);
+//    }
 }

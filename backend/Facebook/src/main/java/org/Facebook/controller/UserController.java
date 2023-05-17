@@ -1,14 +1,8 @@
 package org.Facebook.controller;
 
-import org.Facebook.mapper.FriendRequestMapper;
 import org.Facebook.mapper.UserMapper;
-import org.Facebook.model.dto.FriendRequestDto;
-import org.Facebook.model.entity.FriendRequest;
-import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
-import org.Facebook.service.FriendRequestService;
-import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,10 +20,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private FriendRequestService friendRequestService;
-    @Autowired
-    private FriendshipService friendshipService;
 
     @PostMapping(value = "/register")
     @ResponseBody
@@ -80,29 +70,5 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
         return user;
-    }
-
-    @GetMapping(value = "/friendRequests")
-    @ResponseBody
-    public List<FriendRequestDto> getFriendRequests() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
-        return friendRequestService.getFriendRequestsByUser(user).stream().map(FriendRequestMapper::toDto).toList();
-    }
-
-    @PostMapping(value = "/friendRequest")
-    @ResponseBody
-    public FriendRequestDto updateFriendReq(@RequestParam Integer id, @RequestParam String status) {
-        FriendRequestDto friendRequestDto = FriendRequestMapper.toDto(friendRequestService.updateR(id, status));
-
-        if(status.equals("accepted")) {
-            Friendship friendship = Friendship.builder()
-                    .user1(UserMapper.fromDto(friendRequestDto.getReceiver()))
-                    .user2(UserMapper.fromDto(friendRequestDto.getSender()))
-                    .build();
-            friendshipService.addFriendship(friendship);
-        }
-
-        return friendRequestDto;
     }
 }
