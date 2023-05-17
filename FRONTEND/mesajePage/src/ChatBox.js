@@ -1,4 +1,6 @@
 import React, { useState ,useEffect} from "react";
+import { useRef } from "react";
+
 import './ChatBox.css';
 // import icon from './Vectoricon.png';
 // import icon2 from './Group.png';
@@ -26,6 +28,7 @@ let newMessageObj = {text: "Nothing here!"};
 let convFound=0,friendFound=0;
 let result;
 function ChatBox() {  
+  const messageContainerRef = useRef(null);
   const [selectedPersonId, setSelectedPersonId] = useState(null);
   const [selectedPersonPic, setSelectedPersonPic] = useState(null);
   const [selectedPersonTime, setSelectedPersonTime] = useState(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
@@ -92,6 +95,12 @@ function ChatBox() {
           [personId]:[...messages[personId],newMessageObj]
          
       });
+
+      const messageContainer = document.querySelector('.msg_messages-container');
+    requestAnimationFrame(() => {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    });  
+    
      
       }
       // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
@@ -108,6 +117,7 @@ function ChatBox() {
   };
 
   const handleSubmit = (event) => {
+    
     event.preventDefault();
     if (newMessage.trim() !== "") {
       const newSender = "me";
@@ -118,9 +128,33 @@ function ChatBox() {
       });
       
       setNewMessage("");
-      
+
+      // var messageContainer = document.querySelector('.msg_messages-container');
+      // messageContainer.scrollTop = messageContainer.scrollHeight;
+       // scroll to last message
+    // setTimeout(() => {
+    //   const messageContainer = messageContainerRef.current;
+    //   const lastMessage = messageContainer.lastChild;
+    //   if (lastMessage) {
+    //     lastMessage.scrollIntoView({ behavior: "smooth" });
+    //   }
+    // }, 0);
+    
+    // Scroll to the bottom of the message container
+    // if (messageContainerRef.current) {
+    //   messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    // }
+    const messageContainer = document.querySelector('.msg_messages-container');
+    requestAnimationFrame(() => {
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+    });  
     }
   };
+  // React.useEffect(() => {
+  //   const messageContainer = messageContainerRef.current;
+  //   messageContainer.scrollTop = messageContainer.scrollHeight;
+  // }, [messages]);
+  
 
   function handlePersonClick(personId,profile,personName,personStatus) {
     setSelectedPersonId(personId);
@@ -220,7 +254,7 @@ function ChatBox() {
             </div>
           </div>
 
-                <div className="msg_messages-container">
+                <div className="msg_messages-container" ref={messageContainerRef}>
                 {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => (
                   <div key={index} className="msg_message" >
                     {/* <div className="img_cont_msg">

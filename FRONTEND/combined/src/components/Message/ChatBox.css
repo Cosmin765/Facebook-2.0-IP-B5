@@ -3,7 +3,6 @@ html {
 	height: 100vh;
 	width: 100vw;
 	margin: 0;
-	/*overflow: hidden;*/
 	background-color: #F1E5FF !important;
     /*background-image: url(https://i.ytimg.com/vi/ZOnQohTePwo/sddefault.jpg);
     background-position: absolute;
@@ -37,7 +36,7 @@ html {
 	height: 98%;
 	max-height: 100vh;
 	margin: auto 0;
-	overflow-y: auto;
+	overflow-y: scroll;
 	border-radius: 15px ;
 	background-color: #ffffff !important;
 }
@@ -79,7 +78,7 @@ html {
 
 }
 .msg_msg_card_body {
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
 .msg_card-footer {
@@ -305,7 +304,6 @@ html {
 .msg_messages-container {
 	overflow-y:scroll;
 	
-	overflow:visible;
 	overflow-x: hidden;
 	display: flex;
   	position: relative;
@@ -313,7 +311,7 @@ html {
  	height: 80%;
 	
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	flex: 1;
 	font-family: 'Montserrat';
 	font-size: small;
@@ -356,6 +354,22 @@ html {
 	
 	position: absolute;
 	left: 4px;
+	float: right;
+	bottom: -15px;
+	color: rgba(0, 0, 0, 0.47);
+	font-size: 9px;
+}
+.message-date{
+	text-align: center;
+	color: #939393;
+	font-size: small;
+	margin: 5px 0;
+}
+.msg_time_me {
+	
+	position: absolute;
+	
+	right: 4px;
 	float: right;
 	bottom: -15px;
 	color: rgba(0, 0, 0, 0.47);
