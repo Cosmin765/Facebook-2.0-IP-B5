@@ -17,9 +17,19 @@ public class FriendRequestService {
     public List<FriendRequest> getFriendRequestsByUser(UserDto user) {
         return friendRequestRepository.getByUserId(user.getId());
     }
+    public List<FriendRequest> getFriendRequestsByUserSend(UserDto user) {
+        return friendRequestRepository.getBySenderUserId(user.getId());
+    }
 
-    public FriendRequest updateR(Integer id, String status){
-        friendRequestRepository.updateRequest(id,status);
+
+    public FriendRequest updateR(Integer id, String status) {
+        friendRequestRepository.updateRequest(id, status);
         return friendRequestRepository.findById(id).get();
+    }
+
+    public FriendRequest saveFriendRequest(Integer senderId, Integer receiverId, String status) {
+        friendRequestRepository.addFriendRequest(senderId, receiverId, status);
+
+        return friendRequestRepository.findBySenderAndReceiverIds(senderId, receiverId);
     }
 }

@@ -3,6 +3,7 @@ package org.Facebook.service;
 import org.Facebook.config.AppSecurityConfig;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.UserDto;
+import org.Facebook.model.entity.FriendRequest;
 import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.FriendshipRepository;
@@ -28,6 +29,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private FriendshipRepository friendshipRepository;
+
+    @Autowired
+    private FriendRequestService friendRequestService;
 
     public void registerUser(User user) {
         String hashedPassword = AppSecurityConfig.getPasswordEncoder().encode(user.getPassword());
@@ -107,13 +111,21 @@ public class UserService implements UserDetailsService {
     public List<User> getSuggestions(Integer count) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        List<FriendRequest> friendRequestsReceived = friendRequestService.getFriendRequestsByUser(user);
+        List<User> received=friendRequestsReceived.stream().map(FriendRequest::getSender).toList();
+        List<FriendRequest> friendRequestsSent = friendRequestService.getFriendRequestsByUserSend(user);
+        List<User> sent=friendRequestsSent.stream().map(FriendRequest::getReceiver).toList();
         List<User> friends = getFriends(user.getId());
+        List<User> friendsAndRequests = new ArrayList<>();
+        friendsAndRequests.addAll(friends);
+        friendsAndRequests.addAll(received);
+        friendsAndRequests.addAll(sent);
         Map<User, Integer> mutualFriends = new HashMap<>();
 
         for (User friend : friends) {
             List<User> friendFriends = getFriends(friend.getId());
             for (User friendFriend : friendFriends) {
-                if (friendFriend.getId().equals(user.getId()) || friends.contains(friendFriend) || mutualFriends.containsKey(friendFriend)) {
+                if (friendFriend.getId().equals(user.getId()) || friends.contains(friendFriend) || mutualFriends.containsKey(friendFriend) || friendsAndRequests.contains(friendFriend)) {
                     continue;
                 }
                 mutualFriends.put(friendFriend, getNumberMutualFriends(user.getId(), friendFriend.getId()));
@@ -129,7 +141,7 @@ public class UserService implements UserDetailsService {
             for (User suggestion : suggestions) {
                 List<User> friendsOfSuggestion = getFriends(suggestion.getId());
                 for (User friendOfSuggestion : friendsOfSuggestion) {
-                    if (friendOfSuggestion.getId().equals(user.getId()) || friends.contains(friendOfSuggestion) || suggestions.contains(friendOfSuggestion)) {
+                    if (friendOfSuggestion.getId().equals(user.getId()) || friends.contains(friendOfSuggestion) || suggestions.contains(friendOfSuggestion) || suggestionAdd.contains(friendOfSuggestion) || friendsAndRequests.contains(friendOfSuggestion)) {
                         continue;
                     }
                     suggestionAdd.add(friendOfSuggestion);
@@ -142,7 +154,7 @@ public class UserService implements UserDetailsService {
                 List<User> suggestionSlice = suggestions.subList(0, count);
                 return suggestionSlice;
             } else {
-                suggestions.addAll(getRandomUserListForSuggestions(count - suggestions.size(), user.getId(), friends, suggestions));
+                suggestions.addAll(getRandomUserListForSuggestions(count - suggestions.size(), user.getId(), friendsAndRequests, suggestions));
                 return suggestions;
             }
         }
