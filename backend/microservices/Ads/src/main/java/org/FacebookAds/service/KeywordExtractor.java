@@ -10,7 +10,7 @@ import org.FacebookAds.repository.AdProfileRepository;
 import org.FacebookAds.util.Pipeline;
 import org.FacebookAds.util.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,18 +18,17 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
+@Component
 public class KeywordExtractor {
-    private Set<String> stopWords;
-
     private final AdProfileService adProfileService;
+    private Set<String> stopWords;
     @Autowired
     private AdProfileRepository adProfileRepository;
 
     @Autowired
     public KeywordExtractor(AdProfileService adProfileService) {
         Set<String> stopWords = new HashSet<>();
-        String basePath = System.getProperty("user.dir");
-        String filepath = basePath + "\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
+        String filepath = "src\\main\\resources\\stopwords\\eng-stopwords.txt";
         try (Stream<String> stream = Files.lines(Paths.get(filepath))) {
             stream.forEach(stopWords::add);
         } catch (IOException e) {

@@ -12,7 +12,7 @@ export default function Status(props) {
             </div>
 
             <div className={props.createPost ? 'feed_spacer active' : 'feed_spacer'}>
-                <CreatePost toggleFunction={props.openPostPopup}/>
+                <CreatePost toggleFunction={props.openPostPopup} addPost={props.addPost} />
             </div>
         </div>
     );

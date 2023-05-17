@@ -1,7 +1,7 @@
-package org.FacebookAds.service;/*
 package org.FacebookAds.service;
 
 import org.FacebookAds.model.entity.Ad;
+import org.FacebookAds.model.entity.User;
 import org.FacebookAds.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,20 +12,44 @@ public class AdService {
     @Autowired
     private AdRepository adRepository;
 
-    public Ad createAd(String title, String content) {
+    public void createAd(User publisher, String title, String imageLink, String link, String content, String keywords) {
         Ad ad = new Ad();
+        ad.setPublisher(publisher);
         ad.setTitle(title);
+        ad.setImageLink(imageLink);
         ad.setContent(content);
-        ad.setNumberOfClicks(0);
-        return adRepository.save(ad);
+        ad.setKeywords(keywords);
+        ad.setLink(link);
+        adRepository.save(ad);
     }
 
-    public void deleteAd(Ad ad) {
-        adRepository.delete(ad);
+    public void deleteAd(Integer id) {
+        adRepository.deleteById(id);
     }
 
-    public int checkStats(Ad ad) {
-        return ad.getNumberOfClicks();
+//    public void updateAd(Integer id, Integer newAdCompanyId, String newName, String newImage, String newDescription, String newKeywords) {
+//        Ad ad = adRepository.findById(id).orElse(null);
+//        if (ad != null) {
+//            if (newAdCompanyId != null) ad.setAdCompanyId(newAdCompanyId);
+//            if (newName != null) ad.setName(newName);
+//            if (newImage != null) ad.setImage(newImage);
+//            if (newDescription != null) ad.setDescription(newDescription);
+//            if (newKeywords != null) ad.setKeywords(newKeywords);
+//            adRepository.save(ad);
+//        }
+//    }
+
+    public Integer checkClicks(Integer id) {
+        Integer result = adRepository.getNumberOfClicks(id);
+        if (result == null)
+            return 0;
+        return result;
     }
+
+//    public Integer checkImpressions(Integer id) {
+//        Integer result = adRepository.getNumberOfImpressions(id);
+//        if (result == null)
+//            return 0;
+//        return result;
+//    }
 }
-*/

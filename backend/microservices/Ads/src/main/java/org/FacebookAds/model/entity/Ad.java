@@ -23,7 +23,5 @@ public class Ad {
   private String imageLink;
   private String content;
   private String link;
-  @OneToMany
-  @JoinColumn(name = "ad_id")
-  private List<Keyword> keywords;
+  private String keywords;
 }
