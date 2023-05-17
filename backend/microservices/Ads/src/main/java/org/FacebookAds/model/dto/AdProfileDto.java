@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class AdProfileDto {
     private Integer id;
     private Integer userId;
-
 }

@@ -4,9 +4,11 @@ import org.Facebook.mapper.FriendRequestMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.FriendRequestDto;
 import org.Facebook.model.entity.FriendRequest;
+import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.FriendRequestService;
+import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +28,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private FriendRequestService friendRequestService;
+    @Autowired
+    private FriendshipService friendshipService;
 
     @PostMapping(value = "/register")
     @ResponseBody
@@ -89,6 +93,16 @@ public class UserController {
     @PostMapping(value = "/friendRequest")
     @ResponseBody
     public FriendRequestDto updateFriendReq(@RequestParam Integer id, @RequestParam String status) {
-        return FriendRequestMapper.toDto(friendRequestService.updateR(id, status));
+        FriendRequestDto friendRequestDto = FriendRequestMapper.toDto(friendRequestService.updateR(id, status));
+
+        if(status.equals("accepted")) {
+            Friendship friendship = Friendship.builder()
+                    .user1(UserMapper.fromDto(friendRequestDto.getReceiver()))
+                    .user2(UserMapper.fromDto(friendRequestDto.getSender()))
+                    .build();
+            friendshipService.addFriendship(friendship);
+        }
+
+        return friendRequestDto;
     }
 }
