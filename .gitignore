@@ -1,3 +1,5 @@
 .idea/
 *.iml
 /target/
+backend/Facebook/target/
+backend/microservices/Ads/target/
