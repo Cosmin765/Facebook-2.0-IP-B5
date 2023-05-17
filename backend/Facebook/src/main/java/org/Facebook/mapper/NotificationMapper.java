@@ -14,6 +14,7 @@ public class NotificationMapper {
                 .updatedAt(notification.getUpdatedAt())
                 .build();
     }
+
     public static Notification fromDto(NotificationDto notification) {
         return Notification.builder()
                 .id(notification.getId())

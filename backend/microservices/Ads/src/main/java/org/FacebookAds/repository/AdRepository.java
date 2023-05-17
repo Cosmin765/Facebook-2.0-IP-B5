@@ -12,15 +12,19 @@ import java.util.List;
 
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Integer> {
+    @Query(value = "SELECT SUM(impressions) FROM ad_impressions where ad_id = :id", nativeQuery = true)
+    Integer getNumberOfImpressions(@Param("id") Integer id);
+
     @Query(value = "SELECT COUNT(*) FROM ad_clicks where ad_id = :adId", nativeQuery = true)
     Integer getNumberOfClicks(@Param("adId") Integer adId);
+
     @Query(value = "SELECT * FROM ads", nativeQuery = true)
     List<Ad> getAllAds();
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO ads (user_id, title, image, content, keywords, link) values (14, :title, NULL, 'boring', 'boring1,boring2,boring3', 'https://boring.com')", nativeQuery = true)
-    void insertAd(@Param("title") String title);
+    @Query(value = "INSERT INTO ads (ad_company_id, title, image, content, keywords, link) values (:adCompanyId, :title, :image, :content, :keywords, :link)", nativeQuery = true)
+    void insertAd(@Param(value = "adCompanyId") Integer adCompanyId, @Param(value = "title") String title, @Param(value = "image") String image, @Param(value = "content") String content, @Param(value = "keywords") String keywords, @Param(value = "link") String link);
 
     @Modifying
     @Transactional

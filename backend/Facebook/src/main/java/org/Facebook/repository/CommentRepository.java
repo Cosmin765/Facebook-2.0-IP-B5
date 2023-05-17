@@ -4,7 +4,6 @@ import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,8 +13,10 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByPostId(int postId);
+
     //@Query(value = "SELECT * FROM comments user_id = :user_id", nativeQuery = true)
     List<Comment> findByUser(User user);
+
     List<Comment> findByPost(Post post);
 
     /*@Modifying

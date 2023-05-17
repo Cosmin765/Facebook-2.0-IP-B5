@@ -31,10 +31,12 @@ public class User implements UserDetails {
     private Date birthday;
     @Column(nullable = false, unique = true)
     private String email;
-
     @Column(nullable = false)
     private String password;
     private String bio;
+    private String profilePicture;
+    private String coverPicture;
+    private Boolean banned;
 
     @Override
     public String getUsername() {

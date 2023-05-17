@@ -3,7 +3,6 @@ package org.FacebookAds.controller;
 import org.FacebookAds.model.dto.KeywordDto;
 import org.FacebookAds.model.entity.Keyword;
 import org.FacebookAds.service.AdProfileService;
-import org.FacebookAds.service.KeywordExtractor;
 import org.FacebookAds.service.KeywordExtractorService;
 import org.FacebookAds.service.KeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class KeywordController {
         //KeywordExtractor keywordExtractor = new KeywordExtractor(adProfileService);
         //keywordExtractor.analyzeMessage("I really like cars.",3);
 
-        keywordExtractorService.processUserInput("I really like cars.",3);
+        keywordExtractorService.processUserInput("I really like cars.", 3);
         return keywordService.getKeyByProfile(3);
     }
 }

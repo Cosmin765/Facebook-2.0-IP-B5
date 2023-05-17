@@ -7,36 +7,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AdminService {
+    public Integer accessLevel;
     @Autowired
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
 
-    public Integer accessLevel;
     public boolean banUser(User user) {
-    return false;
+        return false;
     }
+
     public boolean unbanUser(User user) {
-    return false;
+        return false;
     }
-    public void deleteAnyPost(Post post) {}
+
+    public void deleteAnyPost(Post post) {
+    }
 
     public void getFriendshipGraphRec(User user, int level, Pair<Set<Pair<User, User>>, Map<Integer, Integer>> graph) {
-        if(level == 0) {
+        if (level == 0) {
             return;
         }
 
         var links = graph.getFirst();
         var groupMapping = graph.getSecond();
 
-        for(User other : userService.getFriends(user.getId())) {
+        for (User other : userService.getFriends(user.getId())) {
             Pair<User, User> link = user.getId() < other.getId() ? Pair.of(user, other) : Pair.of(other, user);
-            if(links.contains(link)) {
+            if (links.contains(link)) {
                 continue;
             }
 

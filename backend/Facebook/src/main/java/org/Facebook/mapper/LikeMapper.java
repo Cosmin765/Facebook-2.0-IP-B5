@@ -10,6 +10,7 @@ public class LikeMapper {
                 .createdAt(like.getCreatedAt())
                 .build();
     }
+
     public static Like fromDto(LikeDto like) {
         return Like.builder()
                 .id(like.getId())

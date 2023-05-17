@@ -1,12 +1,11 @@
 package org.Facebook.service;
 
-import java.util.List;
-
 import org.Facebook.model.entity.PostImage;
 import org.Facebook.repository.PostImageRepository;
-import org.Facebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PostImageService {

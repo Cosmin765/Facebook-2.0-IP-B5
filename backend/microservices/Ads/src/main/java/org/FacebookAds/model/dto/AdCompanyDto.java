@@ -1,4 +1,4 @@
-package org.Facebook.model.dto;
+package org.FacebookAds.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
-public class CommentDto {
+public class AdCompanyDto {
     private Integer id;
-    private String content;
+    private String name;
+    private String description;
+    private String profilePicture;
+    private String coverPicture;
 }

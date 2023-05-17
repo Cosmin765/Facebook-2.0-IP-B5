@@ -3,11 +3,8 @@ package org.Facebook.controller;
 import org.Facebook.mapper.CommentMapper;
 import org.Facebook.model.dto.CommentDto;
 import org.Facebook.model.entity.Comment;
-import org.Facebook.model.entity.User;
 import org.Facebook.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,7 +27,7 @@ public class CommentController {
         return commentService.postComment(comment);
     }*/
 
-    @PostMapping ("/comments/delete")
+    @PostMapping("/comments/delete")
     @ResponseBody
     public String deleteComment(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
         commentService.deleteComment(id);
@@ -40,7 +37,7 @@ public class CommentController {
 
     @PostMapping("/postcomment")
     @ResponseBody
-    public String postComment (@RequestBody CommentDto commentDto) {
+    public String postComment(@RequestBody CommentDto commentDto) {
         commentService.postComment(commentDto);
         return "comment posted";
     }

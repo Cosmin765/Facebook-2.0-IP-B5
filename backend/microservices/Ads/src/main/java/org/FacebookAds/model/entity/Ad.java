@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -13,17 +14,21 @@ import java.util.List;
 @Entity
 @Table(name = "ads")
 public class Ad {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
-  @ManyToOne
-  @JoinColumn(name = "publisher_id")
-  private User publisher;
-  private String title;
-  private String imageLink;
-  private String content;
-  private String link;
-  @OneToMany
-  @JoinColumn(name = "ad_id")
-  private List<Keyword> keywords;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "ad_company_id", nullable = false)
+    private AdCompany adCompany;
+    @Column(nullable = false)
+    private String title;
+    private String image;
+    @Column(nullable = false)
+    private String content;
+    @ManyToMany
+    @JoinTable(name = "ad_keywords", joinColumns = @JoinColumn(name = "ad_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+    private List<Keyword> adKeywords;
+    private String link;
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -4,7 +4,6 @@ import org.Facebook.model.entity.FriendRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +17,7 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
 
     @Transactional
     @Modifying
-    @Query(value = "update friend_requests set status= :status where id=:id",nativeQuery = true)
+    @Query(value = "update friend_requests set status= :status where id=:id", nativeQuery = true)
     void updateRequest(@Param("id") Integer id, @Param("status") String status);
 
 }

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Test document retrieval</title>
 
     <style>
@@ -15,39 +15,39 @@
 </head>
 <body>
 <script>
-        window.onload = main;
+    window.onload = main;
 
-        function getElement(content, image) {
-            const container = document.createElement('div');
-            const contentElement = document.createElement('p');
-            const imageElement = document.createElement('img');
+    function getElement(content, image) {
+        const container = document.createElement('div');
+        const contentElement = document.createElement('p');
+        const imageElement = document.createElement('img');
 
-            container.appendChild(contentElement);
-            container.appendChild(imageElement);
+        container.appendChild(contentElement);
+        container.appendChild(imageElement);
 
-            contentElement.textContent = content;
-            imageElement.src = 'data:image/png;base64,' + image;
+        contentElement.textContent = content;
+        imageElement.src = 'data:image/png;base64,' + image;
 
-            return container;
+        return container;
+    }
+
+    async function main() {
+        const params = new URLSearchParams(location.search);
+
+        const count = params.get('count');
+        const cursor = params.get('cursor');
+
+        const url = `http://localhost:8084/posts/recommended?count=${count}&cursor=${cursor}`;
+
+        const response = await fetch(url, {method: 'POST'});
+        const data = await response.json();
+
+        for (const post of data) {
+            const container = getElement(post['content'], post['image']);
+
+            document.body.appendChild(container);
         }
-
-        async function main() {
-            const params = new URLSearchParams(location.search);
-
-            const count = params.get('count');
-            const cursor = params.get('cursor');
-
-            const url = `http://localhost:8084/posts/recommended?count=${count}&cursor=${cursor}`;
-            
-            const response = await fetch(url, {method: 'POST'});
-            const data = await response.json();
-
-            for(const post of data) {
-                const container = getElement(post['content'], post['image']);
-
-                document.body.appendChild(container);
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

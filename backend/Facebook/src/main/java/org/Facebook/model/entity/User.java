@@ -1,6 +1,5 @@
 package org.Facebook.model.entity;
 
-import javassist.bytecode.ByteArray;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 
 @Data

@@ -7,12 +7,15 @@ CREATE SCHEMA koobecaf;
 -- Selecting the 'koobecaf' database
 USE koobecaf;
 
+-- Turning on the event scheduler
+SET GLOBAL event_scheduler = ON;
+
 -- Users table
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    birthday DATE,
+    birthday DATE DEFAULT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     bio TEXT DEFAULT NULL,
@@ -155,18 +158,23 @@ CREATE TABLE notifications (
 -- Ad companies table
 CREATE TABLE ad_companies (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name TEXT NOT NULL,
-    description TEXT DEFAULT NULL
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+	name TEXT NOT NULL,
+    description TEXT DEFAULT NULL,
+    profile_picture TEXT DEFAULT NULL,
+    cover_picture TEXT DEFAULT NULL
 );
 
 -- Ads table
 CREATE TABLE ads (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ad_company_id INT NOT NULL,
-    name TEXT NOT NULL,
+    title TEXT NOT NULL,
     image TEXT DEFAULT NULL,
-    description TEXT NOT NULL,
+    content TEXT NOT NULL,
     keywords TEXT NOT NULL,
+    link TEXT DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (ad_company_id)
@@ -193,7 +201,7 @@ CREATE TABLE ad_clicks (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ad_id INT NOT NULL,
     user_id INT NOT NULL,
-    clicks INT DEFAULT 1,
+    click_count INT DEFAULT 1,
     clicked_after INT DEFAULT NULL,
     FOREIGN KEY (ad_id)
         REFERENCES ads (id)
@@ -229,44 +237,74 @@ CREATE TABLE keywords (
         ON DELETE CASCADE
 );
 
--- Unique user_id1, user_id2 (in this order) not deleted combinations index
+CREATE TABLE ad_keywords (
+	ad_id INT,
+    keyword_id INT,
+    PRIMARY KEY (ad_id, keyword_id),
+	FOREIGN KEY (ad_id)
+        REFERENCES ads (id)
+        ON DELETE CASCADE,
+	FOREIGN KEY (keyword_id)
+        REFERENCES keywords (id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE ad_profile_keywords (
+	ad_profile_id INT,
+    keyword_id INT,
+    PRIMARY KEY (ad_profile_id, keyword_id),
+	FOREIGN KEY (ad_profile_id)
+        REFERENCES ad_profiles (id)
+        ON DELETE CASCADE,
+	FOREIGN KEY (keyword_id)
+        REFERENCES keywords (id)
+        ON DELETE CASCADE
+);
+
+-- Only unique user_id1, user_id2 (in this order) should be inserted
 CREATE UNIQUE INDEX friendships_index ON friendships(user_id1, user_id2);
 
 -- Update updated_at in conversations when a conversation receives any new message
 delimiter $
 CREATE TRIGGER update_conversation_updated_at
 AFTER
-INSERT ON messages FOR EACH ROW BEGIN
-UPDATE conversations
-SET updated_at = NOW()
-WHERE id = NEW.conversation_id;
+INSERT ON messages FOR EACH ROW
+BEGIN
+	UPDATE conversations
+	SET updated_at = NOW()
+	WHERE id = NEW.conversation_id;
 END $
 delimiter ;
 
--- Insert new notification for user when he receives a friendship request
+-- Insert a new notification for an user when he receives a friendship request
 delimiter $
 CREATE TRIGGER new_friendship_request_notification
 AFTER
 INSERT ON friendships FOR EACH ROW
 BEGIN
-DECLARE firstName TEXT;
-DECLARE lastName TEXT;
-SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id1;
-INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id2, 'friendship request', CONCAT(firstName, ' ', lastName, ' sent you a friendship request!'));
+	DECLARE firstName TEXT;
+	DECLARE lastName TEXT;
+
+	SELECT first_name,
+		last_name INTO firstName,
+		lastName
+	FROM users
+	WHERE id = NEW.user_id1;
+	INSERT INTO notifications (user_id, type, content)
+	VALUES (
+			NEW.user_id2,
+			'friendship request',
+			CONCAT(
+				firstName,
+				' ',
+				lastName,
+				' sent you a friendship request!'
+			)
+		);
 END $
 delimiter ;
 
--- insert into friendships(user_id1,user_id2) values (2,5);
-
--- update friendships set status = 'rejected' where user_id1 = 2 and user_id2 = 5;
-
--- insert into friendships(user_id1,user_id2) values (2,5);
-
--- select * from users;
--- select * from friendships;
--- select * from notifications;
-
--- Insert new notification for user when his sent friendship request is accepted/rejected
+-- Insert a new notification for an user when his sent friendship request is accepted/rejected
 delimiter $
 CREATE TRIGGER accepted_or_rejected_friendship_request_notification
 AFTER
@@ -274,12 +312,108 @@ UPDATE ON friendships FOR EACH ROW
 BEGIN
 DECLARE firstName TEXT;
 DECLARE lastName TEXT;
-if (not NEW.status <=> OLD.status) then
-SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id2;
-if (NEW.status='accepted' or NEW.status='rejected') then
-INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id1, 'friendship request', CONCAT(firstName, ' ', lastName, NEw.status,' your friendship request!'));
-end if;
-end if;
+
+IF (NOT NEW.status <=> OLD.status) THEN
+	SELECT first_name,
+		last_name INTO firstName,
+		lastName
+	FROM users
+	WHERE id = NEW.user_id2;
+	IF (
+		NEW.status = 'accepted'
+		OR NEW.status = 'rejected'
+	) THEN
+		INSERT INTO notifications (user_id, type, content)
+		VALUES (
+				NEW.user_id1,
+				'friendship request',
+				CONCAT(
+					firstName,
+					' ',
+					lastName,
+					NEW.status,
+					' your friendship request!'
+				)
+			);
+	END IF;
+END IF;
+END $
+delimiter ;
+
+-- Insert a new notification for user when any of his friends celebrate their birthday
+delimiter $
+CREATE EVENT `birthday_notification`
+ON SCHEDULE
+  EVERY '1 0' DAY_HOUR
+  DO
+BEGIN
+	DECLARE done BOOLEAN DEFAULT FALSE;
+	DECLARE friend_id1,
+		friend_id2 INT;
+	DECLARE friend_first_name TEXT;
+	DECLARE friend_last_name TEXT;
+	DECLARE friend_birthday DATE;
+	DECLARE friendships_cursor CURSOR FOR
+	SELECT user_id1,
+		user_id2
+	FROM friendships
+	WHERE STATUS = 'accepted';
+	DECLARE CONTINUE HANDLER FOR NOT FOUND
+	SET done = TRUE;
+    
+	OPEN friendships_cursor;
+	read_loop: LOOP
+		FETCH friendships_cursor INTO friend_id1,
+			friend_id2;
+		IF done THEN
+			CLOSE friendships_cursor;
+			LEAVE read_loop;
+		END IF;
+		SELECT birthday INTO friend_birthday
+		FROM users
+		WHERE id = friend_id1;
+		IF friend_birthday = CURRENT_DATE() THEN
+			SELECT first_name,
+				last_name INTO friend_first_name,
+				friend_last_name
+			FROM users
+			WHERE id = friend_id1;
+			INSERT INTO notifications (user_id, type, content)
+			VALUES (
+					friend_id2,
+					'birthday',
+					CONCAT(
+						'Your friend ',
+						friend_first_name,
+						' ',
+						friend_last_name,
+						' celebrates his birthday today!'
+					)
+				);
+		END IF;
+		SELECT birthday INTO friend_birthday
+		FROM users
+		WHERE id = friend_id2;
+		IF friend_birthday = CURRENT_DATE() THEN
+			SELECT first_name,
+				last_name INTO friend_first_name,
+				friend_last_name
+			FROM users
+			WHERE id = friend_id2;
+			INSERT INTO notifications (user_id, type, content)
+			VALUES (
+					friend_id1,
+					'birthday',
+					CONCAT(
+						'Your friend ',
+						friend_first_name,
+						' ',
+						friend_last_name,
+						' celebrates his birthday today!'
+					)
+				);
+		END IF;
+	END LOOP;
 END $
 delimiter ;
 
@@ -578,53 +712,75 @@ VALUES (
     );
     
 INSERT INTO ad_companies (
+		email,
+        password,
 		name,
         description)
 VALUES (
+		'electrot@yahoo.com',
+        'electrot1234',
         'ElectroTech',
         'We specialize in selling the latest electronic gadgets and tech accessories.'
     ),
     (
+		'fashionf@yahoo.com',
+        'fashionf1234',
         'FashionForward',
         'We offer trendy clothing, footwear, and fashion accessories for men and women.'
     ),
     (
+		'homedp@yahoo.com',
+        'homedp1234',
         'HomeDecorPlus',
         'We provide a wide range of stylish furniture, home decor, and interior design solutions.'
     ),
     (
-        'OrganicGoodness',
+		'organic@yahoo.com',
+        'organicg1234',
+		'OrganicGoodness',
         'We sell a variety of organic food products, including fresh produce, snacks, and pantry essentials.'
     ),
     (
+		'autope@yahoo.com',
+        'autope1234',
         'AutoPartsExpress',
         'We offer a comprehensive selection of automotive parts and accessories for all makes and models.'
     ),
     (
+		'fitlf@yahoo.com',
+        'fitlf1234',
         'FitLifeFitness',
         'We specialize in fitness equipment, workout gear, and nutritional supplements to support a healthy lifestyle.'
     ),
     (
+		'gourmetd@yahoo.com',
+        'gourmetd1234',
         'GourmetDelights',
         'We provide gourmet food and delicacies, including fine wines, cheeses, and luxury ingredients.'
     ),
     (
+		'outdoora@yahoo.com',
+        'outdoora1234',
         'OutdoorAdventures',
         'We offer outdoor gear, camping equipment, and adventure travel packages for nature enthusiasts.'
     ),
     (
+		'petp@yahoo.com',
+        'petp1234',
         'PetParadise',
         'We cater to pet owners with a wide range of pet supplies, including food, toys, and accessories.'
     ),
     (
+		'beautye@yahoo.com',
+        'beautye1234',
         'BeautyEssentials',
         'We specialize in skincare, cosmetics, and beauty products to enhance your natural radiance.'
     );
     
 INSERT INTO ads (
         ad_company_id,
-        name,
-        description,
+        title,
+        content,
         keywords)
 VALUES (
         1,

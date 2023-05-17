@@ -1,5 +1,6 @@
 package org.FacebookAds.controller;
 
+import org.FacebookAds.model.entity.AdCompany;
 import org.FacebookAds.service.AdCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ public class AdCompanyController {
 
     @PostMapping(value = "/create_ad_company")
     @ResponseBody
-    public void createAdCompany(@RequestParam String name, @RequestParam String description) {
-        adCompanyService.createAdCompany(name, description);
+    public AdCompany createAdCompany(AdCompany adCompany) {
+        return adCompanyService.createAdCompany(adCompany);
     }
 
     @PostMapping(value = "/delete_ad_company")
@@ -30,8 +31,8 @@ public class AdCompanyController {
 
     @PostMapping(value = "/update_ad_company")
     @ResponseBody
-    public void updateAdCompany(@RequestParam Integer id, @RequestParam(required = false) String newName, @RequestParam(required = false) String newDescription) {
-        adCompanyService.updateAdCompany(id, newName, newDescription);
+    public AdCompany updateAdCompany(@RequestParam Integer id, AdCompany newAdCompany) {
+        return adCompanyService.updateAdCompany(id, newAdCompany);
     }
 
     @GetMapping(value = "/check_company_stats")

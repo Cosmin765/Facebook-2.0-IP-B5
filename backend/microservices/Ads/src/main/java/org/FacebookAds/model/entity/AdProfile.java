@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,12 +17,12 @@ public class AdProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    @Column(name = "user_id")
-    private Integer userId;
-    @Column(name = "keyword_id")
-    private Integer keywordId;
-    @Column(name = "created_at")
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToMany
+    @JoinTable(name = "ad_profile_keywords", joinColumns = @JoinColumn(name = "ad_profile_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+    private List<Keyword> adProfileKeywords;
     private Date createdAt;
-    @Column(name = "updated_at")
     private Date updatedAt;
 }

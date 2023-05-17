@@ -11,30 +11,26 @@ public class AdService {
     @Autowired
     private AdRepository adRepository;
 
-    public void createAd(Integer adCompanyId, String name, String image, String description, String keywords) {
-        Ad ad = new Ad();
-        ad.setAdCompanyId(adCompanyId);
-        ad.setName(name);
-        ad.setImage(image);
-        ad.setDescription(description);
-        ad.setKeywords(keywords);
-        adRepository.save(ad);
+    public Ad createAd(Ad ad) {
+        return adRepository.save(ad);
     }
 
     public void deleteAd(Integer id) {
         adRepository.deleteById(id);
     }
 
-    public void updateAd(Integer id, Integer newAdCompanyId, String newName, String newImage, String newDescription, String newKeywords) {
+    public Ad updateAd(Integer id, Ad newAd) {
         Ad ad = adRepository.findById(id).orElse(null);
         if (ad != null) {
-            if (newAdCompanyId != null) ad.setAdCompanyId(newAdCompanyId);
-            if (newName != null) ad.setName(newName);
-            if (newImage != null) ad.setImage(newImage);
-            if (newDescription != null) ad.setDescription(newDescription);
-            if (newKeywords != null) ad.setKeywords(newKeywords);
-            adRepository.save(ad);
+            if (newAd.getAdCompany() != null) ad.setAdCompany(newAd.getAdCompany());
+            if (newAd.getTitle() != null) ad.setTitle(newAd.getTitle());
+            if (newAd.getImage() != null) ad.setImage(newAd.getImage());
+            if (newAd.getContent() != null) ad.setContent(newAd.getContent());
+            if (newAd.getAdKeywords() != null) ad.setAdKeywords(newAd.getAdKeywords());
+            if (newAd.getLink() != null) ad.setLink(newAd.getLink());
+            return adRepository.save(ad);
         }
+        return null;
     }
 
     public Integer checkClicks(Integer id) {

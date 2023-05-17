@@ -1,5 +1,6 @@
 package org.FacebookAds.controller;
 
+import org.FacebookAds.model.entity.Ad;
 import org.FacebookAds.service.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,20 +19,20 @@ public class AdController {
 
     @PostMapping(value = "/create_ad")
     @ResponseBody
-    public void createAdCompany(@RequestParam Integer adCompanyId, @RequestParam String name, @RequestParam String image, @RequestParam String description, @RequestParam String keywords) {
-        adService.createAd(adCompanyId, name, image, description, keywords);
+    public Ad createAd(Ad ad) {
+        return adService.createAd(ad);
     }
 
     @PostMapping(value = "/delete_ad")
     @ResponseBody
-    public void deleteAdCompany(@RequestParam Integer id) {
+    public void deleteAd(@RequestParam Integer id) {
         adService.deleteAd(id);
     }
 
     @PostMapping(value = "/update_ad")
     @ResponseBody
-    public void updateAdCompany(@RequestParam Integer id, @RequestParam(required = false) Integer newAdCompanyId, @RequestParam(required = false) String newName, @RequestParam(required = false) String newImage, @RequestParam(required = false) String newDescription, @RequestParam(required = false) String newKeywords) {
-        adService.updateAd(id, newAdCompanyId, newName, newImage, newDescription, newKeywords);
+    public void updateAd(@RequestParam Integer id, Ad newAd) {
+        adService.updateAd(id, newAd);
     }
 
     @GetMapping(value = "/check_ad_stats")

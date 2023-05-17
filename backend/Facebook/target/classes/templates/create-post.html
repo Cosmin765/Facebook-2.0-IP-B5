@@ -6,18 +6,18 @@
 <body>
 <h1>Create Post</h1>
 
-<form action="/posts/new" method="post" enctype="multipart/form-data">
+<form action="/posts/new" enctype="multipart/form-data" method="post">
     <label for="content">Content:</label>
-    <input type="text" name="content" id="content" required><br><br>
+    <input id="content" name="content" required type="text"><br><br>
 
     <label for="adLocation">Location:</label>
-    <input type="text" name="adLocation" id="adLocation"><br><br>
+    <input id="adLocation" name="adLocation" type="text"><br><br>
 
     <label for="adStatus">Status:</label>
-    <input type="text" name="adStatus" id="adStatus"><br><br>
+    <input id="adStatus" name="adStatus" type="text"><br><br>
 
     <label for="image">Images:</label>
-    <input type="file" name="image" id="image" multiple><br><br>
+    <input id="image" multiple name="image" type="file"><br><br>
     <input type="submit" value="Create Post">
 </form>
 </body>

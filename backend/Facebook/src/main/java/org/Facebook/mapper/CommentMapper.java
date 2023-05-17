@@ -1,9 +1,10 @@
 package org.Facebook.mapper;
-import org.Facebook.model.entity.Comment;
+
 import org.Facebook.model.dto.CommentDto;
+import org.Facebook.model.entity.Comment;
 
 public class CommentMapper {
-    public static CommentDto toDto(Comment comment){
+    public static CommentDto toDto(Comment comment) {
         return CommentDto.builder()
                 .id(comment.getId())
                 .content(comment.getContent())

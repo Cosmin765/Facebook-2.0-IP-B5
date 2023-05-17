@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class LikeService {
 
@@ -32,12 +33,14 @@ public class LikeService {
             throw new Exception("Like not found.");
         return like;
     }
+
     public List<Like> getLikesByUserId(Integer id) throws Exception {
         List<Like> like = likeRepository.findByUserId(id);
         if (like == null)
             throw new Exception("No Likes found.");
         return like;
     }
+
     public List<Like> getLikesByPostId(Integer id) throws Exception {
         List<Like> like = likeRepository.findByPostId(id);
         if (like == null)

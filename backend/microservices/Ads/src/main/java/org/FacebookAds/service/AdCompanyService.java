@@ -15,24 +15,26 @@ public class AdCompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public void createAdCompany(String name, String description) {
-        AdCompany company = new AdCompany();
-        company.setName(name);
-        company.setDescription(description);
-        companyRepository.save(company);
+    public AdCompany createAdCompany(AdCompany adCompany) {
+        return companyRepository.save(adCompany);
     }
 
     public void deleteAdCompany(Integer id) {
         companyRepository.deleteById(id);
     }
 
-    public void updateAdCompany(Integer id, String newName, String newDescription) {
+    public AdCompany updateAdCompany(Integer id, AdCompany newAdCompany) {
         AdCompany company = companyRepository.findById(id).orElse(null);
         if (company != null) {
-            if (newName != null) company.setName(newName);
-            if (newDescription != null) company.setDescription(newDescription);
-            companyRepository.save(company);
+            if (newAdCompany.getEmail() != null) company.setName(newAdCompany.getEmail());
+            if (newAdCompany.getPassword() != null) company.setName(newAdCompany.getPassword());
+            if (newAdCompany.getName() != null) company.setName(newAdCompany.getName());
+            if (newAdCompany.getDescription() != null) company.setName(newAdCompany.getDescription());
+            if (newAdCompany.getProfilePicture() != null) company.setName(newAdCompany.getProfilePicture());
+            if (newAdCompany.getCoverPicture() != null) company.setName(newAdCompany.getCoverPicture());
+            return companyRepository.save(company);
         }
+        return null;
     }
 
     public int checkImpressions(Integer id) {

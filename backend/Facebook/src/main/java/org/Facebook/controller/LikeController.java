@@ -1,12 +1,12 @@
 package org.Facebook.controller;
 
-import org.Facebook.mapper.LikeMapper;
-import org.Facebook.model.dto.LikeDto;
 import org.Facebook.model.entity.Like;
 import org.Facebook.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 

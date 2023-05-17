@@ -1,9 +1,7 @@
 package org.Facebook.mapper;
 
 import org.Facebook.model.dto.CommentReportDto;
-import org.Facebook.model.dto.FriendRequestDto;
 import org.Facebook.model.entity.CommentReport;
-import org.Facebook.model.entity.FriendRequest;
 
 
 public class CommentReportMapper {

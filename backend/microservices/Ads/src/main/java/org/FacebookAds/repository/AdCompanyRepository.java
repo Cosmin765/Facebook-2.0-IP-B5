@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface AdCompanyRepository extends JpaRepository<AdCompany, Integer> {
-    @Query(value = "SELECT SUM(clicks) FROM ad_clicks where ad_id IN (SELECT id FROM ads WHERE ad_company_id = (SELECT id FROM ad_companies WHERE id = :id))", nativeQuery = true)
+    @Query(value = "SELECT SUM(click_count) FROM ad_clicks where ad_id IN (SELECT id FROM ads WHERE ad_company_id = (SELECT id FROM ad_companies WHERE id = :id))", nativeQuery = true)
     Integer getNumberOfClicks(@Param("id") Integer id);
 
     @Query(value = "SELECT SUM(impressions) FROM ad_impressions where ad_id IN (SELECT id FROM ads WHERE ad_company_id = (SELECT id FROM ad_companies WHERE id = :id))", nativeQuery = true)

@@ -12,6 +12,7 @@ public class PostImageMapper {
                 .updatedAt(postImage.getUpdatedAt())
                 .build();
     }
+
     public static PostImage fromDto(PostImageDto postImageDto) {
         return PostImage.builder()
                 .id(postImageDto.getId())

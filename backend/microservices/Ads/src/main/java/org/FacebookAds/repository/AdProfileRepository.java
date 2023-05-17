@@ -14,10 +14,10 @@ public interface AdProfileRepository extends JpaRepository<AdProfile, Integer> {
     AdProfile findByUserId(@Param("user_id") Integer userId);
 
 
-   @Query(value = "SELECT id, user_id, keyword_id FROM ad_profiles WHERE user_id = :user_id", nativeQuery = true)
+    @Query(value = "SELECT id, user_id, keyword_id FROM ad_profiles WHERE user_id = :user_id", nativeQuery = true)
     List<AdProfile> getAllProfilesById(@Param("user_id") Integer userId);
 
-   // new id
+    // new id
     @Query(value = "SELECT id FROM ad_profiles WHERE user_id = :user_id", nativeQuery = true)
     Integer getAdProfileIdByUserId(@Param("user_id") Integer userId);
 

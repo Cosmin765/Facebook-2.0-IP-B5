@@ -14,9 +14,15 @@ import javax.persistence.*;
 @DynamicInsert
 @Table(name = "ad_companies")
 public class AdCompany {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer id;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
+    private String password;
     private String name;
     private String description;
+    private String profilePicture;
+    private String coverPicture;
 }

@@ -3,7 +3,6 @@ package org.Facebook.controller;
 import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.model.dto.PostDto;
-import org.Facebook.model.dto.PostImageDto;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.PostImage;
 import org.Facebook.repository.PostImageRepository;
@@ -65,8 +64,9 @@ public class PostController {
 //                .adStatus(adStatus)
 //                .build();
         postDto.setPostImages(new ArrayList<>());
-        for(MultipartFile image : images) {
-            String fileName = UUID.randomUUID().toString() + "-" + image.getOriginalFilename();;
+        for (MultipartFile image : images) {
+            String fileName = UUID.randomUUID().toString() + "-" + image.getOriginalFilename();
+            ;
             String uploadDir = "/images/";
             FileUploadUtil.saveFile(uploadDir, fileName, image);
             PostImage postImage = new PostImage();
@@ -105,6 +105,7 @@ public class PostController {
     public String showUpdateForm() {
         return "update-post";
     }
+
     @PostMapping(value = "/post/update")
     @ResponseBody
     public RedirectView updatePost(@RequestParam("id") Integer id, @RequestBody PostDto postDto, RedirectAttributes redirectAttributes) throws Exception {
@@ -119,6 +120,7 @@ public class PostController {
         redirectAttributes.addFlashAttribute("message", "Post updated successfully!");
         return new RedirectView("/post?id=" + id);
     }
+
     @GetMapping("/post")
     @ResponseBody
     public Post getPostById(@RequestParam("id") Integer id) throws Exception {

@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +23,6 @@ public class AdClick {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private Timestamp clickedAt;
-    private Integer clicksCount;
+    private Integer clickCount;
+    private Integer clickedAfter;
 }

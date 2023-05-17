@@ -5,7 +5,6 @@ import org.FacebookAds.model.entity.Keyword;
 import org.FacebookAds.repository.AdProfileRepository;
 import org.FacebookAds.repository.AdRepository;
 import org.FacebookAds.repository.KeywordRepository;
-import org.apache.xpath.compiler.Keywords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +59,7 @@ public class RecommendService {
         Map<Ad, Double> map = new HashMap<>();
 
         for (Ad ad : allAds) {
-            List<String> adsKeywords = ad.getKeywords().stream().map(keyword -> keyword.word).toList();
+            List<String> adsKeywords = ad.getAdKeywords().stream().map(keyword -> keyword.word).toList();
             Map<String, Integer> adKeywords = new HashMap<>();
             for (String keyword : adsKeywords) {
                 adKeywords.put(keyword, 1);
@@ -72,12 +71,7 @@ public class RecommendService {
             //iau keywordurile cu cele mai mari scoruri si fac cosine similarity cu fiecare keywords din ads
         }
         List<Map.Entry<Ad, Double>> list = new ArrayList<>(map.entrySet());
-        list.sort(new Comparator<Map.Entry<Ad, Double>>() {
-            @Override
-            public int compare(Map.Entry<Ad, Double> o1, Map.Entry<Ad, Double> o2) {
-                return Double.compare(o2.getValue(), o1.getValue());
-            }
-        });
+        list.sort((o1, o2) -> Double.compare(o2.getValue(), o1.getValue()));
         Map<Ad, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Ad, Double> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());

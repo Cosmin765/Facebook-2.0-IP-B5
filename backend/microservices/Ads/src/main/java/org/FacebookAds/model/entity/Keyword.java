@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,13 +14,20 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "keywords")
 public class Keyword {
+    public String word;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    public String word;
+    @ManyToOne
+    @JoinColumn(name = "ad_profile_id")
+    private AdProfile adProfileId;
     private Integer frequency;
     private Double sentimentScore;
     private Double score;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    @ManyToMany(mappedBy = "adKeywords")
+    private List<Ad> ads;
+    @ManyToMany(mappedBy = "adProfileKeywords")
+    private List<AdProfile> adProfiles;
 }

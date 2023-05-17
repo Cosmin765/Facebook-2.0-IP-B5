@@ -11,20 +11,20 @@
 <button onclick="deletePost()">Delete</button>
 
 <script>
-        function deletePost() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
+    function deletePost() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
 
-            if (id) {
-                var url = '/post/delete?id=' + id;
+        if (id) {
+            var url = '/post/delete?id=' + id;
 
-                fetch(url, {
-                    method: 'POST'
-                })
+            fetch(url, {
+                method: 'POST'
+            })
                 .then(response => {
                     if (response.ok) {
                         console.log('Post deleted successfully.');
-                         window.location.href = '/posts/recommended?count=10&cursor=0';
+                        window.location.href = '/posts/recommended?count=10&cursor=0';
                     } else {
                         console.log('Failed to delete post.');
                     }
@@ -32,11 +32,11 @@
                 .catch(error => {
                     console.log('Error occurred during deletion:', error);
                 });
-            } else {
-                console.log('No post found.');
-                 window.location.href = '/posts/recommended?count=10&cursor=0';
-            }
+        } else {
+            console.log('No post found.');
+            window.location.href = '/posts/recommended?count=10&cursor=0';
         }
-    </script>
+    }
+</script>
 </body>
 </html>

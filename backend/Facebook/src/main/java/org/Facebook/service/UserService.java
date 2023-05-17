@@ -1,5 +1,6 @@
 package org.Facebook.service;
 
+
 import org.Facebook.config.AppSecurityConfig;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.UserDto;
@@ -19,8 +20,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import static java.lang.Math.min;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -170,7 +169,7 @@ public class UserService implements UserDetailsService {
 
     public List<User> getRandomUserListForSuggestions(int count, int userId, List<User> friends, List<User> suggestions) {
         List<User> randomUsers = new ArrayList<>();
-        for (int i = 0; i < min(count, userRepository.count() - friends.size() - suggestions.size() - 1); i++) {
+        for (int i = 0; i < Math.min(count, userRepository.count() - friends.size() - suggestions.size() - 1); i++) {
             User randomUser = getRandomUser();
             if (randomUser == null || randomUsers.contains(randomUser) || friends.contains(randomUser) || randomUser.getId().equals(userId) || suggestions.contains(randomUser)) {
                 i--;
