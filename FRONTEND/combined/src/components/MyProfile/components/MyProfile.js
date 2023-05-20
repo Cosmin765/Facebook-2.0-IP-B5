@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./MyProfile.css"
 import "./Feed.css"
 import EditProfile from "./EditProfile";
@@ -11,7 +11,7 @@ import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
 import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
-
+import { getUser } from "../../../util";
 const posts = [
   { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }, text: 'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture: null, video: 'https://www.youtube.com/embed/E9T78bT26sk' },
   { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '30.02.2023' }, text: 'A lot of blood, sweat, and tears have gone into this career of mine.', picture: require('./img/kevin-hart-feed.jpg'), video: null },
@@ -107,6 +107,7 @@ function Description({ descriptionText, setDescriptionText }) {
         setTrigger={setButtonPopup}
         descriptionText={descriptionText}
         setDescriptionText={setDescriptionText}
+        
       >
         <h3>Edit description</h3>
       </Popup>
@@ -137,20 +138,93 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 }
 
 const MyProfile = () => {
-  const [name, setName] = useState("Your name");
+  const [userData, setUserData] = useState([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  useEffect(() => {
+    getUser()
+      .then(data => {
+        setUserData(data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    const fullName = `${userData.firstName} ${userData.lastName}`;
+    setName(fullName);
+  }, [userData]);
   const [imageUrl, setImageUrl] = useState(null);
-  const [description, setDescription] = useState("This is my description.");
+ 
+  useEffect(() => {
+    if (userData.bio) {
+      setDescription(userData.bio);
+    }
+    else
+    {
+      setDescription("This is my description.");
+    }
+  }, [userData]);
+
 
   const handleNameUpdate = (newName) => {
+    const nameParts = newName.split(' ');
+    if (nameParts.length !== 2) {
+      alert('Invalid name format. Please enter both first name and last name.');
+      return;
+    }
     setName(newName);
+    fetch('http://localhost:8084/updateName', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `name=${newName}`,
+    })
+      .then(response => {
+        alert('Name updated successfully');
+        document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "/login";
+
+      })
+      .catch(error => {
+      
+        alert('Error updating name:', error);
+      });
   };
+
 
   const handleImageUpdate = (newImageUrl) => {
     setImageUrl(newImageUrl);
   };
 
+
   const handleDescriptionUpdate = (newDescription) => {
+
     setDescription(newDescription);
+    fetch('http://localhost:8084/updateBio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `bio=${newDescription}`,
+    })
+      .then(response => {
+        alert('Description updated successfully');
+        document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "/login";
+
+      })
+      .catch(error => {
+      
+        alert('Error updating the description:', error);
+      });
+
   };
 
   return (

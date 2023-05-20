@@ -142,4 +142,23 @@ public class UserController {
 
         return userDtoList;
     }
+
+    @PostMapping(value = "/updateName")
+    @ResponseBody
+    public UserDto updateName(@RequestParam String name) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        String firstName = name.split(" ")[0];
+        String lastName = name.split(" ")[1];
+        return UserMapper.toDto(userService.updateName(user.getId(), firstName, lastName));
+    }
+
+    @PostMapping(value = "/updateBio")
+    @ResponseBody
+    public UserDto updateBio(@RequestParam String bio) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        return UserMapper.toDto(userService.updateBio(user.getId(), bio));
+    }
+
 }

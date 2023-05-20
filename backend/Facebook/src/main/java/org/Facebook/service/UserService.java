@@ -182,4 +182,13 @@ public class UserService implements UserDetailsService {
         return friendshipRepository.getLoggedFriends(userId);
     }
 
+    public User updateName(Integer id, String firstName, String lastName) {
+        userRepository.updateUserName(id, firstName, lastName);
+        return userRepository.findById(id).get();
+    }
+
+    public User updateBio(Integer id, String bio) {
+        userRepository.updateUserBio(id, bio);
+        return userRepository.findById(id).get();
+    }
 }
