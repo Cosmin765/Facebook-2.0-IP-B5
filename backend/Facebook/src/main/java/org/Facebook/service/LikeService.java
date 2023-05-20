@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class LikeService {
 
@@ -53,12 +55,16 @@ public class LikeService {
     public Like like(LikeDto likeDto) {
         Like like = LikeMapper.fromDto(likeDto);
         like.setUser(userRepository.getById(likeDto.getUserId()));
-        like.setPost(postRepository.getById(likeDto.getPostId()));
+        like.setPostId(likeDto.getPostId());
         return likeRepository.save(like);
     }
 
-    public boolean unlike(LikeDto likeDto) {
-        likeRepository.delete(LikeMapper.fromDto(likeDto));
+    public boolean unlike(Integer likeId) {
+        Optional<Like> like = likeRepository.findById(likeId);
+        if(like.isEmpty()) {
+            return false;
+        }
+        likeRepository.delete(like.get());
         return true;
     }
 }

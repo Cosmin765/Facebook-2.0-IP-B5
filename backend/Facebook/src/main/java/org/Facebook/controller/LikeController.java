@@ -37,7 +37,7 @@ public class LikeController {
 
     @DeleteMapping("/likes")
     @ResponseBody
-    public boolean unlike(@RequestBody LikeDto likeDto) {
-        return likeService.unlike(likeDto);
+    public boolean unlike(@RequestParam("likeId") Integer likeId) {
+        return likeService.unlike(likeId);
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import ShowAccount from './ShowAccount';
 import '../../styles/homepageStyles/card.css';
@@ -9,7 +9,7 @@ import shareBtn from '../../icons/homepageIcons/share.svg';
 import AddComment from './AddComment';
 import PostImage from './PostImage';
 
-import { likePost } from '../../../../util';
+import { getUser, likePost, unlikePost } from '../../../../util';
 
 export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   const showComments = () => {
@@ -57,8 +57,8 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
       </div>
 
       <div className='feed_bottomCard'>
-        <div className='feed_likes' onClick={() => likePost(post.id)}>
-          <LikeBtn nrLikes={post.likes}/>
+        <div className='feed_likes'>
+          <LikeBtn likes={post.likes} post={post}/>
         </div>
 
         <div className='feed_comments'>
@@ -76,17 +76,30 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
     );
 }
 
-function LikeBtn({nrLikes}) {
-  const [liked, setLiked] = useState(null);
+function LikeBtn({likes, post}) {
+  const [nrLikes, setNrLikes] = useState(likes.length);
+  const [like, setLike] = useState(null);
+
+  useEffect(() => {
+    getUser().then(user => {
+      setLike(post.likes.find(l => l.userId === user.id));
+    });
+  }, []);
 
   const clickLike = () => {
-    setLiked(!liked);
+    if(!like) {
+      likePost(post.id).then(setLike);
+      setNrLikes(nrLikes + 1);
+    } else {
+      unlikePost(like.id).then(() => setLike(null));
+      setNrLikes(nrLikes - 1);
+    }
   }
 
   return (
     <div className='feed_likeBtn'>
-      <button id="feed_likeBtn" onClick={clickLike} className={liked ? 'feed_like-clicked' : 'feed_like'}></button>
-      {<p>{nrLikes}</p>}
+      <button id="feed_likeBtn" onClick={clickLike} className={like ? 'feed_like-clicked' : 'feed_like'}></button>
+      <p>{nrLikes}</p>
     </div>
   );
 }

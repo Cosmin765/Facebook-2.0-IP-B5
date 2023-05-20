@@ -71,6 +71,12 @@ async function likePost(postId) {
   return await getData(url, 'POST');
 }
 
+async function unlikePost(likeId) {
+  const url = new URL(SERVER_ADDRESS + '/likes');
+  url.searchParams.set('likeId', likeId);
+  return await getData(url, 'DELETE');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -82,5 +88,6 @@ export {
   addFriend,
   getRecommendedPosts,
   getImage,
-  likePost
+  likePost,
+  unlikePost
 };

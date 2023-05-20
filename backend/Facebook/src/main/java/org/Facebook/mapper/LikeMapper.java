@@ -8,7 +8,7 @@ public class LikeMapper {
         return LikeDto.builder()
                 .id(like.getId())
                 .userId(like.getUser().getId())
-                .postId(like.getPost().getId())
+                .postId(like.getPostId())
                 .build();
     }
     public static Like fromDto(LikeDto like) {
