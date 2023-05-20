@@ -17,6 +17,10 @@ public class FriendRequestService {
     public List<FriendRequest> getFriendRequestsByUser(UserDto user) {
         return friendRequestRepository.getByUserId(user.getId());
     }
+    public List<FriendRequest> getFriendRequestsByUserSend(UserDto user) {
+        return friendRequestRepository.getBySenderUserId(user.getId());
+    }
+
 
     public FriendRequest updateR(Integer id, String status) {
         friendRequestRepository.updateRequest(id, status);

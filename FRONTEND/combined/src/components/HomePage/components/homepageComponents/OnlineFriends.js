@@ -24,9 +24,9 @@ export default function OnlineFriends({friends, openAcount, toggle}) {
     }
     // 
 
-    const showFriends = friends.map((friend) => {
+    const showFriends = friends.map((friend, i) => {
         return (
-           <div className='feed_friend' onClick={goToProfile}>
+           <div key={i} className='feed_friend' onClick={goToProfile}>
              <Link className='router_link' to='/profile'>    <ShowAccount account={friend.account}/>
             </Link></div>
             

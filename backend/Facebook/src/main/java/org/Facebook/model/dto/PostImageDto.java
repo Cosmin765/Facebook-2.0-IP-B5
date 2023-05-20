@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Builder
 public class PostImageDto {
     private Integer id;
+    private Integer postId;
     private String imageLink;
     private Timestamp createdAt;
     private Timestamp updatedAt;
