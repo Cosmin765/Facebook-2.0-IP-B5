@@ -2,34 +2,34 @@
 import Card from './Card';
 import ShowComments from './ShowComments';
 import Friends from './Friends';
+import Ad from './Ad';
 
 // style
 import '../../styles/homepageStyles/feed.css'
 
 export default function Feed({togglePosts, posts, showComments, showFriends, toggleFriends, friends}) {
-    const feed = posts.map(post =>
-        <>
-            <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/>
+    const feed = posts.map(post =>{
 
-            <div className={showComments ? 'feed_spacer active' : 'feed_spacer'}>
-                <ShowComments comments={post.comments} toggleFunction={togglePosts} showComments={showComments} />
-            </div>
+        return(<>{post.link == null ? 
+            <>
+                <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/>
 
-            <div className={showFriends ? 'feed_spacer active' : 'feed_spacer'}>
-                <Friends friends={friends} toggleFunction={toggleFriends} showFriends={showFriends} />
-            </div>
-        </>
-    );
-    
+                <div className={showComments ? 'feed_spacer active' : 'feed_spacer'}>
+                    <ShowComments comments={post.comments} toggleFunction={togglePosts} showComments={showComments} />
+                </div>
+
+                <div className={showFriends ? 'feed_spacer active' : 'feed_spacer'}>
+                    <Friends friends={friends} toggleFunction={toggleFriends} showFriends={showFriends} />
+                </div>
+            </> : 
+            <>
+                 <Ad ad={post} />
+             </>}</>);
+    });
+
     return (
     <div className='feed_feed'>
         {feed}
-
-        {/* {
-        ads.map(ad =>
-            <Ad account={ad.account} text={ad.text} pictures={ad.picture} ad={ad.ad} link={ad.link}/>
-            )
-        } */}
     </div>
     );
 }
