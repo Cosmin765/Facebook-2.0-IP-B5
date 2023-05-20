@@ -1,3 +1,4 @@
+//nu avem nevoie?
 package org.FacebookAds.model.entity;
 
 import lombok.AllArgsConstructor;
