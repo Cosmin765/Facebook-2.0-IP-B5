@@ -71,6 +71,11 @@ async function likePost(postId) {
   return await getData(url, 'POST');
 }
 
+async function getLoggedFriends() {
+  const url = new URL(SERVER_ADDRESS + '/getLoggedFriends');
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -82,5 +87,6 @@ export {
   addFriend,
   getRecommendedPosts,
   getImage,
-  likePost
+  likePost,
+  getLoggedFriends
 };
