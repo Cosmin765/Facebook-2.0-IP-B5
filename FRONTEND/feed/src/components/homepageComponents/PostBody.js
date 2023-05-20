@@ -25,6 +25,7 @@ export default function PostBody(props) {
   const PostMessage = () => {
     alert("Posted");
 
+    props.addPost();
     props.toggleFunction();
     console.log(postDataType);
   }

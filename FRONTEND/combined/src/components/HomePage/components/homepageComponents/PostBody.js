@@ -1,13 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getRaw } from '../../../../util';
 
 import '../../styles/homepageStyles/PostBody.css';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
-
 export default function PostBody(props) {
   const [postDataType, setPostDataType] = useState({
     typeAreaVal: "",
-    files: FileList
+    files: []
   });
 
   const updateTypeAreaVal = (event) => {
@@ -23,11 +23,29 @@ export default function PostBody(props) {
   }
 
   const PostMessage = () => {
-    alert("Posted");
+    // const postData = {
+    //   content: postDataType.typeAreaVal,
+    //   // Add other properties as needed
+    // };
+    const formData = new FormData();
+    formData.append('content', postDataType.typeAreaVal);
+    if (postDataType.files.length > 0) {
+      for (let i = 0; i < postDataType.files.length; i++) {
+        formData.append('image', postDataType.files[i]);
+      }}
 
-    props.toggleFunction();
-    console.log(postDataType);
-  }
+    getRaw('http://localhost:8084/posts/new', 'POST', formData)
+    .then(response => {
+      if(response.status !== 200) {
+        throw new Error('Error occurred while creating the post.');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+  props.toggleFunction();
+}
 
   const CancelPost = () => {
     props.toggleFunction();

@@ -26,7 +26,11 @@ public class FileController {
     @PostMapping("/cloudflare/upload")
     @ResponseBody
     public String handleUpload(@RequestParam("file") MultipartFile file) {
-        return cloudflareService.upload(file);
+        try {
+            return cloudflareService.upload(file);
+        } catch (Exception ignored) {
+            return "Not uploaded";
+        }
     }
 
     @GetMapping("/upload")

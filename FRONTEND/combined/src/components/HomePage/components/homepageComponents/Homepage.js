@@ -10,6 +10,7 @@ import Feed from "./Feed";
 import LargeMenu from "../large_menu";
 import StretchedMenu from "../streched_menu";
 import ShowAccount from "./ShowAccount";
+import { getRecommendedPosts } from "../../../../util";
 
 // style
 import '../../styles/homepageStyles/homepage.css'
@@ -107,13 +108,13 @@ const myFriends = [
     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}}
 ];
 
-const posts = [
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate:'02.01.2023'}, text:'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture:null, video:'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp1, likes: 9821366},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate:'30.02.2023'}, text:'A lot of blood, sweat, and tears have gone into this career of mine.', picture:require('../../photos/kevin-hart-feed.jpg'), video:null, comments: commentp2, likes: 55},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, text:'The Matrix may have imprisoned me, But I am free inside The Real World.', picture:require('../../photos/free-tate.jpg'), video:null, comments: commentp2, likes: -3},
-    {account:{name:'Hugh Jackman', picture:require('../../photos/hugh-jackman.jpg'), uploadDate:'24.03.2023'}, text:'@ryanReynolds is my best friend :3', picture:null, video:null, comments: commentp2, likes: 1},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, text:'I’m not homophobic, I enjoy watching lesbians on the internet.', picture:require('../../photos/jk.jpg'), video:null, comments: commentp2, likes: 901}
-];
+// const posts = [
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate:'02.01.2023'}, text:'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture:null, video:'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp1, likes: 9821366},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate:'30.02.2023'}, text:'A lot of blood, sweat, and tears have gone into this career of mine.', picture:require('../../photos/kevin-hart-feed.jpg'), video:null, comments: commentp2, likes: 55},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, text:'The Matrix may have imprisoned me, But I am free inside The Real World.', picture:require('../../photos/free-tate.jpg'), video:null, comments: commentp2, likes: -3},
+//     {account:{name:'Hugh Jackman', picture:require('../../photos/hugh-jackman.jpg'), uploadDate:'24.03.2023'}, text:'@ryanReynolds is my best friend :3', picture:null, video:null, comments: commentp2, likes: 1},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, text:'I\'m not homophobic, I enjoy watching lesbians on the internet.', picture:require('../../photos/jk.jpg'), video:null, comments: commentp2, likes: 901}
+// ];
 
 export default function Homepage() {
     const [modal, setModal] = useState(false);
@@ -122,6 +123,15 @@ export default function Homepage() {
     const [showComments, setShowComments] = useState(false);
     const [showFriends, setShowFriends] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
+
+    const [posts, setPosts] = useState([]);
+
+    if(!posts.length) {
+        getRecommendedPosts().then((posts) => {
+            setPosts(posts);
+        });
+    }
+
     
     const toggleFriendsPanel = () => {
         setModal(!modal);
@@ -161,19 +171,6 @@ export default function Homepage() {
         // alert();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     const [height, width] = useWindowSize();
 
     function useWindowSize() {
@@ -194,7 +191,7 @@ export default function Homepage() {
 
     return(
         <>
-            <TopBar notifications={notifications}   showNotifications={showNotifications} />
+            <TopBar notifications={notifications} showNotifications={showNotifications} />
             <div className={showNotifications ? 'feed_card feed_notificationPanel active' : 'feed_card feed_notificationPanel'}>
                 <h2>Notifications</h2>
                 

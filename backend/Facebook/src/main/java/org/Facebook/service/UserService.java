@@ -3,6 +3,7 @@ package org.Facebook.service;
 import org.Facebook.config.AppSecurityConfig;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.UserDto;
+import org.Facebook.model.entity.FriendRequest;
 import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.FriendshipRepository;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Math.min;
 
@@ -28,6 +30,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private FriendshipRepository friendshipRepository;
+
+    @Autowired
+    private FriendRequestService friendRequestService;
 
     public void registerUser(User user) {
         String hashedPassword = AppSecurityConfig.getPasswordEncoder().encode(user.getPassword());
@@ -107,44 +112,33 @@ public class UserService implements UserDetailsService {
     public List<User> getSuggestions(Integer count) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        List<FriendRequest> friendRequestsReceived = friendRequestService.getFriendRequestsByUser(user);
+        List<User> received = friendRequestsReceived.stream().map(FriendRequest::getSender).toList();
+        List<FriendRequest> friendRequestsSent = friendRequestService.getFriendRequestsByUserSend(user);
+        List<User> sent = friendRequestsSent.stream().map(FriendRequest::getReceiver).toList();
         List<User> friends = getFriends(user.getId());
-        Map<User, Integer> mutualFriends = new HashMap<>();
+        Set<User> friendsAndRequests = new HashSet<>();
+        friendsAndRequests.addAll(friends);
+        friendsAndRequests.addAll(received);
+        friendsAndRequests.addAll(sent);
+        //Map<User, Integer> mutualFriends = new HashMap<>();
+        List<User> suggestions = friends.stream()
+                .parallel()
+                .flatMap(friend -> getFriends(friend.getId()).stream())
+                .filter(friendFriend -> !friendFriend.getId().equals(user.getId())
+                        && !friendsAndRequests.contains(friendFriend))
+                .distinct()
+                .collect(Collectors.toList());
 
-        for (User friend : friends) {
-            List<User> friendFriends = getFriends(friend.getId());
-            for (User friendFriend : friendFriends) {
-                if (friendFriend.getId().equals(user.getId()) || friends.contains(friendFriend) || mutualFriends.containsKey(friendFriend)) {
-                    continue;
-                }
-                mutualFriends.put(friendFriend, getNumberMutualFriends(user.getId(), friendFriend.getId()));
-            }
-        }
-        List<User> suggestions = new ArrayList<>(mutualFriends.keySet());
-        suggestions.sort((o1, o2) -> mutualFriends.get(o2) - mutualFriends.get(o1));
+        List<User> randomUsers = getRandomUserListForSuggestions(count - suggestions.size(), user.getId(), friendsAndRequests, suggestions);
+        suggestions.addAll(randomUsers);
+
         if (count <= suggestions.size()) {
             List<User> suggestionSlice = suggestions.subList(0, count);
             return suggestionSlice;
         } else {
-            List<User> suggestionAdd = new ArrayList<>();
-            for (User suggestion : suggestions) {
-                List<User> friendsOfSuggestion = getFriends(suggestion.getId());
-                for (User friendOfSuggestion : friendsOfSuggestion) {
-                    if (friendOfSuggestion.getId().equals(user.getId()) || friends.contains(friendOfSuggestion) || suggestions.contains(friendOfSuggestion)) {
-                        continue;
-                    }
-                    suggestionAdd.add(friendOfSuggestion);
-                    if (suggestionAdd.size() == count - suggestions.size())
-                        break;
-                }
-            }
-            suggestions.addAll(suggestionAdd);
-            if (count <= suggestions.size()) {
-                List<User> suggestionSlice = suggestions.subList(0, count);
-                return suggestionSlice;
-            } else {
-                suggestions.addAll(getRandomUserListForSuggestions(count - suggestions.size(), user.getId(), friends, suggestions));
-                return suggestions;
-            }
+
+            return suggestions;
         }
 
     }
@@ -153,30 +147,28 @@ public class UserService implements UserDetailsService {
     public Integer getNumberMutualFriends(Integer userId1, Integer userId2) {
         List<User> friends1 = getFriends(userId1);
         List<User> friends2 = getFriends(userId2);
-        int count = 0;
-        for (User friend1 : friends1) {
-            if (friends2.contains(friend1)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) friends1.stream()
+                .filter(friends2::contains)
+                .count();
     }
 
-    public User getRandomUser() {
+
+
+    public List<User> getRandomUserListForSuggestions(int count, int userId, Set<User> friendsAndRequests, List<User> suggestions) {
         Random rand = new Random();
-        int randomId = rand.nextInt(1, (int) userRepository.count() + 1);
-        return userRepository.findById(randomId).orElse(null);
-    }
-
-    public List<User> getRandomUserListForSuggestions(int count, int userId, List<User> friends, List<User> suggestions) {
+        List<User> allUsers = userRepository.findAll();
+        Collections.shuffle(allUsers);
         List<User> randomUsers = new ArrayList<>();
-        for (int i = 0; i < min(count, userRepository.count() - friends.size() - suggestions.size() - 1); i++) {
-            User randomUser = getRandomUser();
-            if (randomUser == null || randomUsers.contains(randomUser) || friends.contains(randomUser) || randomUser.getId().equals(userId) || suggestions.contains(randomUser)) {
-                i--;
-                continue;
+        int maxCount = (int) min(count, userRepository.count() - friendsAndRequests.size() - suggestions.size() - 1);
+        while (randomUsers.size() < maxCount) {
+            int randomId = rand.nextInt(0, allUsers.size());
+            User randomUser=allUsers.get(randomId);
+            if (randomUser != null && !randomUser.getId().equals(userId)
+                    && !randomUsers.contains(randomUser) && !friendsAndRequests.contains(randomUser)
+                    && !suggestions.contains(randomUser)) {
+                randomUsers.add(randomUser);
+                allUsers.remove(randomUser);
             }
-            randomUsers.add(randomUser);
         }
         return randomUsers;
     }
