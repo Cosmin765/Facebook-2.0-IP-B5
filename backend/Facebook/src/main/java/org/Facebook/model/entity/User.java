@@ -1,6 +1,8 @@
 package org.Facebook.model.entity;
 
+import javassist.bytecode.ByteArray;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@Builder
 public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -26,13 +29,13 @@ public class User implements UserDetails {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    private Date birthday;
+    private String birthday;
     @Column(nullable = false, unique = true)
     private String email;
-
     @Column(nullable = false)
     private String password;
     private String bio;
+    private Short isLoggedIn;
 
     @Override
     public String getUsername() {

@@ -16,7 +16,10 @@ public interface ConversationRepository extends JpaRepository<Conversation, Inte
     @Query(value = "SELECT * FROM conversations where id = :id", nativeQuery = true)
     Conversation findConvById(@Param("id") Integer id);
 
-    @Modifying
-    @Transactional
-    Conversation save(Conversation conversation);
+    @Query(value = "SELECT c.id, c.created_at, c.updated_at FROM conversations c join conversation_users cu on c.id = cu.conversation_id where cu.user_id = :user_id", nativeQuery = true)
+    List<Conversation> findByUserId(@Param("user_id") Integer userId);
+
+    @Query(value = "SELECT c.id, c.created_at, c.updated_at FROM conversations c join conversation_users cu1 on c.id = cu1.conversation_id " +
+            "join conversation_users cu2 on c.id = cu2.conversation_id where cu1.user_id = :my_id and cu2.user_id = :other_id", nativeQuery = true)
+    Conversation findPair(@Param("my_id") Integer myId, @Param("other_id") Integer otherId);
 }

@@ -1,6 +1,5 @@
 package org.FacebookAds.service;
 
-import org.FacebookAds.mapper.AdProfileMapper;
 import org.FacebookAds.mapper.KeywordMapper;
 import org.FacebookAds.model.dto.KeywordDto;
 import org.FacebookAds.model.entity.Keyword;
@@ -19,7 +18,7 @@ public class KeywordService {
         return keywordRepository.findAll().stream().map(KeywordMapper::toDto).toList();
     }
 
-    public List<Keyword> getKeyByProfile(Integer value){
+    public List<Keyword> getKeyByProfile(Integer value) {
         return keywordRepository.findByProfileId(value);
     }
 }

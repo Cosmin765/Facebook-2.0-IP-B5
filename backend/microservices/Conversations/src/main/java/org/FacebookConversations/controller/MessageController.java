@@ -43,25 +43,24 @@ public class MessageController {
     }
 
     @GetMapping(value = "/conv/{to}/{from}")
-    public List<MessageDto> findToFrom(@PathVariable Integer to, @PathVariable Integer from){
-//         TODO: not working - s-a schimbat schema
-        return messageService.getToFrom(to,from);
+    public List<MessageDto> findToFrom(@PathVariable Integer to, @PathVariable Integer from) {
+        return messageService.getToFrom(from, to);
     }
 
     @PostMapping("/conv/messages")
-    public List<MessageDto> lastMessages(@RequestParam Integer id, @RequestParam Integer count) {
-        return messageService.getLastMessagesFromConversation(id, count);
+    public List<MessageDto> lastMessages(@RequestParam Integer id, @RequestParam Integer count,@RequestParam Integer cursor) {
+        return messageService.getLastMessagesFromConversation(id, count,cursor);
     }
 
     @RequestMapping(value = "/conv/messages")
-    public ModelAndView lastMessagesPage(){
+    public ModelAndView lastMessagesPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("messages.html");
         return modelAndView;
     }
 
     @PostMapping(value = "")
-    public MessageDto createMessage(@RequestBody Message message) {
+    public MessageDto createMessage(@RequestBody MessageDto message) {
         Message mess = messageService.saveMessage(message);
         return MessageMapper.toDto(mess);
     }

@@ -13,17 +13,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Autowired
 //    private UserDetailsService userDetailsService;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-
-//        http.authorizeHttpRequests()
-//                .antMatchers(HttpMethod.GET,"/", "/login").permitAll()
-//                .antMatchers(HttpMethod.POST,"/register").permitAll()
-//                .anyRequest().authenticated();
-//        http.formLogin();
-//        http.httpBasic();
-//        http.cors().and().csrf().disable();
+    public static BCryptPasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 //    @Bean
@@ -37,7 +28,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return provider;
 //    }
 
-    public static BCryptPasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+
+//        http.authorizeHttpRequests()
+//                .antMatchers(HttpMethod.GET,"/", "/login").permitAll()
+//                .antMatchers(HttpMethod.POST,"/register").permitAll()
+//                .anyRequest().authenticated();
+//        http.formLogin();
+//        http.httpBasic();
+//        http.cors().and().csrf().disable();
     }
 }
