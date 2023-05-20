@@ -2,14 +2,7 @@ package org.Facebook.repository;
 
 import org.Facebook.model.entity.FriendRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface FriendRequestRepository extends JpaRepository<FriendRequest, Integer> {
@@ -39,5 +32,4 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
             "sender_id = :senderId AND receiver_id = :receiverId", nativeQuery = true)
     FriendRequest findBySenderAndReceiverIds(@Param("senderId") Integer senderId,
                                              @Param("receiverId") Integer receiverId);
-
 }

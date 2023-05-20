@@ -19,15 +19,25 @@ public class LikeController {
     @GetMapping("/likes")
     @ResponseBody
     public Like getLikeById(@RequestParam("id") Integer id) throws Exception {
-        Like like = likeService.getLikesById(id);
-        return like;
+        return likeService.getLikesById(id);
     }
 
     @GetMapping("/likes/post")
     @ResponseBody
     public List<Like> getPostLikes(@RequestParam("id") Integer id) throws Exception {
-        List<Like> likes = likeService.getLikesByPostId(id);
-        return likes;
+        return likeService.getLikesByPostId(id);
     }
 
+    @PostMapping("/likes")
+    @ResponseBody
+    public LikeDto like(@RequestParam("postId") Integer postId, @RequestParam("userId") Integer userId) {
+        LikeDto likeDto = LikeDto.builder().postId(postId).userId(userId).build();
+        return LikeMapper.toDto(likeService.like(likeDto));
+    }
+
+    @DeleteMapping("/likes")
+    @ResponseBody
+    public boolean unlike(@RequestParam("likeId") Integer likeId) {
+        return likeService.unlike(likeId);
+    }
 }

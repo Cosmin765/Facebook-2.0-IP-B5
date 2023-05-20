@@ -1,15 +1,12 @@
 package org.Facebook.controller;
 
-import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.model.dto.PostDto;
 import org.Facebook.model.dto.PostImageDto;
 import org.Facebook.model.entity.Post;
-import org.Facebook.model.entity.PostImage;
-import org.Facebook.repository.PostImageRepository;
-import org.Facebook.repository.PostRepository;
+import org.Facebook.service.CloudflareService;
+import org.Facebook.service.PostImageService;
 import org.Facebook.service.PostService;
-import org.Facebook.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +25,9 @@ public class PostController {
     @Autowired
     private PostService postService;
     @Autowired
-    private PostRepository postRepository;
+    private PostImageService postImageService;
     @Autowired
-    private PostImageRepository postImageRepository;
+    private CloudflareService cloudflareService;
 
 
     @GetMapping(value = "/posts")
@@ -62,19 +59,26 @@ public class PostController {
         postDto.setPostImages(new ArrayList<>());
         postDto.setLikes(new ArrayList<>());
         postDto.setComments(new ArrayList<>());
+        postDto = postService.createPost(postDto);
         if (images != null && !images.isEmpty()) {
             postDto.setPostImages(new ArrayList<>());
             for (MultipartFile image : images) {
                 if (image.isEmpty()) continue;
-                String fileName = UUID.randomUUID().toString() + "-" + image.getOriginalFilename();
-                String uploadDir = "/images/";
-                FileUploadUtil.saveFile(uploadDir, fileName, image);
-                PostImage postImage = new PostImage();
-                postImage.setImageLink("/images/" + fileName);
-                postDto.getPostImages().add(PostImageMapper.toDto(postImage));
+
+                String filename;
+                try {
+                    filename = cloudflareService.upload(image);
+                } catch (Exception ignored) {
+                    continue;
+                }
+
+                PostImageDto postImageDto = PostImageDto.builder()
+                        .postId(postDto.getId())
+                        .imageLink(filename)
+                        .build();
+                postImageService.createPostImage(postImageDto);
             }
         };
-        postService.createPost(postDto);
         //redirectAttributes.addFlashAttribute("message", "Post created successfully!");
         //return new RedirectView("/posts/recommended?count=10&cursor=0");
     }

@@ -46,7 +46,7 @@ public class CloudflareService {
         return "";
     }
 
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file) throws Exception {
         try {
             // It should be checked in front-end that the file is not larger than the limit set in properties file,
             // otherwise the server resets the connection
@@ -76,13 +76,13 @@ public class CloudflareService {
                 }
                 // Handle any other HttpClientErrorException
                 e.printStackTrace();
-                return "Not uploaded";
+                throw new Exception("Not uploaded");
             }
             // There is already a byte-for-byte identical file on the server
             return filename;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Not uploaded";
+            throw new Exception("Not uploaded");
         }
     }
 

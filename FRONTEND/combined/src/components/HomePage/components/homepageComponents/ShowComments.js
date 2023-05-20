@@ -5,8 +5,8 @@ import Comment from "./Comment";
 import '../../styles/homepageStyles/showComments.css';
 
 export default function ShowComments({comments, toggleFunction, showComments}) {
-    const commentList = comments.map((comment) => {
-        return <Comment comment={comment}/>;
+    const commentList = comments.map((comment, i) => {
+        return <Comment key={i} comment={comment}/>;
     });
 
     return (

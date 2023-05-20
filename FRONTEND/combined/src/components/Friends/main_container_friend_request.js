@@ -6,32 +6,9 @@ import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getData, getFriendRequests } from '../../util';
 const SERVER_ADDRESS = 'http://localhost:8084';
 let variable = false;
-async function getRaw(url, method = 'POST', body = null) {
-  const options = {
-    method,
-    credentials: 'include', // include cookies in the request
-    body
-  };
-  const res = await fetch(url, options);
-  return res;
-}
-
-async function getData(url, method = 'POST', body = null) {
-  const res = await getRaw(url, method, body);
-  const data = await res.json();
-  return data;
-}
-
-async function getUser() {
-  return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
-}
-
-async function getFriendRequests() {
-  const url = new URL(SERVER_ADDRESS + '/friendRequests');
-  return await getData(url, 'GET');
-}
 
 
 export default function MainContainer_Friend_Request() {

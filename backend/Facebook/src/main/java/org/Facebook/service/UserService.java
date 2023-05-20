@@ -173,4 +173,13 @@ public class UserService implements UserDetailsService {
         return randomUsers;
     }
 
+    public User setLoggedIn(int userId, boolean value){
+        userRepository.updateUserLoggedInStatus(userId,value);
+        return userRepository.findById(userId).get();
+    }
+
+    public List<Friendship> getFriendshipsOnline(int userId){
+        return friendshipRepository.getLoggedFriends(userId);
+    }
+
 }
