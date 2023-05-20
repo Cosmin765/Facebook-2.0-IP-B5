@@ -7,6 +7,7 @@ import org.Facebook.model.entity.FriendRequest;
 import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
+import org.Facebook.repository.FriendshipRepository;
 import org.Facebook.service.FriendRequestService;
 import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //@RestController
@@ -30,6 +32,8 @@ public class UserController {
     private FriendRequestService friendRequestService;
     @Autowired
     private FriendshipService friendshipService;
+    @Autowired
+    private FriendshipRepository friendshipRepository;
 
     @PostMapping(value = "/register")
     @ResponseBody
@@ -122,5 +126,21 @@ public class UserController {
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
 
         return UserMapper.toDto(userService.setLoggedIn(user.getId(), value));
+    }
+
+    @GetMapping(value = "/getLoggedFriends")
+    @ResponseBody
+    public List<UserDto> getLoggedFriends(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+
+        List<Friendship> friendshipList = userService.getFriendshipsOnline(user.getId());
+        List<UserDto> userDtoList = new ArrayList<>();
+
+        for (Friendship friendship : friendshipList){
+            userDtoList.add(UserMapper.toDto(friendship.getUser2()));
+        }
+
+        return userDtoList;
     }
 }

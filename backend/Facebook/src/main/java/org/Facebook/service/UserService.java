@@ -186,4 +186,8 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).get();
     }
 
+    public List<Friendship> getFriendshipsOnline(int userId){
+        return friendshipRepository.getLoggedFriends(userId);
+    }
+
 }
