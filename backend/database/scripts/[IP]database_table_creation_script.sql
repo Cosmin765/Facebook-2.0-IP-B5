@@ -20,8 +20,8 @@ CREATE TABLE users (
                        email VARCHAR(255) NOT NULL UNIQUE,
                        password VARCHAR(255) NOT NULL,
                        bio TEXT,
-                       profile_picture LONGBLOB,
-                       cover_picture LONGBLOB,
+                       profile_picture VARCHAR(255),
+                       cover_picture VARCHAR(255),
                        is_logged_in BOOLEAN DEFAULT FALSE,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
