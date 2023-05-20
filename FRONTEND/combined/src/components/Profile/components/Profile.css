@@ -245,3 +245,15 @@ body {
   z-index: 1;
   box-shadow: 0px 0px 5px lightgray;
 }
+
+
+.feed_modal{
+  background: rgba(49,49,49,0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  z-index: 2;
+}
