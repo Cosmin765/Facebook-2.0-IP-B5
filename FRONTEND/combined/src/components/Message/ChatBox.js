@@ -122,6 +122,11 @@ function ChatBox() {
   const [loaded, setLoaded] = useState(false); 
 
  const messageContainerRef = useRef(null);
+ 
+  const updatePeople = async () => {
+    const people = await getPeople();
+    setPeople(people);
+  }
    
 
   const handleChangeSearch = (event) => {
@@ -129,16 +134,25 @@ function ChatBox() {
   };
 
   const [people, setPeople] = useState([]);
-  useEffect(()=>{
-  if(!people.length) {
-    getPeople().then(data => {
-      setPeople(data.map(p => {
-        p.profilePic = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXIzB_kc5Nif4Z1-HFgBglche-F55frSnLj9BTUY3ewg&s`;
-        return p;
-      }));
-    });
-  }
-},[]);
+  useEffect(() => {
+    updatePeople();
+    const interval = setInterval(updatePeople, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+
+//   useEffect(()=>{
+//   if(!people.length) {
+//     getPeople().then(data => {
+//       setPeople(data.map(p => {
+//         p.profilePic = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXIzB_kc5Nif4Z1-HFgBglche-F55frSnLj9BTUY3ewg&s`;
+//         return p;
+//       }));
+//     });
+//   }
+// },[]);
+
+
 const [sockets, setSockets] = useState({});
 
 function connectSocket(conversationId) {

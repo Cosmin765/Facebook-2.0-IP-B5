@@ -115,4 +115,12 @@ public class UserController {
         return FriendRequestMapper.toDto(friendRequestService.saveFriendRequest(user.getId(), id, "pending"));
     }
 
+    @PostMapping(value = "/setLogged")
+    @ResponseBody
+    public UserDto setLogged(@RequestParam boolean value) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+
+        return UserMapper.toDto(userService.setLoggedIn(user.getId(), value));
+    }
 }
