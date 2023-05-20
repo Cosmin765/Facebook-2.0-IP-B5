@@ -54,21 +54,20 @@ public class RecommendService {
         Map<String, Integer> userKeywords = new HashMap<>();
         for (Keyword keyword : keywordList) {
             String word = keyword.word;
-            userKeywords.put(word, 1);
+            userKeywords.put(word.trim(), 1);
         }
         List<Ad> allAds = adRepository.getAllAds();
         Map<Ad, Double> map = new HashMap<>();
 
         for (Ad ad : allAds) {
             String adsKeywordsUnsplited = ad.getKeywords();//Elementele sa fie cu , in tabel!
-            String[] adsKeywords = adsKeywordsUnsplited.split(",");
+            String[] adsKeywords = Arrays.stream(adsKeywordsUnsplited.split(",")).map(String::trim).toArray(String[]::new);
             Map<String, Integer> adKeywords = new HashMap<>();
             for (String keyword : adsKeywords) {
                 adKeywords.put(keyword, 1);
             }
             double similarity = cosineSimilarity(userKeywords, adKeywords);
             map.put(ad, similarity);
-
 
             //iau keywordurile cu cele mai mari scoruri si fac cosine similarity cu fiecare keywords din ads
         }
@@ -85,11 +84,11 @@ public class RecommendService {
         }
         List<Ad> adsSorted = new ArrayList<>();
         for (Map.Entry<Ad, Double> entry : sortedMap.entrySet()) {
-            if (entry.getValue() > 0) {
+            if (entry.getValue() >= 0) {
                 adsSorted.add(entry.getKey());
             }
         }
-        return adsSorted;
+        return adsSorted.stream().limit(10).toList();
 
     }
 

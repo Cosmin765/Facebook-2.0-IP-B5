@@ -26,11 +26,17 @@ export default function LargeMenu() {
               </div>
               <div className="feed_grid-item">
                 <img src={icon3}></img>
-                <span>Friends</span>
+                <span>
+                <Link className="router_link" to='/friends'>
+                  Friends
+                  </Link>
+                  </span>
               </div>
               <div className="feed_grid-item feed_last">
                 <img src={icon4}></img>
-                <span>Messages</span>
+                <span><Link className="router_link" to='/mess'>
+                  Messages
+                  </Link></span>
               </div>
     
             </div>

@@ -7,31 +7,33 @@ import icon4 from '../icons/Chat_alt_2_light.svg';
 import { Link } from 'react-router-dom';
 
 export default function StretchedMenu() {
-    return (
-    
-          <div className="feed_smenu">
-            <h1 className='feed_stretched'>k.</h1>
-            <div className="feed_sgrid_wrapper">
-            <div className="feed_sgrid_container">
-              <div class="feed_sgrid-item">
-                <img src={icon}></img>
-              
-              </div>
-              <div className="feed_sgrid-item">
-                <Link className='router_link' to='/myprofile'>
-                <img src={icon2}></img>
-        </Link>
-              </div>
-              <div className="feed_sgrid-item">
-                <img src={icon3}></img>
-       
-              </div>
-              <div className="feed_sgrid-item feed_stretch_last">
-                <img src={icon4}></img>
+  return (
 
-              </div>
-            </div>
-            </div>
+    <div className="feed_smenu">
+      <h1 className='feed_stretched'>k.</h1>
+      <div className="feed_sgrid_wrapper">
+        <div className="feed_sgrid_container">
+          <div className="feed_sgrid-item">
+            <img src={icon}></img>
+
           </div>
-        );
-    }
+          <div className="feed_sgrid-item">
+            <Link className='router_link' to='/myprofile'>
+              <img src={icon2}></img>
+            </Link>
+          </div>
+          <div className="feed_sgrid-item">
+            <Link className='router_link' to='/friends'>
+              <img src={icon3}></img>
+            </Link>
+          </div>
+          <div className="feed_sgrid-item feed_stretch_last">
+            <Link className='router_link' to='/mess'>
+              <img src={icon4}></img>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -39,7 +39,8 @@ public class KeywordController {
         //KeywordExtractor keywordExtractor = new KeywordExtractor(adProfileService);
         //keywordExtractor.analyzeMessage("I really like cars.",3);
 
-        keywordExtractorService.processUserInput("I really like cars.",3);
+//        keywordExtractorService.processUserInput("I really like cars.",3);
+        keywordExtractorService.processUserInput("I want to get a job",3);
         return keywordService.getKeyByProfile(3);
     }
 }

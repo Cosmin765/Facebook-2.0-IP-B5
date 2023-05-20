@@ -7,6 +7,7 @@ public class PostImageMapper {
     public static PostImageDto toDto(PostImage postImage) {
         return PostImageDto.builder()
                 .id(postImage.getId())
+                .postId(postImage.getPost().getId())
                 .imageLink(postImage.getImageLink())
                 .createdAt(postImage.getCreatedAt())
                 .updatedAt(postImage.getUpdatedAt())
