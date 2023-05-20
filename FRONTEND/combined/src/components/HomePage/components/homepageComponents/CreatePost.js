@@ -4,28 +4,7 @@ import PostBody from "./PostBody";
 // styles
 import '../../styles/homepageStyles/CreatePost.css';
 import React, { useState,useEffect } from 'react';
-const SERVER_ADDRESS = 'http://localhost:8084';
-async function getData(url, method='POST', body=null) {
-    const res = await getRaw(url, method, body);
-    const data = await res.json();
-    return data;
-  }
-  async function getRaw(url, method='POST', body=null) {
-    const options = {
-      method,
-      credentials: 'include', // include cookies in the request
-      body
-    };
-    const res = await fetch(url, options);
-    return res;
-  }
-  
-  
-  async function getUser() {
-    return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
-  }
-  
- 
+import { getUser } from "../../../../util";
 
 export default function CreatePost(props) {
     const [userData, setUserData] = useState([]);

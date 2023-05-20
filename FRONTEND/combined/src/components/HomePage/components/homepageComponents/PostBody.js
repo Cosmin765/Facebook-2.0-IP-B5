@@ -1,21 +1,9 @@
 import React from 'react';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { getRaw } from '../../../../util';
 
 import '../../styles/homepageStyles/PostBody.css';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
-async function getRaw(url, method = 'POST', body = null) {
-  const options = {
-    method,
-    credentials: 'include', // include cookies in the request
-    body
-  };
-  
-    const res = await fetch(url, options);
-  return res;
-}
-
-
-
 export default function PostBody(props) {
   const [postDataType, setPostDataType] = useState({
     typeAreaVal: "",
@@ -48,21 +36,15 @@ export default function PostBody(props) {
 
     getRaw('http://localhost:8084/posts/new', 'POST', formData)
     .then(response => {
-      if (response.ok) {
-        alert("Post created successfully!");
-        return response.text();
-      } else {
+      if(response.status !== 200) {
         throw new Error('Error occurred while creating the post.');
       }
     })
-
-  .catch(error => {
-    console.error(error);
-    alert(error.message);
-  });
+    .catch(error => {
+      console.error(error);
+    });
 
   props.toggleFunction();
-  console.log(postDataType);
 }
 
   const CancelPost = () => {

@@ -11,9 +11,9 @@ export default function Friends({friends, toggleFunction, sharePannel, showFrien
         alert("AM TRIMIIIS");
     }
 
-    const displayFriends = friends.map((friend) => {
+    const displayFriends = friends.map((friend, i) => {
         return (
-            <div className='feed_firends'>
+            <div key={i} className='feed_firends'>
                 <ShowAccount account={friend.account}/>
                 {sharePannel && <button className='feed_sendBtn' onClick={sharePost}><img src={sendImg} alt="send" /></button>}
             </div>

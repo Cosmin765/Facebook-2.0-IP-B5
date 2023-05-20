@@ -6,41 +6,9 @@ import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-
-const SERVER_ADDRESS = 'http://localhost:8084';
-
-async function getRaw(url, method = 'POST', body = null) {
-  const options = {
-    method,
-    credentials: 'include', // include cookies in the request
-    body
-  };
-  const res = await fetch(url, options);
-  return res;
-}
-
-async function getData(url, method = 'POST', body = null) {
-  const res = await getRaw(url, method, body);
-  const data = await res.json();
-  return data;
-}
-
-async function getUser() {
-  return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
-}
-
-async function getSuggestions() {
-  const url = new URL(SERVER_ADDRESS + '/suggestions?count=10');
-  return await getData(url, 'GET');
-}
-
-async function addFriend(idReceiver){
-  await getData(SERVER_ADDRESS+`/addFriendRequest?id=${idReceiver}&status=pending`,'POST');
-}
+import { getSuggestions, addFriend } from '../../util';
 
 export default function Sugestions_Friends() {
-
-
   const [requestSent, setRequestSent] = useState([]);
 
   const handleAddFriend = (friendId) => {

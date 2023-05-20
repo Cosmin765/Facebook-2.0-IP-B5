@@ -42,7 +42,7 @@ public class PostService {
         return postRepository.findAllPostsDesc();
     }
 
-    public void createPost(PostDto postDto) {
+    public PostDto createPost(PostDto postDto) {
         Post post = PostMapper.fromDto(postDto);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
@@ -51,7 +51,7 @@ public class PostService {
         for (PostImage postImage : post.getPostImages()) {
             postImage.setPost(post);
         }
-        postRepository.save(post);
+        return PostMapper.toDto(postRepository.save(post));
     }
 
     public void deletePost(Integer id) throws Exception {
