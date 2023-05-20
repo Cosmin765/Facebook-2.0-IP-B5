@@ -1,3 +1,13 @@
+-- Dropping the 'koobecaf' database, if it exists
+DROP SCHEMA IF EXISTS koobecaf;
+
+-- Creating the 'koobecaf' database
+CREATE SCHEMA koobecaf;
+
+-- Selecting the 'koobecaf' database
+USE koobecaf;
+
+
 -- Added cascade on delete for data integrity on data modifications
 
 -- Users table: separate name and last name columns, add logon and cover_picture columns
@@ -196,3 +206,53 @@ CREATE TABLE keyword_to_profile (
                                     FOREIGN KEY (keyword_id) REFERENCES keywords(id) ON DELETE CASCADE,
                                     FOREIGN KEY (ad_profile_id) REFERENCES ad_profiles(id) ON DELETE CASCADE
 );
+
+
+
+
+
+
+-- Trigger section
+
+-- Unique user_id1, user_id2 (in this order) not deleted combinations index
+CREATE UNIQUE INDEX friendships_index ON friendships(user_id1, user_id2);
+
+-- Update updated_at in conversations when a conversation receives any new message
+delimiter $
+CREATE TRIGGER update_conversation_updated_at
+AFTER
+INSERT ON messages FOR EACH ROW BEGIN
+UPDATE conversations
+SET updated_at = NOW()
+WHERE id = NEW.conversation_id;
+END $
+delimiter ;
+
+-- Insert new notification for user when he receives a friendship request
+delimiter $
+CREATE TRIGGER new_friendship_request_notification
+AFTER
+INSERT ON friendships FOR EACH ROW
+BEGIN
+DECLARE firstName TEXT;
+DECLARE lastName TEXT;
+SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id1;
+INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id2, 'friendship request', CONCAT(firstName, ' ', lastName, ' sent you a friendship request!'));
+END $
+delimiter ;
+
+delimiter $
+CREATE TRIGGER accepted_or_rejected_friendship_request_notification
+AFTER
+UPDATE ON friendships FOR EACH ROW
+BEGIN
+DECLARE firstName TEXT;
+DECLARE lastName TEXT;
+if (not NEW.status <=> OLD.status) then
+SELECT first_name, last_name INTO firstName, lastName FROM users where id = NEW.user_id2;
+if (NEW.status='accepted' or NEW.status='rejected') then
+INSERT INTO notifications (user_id, type, content) VALUES (NEW.user_id1, 'friendship request', CONCAT(firstName, ' ', lastName, NEw.status,' your friendship request!'));
+end if;
+end if;
+END $
+delimiter ;
