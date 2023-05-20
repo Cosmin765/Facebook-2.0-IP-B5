@@ -177,4 +177,9 @@ public class UserService implements UserDetailsService {
         userRepository.updateUserLoggedInStatus(userId,value);
         return userRepository.findById(userId).get();
     }
+
+    public List<Friendship> getFriendshipsOnline(int userId){
+        return friendshipRepository.getLoggedFriends(userId);
+    }
+
 }
