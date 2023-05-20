@@ -4,7 +4,7 @@ import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
 import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
-import { NavLink, Route, Switch } from 'react-router-dom';
+//import { NavLink, Route, Switch } from 'react-router-dom';
 import React, { useState } from 'react';
 
 export default function Sugestions_Friends() {

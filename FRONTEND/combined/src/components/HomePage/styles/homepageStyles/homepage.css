@@ -30,6 +30,7 @@
 
 .feed_middlePanel.active{
     margin-right: var(--online-friends-width);
+    position: fixed;
 }
 
 .feed_middlePanel{
