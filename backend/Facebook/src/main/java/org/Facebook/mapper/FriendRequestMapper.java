@@ -22,7 +22,7 @@ public class FriendRequestMapper {
                 .build();
     }
 
-    public static FriendRequest fromDto(FriendRequestDto friendRequest) {
+    public static FriendRequest toDto(FriendRequestDto friendRequest) {
         return FriendRequest.builder()
                 .id(friendRequest.getId())
                 .sender(UserMapper.fromDto(friendRequest.getSender()))
