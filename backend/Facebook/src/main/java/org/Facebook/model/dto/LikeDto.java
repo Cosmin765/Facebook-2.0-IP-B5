@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class LikeDto {
     private Integer id;
-    private Timestamp createdAt;
+    private Integer userId;
+    private Integer postId;
 }

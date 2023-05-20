@@ -1,13 +1,17 @@
 package org.Facebook.service;
 
 import org.Facebook.mapper.CommentMapper;
+import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.CommentDto;
+import org.Facebook.model.dto.UserDto;
 import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
 import org.Facebook.model.entity.User;
 import org.Facebook.repository.CommentRepository;
 import org.Facebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,42 +30,60 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public Comment postComment(Comment comment) {
-        comment.setCreatedAt(LocalDateTime.now());
-        comment.setUpdatedAt(LocalDateTime.now());
-        return commentRepository.save(comment);
+    @Transactional
+    public void postComment(Integer post_id, Integer user_id, String content) {
+        commentRepository.postComment(post_id, user_id, content);
     }
-
-    /*@Transactional
-    public void postComment(Integer postId, Integer userId, String content) {
-        commentRepository.postComment(postId, userId, content);
-    }*/
     public void postComment(CommentDto commentDto) {
         Comment comment = CommentMapper.fromDto(commentDto);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
+        User user = userRepository.findByEmail(userDto.getEmail());
+        comment.setUser(user);
         commentRepository.save(comment);
     }
-
     public void deleteComment(int commentId) {
         commentRepository.deleteById(commentId);
     }
-
-    /*public List<CommentDto> getAllComments() {
-        return commentRepository.findAll().stream().map(CommentMapper::toDto).toList();
-    }*/
-    public void hideCom(Comment comment) {
-//       comment.isReported();
+    public void updateComment(Comment comment) {
+        commentRepository.save(comment);
     }
+    public void editComment(String content, Integer comment_id) {
+        commentRepository.editComment(content,comment_id);
+    }
+
+//    public List<CommentDto> getAllComments() {
+//        return commentRepository.findAll().stream().map(CommentMapper::toDto).toList();
+//    }
+//    public void hideCom(Comment comment) {
+//       comment.isReported();
+//    }
 
     public List<Comment> getAllComments() {
 
-        //return commentRepository.findAll().stream().toList();
         return commentRepository.findAll();
     }
-
     public List<Comment> getCommentsByUser(User user) {
         return commentRepository.findByUser(user);
     }
     public List<Comment> getCommentsByPost(Post post) {
         return commentRepository.findByPost(post);
+    }
+
+    public List<Comment> getCommentsByUserId(Integer user_id) throws Exception{
+        if(commentRepository.findByUserId(user_id) == null)
+            throw new Exception("Comment not found.");
+        return commentRepository.findByUserId(user_id);
+    }
+    public List<Comment> getCommentsByPostId(Integer post_id) throws Exception{
+        if (commentRepository.findByPostId(post_id) == null)
+            throw new Exception("Comment not found.");
+        return commentRepository.findByPostId(post_id);
+    }
+
+    public Comment getCommentById(Integer id) throws Exception {
+        if(commentRepository.findByCommentId(id) == null)
+            throw new Exception("Comment not found.");
+        return commentRepository.findByCommentId(id);
     }
 }
