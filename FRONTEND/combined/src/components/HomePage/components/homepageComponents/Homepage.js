@@ -10,7 +10,7 @@ import Feed from "./Feed";
 import LargeMenu from "../large_menu";
 import StretchedMenu from "../streched_menu";
 import ShowAccount from "./ShowAccount";
-import { getRecommendedPosts } from "../../../../util";
+import { getRecommendedAds, getRecommendedPosts } from "../../../../util";
 
 // style
 import '../../styles/homepageStyles/homepage.css'
@@ -116,6 +116,23 @@ const myFriends = [
 //     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, text:'I\'m not homophobic, I enjoy watching lesbians on the internet.', picture:require('../../photos/jk.jpg'), video:null, comments: commentp2, likes: 901}
 // ];
 
+function adToPostConvert(ad) {
+    return {
+        comments: [],
+        content: ad.title + '\n' + ad.content,
+        id: ad.id + 100000,
+        likes: [],
+        location: null,
+        postImages: [
+            {
+                imageLink: ad.imageLink
+            }
+        ],
+        status: null,
+        user: ad.publisher
+    };
+}
+
 export default function Homepage() {
     const [modal, setModal] = useState(false);
     const [onlineFriendsToggle, setOnlineFriendsToggle] = useState(false);
@@ -127,10 +144,19 @@ export default function Homepage() {
     const [posts, setPosts] = useState([]);
 
     if(!posts.length) {
-        getRecommendedPosts().then((posts) => {
+        getFeedContent().then((posts) => {
             setPosts(posts);
         });
     }
+
+    async function getFeedContent() {
+        const posts = await getRecommendedPosts();
+        const ads = await getRecommendedAds();
+
+        const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
+        return content;
+    }
+
 
     
     const toggleFriendsPanel = () => {

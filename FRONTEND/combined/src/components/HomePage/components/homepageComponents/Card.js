@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import ShowAccount from './ShowAccount';
 import '../../styles/homepageStyles/card.css';
-import likeBtn from '../../icons/homepageIcons/like.svg';
 import commentBtn from '../../icons/homepageIcons/comment.svg';
 import shareBtn from '../../icons/homepageIcons/share.svg';
 
@@ -22,7 +20,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
 
   const account = post.user;
   account.name = account.firstName + ' ' + account.lastName;
-  
+
   return (
       <div className='feed_card'>
       <div className='feed_topCard'>

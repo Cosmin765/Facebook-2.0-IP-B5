@@ -1,6 +1,7 @@
 package org.Facebook.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "friendships")
 public class Friendship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
