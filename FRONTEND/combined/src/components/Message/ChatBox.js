@@ -191,9 +191,10 @@ function connectSocket(conversationId) {
       return newMessages;
     });
     const messageContainer = document.querySelector('.msg_messages-container');
+    if(messageContainer!=null){
     requestAnimationFrame(() => {
       messageContainer.scrollTop = messageContainer.scrollHeight;
-    });  
+    });  }
         // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
         //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
         //const isUnread = lastCheckedTime < lastMessageTime;
@@ -231,9 +232,10 @@ function connectSocket(conversationId) {
 
       setNewMessage("");
       const messageContainer = document.querySelector('.msg_messages-container');
+      if(messageContainer!=null){
       requestAnimationFrame(() => {
         messageContainer.scrollTop = messageContainer.scrollHeight;
-      });  
+      });  }
       const user = await getUser();
       const conversation = await getConversation(selectedPersonId);
       sendMessage(user.id, conversation.id, newMessage);
@@ -292,9 +294,10 @@ function connectSocket(conversationId) {
     }
     setTimeout(()=>{
     const messageContainer = document.querySelector('.msg_messages-container');
+    if(messageContainer!=null){
     requestAnimationFrame(() => {
       messageContainer.scrollTop = messageContainer.scrollHeight;
-    });  
+    }); } 
   },1);
   }
   // function getSecondsFromTimeString(timeString) {
