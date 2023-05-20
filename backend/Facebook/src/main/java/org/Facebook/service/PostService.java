@@ -4,10 +4,13 @@ import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.PostDto;
+import org.Facebook.model.dto.PostImageDto;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.model.entity.Comment;
 import org.Facebook.model.entity.Post;
+import org.Facebook.model.entity.PostImage;
 import org.Facebook.model.entity.User;
+import org.Facebook.repository.PostImageRepository;
 import org.Facebook.repository.PostRepository;
 import org.Facebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class PostService {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private PostImageRepository postImageRepository;
+
 
     public List<Post> getAllPosts() {
         return postRepository.findAllPostsDesc();
@@ -42,11 +48,17 @@ public class PostService {
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
         User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
-        postDto.getPostImages().forEach(postImage -> post.getImages().add(PostImageMapper.fromDto(postImage)));
+        for (PostImage postImage : post.getPostImages()) {
+            postImage.setPost(post);
+        }
         postRepository.save(post);
     }
 
     public void deletePost(Integer id) throws Exception {
+
+        for (PostImage postImage : postImageRepository.findAllImagesByPost(id)) {
+            postImageRepository.delete(postImage);
+        }
         List<Comment> comments = new ArrayList<>();
         try {
             comments = commentService.getCommentsByPost(getPostById(id));

@@ -20,7 +20,7 @@ public class PostImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "post_id")
     @JsonBackReference("post-images")
     @JsonIgnore
