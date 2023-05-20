@@ -1,4 +1,6 @@
 const SERVER_ADDRESS = 'http://localhost:8084';
+const ADS_ADDRESS = 'http://localhost:8085';
+
 async function getRaw(url, method = 'POST', body = null) {
   const options = {
     method,
@@ -77,6 +79,13 @@ async function unlikePost(likeId) {
   return await getData(url, 'DELETE');
 }
 
+async function getRecommendedAds() {
+  const url = new URL(ADS_ADDRESS + '/ads/recommended');
+  const user = await getUser();
+  url.searchParams.set('userId', user.id);
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -89,5 +98,6 @@ export {
   getRecommendedPosts,
   getImage,
   likePost,
-  unlikePost
+  unlikePost,
+  getRecommendedAds
 };

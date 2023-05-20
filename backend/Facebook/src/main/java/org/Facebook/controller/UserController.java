@@ -1,6 +1,9 @@
 package org.Facebook.controller;
 
+import org.Facebook.mapper.FriendRequestMapper;
 import org.Facebook.mapper.UserMapper;
+import org.Facebook.model.dto.FriendRequestDto;
+import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.repository.FriendshipRepository;
