@@ -1,5 +1,6 @@
 package org.FacebookConversations.service;
 
+import org.FacebookConversations.common.KeywordExtractorService;
 import org.FacebookConversations.mapper.MessageMapper;
 import org.FacebookConversations.model.dto.MessageDto;
 import org.FacebookConversations.model.entity.Message;
@@ -22,9 +23,10 @@ public class MessageService {
     private ConversationRepository conversationRepository;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    private KeywordExtractorService keywordExtractorService;
 
     public List<MessageDto> getAllMessages() {
         return messageRepository.findAll().stream().map(MessageMapper::toDto).toList();
@@ -62,13 +64,14 @@ public class MessageService {
         return messages.stream().map(MessageMapper::toDto).toList();
     }
 
-    public List<MessageDto> getToFrom(Integer to,Integer from){
-        List<Message> messages = messageRepository.findToFromConv(from,to);
+    public List<MessageDto> getToFrom(Integer to, Integer from) {
+        List<Message> messages = messageRepository.findToFromConv(from, to);
         return messages.stream().map(MessageMapper::toDto).toList();
     }
 
     public void sendMessage(Integer toUser, MessageDto message) {
         saveMessage(message);
+        keywordExtractorService.processUserInput(message.getContent(), message.getUserId());
         simpMessagingTemplate.convertAndSend("/topic/messages/" + toUser, message);
     }
 
