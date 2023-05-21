@@ -1,6 +1,6 @@
 
 import './LoginStyle.css';
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 const SERVER_ADDRESS = 'http://localhost:8084';
 let variable = false;
@@ -24,11 +24,27 @@ async function getUser() {
   return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
 }
 
+async function getDegeaba() {
+  return await getData(SERVER_ADDRESS + '/' , 'GET');
+}
+
 async function setUserLogged(value){
+  console.log(value);
+  console.log(value);
+  console.log(value);
+  console.log(value);
+  console.log(value);
+  console.log(value);
+  console.log(value);
+  console.log(value);
   await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
 }
 
 function Login(){
+  
+  //dont remove crapa
+  //getDegeaba();
+
   return (
     <div className="login_body">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />

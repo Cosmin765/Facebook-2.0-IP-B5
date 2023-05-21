@@ -124,6 +124,8 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
 
+        System.out.println("I ha beeeen set as" + value);
+
         return UserMapper.toDto(userService.setLoggedIn(user.getId(), value));
     }
 
