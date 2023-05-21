@@ -14,12 +14,14 @@ export default function StretchedMenu() {
             <div className="sgrid_wrapper">
             <div className="sgrid_container">
               <div class="sgrid-item">
+              <Link to='/home'>
                 <img src={icon}></img>
-              
+              </Link>
               </div>
               <div className="sgrid-item">
+              <Link to='/myprofile'>
                 <img src={icon2}></img>
-        
+        </Link>
               </div>
               <div className="sgrid-item">
                 <img src={icon3}></img>
