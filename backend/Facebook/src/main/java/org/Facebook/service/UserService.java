@@ -37,6 +37,7 @@ public class UserService implements UserDetailsService {
     public void registerUser(User user) {
         String hashedPassword = AppSecurityConfig.getPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashedPassword);
+        user.setProfile_picture("461OH9a9vwscYS4vw-HyiQOs1bxHftWcSJXSaVYDJZ0=.jpg");
         userRepository.save(user);
     }
 

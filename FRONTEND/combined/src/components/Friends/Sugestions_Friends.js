@@ -6,7 +6,7 @@ import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { getSuggestions, addFriend } from '../../util';
+import { getSuggestions, addFriend,getImage } from '../../util';
 
 export default function Sugestions_Friends() {
   const [requestSent, setRequestSent] = useState([]);
@@ -37,11 +37,28 @@ export default function Sugestions_Friends() {
   const [removingFriendId, setRemovingFriendId] = useState(null);
 
 
+  // useEffect(() => {
+  //   getSuggestions().then(suggestions => setFriends(suggestions.map(f => {
+  //     return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: 'https://cdn.vox-cdn.com/thumbor/mfZr4TZ1MD-u_tsUZbiFQn9cjxo=/0x0:6000x3650/1400x1400/filters:focal(3000x1825:3001x1826)/cdn.vox-cdn.com/uploads/chorus_asset/file/24510842/john_wick_chapter_4_JW4_Unit_211027_00134_R2_rgb.jpeg', active: 0 }
+  //   })));
+  // }, []);
+
   useEffect(() => {
-    getSuggestions().then(suggestions => setFriends(suggestions.map(f => {
-      return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: 'https://cdn.vox-cdn.com/thumbor/mfZr4TZ1MD-u_tsUZbiFQn9cjxo=/0x0:6000x3650/1400x1400/filters:focal(3000x1825:3001x1826)/cdn.vox-cdn.com/uploads/chorus_asset/file/24510842/john_wick_chapter_4_JW4_Unit_211027_00134_R2_rgb.jpeg', active: 0 }
-    })));
+    const fetchData = async () => {
+      const people = await getSuggestions();
+      const friendPromises = people.map(async f => {
+        let img = await getImage(f.profile_picture);
+        img = 'data:image/png;base64,' + img;
+        console.log('img is ' + img);
+        return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: img, active: f.isLoggedIn };
+      });
+      const friendData = await Promise.all(friendPromises);
+      setFriends(friendData);
+    };
+  
+    fetchData();
   }, []);
+    console.log(friends);
 
 
   const handleAcceptRequest = (friendId) => {
