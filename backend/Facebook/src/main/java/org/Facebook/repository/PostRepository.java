@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query(value = "SELECT * FROM posts where id= :id", nativeQuery = true)
     Post findByPostId(@Param("id") Integer id);
 
-    @Query(value = "SELECT * FROM posts where user_id= :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM posts where user_id= :id order by created_at desc", nativeQuery = true)
     List<Post> findByUserId(@Param("id") Integer id);
 
     @Query(value = "SELECT * from posts where user_id in :users and id > :cursor limit :count", nativeQuery = true)

@@ -59,6 +59,17 @@ async function getRecommendedPosts() {
   return posts;
 }
 
+async function getUserPosts(userId) {
+  console.log("aiif");
+  console.log(userId);
+  const userId2 = parseInt(userId, 10);
+  console.log(userId2);
+  const url = new URL(SERVER_ADDRESS + '/posts/user');
+  url.searchParams.set('id', userId);
+  const posts = await getData(url, 'GET');
+  return posts;
+}
+
 async function getImage(imageName) {
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
@@ -99,5 +110,6 @@ export {
   getImage,
   likePost,
   unlikePost,
-  getRecommendedAds
+  getRecommendedAds,
+  getUserPosts
 };
