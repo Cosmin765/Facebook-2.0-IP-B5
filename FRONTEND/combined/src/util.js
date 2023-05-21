@@ -60,10 +60,7 @@ async function getRecommendedPosts() {
 }
 
 async function getUserPosts(userId) {
-  console.log("aiif");
-  console.log(userId);
   const userId2 = parseInt(userId, 10);
-  console.log(userId2);
   const url = new URL(SERVER_ADDRESS + '/posts/user');
   url.searchParams.set('id', userId);
   const posts = await getData(url, 'GET');

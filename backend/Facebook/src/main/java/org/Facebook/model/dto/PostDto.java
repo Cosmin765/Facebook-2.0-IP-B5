@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -20,4 +21,6 @@ public class PostDto {
     private List<LikeDto> likes;
     private List<CommentDto> comments;
     private List<PostImageDto> postImages;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

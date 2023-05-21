@@ -9,6 +9,18 @@ import PostImage from './PostImage';
 
 import { getUser, likePost, unlikePost } from '../../../../util';
 
+function Account({ name, picture, uploadDate }) {
+  return (
+    <div className='account'>
+      <img src={picture} alt={name} />
+      <div className='accountDetails'>
+        <p className='name'>{name}</p>
+        <p className='date'>{uploadDate}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   const showComments = () => {
     openCommentsMenu();
@@ -20,11 +32,14 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
 
   const account = post.user;
   account.name = account.firstName + ' ' + account.lastName;
-
+  const date=new Date(post.createdAt);
+  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  const uploadDate = date.toLocaleDateString('en-GB', options); 
   return (
       <div className='feed_card'>
       <div className='feed_topCard'>
         {/* <ShowAccount account={account}/> */}
+        <Account name={account.name} picture={'./img/dwayne-johnson.jpg'} uploadDate={uploadDate} />
         <div className='feed_options'>
           {/* <p>dsfsdf</p> */}
         </div>
