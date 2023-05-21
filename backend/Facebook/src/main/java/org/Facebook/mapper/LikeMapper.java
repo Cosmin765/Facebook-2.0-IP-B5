@@ -7,13 +7,13 @@ public class LikeMapper {
     public static LikeDto toDto(Like like) {
         return LikeDto.builder()
                 .id(like.getId())
-                .createdAt(like.getCreatedAt())
+                .userId(like.getUser().getId())
+                .postId(like.getPostId())
                 .build();
     }
     public static Like fromDto(LikeDto like) {
         return Like.builder()
                 .id(like.getId())
-                .createdAt(like.getCreatedAt())
                 .build();
     }
 }

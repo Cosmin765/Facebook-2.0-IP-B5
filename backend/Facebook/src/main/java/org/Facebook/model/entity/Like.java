@@ -19,12 +19,14 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
-    @JsonBackReference
-    @JsonIgnore
-    private Post post;
-    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "post_id")
+//    @JsonBackReference
+//    @JsonIgnore
+//    private Post post;
+    @Column(name = "post_id")
+    private Integer postId;
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;

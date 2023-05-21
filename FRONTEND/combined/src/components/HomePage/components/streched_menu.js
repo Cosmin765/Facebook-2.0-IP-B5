@@ -13,7 +13,7 @@ export default function StretchedMenu() {
       <h1 className='feed_stretched'>k.</h1>
       <div className="feed_sgrid_wrapper">
         <div className="feed_sgrid_container">
-          <div class="feed_sgrid-item">
+          <div className="feed_sgrid-item">
             <img src={icon}></img>
 
           </div>
