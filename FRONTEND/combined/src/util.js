@@ -1,15 +1,15 @@
 const SERVER_ADDRESS = 'http://localhost:8084';
 const ADS_ADDRESS = 'http://localhost:8085';
 
-async function getRaw(url, method = 'POST', body = null) {
+async function getRaw(url, method = 'POST', body = null, headers = null) {
   const options = {
     method,
     credentials: 'include', // include cookies in the request
     body,
-    headers: {
-      "Content-Type": "application/json",
-    },
   };
+  if(headers) {
+    options.headers = headers;
+  }
   const res = await fetch(url, options);
   return res;
 }
