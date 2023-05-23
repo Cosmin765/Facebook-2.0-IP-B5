@@ -143,7 +143,7 @@ CREATE TABLE ads (
                      id INT PRIMARY KEY AUTO_INCREMENT,
                      user_id INT NOT NULL,
                      title VARCHAR(255) NOT NULL,
-                     image LONGBLOB,
+                     image VARCHAR(255),
                      content TEXT NOT NULL,
                      keywords VARCHAR(255) NOT NULL,
                      link VARCHAR(255) NOT NULL,
