@@ -9,10 +9,11 @@ import commentBtn from './icons/comment.svg'
 import shareBtn from './icons/share.svg'
 import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
-import icon6 from './icons/notif.svg';
+import icon6 from './icons/graph.svg';
 import icon7 from './icons/out.svg';
 
 import Feed from '../../HomePage/components/homepageComponents/Feed';
+import { Link } from "react-router-dom";
 
 const commentp2 = [
   {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
@@ -212,8 +213,8 @@ const Profile = () => {
               <img src={icon5}></img>
             </div>
             <div className="profile_right_icons-profile">
-              <img src={icon6}></img>
-              <img src={icon7}></img>
+              <Link to='/graph'><img src={icon6}></img></Link>
+              <Link to='/login'><img src={icon7}></img></Link>
             </div>
           </div>
         </div>
