@@ -13,6 +13,7 @@ import Friends from './components/Friends/App';
 import FriendRequests from './components/Friends/FriendRequests';
 import Suggestions from './components/Friends/Suggestions';
 import CreateAds from './components/CreateAds/CreateAds';
+import ForceGraph from './components/Graph/ForceGraph';
 function App() {
   return (
     <Router> 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/requests" element={<FriendRequests/>}/>
         <Route path="/suggestions" element={<Suggestions/>}/>
         <Route path="/createAds" element={<CreateAds/>}/>
+        <Route path="/graph" element={<ForceGraph/>}/>
 
 
         </Routes>

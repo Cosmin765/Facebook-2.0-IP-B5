@@ -112,6 +112,13 @@ async function getLoggedFriends() {
   return await getData(url, 'GET');
 }
 
+async function getGraphData(userId, level=2) {
+  const url = new URL(SERVER_ADDRESS + '/graphReact');
+  url.searchParams.set('userId', userId);
+  url.searchParams.set('level', level);
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -129,5 +136,6 @@ export {
   getUserPosts,
   getUserOther,
   setUserLogged,
-  getLoggedFriends
+  getLoggedFriends,
+  getGraphData
 };

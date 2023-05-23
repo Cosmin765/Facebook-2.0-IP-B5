@@ -5,10 +5,13 @@ import org.Facebook.model.dto.UserDto;
 import org.Facebook.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 import java.util.Set;
@@ -27,5 +30,15 @@ public class AdminController {
         Pair<Set<Pair<UserDto, UserDto>>, Map<Integer, Integer>> graphData = Pair.of(links, tempData.getSecond());
         model.addAttribute("graphData", graphData);
         return "graph";
+    }
+
+    @GetMapping(value = "/graphReact")
+    @ResponseBody
+    public ResponseEntity<Pair<Set<Pair<UserDto, UserDto>>, Map<Integer, Integer>>> graphReact(@RequestParam int userId, @RequestParam int level) {
+        var tempData = adminService.getFriendshipGraph(userId, level);
+        Set<Pair<UserDto, UserDto>> links = tempData.getFirst().stream().map(p ->
+                Pair.of(UserMapper.toDto(p.getFirst()), UserMapper.toDto(p.getSecond()))).collect(Collectors.toSet());
+        Pair<Set<Pair<UserDto, UserDto>>, Map<Integer, Integer>> graphData = Pair.of(links, tempData.getSecond());
+        return ResponseEntity.status(HttpStatus.OK).body(graphData);
     }
 }
