@@ -25,7 +25,6 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
             const newFriendIds = myFriends.map((friend) => friend.id);
 
             const hasFriendsChanged = !arrayEquals(friendIds, newFriendIds);
-            console.log(hasFriendsChanged);
             friendIds = newFriendIds;
 
             if (hasFriendsChanged === true) {
@@ -59,7 +58,6 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
 
     // Utility function to check if two arrays are equal
     function arrayEquals(a, b) {
-        console.log('a'+a.length, 'b'+b.length);
         if (a.length !== b.length) {
             return false;
         }

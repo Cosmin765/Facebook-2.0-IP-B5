@@ -13,7 +13,7 @@ export default function Feed({togglePosts, posts, showComments, showFriends, tog
         <div key={uuidv4()}>
             {/* <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/> */}
 
-            return(<>{post.link == null ? 
+            <>{post.type == null ? 
             <>
                 <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends}/>
 
@@ -27,7 +27,7 @@ export default function Feed({togglePosts, posts, showComments, showFriends, tog
             </> : 
             <>
                  <Ad ad={post} />
-             </>}</>);
+             </>}</>
 
             <div className={showFriends ? 'feed_spacer active' : 'feed_spacer'}>
                 <Friends friends={friends} toggleFunction={toggleFriends} showFriends={showFriends} />

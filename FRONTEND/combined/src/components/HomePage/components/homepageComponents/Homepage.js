@@ -118,8 +118,8 @@ const commentp2 = [
 
 function adToPostConvert(ad) {
     return {
+        ...ad,
         comments: [],
-        content: ad.title + '\n' + ad.content,
         id: ad.id + 100000,
         likes: [],
         location: null,
@@ -129,7 +129,8 @@ function adToPostConvert(ad) {
             }
         ],
         status: null,
-        user: ad.publisher
+        user: ad.publisher,
+        type: 'ad'
     };
 }
 
@@ -160,7 +161,8 @@ export default function Homepage() {
         const posts = await getRecommendedPosts();
         const ads = await getRecommendedAds();
 
-        const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
+        // const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
+        const content = [...ads.map(adToPostConvert), ...posts];
         return content;
     }
 
