@@ -62,6 +62,8 @@ async function getRecommendedPosts() {
 async function getImage(imageName) {
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
+  //don't uncomment :(
+  //console.log('made req');
   return await getText(url, 'GET');
 }
 
