@@ -3,6 +3,7 @@ import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import './ChatBox.css';
 import { useRef } from "react";
+import { getImage } from '../../util';
 
 // import icon from './Vectoricon.png';
 // import icon2 from './Group.png';
@@ -19,33 +20,33 @@ const CONVERSATIONS_ADDRESS = 'http://localhost:8086';
 
 
 const socketAddress = CONVERSATIONS_ADDRESS;
-  let stompClient;
-  let socket;
+let stompClient;
+let socket;
 
-  function connect(conversationId, handler) {
-    socket = new SockJS(socketAddress + '/chat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-      stompClient.subscribe("/topic/messages/" + conversationId, function (response) {
-        let data = JSON.parse(response.body);
-        if(handler) handler(data);
-      });
+function connect(conversationId, handler) {
+  socket = new SockJS(socketAddress + '/chat');
+  stompClient = Stomp.over(socket);
+  stompClient.connect({}, function (frame) {
+    stompClient.subscribe("/topic/messages/" + conversationId, function (response) {
+      let data = JSON.parse(response.body);
+      if (handler) handler(data);
     });
-    return socket;
-  }
+  });
+  return socket;
+}
 
-  function sendMessage(me, to, messageText) {
-    const message = {
-      conversationId: to,
-      userId: me,
-      content: messageText
-    };
-    stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
-    // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
-  }
+function sendMessage(me, to, messageText) {
+  const message = {
+    conversationId: to,
+    userId: me,
+    content: messageText
+  };
+  stompClient.send("/app/chat/" + to, {}, JSON.stringify(message));
+  // stompClient.send("/topic/messages/" + to, {}, JSON.stringify(message));
+}
 
 
-async function getRaw(url, method='POST', body=null) {
+async function getRaw(url, method = 'POST', body = null) {
   const options = {
     method,
     credentials: 'include', // include cookies in the request
@@ -55,7 +56,7 @@ async function getRaw(url, method='POST', body=null) {
   return res;
 }
 
-async function getData(url, method='POST', body=null) {
+async function getData(url, method = 'POST', body = null) {
   const res = await getRaw(url, method, body);
   const data = await res.json();
   return data;
@@ -75,31 +76,30 @@ async function getPeople() {
 async function getConversations() {
   const user = await getUser();
   const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/user/${user.id}`);
-  const conversations =  await getData(url, 'GET');
+  const conversations = await getData(url, 'GET');
   return conversations;
 }
 
 async function getConversation(otherId) {
   const user = await getUser();
   const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/findPair/${user.id}/${otherId}`);
-  const conversation =  await getData(url, 'GET');
+  const conversation = await getData(url, 'GET');
   return conversation;
 }
-async function getMessages(otherId){
+async function getMessages(otherId) {
   const user = await getUser();
   const url = new URL(CONVERSATIONS_ADDRESS + `/api/conversations/findPair/${user.id}/${otherId}`);
-  const conversation =  await getData(url, 'GET');
-  const messUrl = new URL(CONVERSATIONS_ADDRESS  + `/api/messages/conv/messages/?id=${conversation.id}&count=3000&cursor=0`);
-  return await getData(messUrl,'POST');
+  const conversation = await getData(url, 'GET');
+  const messUrl = new URL(CONVERSATIONS_ADDRESS + `/api/messages/conv/messages/?id=${conversation.id}&count=3000&cursor=0`);
+  return await getData(messUrl, 'POST');
 
 }
-async function convertMess(messages)
-{
+async function convertMess(messages) {
   const user = await getUser();
   const newMessages = messages.map(message => {
-    const newSender = (user.id === message.userId ? "me" : "other" );
-  console.log(message);
-    const newMessageObj = { text: message.content, time: message.createdAt[3]+":"+message.createdAt[4], sender: newSender, date: (message.createdAt[2]<10?`0${message.createdAt[2]}`:`${message.createdAt[2]}`)+"."+(message.createdAt[1]<10?`0${message.createdAt[1]}`:`${message.createdAt[1]}`)+"."+message.createdAt[0]};
+    const newSender = (user.id === message.userId ? "me" : "other");
+    //console.log(message);
+    const newMessageObj = { text: message.content, time: message.createdAt[3] + ":" + message.createdAt[4], sender: newSender, date: (message.createdAt[2] < 10 ? `0${message.createdAt[2]}` : `${message.createdAt[2]}`) + "." + (message.createdAt[1] < 10 ? `0${message.createdAt[1]}` : `${message.createdAt[1]}`) + "." + message.createdAt[0] };
     return newMessageObj;
   })
   return newMessages;
@@ -110,7 +110,7 @@ let newMessageObj = { text: "Nothing here!" };
 let convFound = 0, friendFound = 0;
 let result;
 function ChatBox() {
- 
+
   const [selectedPersonId, setSelectedPersonId] = useState(null);
   const [selectedPersonPic, setSelectedPersonPic] = useState(null);
   const [selectedPersonTime, setSelectedPersonTime] = useState(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
@@ -118,22 +118,75 @@ function ChatBox() {
   const [selectedPersonStatus, setSelectedPersonStatus] = useState(null);
   const [searchName, setSearchName] = useState("");
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState(""); 
-  const [loaded, setLoaded] = useState(false); 
+  const [newMessage, setNewMessage] = useState("");
+  const [loaded, setLoaded] = useState(false);
 
- const messageContainerRef = useRef(null);
- 
-  const updatePeople = async () => {
-    const people = await getPeople();
-    setPeople(people);
-  }
-   
+  const messageContainerRef = useRef(null);
+
 
   const handleChangeSearch = (event) => {
     setSearchName(event.target.value);
   };
 
+
+  const [sockets, setSockets] = useState({});
+
+  function connectSocket(conversationId) {
+    if (sockets[conversationId]) {
+      return; // socket already exists for this conversation
+    }
+
+    sockets[conversationId] = connect(conversationId, handleReceiveMessage)
+
+  }
+
+
   const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    getPeople().then(async data => {
+      const tempMessages = {};
+  
+      for (const person of data) {
+        const img = await getImage(person.profile_picture);
+        const profilePicture = 'data:image/png;base64,' + img;
+        person.profilePic = profilePicture;
+  
+        getConversation(person.id).then(conversation => {
+          connectSocket(conversation.id);
+        });
+  
+        getMessages(person.id).then(messages => {
+          convertMess(messages).then(newMessages => {
+            tempMessages[person.id] = newMessages;
+  
+            if (Object.keys(tempMessages).length === data.length) {
+              setMessages(tempMessages);
+              setLoaded(true);
+            }
+          });
+        });
+      }
+      setPeople(data);
+    });
+  }, []);
+  
+  const updatePeople = async () => {
+    const newPeople = await getPeople();
+  
+    setPeople(oldPeople => {
+      const updatedPeople = oldPeople.map(oldPerson => {
+        const newPerson = newPeople.find(pers => pers.id === oldPerson.id);
+        if (newPerson && newPerson.isLoggedIn !== oldPerson.isLoggedIn) {
+          return { ...oldPerson, isLoggedIn: newPerson.isLoggedIn };
+        }
+        return oldPerson;
+      });
+  
+      return updatedPeople;
+    });
+  };
+  
   useEffect(() => {
     updatePeople();
     const interval = setInterval(updatePeople, 3000);
@@ -141,59 +194,14 @@ function ChatBox() {
   }, []);
 
 
-//   useEffect(()=>{
-//   if(!people.length) {
-//     getPeople().then(data => {
-//       setPeople(data.map(p => {
-//         p.profilePic = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXIzB_kc5Nif4Z1-HFgBglche-F55frSnLj9BTUY3ewg&s`;
-//         return p;
-//       }));
-//     });
-//   }
-// },[]);
 
-
-const [sockets, setSockets] = useState({});
-
-function connectSocket(conversationId) {
-  if (sockets[conversationId]) {
-    return; // socket already exists for this conversation
-  }
-
-  sockets[conversationId] = connect(conversationId, handleReceiveMessage)
-   
-}
-
-  useEffect(() => {
-    getPeople().then(data => {
-      const tempMessages = {};
-      data.forEach(p => {
-        getConversation(p.id).then(conversation => { 
-          connectSocket(conversation.id);
-        });
-        getMessages(p.id).then(messages => {
-          convertMess(messages).then(newMessages => {
-            tempMessages[p.id] = newMessages;
-            if (Object.keys(tempMessages).length === data.length) {
-              setMessages(tempMessages);
-              setLoaded(true);
-            }
-            
-          }
-          );
-
-        });
-      })
-    });
-  }, []);
-  
   function handleReceiveMessage(message) {
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}.${month}.${year}`;
-    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other",date: formattedDate};
+    const newMessageObj = { text: message.content, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: "other", date: formattedDate };
     setMessages(prevMessages => {
       const newMessages = { ...prevMessages };
       if (newMessages[message.userId]) {
@@ -201,30 +209,31 @@ function connectSocket(conversationId) {
       } else {
         newMessages[message.userId] = [newMessageObj];
       }
-      
+
       return newMessages;
     });
     const messageContainer = document.querySelector('.msg_messages-container');
-    if(messageContainer!=null){
-    requestAnimationFrame(() => {
-      messageContainer.scrollTop = messageContainer.scrollHeight;
-    });  }
-        // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
-        //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
-        //const isUnread = lastCheckedTime < lastMessageTime;
+    if (messageContainer != null) {
+      requestAnimationFrame(() => {
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+      });
+    }
+    // const lastCheckedTime = conv.lastChecked ? getSecondsFromTimeString(conv.lastChecked) : 0;
+    //const lastMessageTime = messages[personId]?.length > 0 ? getSecondsFromTimeString(messages[personId][messages[personId].length - 1].time) : 0;
+    //const isUnread = lastCheckedTime < lastMessageTime;
   }
 
-  if(selectedPersonId !== null) {
+  if (selectedPersonId !== null) {
     getConversation(selectedPersonId).then(conversation => {
-      
-        connectSocket(conversation.id);
-    
-        // socket.close();
-        // socket = null;
-      
+
+      connectSocket(conversation.id);
+
+      // socket.close();
+      // socket = null;
+
     });
   }
- const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (newMessage.trim() !== "") {
       const newSender = "me";
@@ -233,7 +242,7 @@ function connectSocket(conversationId) {
       const month = String(currentDate.getMonth() + 1).padStart(2, '0');
       const year = currentDate.getFullYear();
       const formattedDate = `${day}.${month}.${year}`;
-      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender,date: formattedDate};
+      newMessageObj = { text: newMessage.trim(), time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }), sender: newSender, date: formattedDate };
       setMessages(prevMessages => {
         const newMessages = { ...prevMessages };
         if (newMessages[selectedPersonId]) {
@@ -246,10 +255,11 @@ function connectSocket(conversationId) {
 
       setNewMessage("");
       const messageContainer = document.querySelector('.msg_messages-container');
-      if(messageContainer!=null){
-      requestAnimationFrame(() => {
-        messageContainer.scrollTop = messageContainer.scrollHeight;
-      });  }
+      if (messageContainer != null) {
+        requestAnimationFrame(() => {
+          messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
+      }
       const user = await getUser();
       const conversation = await getConversation(selectedPersonId);
       sendMessage(user.id, conversation.id, newMessage);
@@ -259,9 +269,9 @@ function connectSocket(conversationId) {
   const handleKeyDown = (event) => {
 
     people.forEach(conv => {
-      if (searchName.toLowerCase() === (conv.firstName+" "+conv.lastName).toLowerCase()) {
+      if (searchName.toLowerCase() === (conv.firstName + " " + conv.lastName).toLowerCase()) {
         convFound = 1;
-        result = people.find((conv) => (conv.firstName+" "+conv.lastName).toLowerCase() === searchName.toLowerCase());
+        result = people.find((conv) => (conv.firstName + " " + conv.lastName).toLowerCase() === searchName.toLowerCase());
       }
     });
 
@@ -271,10 +281,10 @@ function connectSocket(conversationId) {
       setSearchName("");
       convFound = 0;
     }
-    else 
-     
-        window.alert("You can't have a conversation with someone who is not your friend.");
-    
+    else
+
+      window.alert("You can't have a conversation with someone who is not your friend.");
+
     event.target.value = '';
   };
   //const [unread,setUnread] =useState({});
@@ -283,16 +293,17 @@ function connectSocket(conversationId) {
     setNewMessage(event.target.value);
   };
 
- 
+
 
   function handlePersonClick(personId, profile, personName, personStatus) {
     setSelectedPersonId(personId);
     setSelectedPersonTime(new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }));
     const person = people.find(p => p.id === personId);
     person.lastChecked = selectedPersonTime;
-     
-    setSelectedPersonPic(profile);
+
+    setSelectedPersonPic(person.profilePic);
     setSelectedPersonName(personName);
+    //no >:(
     setSelectedPersonStatus(personStatus);
     // setUnread({
     //   ...unread,
@@ -306,13 +317,14 @@ function connectSocket(conversationId) {
       })
 
     }
-    setTimeout(()=>{
-    const messageContainer = document.querySelector('.msg_messages-container');
-    if(messageContainer!=null){
-    requestAnimationFrame(() => {
-      messageContainer.scrollTop = messageContainer.scrollHeight;
-    }); } 
-  },1);
+    setTimeout(() => {
+      const messageContainer = document.querySelector('.msg_messages-container');
+      if (messageContainer != null) {
+        requestAnimationFrame(() => {
+          messageContainer.scrollTop = messageContainer.scrollHeight;
+        });
+      }
+    }, 1);
   }
   // function getSecondsFromTimeString(timeString) {
   //   const [hours, minutes, seconds] = timeString.split(':').map(Number);
@@ -342,7 +354,7 @@ function connectSocket(conversationId) {
           </div>
           <div className="msg_contacts_body">
             <div className="msg_contacts">
-              {loaded===true && people.map((people) => (
+              {loaded === true && people.map((people) => (
                 <PersonTemplate
                   key={people.id}
                   name={people.firstName + ' ' + people.lastName}
@@ -356,7 +368,7 @@ function connectSocket(conversationId) {
                   status={people.isLoggedIn}
                   //classUnread={unread[people.id]}
                   className={`${people.id === selectedPersonId ? 'msg_selected' : ''}`}
-                  onClick={() => handlePersonClick(people.id, people.profilePic, people.firstName + ' ' + people.lastName, people.isLoggedIn)}
+                  onClick={() => handlePersonClick(people.id, people.profile_picture, people.firstName + ' ' + people.lastName, people.isLoggedIn)}
                 />
 
 
@@ -392,27 +404,28 @@ function connectSocket(conversationId) {
 
             <div className="msg_messages-container" ref={messageContainerRef}>
               {messages[selectedPersonId] && messages[selectedPersonId].map((message, index) => {
-               const messageDate=message.date;
-            // Get the previous message's date and time
-              const previousMessage = messages[selectedPersonId][index - 1];
-              const previousDate = previousMessage ? previousMessage.date : null;
-            
-              // Determine if the current message has a different date than the previous message
-              const displayDate = messageDate !== previousDate;
-            
-             return (
-                <div key={index} className="msg_message" >
+                const messageDate = message.date;
+                // Get the previous message's date and time
+                const previousMessage = messages[selectedPersonId][index - 1];
+                const previousDate = previousMessage ? previousMessage.date : null;
+
+                // Determine if the current message has a different date than the previous message
+                const displayDate = messageDate !== previousDate;
+
+                return (
+                  <div key={index} className="msg_message" >
                     {displayDate && <div className="message-date">{messageDate}</div>}
-                  <div className={message.sender === "me" ? "msg_cotainer_send" : "msg_cotainer"}>
+                    <div className={message.sender === "me" ? "msg_cotainer_send" : "msg_cotainer"}>
 
-                    {message.text}
+                      {message.text}
 
-                    <span className={message.sender === "me" ? "msg_time_me" : "msg_time"}>{message.time}</span>
+                      <span className={message.sender === "me" ? "msg_time_me" : "msg_time"}>{message.time}</span>
 
 
+                    </div>
                   </div>
-                </div>
-              )})}
+                )
+              })}
             </div>
 
             <form className="msg_form" onSubmit={handleSubmit}>
