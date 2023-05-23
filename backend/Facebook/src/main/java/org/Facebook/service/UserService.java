@@ -38,6 +38,7 @@ public class UserService implements UserDetailsService {
         String hashedPassword = AppSecurityConfig.getPasswordEncoder().encode(user.getPassword());
         user.setPassword(hashedPassword);
         user.setProfile_picture("461OH9a9vwscYS4vw-HyiQOs1bxHftWcSJXSaVYDJZ0=.jpg");
+        user.setIsLoggedIn((short) 0);
         userRepository.save(user);
     }
 
@@ -154,7 +155,6 @@ public class UserService implements UserDetailsService {
     }
 
 
-
     public List<User> getRandomUserListForSuggestions(int count, int userId, Set<User> friendsAndRequests, List<User> suggestions) {
         Random rand = new Random();
         List<User> allUsers = userRepository.findAll();
@@ -163,7 +163,7 @@ public class UserService implements UserDetailsService {
         int maxCount = (int) min(count, userRepository.count() - friendsAndRequests.size() - suggestions.size() - 1);
         while (randomUsers.size() < maxCount) {
             int randomId = rand.nextInt(0, allUsers.size());
-            User randomUser=allUsers.get(randomId);
+            User randomUser = allUsers.get(randomId);
             if (randomUser != null && !randomUser.getId().equals(userId)
                     && !randomUsers.contains(randomUser) && !friendsAndRequests.contains(randomUser)
                     && !suggestions.contains(randomUser)) {
@@ -174,12 +174,12 @@ public class UserService implements UserDetailsService {
         return randomUsers;
     }
 
-    public User setLoggedIn(int userId, boolean value){
-        userRepository.updateUserLoggedInStatus(userId,value);
+    public User setLoggedIn(int userId, boolean value) {
+        userRepository.updateUserLoggedInStatus(userId, value);
         return userRepository.findById(userId).get();
     }
 
-    public List<Friendship> getFriendshipsOnline(int userId){
+    public List<Friendship> getFriendshipsOnline(int userId) {
         return friendshipRepository.getLoggedFriends(userId);
     }
 

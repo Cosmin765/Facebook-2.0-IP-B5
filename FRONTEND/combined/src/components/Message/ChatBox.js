@@ -124,25 +124,9 @@ function ChatBox() {
   const messageContainerRef = useRef(null);
 
 
-
-
   const handleChangeSearch = (event) => {
     setSearchName(event.target.value);
   };
-
-
-
-
-  //   useEffect(()=>{
-  //   if(!people.length) {
-  //     getPeople().then(data => {
-  //       setPeople(data.map(p => {
-  //         p.profilePic = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXIzB_kc5Nif4Z1-HFgBglche-F55frSnLj9BTUY3ewg&s`;
-  //         return p;
-  //       }));
-  //     });
-  //   }
-  // },[]);
 
 
   const [sockets, setSockets] = useState({});
@@ -317,8 +301,9 @@ function ChatBox() {
     const person = people.find(p => p.id === personId);
     person.lastChecked = selectedPersonTime;
 
-    setSelectedPersonPic(profile);
+    setSelectedPersonPic(person.profilePic);
     setSelectedPersonName(personName);
+    //no >:(
     setSelectedPersonStatus(personStatus);
     // setUnread({
     //   ...unread,

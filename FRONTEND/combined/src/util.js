@@ -90,6 +90,11 @@ async function setUserLogged(value){
   await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
 }
 
+async function getLoggedFriends() {
+  const url = new URL(SERVER_ADDRESS + '/getLoggedFriends');
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -104,5 +109,6 @@ export {
   likePost,
   unlikePost,
   getRecommendedAds,
-  setUserLogged
+  setUserLogged,
+  getLoggedFriends
 };
