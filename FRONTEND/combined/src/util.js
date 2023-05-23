@@ -86,6 +86,10 @@ async function getRecommendedAds() {
   return await getData(url, 'GET');
 }
 
+async function setUserLogged(value){
+  await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -99,5 +103,6 @@ export {
   getImage,
   likePost,
   unlikePost,
-  getRecommendedAds
+  getRecommendedAds,
+  setUserLogged
 };

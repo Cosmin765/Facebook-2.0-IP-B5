@@ -1,7 +1,6 @@
 package org.Facebook.config;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +14,6 @@ public class CustomAuthHandlerSucces implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        System.out.println("LALALLALALALLALALALLALALLALALALAL");
         response.sendRedirect("http://localhost:3000/home");
-
     }
 }

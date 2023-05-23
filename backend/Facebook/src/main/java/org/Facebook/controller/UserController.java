@@ -123,9 +123,6 @@ public class UserController {
     public UserDto setLogged(@RequestParam boolean value) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
-
-        System.out.println("I ha beeeen set as" + value);
-
         return UserMapper.toDto(userService.setLoggedIn(user.getId(), value));
     }
 

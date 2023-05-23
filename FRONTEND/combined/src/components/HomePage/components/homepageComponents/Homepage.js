@@ -10,7 +10,7 @@ import Feed from "./Feed";
 import LargeMenu from "../large_menu";
 import StretchedMenu from "../streched_menu";
 import ShowAccount from "./ShowAccount";
-import { getRecommendedAds, getRecommendedPosts } from "../../../../util";
+import { getRecommendedAds, getRecommendedPosts,setUserLogged } from "../../../../util";
 
 // style
 import '../../styles/homepageStyles/homepage.css'
@@ -134,6 +134,12 @@ function adToPostConvert(ad) {
 }
 
 export default function Homepage() {
+    //login
+    useEffect(() => {
+        console.log('i have set logged')
+        setUserLogged(true);
+      }, []);
+    
     const [modal, setModal] = useState(false);
     const [onlineFriendsToggle, setOnlineFriendsToggle] = useState(false);
     const [createPost, setCreatePost] = useState(false);
