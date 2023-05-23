@@ -4,32 +4,47 @@ import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
 import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getFriends } from '../../util';
+import { getFriends, getImage } from '../../util';
 
 
 export default function MainContainer_Friend_Request() {
   const [activeButton, setActiveButton] = useState('prieteni');
-  const [friends, setFriends] = useState([]);
+const [friends, setFriends] = useState([]);
 
-  getFriends().then(people => setFriends(people.map(f => {
-    return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: 'https://th.bing.com/th/id/OIP.BKqez6EPbraRw0ZkKv24awHaJP?pid=ImgDet&rs=1', active: f.isLoggedIn };
-  })));
+useEffect(() => {
+  const fetchData = async () => {
+    const people = await getFriends();
+    const friendPromises = people.map(async f => {
+      let img = await getImage(f.profile_picture);
+      img = 'data:image/png;base64,' + img;
+      console.log('img is ' + img);
+      return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: img, active: f.isLoggedIn };
+    });
+    const friendData = await Promise.all(friendPromises);
+    setFriends(friendData);
+  };
+
+  fetchData();
+}, []);
+  console.log(friends);
+
+
 
   const handleFriendClick = () => {
-   
+
     setActiveButton('prieteni');
     // navigate();
   };
 
   const handleActiveFriend = () => {
-    
+
     setActiveButton('cereri');
   };
 
-  const handleFriendSugestion= () => {
-   
+  const handleFriendSugestion = () => {
+
     setActiveButton('sugestii');
   };
 
@@ -40,17 +55,17 @@ export default function MainContainer_Friend_Request() {
 
       <div className="mc_buttons">
 
-      <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
+        <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
           Prieteni
         </button>
         <Link to='/requests'>
-        <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
-          Cereri de Prietenie
-        </button></Link>
-       <Link to='/suggestions'>
-        <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
-          Sugestii
-        </button></Link>
+          <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
+            Cereri de Prietenie
+          </button></Link>
+        <Link to='/suggestions'>
+          <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
+            Sugestii
+          </button></Link>
       </div>
 
       <div className="mc_content">

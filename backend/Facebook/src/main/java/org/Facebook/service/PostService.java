@@ -1,5 +1,6 @@
 package org.Facebook.service;
 
+import org.Facebook.common.KeywordExtractorService;
 import org.Facebook.mapper.PostImageMapper;
 import org.Facebook.mapper.PostMapper;
 import org.Facebook.mapper.UserMapper;
@@ -33,10 +34,10 @@ public class PostService {
     private UserRepository userRepository;
     @Autowired
     private CommentService commentService;
-
     @Autowired
     private PostImageRepository postImageRepository;
-
+    @Autowired
+    private KeywordExtractorService keywordExtractorService;
 
     public List<Post> getAllPosts() {
         return postRepository.findAllPostsDesc();
@@ -48,6 +49,7 @@ public class PostService {
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
         User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
+        keywordExtractorService.processUserInput(postDto.getContent(),user.getId());
         for (PostImage postImage : post.getPostImages()) {
             postImage.setPost(post);
         }

@@ -10,103 +10,103 @@ import Feed from "./Feed";
 import LargeMenu from "../large_menu";
 import StretchedMenu from "../streched_menu";
 import ShowAccount from "./ShowAccount";
-import { getRecommendedAds, getRecommendedPosts } from "../../../../util";
+import { getRecommendedAds, getRecommendedPosts,setUserLogged,getLoggedFriends } from "../../../../util";
 
 // style
 import '../../styles/homepageStyles/homepage.css'
 
 const commentp1 = [
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, comment:"Can I play in the next Fast and Furious movie?"},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"You are still int the Matrix..."},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, comment:"STFU @TopGay... Go back to prison"},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate:'30.02.2023'}, comment:"i am bringing the popcorn"},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"What color is your bugatti?"},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate:'14.03.2023'}, comment:"which one? i own five chirons"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate:'21.01.2023'}, comment:"I am officially buying koobecaf!"}
-    ];
+    { account: { name: 'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: '14.03.2023' }, comment: "Can I play in the next Fast and Furious movie?" },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "You are still int the Matrix..." },
+    { account: { name: 'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: '14.03.2023' }, comment: "STFU @TopGay... Go back to prison" },
+    { account: { name: 'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: '30.02.2023' }, comment: "i am bringing the popcorn" },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "What color is your bugatti?" },
+    { account: { name: 'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: '14.03.2023' }, comment: "which one? i own five chirons" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" },
+    { account: { name: 'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: '21.01.2023' }, comment: "I am officially buying koobecaf!" }
+];
 
 const commentp2 = [
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."}
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+    { account: { name: 'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." }
 ];
 
-const myFriends = [
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+// const myFriends = [
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
 
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
 
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
-    {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
-    {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
-    {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
-    {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
-    {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}}
-];
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}},
+//     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: null}},
+//     {account:{name:'Kevin Hart', picture: require('../../photos/kevin-hart.jpg'), uploadDate: null}},
+//     {account:{name:'Andrew Tate', picture: require('../../photos/andrew-tate.jpg'), uploadDate: null}},
+//     {account:{name:'Jeremy Clarkson', picture: require('../../photos/jeremy-clarkson.jpg'), uploadDate: null}},
+//     {account:{name:'Elon Musk', picture: require('../../photos/elon-musk.jpg'), uploadDate: null}}
+// ];
 
 // const posts = [
 //     {account:{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate:'02.01.2023'}, text:'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture:null, video:'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp1, likes: 9821366},
@@ -134,6 +134,12 @@ function adToPostConvert(ad) {
 }
 
 export default function Homepage() {
+    //login
+    useEffect(() => {
+        console.log('i have set logged')
+        setUserLogged(true);
+      }, []);
+    
     const [modal, setModal] = useState(false);
     const [onlineFriendsToggle, setOnlineFriendsToggle] = useState(false);
     const [createPost, setCreatePost] = useState(false);
@@ -142,8 +148,9 @@ export default function Homepage() {
     const [showNotifications, setShowNotifications] = useState(false);
 
     const [posts, setPosts] = useState([]);
+    const [myFriends, setFriends] = useState([]);
 
-    if(!posts.length) {
+    if (!posts.length) {
         getFeedContent().then((posts) => {
             setPosts(posts);
         });
@@ -156,6 +163,19 @@ export default function Homepage() {
         const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
         return content;
     }
+
+    
+    // const updateFriends = async () => {
+    //     getLoggedFriends().then(myFriends => setFriends(myFriends.map(f => {
+    //         return { account : {id: f.id, name: f.firstName + ' ' + f.lastName, picture: require('../../photos/elon-musk.jpg'), uploadDate: null} };
+    //     })));
+    // }
+
+    // useEffect(() => {
+    //     updateFriends();
+    //     const interval = setInterval(updateFriends, 3000);
+    //     return () => clearInterval(interval);
+    // }, []);
 
 
     
@@ -205,46 +225,46 @@ export default function Homepage() {
             const handleResize = () => {
                 setSize([window.innerHeight, window.innerWidth]);
             };
-    
+
             window.addEventListener("resize", handleResize);
             return () => {
                 window.removeEventListener("resize", handleResize);
             };
         }, []);
-        
+
         return (size);
     }
 
-    return(
+    return (
         <>
             <TopBar notifications={notifications} showNotifications={showNotifications} />
             <div className={showNotifications ? 'feed_card feed_notificationPanel active' : 'feed_card feed_notificationPanel'}>
                 <h2>Notifications</h2>
-                
+
                 <div className="feed_notif">
                     <div>
-                        <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
+                        <ShowAccount account={{ name: 'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995' }} />
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
                 <div className="feed_notif">
                     <div>
-                        <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
+                        <ShowAccount account={{ name: 'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995' }} />
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
                 <div className="feed_notif">
                     <div>
-                        <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
+                        <ShowAccount account={{ name: 'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995' }} />
                     </div>
                     <p>posted a new photo</p>
                 </div>
 
                 <div className="feed_notif">
                     <div>
-                        <ShowAccount account={{name:'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995'}}/>
+                        <ShowAccount account={{ name: 'Dwayne Johnson', picture: require('../../photos/dwayne-johnson.jpg'), uploadDate: '12.04.1995' }} />
                     </div>
                     <p>posted a new photo</p>
                 </div>
@@ -262,12 +282,12 @@ export default function Homepage() {
                 {/* <div className='middlePanel'> */}
                 <div className={onlineFriendsToggle ? 'feed_middlePanel active' : 'feed_middlePanel'}>
                     <Status openPostPopup={openPostPopup} createPost={createPost} />
-                    <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends    } />
+                    <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} />
                 </div>
 
                 {/* <div className='rightPanel'> */}
                 <div className={onlineFriendsToggle ? 'feed_rightPanel active' : 'feed_rightPanel'}>
-                    <OnlineFriends friends={myFriends} toggle={toggleFriendsPanel}/>
+                    <OnlineFriends friends={myFriends} toggle={toggleFriendsPanel} />
                 </div>
             </div>
         </>

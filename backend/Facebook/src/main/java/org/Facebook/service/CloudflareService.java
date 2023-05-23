@@ -30,7 +30,7 @@ public class CloudflareService {
             try {
                 new RestTemplate().exchange(serverUrl, HttpMethod.HEAD, new HttpEntity<>("", headers), String.class);
             } catch (HttpClientErrorException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 // File doesn't exist on the server
                 return "";
             }
@@ -40,7 +40,7 @@ public class CloudflareService {
             if (responseEntity.getBody() != null)
                 return Base64.getEncoder().encodeToString(responseEntity.getBody());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return "";
         }
         return "";
@@ -75,13 +75,13 @@ public class CloudflareService {
                     return filename;
                 }
                 // Handle any other HttpClientErrorException
-                e.printStackTrace();
+                //e.printStackTrace();
                 throw new Exception("Not uploaded");
             }
             // There is already a byte-for-byte identical file on the server
             return filename;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throw new Exception("Not uploaded");
         }
     }
@@ -105,7 +105,7 @@ public class CloudflareService {
                 if (e.getStatusCode().value() == 404)
                     return false;
                 // Handle any other HttpClientErrorException
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
 
@@ -113,7 +113,7 @@ public class CloudflareService {
             new RestTemplate().exchange(serverUrl, HttpMethod.DELETE, new HttpEntity<>("", headers), String.class);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }

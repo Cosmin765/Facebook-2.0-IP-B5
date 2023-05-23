@@ -77,6 +77,8 @@ async function getUserPosts(userId) {
 async function getImage(imageName) {
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
+  //don't uncomment :(
+  //console.log('made req');
   return await getText(url, 'GET');
 }
 
@@ -101,6 +103,15 @@ async function getRecommendedAds() {
   return await getData(url, 'GET');
 }
 
+async function setUserLogged(value){
+  await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
+}
+
+async function getLoggedFriends() {
+  const url = new URL(SERVER_ADDRESS + '/getLoggedFriends');
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -116,5 +127,7 @@ export {
   unlikePost,
   getRecommendedAds,
   getUserPosts,
-  getUserOther
+  getUserOther,
+  setUserLogged,
+  getLoggedFriends
 };

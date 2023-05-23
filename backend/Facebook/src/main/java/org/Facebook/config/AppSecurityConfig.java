@@ -18,16 +18,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private CustomAuthHandlerSucces customAuthHandlerSucces;
+
+    public static BCryptPasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 //        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 
         http.authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET,"/", "/login", "/getOwnId").permitAll()
-                .antMatchers(HttpMethod.POST,"/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/login", "/getOwnId").permitAll()
+                .antMatchers(HttpMethod.POST, "/register").permitAll()
                 .anyRequest().authenticated();
-        http.formLogin().loginPage("http://localhost:3000/login").loginProcessingUrl("/login");
+        http.formLogin()
+                .loginPage("http://localhost:3000/login")
+                .successHandler(customAuthHandlerSucces)
+                .loginProcessingUrl("/login");
         http.httpBasic();
         http.cors().and().csrf().disable();
     }
@@ -41,9 +50,5 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userDetailsService);
 
         return provider;
-    }
-
-    public static BCryptPasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
