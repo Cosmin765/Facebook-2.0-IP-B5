@@ -1,7 +1,7 @@
 
 import './App.css';
 import icon5 from './icons/search.svg';
-import icon6 from './icons/notif.svg';
+import icon6 from './icons/graph.svg';
 import icon7 from './icons/out.svg';
 //import LargeMenu from './large_menu';
 import MainContainer from './main_container'
@@ -9,6 +9,7 @@ import StretchedMenu from './stretched_menu';
 import React from 'react';
 import MainContainer_Friend_Request from './main_container_friend_request';
 import Sugestions_Friends from './Sugestions_Friends';
+import { Link } from 'react-router-dom';
 
 function Suggestions() {
   return (
@@ -26,8 +27,8 @@ function Suggestions() {
 
           </div>
           <div className="fr_right_icons">
-            <img src={icon6}></img>
-            <img src={icon7}></img>
+          <Link to='/graph'><img src={icon6}></img></Link>
+              <Link to='/login'><img src={icon7}></img></Link>
           </div>
         </div>
         {/* {<MainContainer />} */}
