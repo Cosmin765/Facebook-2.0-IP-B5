@@ -30,6 +30,13 @@ async function getUser() {
   return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
 }
 
+async function getUserOther(userId)
+{
+  var url = new URL(SERVER_ADDRESS + '/user');
+  url.searchParams.append('id', userId);
+  return await getData(url.toString(),'GET');
+}
+
 async function getFriends() {
   const url = new URL(SERVER_ADDRESS + '/friends');
   const user = await getUser();
@@ -108,5 +115,6 @@ export {
   likePost,
   unlikePost,
   getRecommendedAds,
-  getUserPosts
+  getUserPosts,
+  getUserOther
 };

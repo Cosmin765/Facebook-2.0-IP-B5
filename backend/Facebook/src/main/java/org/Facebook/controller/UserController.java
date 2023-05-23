@@ -62,6 +62,12 @@ public class UserController {
         return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
     }
 
+    @GetMapping(value = "/user")
+    @ResponseBody
+    public UserDto getUser(@RequestParam int id) {
+        return UserMapper.toDto(userService.getUser(id));
+    }
+
     @GetMapping(value = "/suggestions")
     @ResponseBody
     public List<UserDto> getSuggestions(@RequestParam Integer count) {

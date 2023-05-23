@@ -44,6 +44,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll().stream().map(UserMapper::toDto).toList();
     }
 
+    public User getUser(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public List<User> getFriends(int userId) {
         List<Friendship> friendships = friendshipRepository.getFriends(userId);
 
