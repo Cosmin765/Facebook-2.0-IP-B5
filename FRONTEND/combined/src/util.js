@@ -1,15 +1,15 @@
 const SERVER_ADDRESS = 'http://localhost:8084';
 const ADS_ADDRESS = 'http://localhost:8085';
 
-async function getRaw(url, method = 'POST', body = null) {
+async function getRaw(url, method = 'POST', body = null, headers = null) {
   const options = {
     method,
     credentials: 'include', // include cookies in the request
     body,
-    headers: {
-      "Content-Type": "application/json",
-    },
   };
+  if(headers) {
+    options.headers = headers;
+  }
   const res = await fetch(url, options);
   return res;
 }
@@ -62,6 +62,8 @@ async function getRecommendedPosts() {
 async function getImage(imageName) {
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
+  //don't uncomment :(
+  //console.log('made req');
   return await getText(url, 'GET');
 }
 
@@ -86,6 +88,15 @@ async function getRecommendedAds() {
   return await getData(url, 'GET');
 }
 
+async function setUserLogged(value){
+  await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
+}
+
+async function getLoggedFriends() {
+  const url = new URL(SERVER_ADDRESS + '/getLoggedFriends');
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -99,5 +110,7 @@ export {
   getImage,
   likePost,
   unlikePost,
-  getRecommendedAds
+  getRecommendedAds,
+  setUserLogged,
+  getLoggedFriends
 };

@@ -19,16 +19,22 @@ export default function StretchedMenu() {
               </Link>
               </div>
               <div className="sgrid-item">
-                <img src={icon2}></img>
-        
-              </div>
-              <div className="sgrid-item">
-                <img src={icon3}></img>
-       
-              </div>
-              <div className="sgrid-item">
-                <img src={icon4} style={{marginLeft : -5 + 'px' }}></img>
+              <Link className='router_link' to='/myprofile'>
 
+                <img src={icon2}></img>
+        </Link>
+              </div>
+              <div className="sgrid-item">
+              <Link className='router_link' to='/friends'>
+
+                <img src={icon3}></img>
+       </Link>
+              </div>
+              <div className="sgrid-item">
+              <Link className='router_link' to='/mess'>
+
+                <img src={icon4} ></img>
+</Link>
               </div>
             </div>
             </div>

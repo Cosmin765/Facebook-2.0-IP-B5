@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //@RestController
 @Controller
@@ -123,7 +124,6 @@ public class UserController {
     public UserDto setLogged(@RequestParam boolean value) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
-
         return UserMapper.toDto(userService.setLoggedIn(user.getId(), value));
     }
 
@@ -137,7 +137,11 @@ public class UserController {
         List<UserDto> userDtoList = new ArrayList<>();
 
         for (Friendship friendship : friendshipList){
-            userDtoList.add(UserMapper.toDto(friendship.getUser2()));
+            if (Objects.equals(user.getId(), friendship.getUser1().getId())){
+                userDtoList.add(UserMapper.toDto(friendship.getUser2()));
+            } else {
+                userDtoList.add(UserMapper.toDto(friendship.getUser1()));
+            }
         }
 
         return userDtoList;
