@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState,useEffect } from "react";
 import "./MyProfile.css"
 import "./Feed.css"
 import EditProfile from "./EditProfile";
@@ -11,16 +12,50 @@ import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
 import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
+import { getUser,getUserPosts } from "../../../util";
+import Feed from '../../HomePage/components/homepageComponents/Feed';
 
-const posts = [
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }, text: 'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture: null, video: 'https://www.youtube.com/embed/E9T78bT26sk' },
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '30.02.2023' }, text: 'A lot of blood, sweat, and tears have gone into this career of mine.', picture: require('./img/kevin-hart-feed.jpg'), video: null },
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, text: 'The Matrix may have imprisoned me, But I am free inside The Real World.', picture: require('./img/free-tate.jpg'), video: null },
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '24.03.2023' }, text: '@ryanReynolds is my best friend :3', picture: null, video: null },
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '14.03.2023' }, text: 'I’m not homophobic, I enjoy watching lesbians on the internet.', picture: require('./img/jk.jpg'), video: null }
+const commentp2 = [
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."}
 ];
 
-function Feed() {
+const posts = [
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }, text: 'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture: null, video: 'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp2, link: null},
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '30.02.2023' }, text: 'A lot of blood, sweat, and tears have gone into this career of mine.', picture: require('./img/kevin-hart-feed.jpg'), video: null, comments: commentp2, link: null },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, text: 'The Matrix may have imprisoned me, But I am free inside The Real World.', picture: require('./img/free-tate.jpg'), video: null, comments: commentp2, link: null },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '24.03.2023' }, text: '@ryanReynolds is my best friend :3', picture: null, video: null, comments: commentp2, link: null },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '14.03.2023' }, text: 'I’m not homophobic, I enjoy watching lesbians on the internet.', picture: require('./img/jk.jpg'), video: null, comments: commentp2, link: null }
+];
+
+const myFriends = [
+  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
+  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
+  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
+  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }}
+];
+
+function Feed_account() {
   const feedAccounts = posts.map(post =>
     <Card account={post.account} text={post.text} pictures={post.picture} video={post.video} />
   );
@@ -137,12 +172,96 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 }
 
 const MyProfile = () => {
-  const [name, setName] = useState("Your name");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [description, setDescription] = useState("This is my description.");
+  const [modal, setModal] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [userId, setUserId] = useState(null);
+  
+  useEffect(() => {
+    getUser()
+      .then(data => {
+        setUserData(data);
+       setUserId(data.id);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+      
+  }, []);
 
+
+useEffect(() => {
+  if (userId && !posts.length) {
+    getFeedContent(userId).then(posts => {
+      setPosts(posts);
+    });
+  }
+}, [userId]);
+
+async function getFeedContent(userId) {
+  
+  const posts = await getUserPosts(userId);
+  console.log(posts);
+  const content = [...posts];
+  return content;
+}
+
+  useEffect(() => {
+    const fullName = `${userData.firstName} ${userData.lastName}`;
+    setName(fullName);
+  }, [userData]);
+  const [imageUrl, setImageUrl] = useState(null);
+ 
+  useEffect(() => {
+    if (userData.bio) {
+      setDescription(userData.bio);
+    }
+    else
+    {
+      setDescription("This is my description.");
+    }
+  }, [userData]);
+
+  const togglePosts = () => {
+    setModal(!modal);
+    setShowComments(!showComments);
+  }
+
+  const toggleFriends = () => {
+    setModal(!modal);
+    setShowComments(false);
+    setShowFriends(!showFriends);
+}
   const handleNameUpdate = (newName) => {
+    const nameParts = newName.split(' ');
+    if (nameParts.length !== 2) {
+      alert('Invalid name format. Please enter both first name and last name.');
+      return;
+    }
     setName(newName);
+    fetch('http://localhost:8084/updateName', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `name=${newName}`,
+    })
+      .then(response => {
+        alert('Name updated successfully');
+        //  document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        //  document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        //  window.location.href = "/login";
+
+      })
+      .catch(error => {
+      
+        alert('Error updating name:', error);
+      });
   };
 
   const handleImageUpdate = (newImageUrl) => {
@@ -150,10 +269,32 @@ const MyProfile = () => {
   };
 
   const handleDescriptionUpdate = (newDescription) => {
+    
     setDescription(newDescription);
+    fetch('http://localhost:8084/updateBio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `bio=${newDescription}`,
+    })
+      .then(response => {
+        alert('Description updated successfully');
+        // document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // window.location.href = "/login";
+
+      })
+      .catch(error => {
+      
+        alert('Error updating the description:', error);
+      });
   };
 
   return (
+    <>
+    <div className={modal ? 'feed_modal' : null}> </div>
     <div className='myprofile_container-profile'>
       <div className="myprofile_left-profile">
         <StretchedMenu />
@@ -186,13 +327,14 @@ const MyProfile = () => {
             <Description descriptionText={description} setDescriptionText={handleDescriptionUpdate} />
 
             <div className="myprofile_right-content-profile">
-              <Feed />
+            <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} useCase={'profile'} />
+           
             </div>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
-
 export default MyProfile;

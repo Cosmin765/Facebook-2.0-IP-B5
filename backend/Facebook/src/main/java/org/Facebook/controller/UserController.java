@@ -7,11 +7,14 @@ import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.repository.FriendshipRepository;
+import org.Facebook.repository.UserRepository;
 import org.Facebook.service.FriendRequestService;
 import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -58,6 +61,12 @@ public class UserController {
     @ResponseBody
     public List<UserDto> searchUsers(@RequestParam String name) {
         return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
+    }
+
+    @GetMapping(value = "/user")
+    @ResponseBody
+    public UserDto getUser(@RequestParam int id) {
+        return UserMapper.toDto(userService.getUser(id));
     }
 
     @GetMapping(value = "/suggestions")
@@ -146,4 +155,29 @@ public class UserController {
 
         return userDtoList;
     }
+
+    @PostMapping(value = "/updateName")
+    @ResponseBody
+    public UserDto updateName(@RequestParam String name) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        String firstName = name.split(" ")[0];
+        String lastName = name.split(" ")[1];
+        User user1 = userService.updateName(user.getId(), firstName, lastName);
+        Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(user1, user1.getPassword(), user1.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
+        return UserMapper.toDto(user1);
+    }
+
+    @PostMapping(value = "/updateBio")
+    @ResponseBody
+    public UserDto updateBio(@RequestParam String bio) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        User user1 = userService.updateBio(user.getId(), bio);
+        Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(user1, user1.getPassword(), user1.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
+        return UserMapper.toDto(userService.updateBio(user.getId(), bio));
+    }
+
 }

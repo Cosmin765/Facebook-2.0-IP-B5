@@ -30,6 +30,13 @@ async function getUser() {
   return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
 }
 
+async function getUserOther(userId)
+{
+  var url = new URL(SERVER_ADDRESS + '/user');
+  url.searchParams.append('id', userId);
+  return await getData(url.toString(),'GET');
+}
+
 async function getFriends() {
   const url = new URL(SERVER_ADDRESS + '/friends');
   const user = await getUser();
@@ -56,6 +63,14 @@ async function getRecommendedPosts() {
   url.searchParams.set('count', 10);
   url.searchParams.set('cursor', 0);
   const posts = await getData(url, 'POST');
+  return posts;
+}
+
+async function getUserPosts(userId) {
+  const userId2 = parseInt(userId, 10);
+  const url = new URL(SERVER_ADDRESS + '/posts/user');
+  url.searchParams.set('id', userId);
+  const posts = await getData(url, 'GET');
   return posts;
 }
 
@@ -111,6 +126,8 @@ export {
   likePost,
   unlikePost,
   getRecommendedAds,
+  getUserPosts,
+  getUserOther,
   setUserLogged,
   getLoggedFriends
 };

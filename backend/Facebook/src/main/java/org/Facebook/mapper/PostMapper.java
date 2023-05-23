@@ -14,6 +14,8 @@ public class PostMapper {
                 .postImages(post.getPostImages().stream().map(PostImageMapper::toDto).toList())
                 .location(post.getLocation())
                 .status(post.getStatus())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .build();
     }
 
@@ -26,6 +28,8 @@ public class PostMapper {
                 .postImages(postDto.getPostImages().stream().map(PostImageMapper::fromDto).toList())
                 .location(postDto.getLocation())
                 .status(postDto.getStatus())
+                .createdAt(postDto.getCreatedAt())
+                .updatedAt(postDto.getUpdatedAt())
                 .build();
     }
 }

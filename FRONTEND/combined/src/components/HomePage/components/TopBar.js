@@ -58,8 +58,9 @@ getUsers().then(
     setFilteredFriends(filtered);
   };
 
-function handleClickSearchedUser(userName) {
-    alert("Ar trebui sa te duca la profilul persoanei " + userName)
+function handleClickSearchedUser(userId) {
+    //alert("Ar trebui sa te duca la profilul persoanei " + userName)
+    window.location.href = "http://localhost:3000/profile?id=" + userId;
  }
 
     return (
@@ -74,7 +75,7 @@ function handleClickSearchedUser(userName) {
             {searchText !== '' && (
             <ul className="feed_friend-list">
         {filteredFriends.map((friend, index) => (
-          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.firstName+" "+friend.lastName)}>{friend.firstName+" "+friend.lastName}</li>
+          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.id)}>{friend.firstName+" "+friend.lastName}</li>
         ))}
       </ul> 
   )}
