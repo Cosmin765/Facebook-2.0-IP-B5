@@ -102,6 +102,14 @@ public class UserController {
         return friendRequestService.getFriendRequestsByUser(user).stream().map(FriendRequestMapper::toDto).toList();
     }
 
+    @GetMapping(value = "/friendRequestsSend")
+    @ResponseBody
+    public List<FriendRequestDto> getFriendRequestsSend() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        return friendRequestService.getFriendRequestsByUserSend(user).stream().map(FriendRequestMapper::toDto).toList();
+    }
+
     @PostMapping(value = "/friendRequest")
     @ResponseBody
     public FriendRequestDto updateFriendReq(@RequestParam Integer id, @RequestParam String status) {

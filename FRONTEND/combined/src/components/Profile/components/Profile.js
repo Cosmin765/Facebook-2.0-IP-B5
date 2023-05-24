@@ -11,8 +11,9 @@ import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
 import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
-import { getUserOther,getUserPosts } from "../../../util";
+import { getUserOther,getUserPosts,getFriends,addFriend,getFriendRequests,getFriendRequestsSend } from "../../../util";
 import Feed from '../../HomePage/components/homepageComponents/Feed';
+// import TopBar from '../../HomePage/components/TopBar'
 
 const commentp2 = [
   {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
@@ -75,7 +76,6 @@ function Feed_account() {
 // }
 
 function Card({ account: { name, picture, uploadDate }, text, pictures, video }) {
-console.log(name);
   return (
     <div className='card'>
       <div className='topCard'>
@@ -156,16 +156,87 @@ function Description({ descriptionText, setDescriptionText }) {
   );
 }
 
+async function areFriends(profileUserId) {
+  const friends = await getFriends();
+  const friendIds = friends.map(friend => friend.id);
+  return friends.some(friend => friend.id.toString() === profileUserId.toString());
+}
 function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
+  const [requestGet, setRequestGet] = useState(false);
+  var url = new URL(window.location.href);
+  var id = url.searchParams.get("id");
 
+  useEffect(() => {
+    areFriends(id).then(result => {
+      setIsFriend(result);
+    });
+
+    getFriendRequests().then((friendRequests) => {
+      if (friendRequests) {
+        const isSender = friendRequests.some(request => {
+          if (request.sender.id && id) {
+            console.log('rezultat '+ request.sender.id.toString() === id.toString())
+            return request.sender.id.toString() === id.toString();
+          }
+          return false;
+        });
+        if (isSender) {
+          console.log('Sender found!');
+          setRequestGet(true);
+        } else {
+          console.log('Sender not found!');
+        }
+      } else {
+        console.log('No friend requests found!');
+      }
+    });
+
+
+    getFriendRequestsSend().then((friendRequests) => {
+      if (friendRequests) {
+        const isRec = friendRequests.some(request => {
+          console.log('or');
+          if (request.receiver.id && id) {
+            console.log('rezultat '+ request.receiver.id.toString() === id.toString())
+            return request.receiver.id.toString() === id.toString();
+          }
+          return false;
+        });
+        if (isRec) {
+          console.log('found!');
+          setRequestSent(true);
+        } else {
+          console.log(' not found!');
+        }
+      } else {
+        console.log('No friend requests found!');
+      }
+    });
+  }, [id]);
+    
+  function handleAddFriend() {
+    addFriend(id);
+    setRequestSent(true);
+    setIsFriend('requestSent');
+  }
+  
+ 
   return (
     <div className="profile_buttons-name">
       <div class="profile_profile-info">
         <h2 className="profile_name">{nameText}</h2>
-      </div>
-      <button className="profile_add-friend"> Add Friend </button>
-      <EditProfile
+      </div> 
+      <div>
+      {!isFriend && !requestGet && !requestSent && (
+        <button className="profile_add-friend" onClick={handleAddFriend}>
+          Add Friend
+        </button>
+      )}
+    </div>
+      {/* <EditProfile
         isOpen={isEditProfileOpen}
         onClose={() => setIsEditProfileOpen(false)}
         nameText={nameText}
@@ -173,7 +244,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
         imageUrl={imageUrl}
         setImageUrl={setImageUrl}
       >
-      </EditProfile>
+      </EditProfile> */}
     </div>
   );
 }
@@ -189,12 +260,10 @@ const Profile = () => {
   const [userId, setUserId] = useState(null);
   var url = new URL(window.location.href);
   var id = url.searchParams.get("id");
-  console.log(id);
   useEffect(() => {
     getUserOther(id)
       .then(data => {
         setUserData(data);
-        console.log(data)
        setUserId(data.id);
       })
       .catch(error => {
@@ -215,7 +284,6 @@ useEffect(() => {
 async function getFeedContent(userId) {
   
   const posts = await getUserPosts(userId);
-  console.log(posts);
   const content = [...posts];
   return content;
 }
@@ -269,6 +337,7 @@ async function getFeedContent(userId) {
           <div className="profile_search-profile">
             <div className="profile_search_box-profile">
               <img src={icon5}></img>
+              {/* <TopBar notifications={handleNotifications} showNotifications={true} /> */}
             </div>
             <div className="profile_right_icons-profile">
               <img src={icon6}></img>

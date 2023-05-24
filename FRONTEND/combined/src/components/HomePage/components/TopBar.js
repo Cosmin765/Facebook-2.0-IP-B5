@@ -60,7 +60,15 @@ getUsers().then(
 
 function handleClickSearchedUser(userId) {
     //alert("Ar trebui sa te duca la profilul persoanei " + userName)
-    window.location.href = "http://localhost:3000/profile?id=" + userId;
+    
+      getUser()
+        .then(data => {
+          if(data.id.toString()==userId.toString())
+            window.location.href = "http://localhost:3000/myProfile";
+          else
+            window.location.href = "http://localhost:3000/profile?id=" + userId;});
+          
+
  }
 
     return (
@@ -75,7 +83,7 @@ function handleClickSearchedUser(userId) {
             {searchText !== '' && (
             <ul className="feed_friend-list">
         {filteredFriends.map((friend, index) => (
-          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.id)}>{friend.firstName+" "+friend.lastName}</li>
+          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.id)} style={{ cursor: 'pointer' }}>{friend.firstName+" "+friend.lastName}</li>
         ))}
       </ul> 
   )}

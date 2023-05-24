@@ -101,6 +101,11 @@ async function getRecommendedAds() {
   return await getData(url, 'GET');
 }
 
+async function getFriendRequestsSend() {
+  const url = new URL(SERVER_ADDRESS + '/friendRequestsSend');
+  return await getData(url, 'GET');
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -116,5 +121,6 @@ export {
   unlikePost,
   getRecommendedAds,
   getUserPosts,
-  getUserOther
+  getUserOther,
+  getFriendRequestsSend
 };
