@@ -77,6 +77,8 @@ async function getUserPosts(userId) {
 async function getImage(imageName) {
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
+  //don't uncomment :(
+  //console.log('made req');
   return await getText(url, 'GET');
 }
 
@@ -103,6 +105,13 @@ async function getRecommendedAds() {
 
 async function getFriendRequestsSend() {
   const url = new URL(SERVER_ADDRESS + '/friendRequestsSend');
+}
+async function setUserLogged(value){
+  await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
+}
+
+async function getLoggedFriends() {
+  const url = new URL(SERVER_ADDRESS + '/getLoggedFriends');
   return await getData(url, 'GET');
 }
 
@@ -122,5 +131,7 @@ export {
   getRecommendedAds,
   getUserPosts,
   getUserOther,
-  getFriendRequestsSend
+  getFriendRequestsSend,
+  setUserLogged,
+  getLoggedFriends
 };

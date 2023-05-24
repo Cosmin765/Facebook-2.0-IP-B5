@@ -18,5 +18,7 @@ public class UserDto {
     private String birthday;
     private String email;
     private String bio;
+    private String profile_picture;
+    private String cover_picture;
     private Short isLoggedIn;
 }

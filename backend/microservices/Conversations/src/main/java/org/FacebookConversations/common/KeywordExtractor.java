@@ -1,4 +1,4 @@
-package org.FacebookAds.service;
+package org.FacebookConversations.common;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -6,9 +6,6 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
 import edu.stanford.nlp.util.CoreMap;
-import org.FacebookAds.repository.AdProfileRepository;
-import org.FacebookAds.util.Pipeline;
-import org.FacebookAds.util.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

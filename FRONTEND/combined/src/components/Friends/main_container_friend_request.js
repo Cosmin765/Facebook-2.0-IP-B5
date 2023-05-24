@@ -6,7 +6,7 @@ import StretchedMenu from './stretched_menu';
 // import { useNavigate } from 'react-router-dom';  
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getData, getFriendRequests } from '../../util';
+import { getData, getFriendRequests,getImage } from '../../util';
 const SERVER_ADDRESS = 'http://localhost:8084';
 let variable = false;
 
@@ -17,13 +17,28 @@ export default function MainContainer_Friend_Request() {
   const [removingFriendId, setRemovingFriendId] = useState(null);
 
   useEffect(() => {
-    getFriendRequests().then(friend => {
-      const filtered = friend.filter(f => f.status === 'pending').map(f => {
-        return { id: f.id, name: f.sender.firstName + ' ' + f.sender.lastName, photo: 'https://th.bing.com/th/id/OIP.BKqez6EPbraRw0ZkKv24awHaJP?pid=ImgDet&rs=1' };
+    const fetchData = async () => {
+      const friendRequests = await getFriendRequests();
+      const filtered = friendRequests.filter(f => f.status === 'pending');
+  
+      const friendPromises = filtered.map(async f => {
+        const sender = f.sender;
+        const img = await getImage(sender.profile_picture);
+        const photo = 'data:image/png;base64,' + img;
+  
+        return {
+          id: f.id,
+          name: sender.firstName + ' ' + sender.lastName,
+          photo: photo
+        };
       });
-      console.log(filtered);
-      setFriends(filtered);
-    });
+  
+      const friendData = await Promise.all(friendPromises);
+      console.log(friendData);
+      setFriends(friendData);
+    };
+  
+    fetchData();
   }, []);
 
   async function updateFriendRequest(friendRequestid, status) {

@@ -4,7 +4,7 @@ import org.Facebook.model.dto.UserDto;
 import org.Facebook.model.entity.User;
 
 public class UserMapper {
-    public static UserDto toDto(User user){
+    public static UserDto toDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
@@ -12,6 +12,8 @@ public class UserMapper {
                 .birthday(user.getBirthday())
                 .email(user.getEmail())
                 .bio(user.getBio())
+                .cover_picture(user.getCover_picture())
+                .profile_picture(user.getProfile_picture())
                 .isLoggedIn(user.getIsLoggedIn())
                 .build();
     }
@@ -24,6 +26,8 @@ public class UserMapper {
                 .birthday(userDto.getBirthday())
                 .email(userDto.getEmail())
                 .bio(userDto.getBio())
+                .cover_picture(userDto.getCover_picture())
+                .profile_picture(userDto.getProfile_picture())
                 .isLoggedIn(userDto.getIsLoggedIn())
                 .build();
     }
