@@ -8,6 +8,7 @@ import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.repository.FriendshipRepository;
 import org.Facebook.repository.UserRepository;
+import org.Facebook.service.CloudflareService;
 import org.Facebook.service.FriendRequestService;
 import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
@@ -20,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class UserController {
     private FriendshipService friendshipService;
     @Autowired
     private FriendshipRepository friendshipRepository;
+    @Autowired
+    private CloudflareService cloudflareService;
 
     @PostMapping(value = "/register")
     @ResponseBody
@@ -186,6 +190,13 @@ public class UserController {
         Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(user1, user1.getPassword(), user1.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
         return UserMapper.toDto(userService.updateBio(user.getId(), bio));
+    }
+
+    @PostMapping(value = "/updatePicture")
+    @ResponseBody
+    public void updateProfilePic(@RequestParam("file") MultipartFile multipartFile, @RequestParam("id") Integer id) throws Exception{
+        String imageString = cloudflareService.upload(multipartFile);
+        userService.updateProfile(imageString,id);
     }
 
 }

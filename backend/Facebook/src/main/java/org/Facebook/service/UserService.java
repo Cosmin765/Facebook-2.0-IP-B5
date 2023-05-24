@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -195,5 +196,10 @@ public class UserService implements UserDetailsService {
     public User updateBio(Integer id, String bio) {
         userRepository.updateUserBio(id, bio);
         return userRepository.findById(id).get();
+    }
+
+    public void updateProfile(String imageString,Integer id){
+
+        userRepository.updateProfilePicture(id,imageString);
     }
 }
