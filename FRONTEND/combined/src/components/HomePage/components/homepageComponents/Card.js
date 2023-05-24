@@ -7,7 +7,7 @@ import shareBtn from '../../icons/homepageIcons/share.svg';
 import AddComment from './AddComment';
 import PostImage from './PostImage';
 
-import { getUser, likePost, unlikePost } from '../../../../util';
+import { getUser, likePost, unlikePost , getImage} from '../../../../util';
 
 function Account({ name, picture, uploadDate }) {
   return (
@@ -33,13 +33,22 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   const account = post.user;
   account.name = account.firstName + ' ' + account.lastName;
   const date=new Date(post.createdAt);
+
+  // const loadImage = async () => {
+  //   const img = await getImage(account.profile_picture);
+  //   account.picture = 'data:image/png;base64,' + img;
+  // }
+  // loadImage();
+
+  account.picture = post.user.profile_picture;
+
   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
   const uploadDate = date.toLocaleDateString('en-GB', options); 
   return (
       <div className='feed_card'>
       <div className='feed_topCard'>
         {/* <ShowAccount account={account}/> */}
-        <Account name={account.name} picture={'./img/dwayne-johnson.jpg'} uploadDate={uploadDate} />
+        <Account name={account.name} picture={account.picture} uploadDate={uploadDate} />
         <div className='feed_options'>
           {/* <p>dsfsdf</p> */}
         </div>

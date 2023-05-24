@@ -10,7 +10,7 @@ import Feed from "./Feed";
 import LargeMenu from "../large_menu";
 import StretchedMenu from "../streched_menu";
 import ShowAccount from "./ShowAccount";
-import { getRecommendedAds, getRecommendedPosts,setUserLogged,getLoggedFriends } from "../../../../util";
+import { getRecommendedAds, getRecommendedPosts, setUserLogged, getLoggedFriends, getImage } from "../../../../util";
 
 // style
 import '../../styles/homepageStyles/homepage.css'
@@ -137,10 +137,9 @@ function adToPostConvert(ad) {
 export default function Homepage() {
     //login
     useEffect(() => {
-        console.log('i have set logged')
         setUserLogged(true);
-      }, []);
-    
+    }, []);
+
     const [modal, setModal] = useState(false);
     const [onlineFriendsToggle, setOnlineFriendsToggle] = useState(false);
     const [createPost, setCreatePost] = useState(false);
@@ -157,8 +156,41 @@ export default function Homepage() {
         });
     }
 
+    function isIdNotInPairs(id, idImagePairs) {
+        const idExists = idImagePairs.some(pair => pair.id === id);
+        return !idExists;
+    }
+
+    function returnProfileById(id,idImagePairs) {
+        for (const profile of idImagePairs) {
+            if (profile.id === id) {
+                return profile.image;
+            }
+        }
+    }
+    
     async function getFeedContent() {
         const posts = await getRecommendedPosts();
+
+        const idImagePairs = [];
+        for (const post of posts) {
+            if(isIdNotInPairs(post.user.id, idImagePairs) === true) {
+                const id = post.user.id;   
+                let img = await getImage(post.user.profile_picture);
+                img = 'data:image/png;base64,' + img;
+
+                const pair = {
+                    id: post.user.id,
+                    image: img
+                };
+                idImagePairs.push(pair);
+            }
+
+            if(isIdNotInPairs(post.user.id, idImagePairs) === false) {
+                post.user.profile_picture = returnProfileById(post.user.id,idImagePairs);
+            }
+        }
+
         const ads = await getRecommendedAds();
 
         // const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
@@ -166,7 +198,7 @@ export default function Homepage() {
         return content;
     }
 
-    
+
     // const updateFriends = async () => {
     //     getLoggedFriends().then(myFriends => setFriends(myFriends.map(f => {
     //         return { account : {id: f.id, name: f.firstName + ' ' + f.lastName, picture: require('../../photos/elon-musk.jpg'), uploadDate: null} };
@@ -180,7 +212,7 @@ export default function Homepage() {
     // }, []);
 
 
-    
+
     const toggleFriendsPanel = () => {
         setModal(!modal);
         setCreatePost(false);

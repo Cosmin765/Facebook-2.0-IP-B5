@@ -68,10 +68,4 @@ public class CommentController {
         redirectAttributes.addFlashAttribute("message", "Comment deleted!");
         return new RedirectView("/comments");
     }
-
-//    @GetMapping(value = "/rep_com")
-//    @ResponseBody
-//    public void hideCom(@RequestBody Comment comment) {
-//        commentService.hideCom(comment);
-//    }
 }
