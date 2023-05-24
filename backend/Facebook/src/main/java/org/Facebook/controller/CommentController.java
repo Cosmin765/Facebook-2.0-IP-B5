@@ -17,8 +17,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api")
-//@Controller
 public class CommentController {
     private final CommentService commentService;
 
@@ -27,32 +25,15 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-//    @PostMapping("/comments/post")
-//    @ResponseBody
-//    public Comment postComment(@RequestBody Comment comment) {
-//        return commentService.postComment(comment);
-//    }
-
-//    @PostMapping("/postcomment")
-//    @ResponseBody
-//    public String postComment (@RequestBody CommentDto commentDto) {
-//        commentService.postComment(commentDto);
-//        return "comment posted";
-//    }
-
-    @PostMapping
-    @ResponseBody
-    public RedirectView postComment(@ModelAttribute CommentDto commentDto, RedirectAttributes redirectAttributes) {
-
-        commentService.postComment(commentDto);
-        redirectAttributes.addFlashAttribute("message", "Comment posted successfully!");
-        return new RedirectView("/comments");
-    }
-
     @GetMapping(value = "/comments")
     @ResponseBody
     public List<CommentDto> comments() {
         return commentService.getAllComments().stream().map(CommentMapper::toDto).toList();
+    }
+
+    @GetMapping(value = "/commentPostId")
+    public List<CommentDto> commentOfPost(@RequestParam Integer postId){
+        return commentService.getCommentsByPostId(postId).stream().map(CommentMapper::toDto).toList();
     }
 
     @GetMapping(value = "/comment")
@@ -61,11 +42,12 @@ public class CommentController {
         return commentService.getCommentById(id);
     }
 
-    @PostMapping(value = "comment/delete")
+    @PostMapping(value = "/createComment")
     @ResponseBody
-    public RedirectView deleteComment(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-        commentService.deleteComment(id);
-        redirectAttributes.addFlashAttribute("message", "Comment deleted!");
-        return new RedirectView("/comments");
+    public void postComment(@RequestBody CommentDto commentDto) {
+        System.out.println(commentDto);
+        commentService.postComment(commentDto);
     }
+
+
 }

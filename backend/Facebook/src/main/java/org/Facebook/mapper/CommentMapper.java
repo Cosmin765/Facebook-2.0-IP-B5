@@ -7,8 +7,8 @@ public class CommentMapper {
         return CommentDto.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
-                .post(comment.getPost())
-                .user(comment.getUser())
+                .postId(comment.getPost().getId())
+                .userId(comment.getUser().getId())
                 .build();
     }
 
@@ -16,8 +16,8 @@ public class CommentMapper {
         return Comment.builder()
                 .id(commentDto.getId())
                 .content(commentDto.getContent())
-                .post(commentDto.getPost())
-                .user(commentDto.getUser())
+                //.post(commentDto.getPost())
+                //.user(commentDto.getUser())
                 .build();
     }
 }

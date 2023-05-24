@@ -34,56 +34,46 @@ public class CommentService {
     public void postComment(Integer post_id, Integer user_id, String content) {
         commentRepository.postComment(post_id, user_id, content);
     }
+
     public void postComment(CommentDto commentDto) {
-        Comment comment = CommentMapper.fromDto(commentDto);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
-        User user = userRepository.findByEmail(userDto.getEmail());
-        comment.setUser(user);
-        commentRepository.save(comment);
+        commentRepository.postComment(commentDto.getPostId(), commentDto.getUserId(), commentDto.getContent());
     }
+
     public void deleteComment(int commentId) {
         commentRepository.deleteById(commentId);
     }
+
     public void updateComment(Comment comment) {
         commentRepository.save(comment);
     }
-    public void editComment(String content, Integer comment_id) {
-        commentRepository.editComment(content,comment_id);
-    }
 
-//    public List<CommentDto> getAllComments() {
-//        return commentRepository.findAll().stream().map(CommentMapper::toDto).toList();
-//    }
-//    public void hideCom(Comment comment) {
-//       comment.isReported();
-//    }
+    public void editComment(String content, Integer comment_id) {
+        commentRepository.editComment(content, comment_id);
+    }
 
     public List<Comment> getAllComments() {
-
         return commentRepository.findAll();
     }
+
     public List<Comment> getCommentsByUser(User user) {
         return commentRepository.findByUser(user);
     }
+
     public List<Comment> getCommentsByPost(Post post) {
         return commentRepository.findByPost(post);
     }
 
-    public List<Comment> getCommentsByUserId(Integer user_id) throws Exception{
-        if(commentRepository.findByUserId(user_id) == null)
+    public List<Comment> getCommentsByUserId(Integer user_id) throws Exception {
+        if (commentRepository.findByUserId(user_id) == null)
             throw new Exception("Comment not found.");
         return commentRepository.findByUserId(user_id);
     }
-    public List<Comment> getCommentsByPostId(Integer post_id) throws Exception{
-        if (commentRepository.findByPostId(post_id) == null)
-            throw new Exception("Comment not found.");
+
+    public List<Comment> getCommentsByPostId(Integer post_id) {
         return commentRepository.findByPostId(post_id);
     }
 
-    public Comment getCommentById(Integer id) throws Exception {
-        if(commentRepository.findByCommentId(id) == null)
-            throw new Exception("Comment not found.");
+    public Comment getCommentById(Integer id) {
         return commentRepository.findByCommentId(id);
     }
 }
