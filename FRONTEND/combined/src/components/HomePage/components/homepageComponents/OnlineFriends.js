@@ -67,7 +67,7 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
 
     useEffect(() => {
         updateFriends();
-        const interval = setInterval(updateFriends, 6000);
+        const interval = setInterval(updateFriends, 3000);
         return () => clearInterval(interval);
     }, []);
 

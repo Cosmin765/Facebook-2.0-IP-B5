@@ -41,7 +41,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
   // loadImage();
 
   account.picture = post.user.profile_picture;
-
+  
   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
   const uploadDate = date.toLocaleDateString('en-GB', options); 
   return (
