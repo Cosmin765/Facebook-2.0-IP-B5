@@ -103,6 +103,9 @@ async function getRecommendedAds() {
   return await getData(url, 'GET');
 }
 
+async function getFriendRequestsSend() {
+  const url = new URL(SERVER_ADDRESS + '/friendRequestsSend');
+}
 async function setUserLogged(value){
   await getData(SERVER_ADDRESS+`/setLogged?value=${value}`,'POST');
 }
@@ -135,6 +138,7 @@ export {
   getRecommendedAds,
   getUserPosts,
   getUserOther,
+  getFriendRequestsSend,
   setUserLogged,
   getLoggedFriends,
   getGraphData
