@@ -26,15 +26,22 @@ async function getData(url, method = 'POST', body = null, headers = null) {
   return data;
 }
 
+
 async function getUser() {
   return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
 }
 
-async function getUserOther(userId)
-{
+const userCache = new Map();
+
+async function getUserOther(userId) {
+  if(userCache.has(userId)) {
+    return userCache.get(userId);
+  }
   var url = new URL(SERVER_ADDRESS + '/user');
   url.searchParams.append('id', userId);
-  return await getData(url.toString(),'GET');
+  const user = await getData(url.toString(),'GET');
+  userCache.set(userId, user);
+  return user;
 }
 
 async function getFriends() {
@@ -74,12 +81,20 @@ async function getUserPosts(userId) {
   return posts;
 }
 
+const imageCache = new Map();
+
 async function getImage(imageName) {
+  if(imageCache.has(imageName)) {
+    return imageCache.get(imageName);
+  }
+
   const url = new URL(SERVER_ADDRESS + '/cloudflare/download');
   url.searchParams.set('file', imageName);
   //don't uncomment :(
   //console.log('made req');
-  return await getText(url, 'GET');
+  const base64 = await getText(url, 'GET');
+  imageCache.set(imageName, base64);
+  return base64;
 }
 
 async function likePost(postId) {
