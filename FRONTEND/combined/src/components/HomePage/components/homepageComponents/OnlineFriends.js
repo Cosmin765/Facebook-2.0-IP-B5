@@ -76,16 +76,10 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
         setBurgerState(!burgerState);
     }
 
-    // 
-    const goToProfile = () => {
-        alert("Go to profile");
-    }
-    // 
-
     const showFriends = friendsList.map((friend, i) => {
         return (
-            <div key={i} className='feed_friend' onClick={goToProfile}>
-                <Link className='router_link' to='/profile'>    <ShowAccount account={friend.account} />
+            <div key={i} className='feed_friend'>
+                <Link className='router_link' to={`/profile?id=${friend.account.id}`}>    <ShowAccount account={friend.account} />
                 </Link></div>
 
         );
