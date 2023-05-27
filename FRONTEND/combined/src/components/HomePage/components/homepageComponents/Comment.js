@@ -21,7 +21,7 @@ export default function Comment({comment}) {
         getOtherProfile();
     }, []);
 
-    let account = {name: '', picture: '', uploadData: ''};
+    let account = {name: '', picture: '', uploadDate: ''};
     if(user) {
         account = {name: user.firstName + ' ' + user.lastName, picture: base64, uploadDate: null};
     }

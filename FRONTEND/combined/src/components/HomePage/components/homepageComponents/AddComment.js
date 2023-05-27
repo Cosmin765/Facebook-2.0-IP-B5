@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // components
 import ShowAccount from "./ShowAccount";
@@ -8,9 +8,11 @@ import '../../styles/homepageStyles/addComment.css';
 
 import sendImg from '../../icons/homepageIcons/send.svg';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
-import { createComment } from "../../../../util";
+import { createComment, getImage, getUser } from "../../../../util";
 
 export default function AddComment({post}) {
+    const [base64, setBase64] = useState('');
+
     const [postDataType, setPostDataType] = useState({
         typeAreaVal: "",
         files: FileList
@@ -34,10 +36,22 @@ export default function AddComment({post}) {
         createComment(content, post.id);
     }
 
+    const getProfile = async () => {
+        const user = await getUser();
+        const otherImage = await getImage(user.profile_picture);
+        setBase64('data:image/png;base64,' + otherImage);
+    }
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
+    const account = {name: null, picture: base64, uploadDate: ''};
+
     return (
         <div className="feed_addComment">
             <div>
-                <ShowAccount account={{name: null, picture: require('../../photos/KevinHart.jpg'), uploadDate: null}}/>
+                <ShowAccount account={account}/>
             </div>
             <div className="feed_commentInput">
                 <form onSubmit={e => e.preventDefault()}>
