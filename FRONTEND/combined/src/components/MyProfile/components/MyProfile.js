@@ -132,7 +132,7 @@ function Description({ descriptionText, setDescriptionText }) {
 
   return (
     <div className="myprofile_left-content-profile">
-      <div class="myprofile_profile-info">
+      <div className="myprofile_profile-info">
         <h2 className="myprofile_descriptionTitle">Description</h2>
         <p>{descriptionText}</p>
       </div>
@@ -154,7 +154,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 
   return (
     <div className="myprofile_buttons-name">
-      <div class="myprofile_profile-info">
+      <div className="myprofile_profile-info">
         <h2 className="myprofile_name">{nameText}</h2>
       </div>
       <button className="myprofile_change-photo profile_button" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>

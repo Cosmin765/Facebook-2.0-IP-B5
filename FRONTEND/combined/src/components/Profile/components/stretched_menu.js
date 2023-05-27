@@ -13,7 +13,7 @@ export default function StretchedMenu() {
             <h1 className='stitle'>k.</h1>
             <div className="sgrid_wrapper">
             <div className="sgrid_container">
-              <div class="sgrid-item">
+              <div className="sgrid-item">
                 <Link className='router_link' to='/home'>
                 <img src={icon}></img>
               </Link>

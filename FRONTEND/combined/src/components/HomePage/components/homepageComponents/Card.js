@@ -93,7 +93,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
         </div>
 
       </div>
-        <AddComment />
+        <AddComment post={post} />
     </div>
     );
 }

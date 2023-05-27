@@ -140,7 +140,7 @@ function Description({ descriptionText, setDescriptionText }) {
 
   return (
     <div className="profile_left-content-profile">
-      <div class="profile_profile-info">
+      <div className="profile_profile-info">
         <h2 className="profile_descriptionTitle">Description</h2>
         <p>{descriptionText}</p>
       </div>
@@ -226,7 +226,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 
   return (
     <div className="profile_buttons-name">
-      <div class="profile_profile-info">
+      <div className="profile_profile-info">
         <h2 className="profile_name">{nameText}</h2>
       </div>
       <div>

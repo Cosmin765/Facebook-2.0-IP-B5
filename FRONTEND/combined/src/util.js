@@ -14,14 +14,14 @@ async function getRaw(url, method = 'POST', body = null, headers = null) {
   return res;
 }
 
-async function getText(url, method = 'POST', body = null) {
-  const res = await getRaw(url, method, body);
+async function getText(url, method = 'POST', body = null, headers = null) {
+  const res = await getRaw(url, method, body, headers);
   const data = await res.text();
   return data;
 }
 
-async function getData(url, method = 'POST', options = null) {
-  const res = await getRaw(url, method, options);
+async function getData(url, method = 'POST', body = null, headers = null) {
+  const res = await getRaw(url, method, body, headers);
   const data = await res.json();
   return data;
 }
@@ -122,6 +122,20 @@ async function getGraphData(userId, level=2) {
   return await getData(url, 'GET');
 }
 
+async function createComment(content, postId) {
+  const url = new URL(SERVER_ADDRESS + "/createComment");
+  const user = await getUser();
+  const body = JSON.stringify({
+    content,
+    userId: user.id,
+    postId
+  });
+  const headers = {
+    'content-type': 'application/json'
+  }
+  return await getRaw(url, 'POST', body, headers);
+}
+
 export { 
   SERVER_ADDRESS, 
   getRaw, 
@@ -141,5 +155,6 @@ export {
   getFriendRequestsSend,
   setUserLogged,
   getLoggedFriends,
-  getGraphData
+  getGraphData,
+  createComment
 };
