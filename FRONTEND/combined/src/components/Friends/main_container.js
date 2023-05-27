@@ -19,7 +19,6 @@ useEffect(() => {
     const friendPromises = people.map(async f => {
       let img = await getImage(f.profile_picture);
       img = 'data:image/png;base64,' + img;
-      console.log('img is ' + img);
       return { id: f.id, name: f.firstName + ' ' + f.lastName, photo: img, active: f.isLoggedIn };
     });
     const friendData = await Promise.all(friendPromises);
@@ -28,8 +27,6 @@ useEffect(() => {
 
   fetchData();
 }, []);
-  console.log(friends);
-
 
 
   const handleFriendClick = () => {

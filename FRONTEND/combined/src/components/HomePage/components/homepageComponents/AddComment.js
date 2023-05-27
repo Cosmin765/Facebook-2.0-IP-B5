@@ -25,7 +25,6 @@ export default function AddComment({post}) {
     }
     
     const UploadFilesHandler = (event) => {
-        console.log(event.target.files);
         setPostDataType(prevPostDataType => {
             return {...prevPostDataType, files: event.target.files};
         });

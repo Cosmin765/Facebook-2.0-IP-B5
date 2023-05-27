@@ -31,7 +31,6 @@ function EditProfile(prop) {
   // };
 
   const handleSave = async () => {
-    console.log(userId);
     prop.setNameText(name);
 
       const formData = new FormData();

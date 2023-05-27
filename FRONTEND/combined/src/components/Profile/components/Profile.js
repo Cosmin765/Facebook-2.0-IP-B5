@@ -178,19 +178,13 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
       if (friendRequests) {
         const isSender = friendRequests.some(request => {
           if (request.sender.id && id) {
-            console.log('rezultat ' + request.sender.id.toString() === id.toString())
             return request.sender.id.toString() === id.toString();
           }
           return false;
         });
         if (isSender) {
-          console.log('Sender found!');
           setRequestGet(true);
-        } else {
-          console.log('Sender not found!');
         }
-      } else {
-        console.log('No friend requests found!');
       }
     });
 
@@ -198,21 +192,14 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
     getFriendRequestsSend().then((friendRequests) => {
       if (friendRequests) {
         const isRec = friendRequests.some(request => {
-          console.log('or');
           if (request.receiver.id && id) {
-            console.log('rezultat ' + request.receiver.id.toString() === id.toString())
             return request.receiver.id.toString() === id.toString();
           }
           return false;
         });
         if (isRec) {
-          console.log('found!');
           setRequestSent(true);
-        } else {
-          console.log(' not found!');
         }
-      } else {
-        console.log('No friend requests found!');
       }
     });
   }, [id]);

@@ -26,21 +26,34 @@ async function getData(url, method = 'POST', body = null, headers = null) {
   return data;
 }
 
+let userCache = null;
+let lastUpdateUser = 0;
+const UPDATE_TIME = 3000;  // 3 seconds
 
 async function getUser() {
-  return await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
+  const now = Date.now();
+  if(userCache && now - lastUpdateUser < UPDATE_TIME) {
+    return userCache;
+  }
+  userCache = await getData(SERVER_ADDRESS + '/getOwnId', 'GET');
+  lastUpdateUser = now;
+  return userCache;
 }
 
-const userCache = new Map();
+const usersCache = new Map();
+const usersLastUpdateTime = new Map();
 
 async function getUserOther(userId) {
-  if(userCache.has(userId)) {
-    return userCache.get(userId);
+  const now = Date.now();
+  const lastUpdateTime = usersLastUpdateTime.get(userId) ?? 0;
+  if(usersCache.has(userId) && now - lastUpdateTime < UPDATE_TIME) {
+    return usersCache.get(userId);
   }
   var url = new URL(SERVER_ADDRESS + '/user');
   url.searchParams.append('id', userId);
   const user = await getData(url.toString(),'GET');
-  userCache.set(userId, user);
+  usersCache.set(userId, user);
+  usersLastUpdateTime.set(userId, now);
   return user;
 }
 

@@ -3,6 +3,7 @@ import icon from '../icons/Vectorhome.svg';
 import icon2 from '../icons/Groupprofile.svg';
 import icon3 from '../icons/Groupfriends.svg';
 import icon4 from '../icons/Chat_alt_2_light.svg';
+import icon5 from '../icons/graph.png';
 
 // import '../styles/large_menu.css';
 import '../styles/leftMenu.css'
@@ -14,8 +15,12 @@ export default function LargeMenu() {
             <h1 className="feed_large">koobecaf.</h1>
             <div className="feed_grid_container">
               <div className="feed_grid-item">
+                
                 <img src={icon}></img>
-                <span>Home</span>
+                <span>
+                  <Link className="router_link" to='/home'>
+                    Home</Link>
+                </span>
               </div>
               <div className="feed_grid-item">
                 <img src={icon2}></img>
@@ -36,6 +41,13 @@ export default function LargeMenu() {
                 <img src={icon4}></img>
                 <span><Link className="router_link" to='/mess'>
                   Messages
+                  </Link></span>
+              </div>
+
+              <div className="feed_grid-item feed_last">
+                <img width={35} src={icon5}></img>
+                <span><Link className="router_link" to='/graph'>
+                  Friendship graph
                   </Link></span>
               </div>
     
