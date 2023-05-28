@@ -182,9 +182,12 @@ const MyProfile = () => {
   const [userId, setUserId] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
 
+  let i = 0;
 
   useEffect(() => {
     const fetchData = async () => {
+      if(i) return;
+      i++;
       try {
         const data = await getUser();
         const img = await getImage(data.profile_picture);
