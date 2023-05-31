@@ -1,5 +1,7 @@
 package org.Facebook.service;
 
+import org.Facebook.common.AdProfileRepository;
+import org.Facebook.common.AdProfileService;
 import org.Facebook.config.AppSecurityConfig;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.UserDto;
@@ -33,6 +35,9 @@ public class UserService implements UserDetailsService {
     private FriendshipRepository friendshipRepository;
 
     @Autowired
+    private AdProfileRepository adProfileRepository;
+
+    @Autowired
     private FriendRequestService friendRequestService;
 
     public void registerUser(User user) {
@@ -41,6 +46,7 @@ public class UserService implements UserDetailsService {
         user.setProfile_picture("461OH9a9vwscYS4vw-HyiQOs1bxHftWcSJXSaVYDJZ0=.jpg");
         user.setIsLoggedIn((short) 0);
         userRepository.save(user);
+        adProfileRepository.insertAdProfile(userRepository.findByEmail(user.getEmail()).getId());
     }
 
     public List<UserDto> getUsers() {
