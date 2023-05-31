@@ -21,11 +21,7 @@ function Account({ name, picture, uploadDate }) {
   );
 }
 
-export default function Card({post, openFriendsMenu, openCommentsMenu}) {
-  const showComments = () => {
-    openCommentsMenu();
-  }
-
+export default function Card({post, openFriendsMenu, openCommentsMenu, commentSectionId, setCommentId}) {
   const sharePressed = () => {
     openFriendsMenu();
   }
@@ -57,7 +53,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
       <div className='feed_postBody'>
           <div>
             {post.content.length > 0 &&
-              <p>{post.content}</p>
+              <p>{post.id + post.content}</p>
             }
           </div>
           
@@ -84,7 +80,10 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
         </div>
 
         <div className='feed_comments'>
-          <button className='feed_commentsBtn' onClick={showComments}><img src={commentBtn} alt='like button'/></button>
+          <button className='feed_commentsBtn' onClick={() => {
+            setCommentId(post.id);
+            openCommentsMenu();
+          }}><img src={commentBtn} alt='like button'/></button>
           {post.comments ? <p>{post.comments.length}</p> : <p>0</p>}
         </div>
 

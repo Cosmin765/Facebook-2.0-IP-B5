@@ -33,6 +33,9 @@ export default function AddComment({post}) {
     const postComment = () => {
         const content = postDataType.typeAreaVal;
         createComment(content, post.id);
+        setPostDataType(prevPostDataType => {
+            return {...prevPostDataType, typeAreaVal: ''};
+        });
     }
 
     const getProfile = async () => {
@@ -54,7 +57,7 @@ export default function AddComment({post}) {
             </div>
             <div className="feed_commentInput">
                 <form onSubmit={e => e.preventDefault()}>
-                    <input id="" className="feed_commentInput_input" onChange={updateTypeAreaVal} type="text" placeholder="Write a comment..."/>
+                    <input id="" className="feed_commentInput_input" onChange={updateTypeAreaVal} value={postDataType.typeAreaVal} type="text" placeholder="Write a comment..."/>
                     {/* <label htmlFor="comment-image" className="feed_file-input">
                         <img src={loadImg} />
                     </label>

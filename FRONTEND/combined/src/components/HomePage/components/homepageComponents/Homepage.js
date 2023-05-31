@@ -91,6 +91,9 @@ export default function Homepage() {
         }
 
         const ads = await getRecommendedAds();
+        console.log(ads);
+
+        // const ads =[];
 
         const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
         return content;
