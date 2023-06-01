@@ -1,0 +1,22 @@
+INSERT INTO ads (user_id, title, content, keywords, link, location, status)
+VALUES 
+(1, 'Great Deals on Cars', 'Visit our dealership for great deals on cars!', 'cars, deals, car, deal', 'https://example.com/deals', 'Los Angeles', 'active'),
+(2, 'Delicious Food and Drinks', 'Experience our mouth-watering dishes and refreshing drinks!', 'food, drinks, drink, drinking, eat, eating, eats', 'https://example.com/menu', 'Chicago', 'active'),
+(3, 'Unforgettable Vacations', 'Plan your dream vacation with us!', 'vacations, travel, vacation, traveling, travels, holiday, holidays', 'https://example.com/vacations', 'Miami', 'active'),
+(4, 'Fitness Training Sessions', 'Achieve your fitness goals with our personalized training sessions!', 'fitness, training, train, gym, gyms', 'https://example.com/training', 'New York', 'active'),
+(5, 'Home Decor Sale', 'Get up to 50% off on our stylish home decor items!', 'home, decor, sale, house, houses, decoration', 'https://example.com/home-decor', 'San Francisco', 'active'),
+(6, 'Tech Gadgets Showcase', 'Explore the latest tech gadgets at our showroom!', 'tech, gadgets, showcase, gadget', 'https://example.com/gadgets', 'Seattle', 'active'),
+(7, 'Online Music Lessons', 'Learn to play an instrument with our experienced instructors!', 'music, lessons, online, lesson, instrument, instruments, singer, singers, sing', 'https://example.com/lessons', 'Austin', 'active'),
+(8, 'Fashion Trends', 'Stay stylish with our trendy fashion collection!', 'fashion, trends, style, stylish, clothes, dress', 'https://example.com/fashion', 'London', 'active'),
+(9, 'Art Exhibition', 'Discover the beauty of art at our upcoming exhibition!', 'art, exhibition, painting, drawing', 'https://example.com/art', 'Paris', 'active'),
+(10, 'Home Cleaning Services', 'Enjoy a clean and tidy home with our professional cleaning services!', 'home, cleaning, clean', 'https://example.com/cleaning', 'Sydney', 'active'),
+(1, 'Best Deals on Electronics', 'Discover the best deals on electronic devices!', 'electronics, deals, electronic, device, devices', 'https://example.com/electronics', 'Tokyo', 'active'),
+(2, 'Outdoor Adventure Tours', 'Embark on thrilling outdoor adventure tours!', 'outdoor, adventure, tour, tours, adventures', 'https://example.com/adventure-tours', 'Vancouver', 'active'),
+(3, 'Luxury Spa Retreat', 'Indulge in a luxurious spa retreat experience!', 'spa, retreat, luxury, indulge, relaxing', 'https://example.com/spa-retreat', 'Bali', 'active'),
+(4, 'Healthy Organic Foods', 'Experience the goodness of healthy organic foods!', 'healthy, organic, food, foods, health, eating', 'https://example.com/organic-foods', 'Amsterdam', 'active'),
+(5, 'Photography Workshop', 'Enhance your photography skills with our expert-led workshops!', 'photography, workshop, workshops, photo, photos, photographer, photographers', 'https://example.com/photography-workshop', 'Berlin', 'active'),
+(6, 'Pet Care Services', 'Ensure your pets receive the best care with our professional services!', 'pet, care, services, pets, dog, dogs, cat, cats', 'https://example.com/pet-care', 'Melbourne', 'active'),
+(7, 'Language Learning Classes', 'Learn a new language with our interactive classes!', 'language, learning, classes, learn, bilingual, multilingual', 'https://example.com/language-classes', 'Barcelona', 'active'),
+(8, 'Sports Equipment Sale', 'Get your favorite sports equipment at discounted prices!', 'sports, equipment, sale, sport, gear, athletic', 'https://example.com/sports-equipment', 'Toronto', 'active'),
+(9, 'Digital Marketing Services', 'Boost your online presence with our effective digital marketing solutions!', 'digital, marketing, services, online, boost, strategy', 'https://example.com/digital-marketing', 'New Delhi', 'active'),
+(10, 'Culinary Masterclass', 'Unleash your culinary skills with our expert-led masterclasses!', 'culinary, masterclass, masterclasses, cooking, cook, chef, chefs', 'https://example.com/culinary-masterclass', 'Paris', 'active');
