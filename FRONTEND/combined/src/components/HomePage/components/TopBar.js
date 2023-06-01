@@ -4,6 +4,7 @@ import icon6 from '../icons/notif.svg';
 import icon7 from '../icons/out.svg';
 
 import '../styles/topBar.css'
+import { Link } from "react-router-dom";
 
 const SERVER_ADDRESS = 'http://localhost:8084';
 
@@ -35,6 +36,11 @@ async function getSuggestions() {
 async function getUsers(){
   return await getData(SERVER_ADDRESS+`/users`,'GET');
 }
+
+function logout(){
+  getData( SERVER_ADDRESS+"/logout")
+}
+
 export default function TopBar({notifications, showNotifications}) {
     const [searchText, setSearchText] = useState('');
   const [filteredFriends, setFilteredFriends] = useState([]);
@@ -89,9 +95,8 @@ function handleClickSearchedUser(userId) {
   )}
                 </div>
                 <div className="feed_right_icons">
-                    {/* notificari */}
-                    <img src={icon6} onClick={notifications} className="feed_notificationsIcon"></img>
-                    <img src={icon7}></img>
+                 
+                    <Link to='/login'><img src={icon7} ></img></Link>
                 </div>
             </div>
       </div>

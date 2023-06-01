@@ -53,7 +53,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu, commentSe
       <div className='feed_postBody'>
           <div>
             {post.content.length > 0 &&
-              <p>{post.id + post.content}</p>
+              <p>{post.content}</p>
             }
           </div>
           

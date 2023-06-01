@@ -28,7 +28,7 @@ public class KeywordExtractor {
         Set<String> stopWords = new HashSet<>();
         //String filepath = "C:\\Projects\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
         //String filepath = "src\\main\\resources\\stopwords\\eng-stopwords.txt";
-        String filepath = "C:\\Users\\dan\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
+        String filepath = "D:\\Faculty\\II-2\\IP\\Repo\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
         //String filepath = "C:\\Users\\razva\\Desktop\\git-fb\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
         try (Stream<String> stream = Files.lines(Paths.get(filepath))) {
             stream.forEach(stopWords::add);

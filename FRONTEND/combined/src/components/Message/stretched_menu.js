@@ -4,6 +4,8 @@ import icon from './icons/Vectorhome.svg';
 import icon2 from './icons/Groupprofile.svg';
 import icon3 from './icons/Groupfriends.svg';
 import icon4 from './icons/Chat_alt_2_light.svg';
+import icon5 from './icons/graph.svg';
+
 import { Link } from 'react-router-dom';
 
 export default function StretchedMenu() {
@@ -30,6 +32,10 @@ export default function StretchedMenu() {
               <div className="msg_sgrid-item">
                 <img src={icon4} alt="imagine_chat"></img>
 
+              </div>
+              <div className="msg_sgrid-item">
+               <Link to='/graph'> <img src={icon5} alt="imagine_graf_prieteni"></img>
+       </Link>
               </div>
             </div>
             </div>
