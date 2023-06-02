@@ -49,7 +49,9 @@ public class PostService {
         UserDto userDto = UserMapper.toDto((User) auth.getPrincipal());
         User user = userRepository.findByEmail(userDto.getEmail());
         post.setUser(user);
+
         keywordExtractorService.processUserInput(postDto.getContent(),user.getId());
+
         for (PostImage postImage : post.getPostImages()) {
             postImage.setPost(post);
         }

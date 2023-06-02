@@ -5,6 +5,7 @@ import icon7 from '../icons/out.svg';
 
 import '../styles/topBar.css'
 import { Link } from "react-router-dom";
+import { setUserLogged } from "../../../util";
 
 const SERVER_ADDRESS = 'http://localhost:8084';
 
@@ -37,8 +38,8 @@ async function getUsers(){
   return await getData(SERVER_ADDRESS+`/users`,'GET');
 }
 
-function logout(){
-  getData( SERVER_ADDRESS+"/logout")
+function handleLogout(){
+  setUserLogged(false);
 }
 
 export default function TopBar({notifications, showNotifications}) {
@@ -95,8 +96,7 @@ function handleClickSearchedUser(userId) {
   )}
                 </div>
                 <div className="feed_right_icons">
-                 
-                    <Link to='/login'><img src={icon7} ></img></Link>
+                    <Link to='http://localhost:8084/logout' onClick={handleLogout}><img src={icon7} ></img></Link>
                 </div>
             </div>
       </div>

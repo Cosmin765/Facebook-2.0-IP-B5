@@ -29,6 +29,7 @@ public class KeywordExtractor {
         //String filepath = "src\\main\\resources\\stopwords\\eng-stopwords.txt";
         String filepath = "D:\\Faculty\\II-2\\IP\\Repo\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
         //String filepath = "C:\\Users\\razva\\Desktop\\git-fb\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
+        //String filepath = "C:\\Users\\dan\\Facebook-2.0-IP-B5\\backend\\microservices\\Ads\\src\\main\\resources\\stopwords\\eng-stopwords.txt";
         try (Stream<String> stream = Files.lines(Paths.get(filepath))) {
             stream.forEach(stopWords::add);
         } catch (IOException e) {
@@ -88,9 +89,8 @@ public class KeywordExtractor {
 
         finalUserUserTokenList = chooseImportantKeyWords(finalUserUserTokenList);
 
-        //AdProfile adProfile = adProfileRepository.findByUserId(userId);
-
-        adProfileService.updateAdProfile(finalUserUserTokenList, userId);
+        Integer adProfileId = adProfileRepository.getAdProfileIdByUserId(userId);
+        adProfileService.updateAdProfile(finalUserUserTokenList, adProfileId);
     }
 
     private double calculateOverallSentiment(List<Double> sentimentScores, int sentenceCount) {
