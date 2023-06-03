@@ -75,14 +75,6 @@ body {
     left: 1em;
 }
 
-.myprofile_profile-name.h2 {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-size: 2em;
-    margin-left: 10em;
-}
 
 .myprofile_buttons-name {
     display: flex;
@@ -92,11 +84,22 @@ body {
     border-radius: .4em;
 }
 
-.myprofile_buttons-name .myprofile_profile-info {
-    margin-left: auto;
-    margin-right: 50em;
+.myprofile_profile-name.h2 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 2em;
+    margin-left: 10em;
 }
-
+.myprofile_buttons-name .myprofile_profile-info {
+   
+    margin-left:15em;
+}
+.myprofile_change-photo {
+  margin-right:2em;
+  margin-left: auto;
+}
 .myprofile_white-cover button {
     height: 2.1em;
     background: #7703FC;
@@ -161,9 +164,7 @@ body {
     outline: none;
 }
 
-.myprofile_change-photo {
-    margin-right: 2em;
-}
+
 
 .myprofile_buttons {
     flex-direction: row;

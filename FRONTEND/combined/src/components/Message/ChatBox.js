@@ -150,7 +150,7 @@ function ChatBox() {
       for (const person of data) {
         const img = await getImage(person.profile_picture);
         const profilePicture = 'data:image/png;base64,' + img;
-        person.profilePic = profilePicture;
+        person.profile_picture = profilePicture;
   
         getConversation(person.id).then(conversation => {
           connectSocket(conversation.id);
@@ -301,7 +301,7 @@ function ChatBox() {
     const person = people.find(p => p.id === personId);
     person.lastChecked = selectedPersonTime;
 
-    setSelectedPersonPic(person.profilePic);
+    setSelectedPersonPic(profile);
     setSelectedPersonName(personName);
     //no >:(
     setSelectedPersonStatus(personStatus);
@@ -358,7 +358,7 @@ function ChatBox() {
                 <PersonTemplate
                   key={people.id}
                   name={people.firstName + ' ' + people.lastName}
-                  profilePic={people.profilePic}
+                  profilePic={people.profile_picture}
                   lastMessage={messages[people.id]?.length > 0 ?
                     (messages[people.id][messages[people.id].length - 1].sender === "me" ?
                       `You: ${messages[people.id][messages[people.id].length - 1].text}`

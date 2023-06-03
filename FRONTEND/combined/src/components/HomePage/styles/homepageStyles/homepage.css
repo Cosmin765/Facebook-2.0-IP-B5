@@ -4,7 +4,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
+overflow-x: hidden;
     position: static;
 
 }
@@ -13,6 +13,8 @@
     background: rgba(49,49,49,0.8);
     position: fixed;
     top: 0;
+    overflow-x: hidden;
+
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -34,12 +36,13 @@
 }
 
 .feed_middlePanel{
-    margin: 10px;
+    margin: 7px;
     margin-top: 80px;
 }
 
 .feed_rightPanel{
-    margin: 10px;
+    margin: 7px;
+    border-radius: 8px;
     /* width: auto; */
     /* width: var(--online-friends-width); */
 }

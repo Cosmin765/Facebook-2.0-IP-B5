@@ -8,12 +8,15 @@ export default function AdCard({ad}) {
     const [base64, setBase64] = useState('');
 
     useEffect(() => {
-        if(ad.postImages.length === 0) {
+
+        if(ad.postImages.length === 0 || !ad.postImages[0].imageLink) {
             return;
         }
+        else{
+           
         getImage(ad.postImages[0].imageLink).then(source => {
             setBase64('data:image/png;base64,' + source)
-        });
+        });}
     }, []);
 
     const clickAd = () => {
@@ -37,14 +40,14 @@ export default function AdCard({ad}) {
                     <p>{ad.content}</p>
                     {/* } */}
                 </div>
-                
+                {base64 ? 
                 <div className='feed_media'>
                     <img src={base64} />
                     {/* {ad.picture != undefined &&
                     <img src={ad.picture} alt={ad.account.name}/>
                     } */}
                 </div>
-                
+                : null }
             </div>
         </div>      
     );

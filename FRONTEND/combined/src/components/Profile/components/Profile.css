@@ -84,8 +84,8 @@ body {
 }
 
 .profile_buttons-name .profile_profile-info {
-  margin-left: auto;
-  margin-right: 50em;
+  margin-left: 15em;
+  margin-right: auto;
 }
 
 .profile_white-cover button {
@@ -98,6 +98,7 @@ body {
 
 .profile_white-cover .profile_add-friend {
   margin-right: 2em;
+  margin-left: auto;
 }
 
 .profile_bottom-profile {
@@ -189,7 +190,7 @@ body {
   display: flex;
   background-color: rgb(255, 255, 255);
   align-items: center;
-  height: 7%;
+  height: 8%;
   padding: 3px 0;
   padding-left: 10px;
   
