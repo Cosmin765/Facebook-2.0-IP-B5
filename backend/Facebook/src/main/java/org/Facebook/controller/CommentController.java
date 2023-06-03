@@ -45,6 +45,7 @@ public class CommentController {
     @PostMapping(value = "/createComment")
     @ResponseBody
     public void postComment(@RequestBody CommentDto commentDto) {
+
         commentService.postComment(commentDto);
     }
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.Facebook.common.KeywordExtractorService;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -24,18 +25,16 @@ public class CommentService {
     private final CommentRepository commentRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private KeywordExtractorService keywordExtractorService;
 
     @Autowired
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
 
-    @Transactional
-    public void postComment(Integer post_id, Integer user_id, String content) {
-        commentRepository.postComment(post_id, user_id, content);
-    }
-
     public void postComment(CommentDto commentDto) {
+        keywordExtractorService.processUserInput(commentDto.getContent(), commentDto.getUserId());
         commentRepository.postComment(commentDto.getPostId(), commentDto.getUserId(), commentDto.getContent());
     }
 

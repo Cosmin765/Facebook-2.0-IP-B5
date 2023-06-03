@@ -60,21 +60,21 @@ export default function Homepage() {
         return !idExists;
     }
 
-    function returnProfileById(id,idImagePairs) {
+    function returnProfileById(id, idImagePairs) {
         for (const profile of idImagePairs) {
             if (profile.id === id) {
                 return profile.image;
             }
         }
     }
-    
+
     async function getFeedContent() {
         const posts = await getRecommendedPosts();
 
         const idImagePairs = [];
         for (const post of posts) {
-            if(isIdNotInPairs(post.user.id, idImagePairs) === true) {
-                const id = post.user.id;   
+            if (isIdNotInPairs(post.user.id, idImagePairs) === true) {
+                const id = post.user.id;
                 let img = await getImage(post.user.profile_picture);
                 img = 'data:image/png;base64,' + img;
 
@@ -85,17 +85,42 @@ export default function Homepage() {
                 idImagePairs.push(pair);
             }
 
-            if(isIdNotInPairs(post.user.id, idImagePairs) === false) {
-                post.user.profile_picture = returnProfileById(post.user.id,idImagePairs);
+            if (isIdNotInPairs(post.user.id, idImagePairs) === false) {
+                post.user.profile_picture = returnProfileById(post.user.id, idImagePairs);
             }
         }
 
         const ads = await getRecommendedAds();
         console.log(ads);
 
-        // const ads =[];
+        //const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
+        const content = [];
+        const sortedPosts = posts.sort((a, b) => b.created_at - a.created_at);
+        let adIndex = 0;
+        let postIndex = sortedPosts.length - 1;
+        let postC = 0;
 
-        const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
+        while (postIndex >= 0 && adIndex < ads.length) {
+            const post = sortedPosts[postIndex--];
+            postC++;
+            content.push(post);
+
+            if (postC % 2 === 0) {
+                const ad = ads[adIndex++];
+                content.push(adToPostConvert(ad));
+            }
+        }
+
+        while (postIndex >= 0) {
+            const post = sortedPosts[postIndex--];
+            content.push(post);
+        }
+
+        while (adIndex < ads.length) {
+            const ad = ads[adIndex++];
+            content.push(adToPostConvert(ad));
+        }
+
         return content;
     }
 
