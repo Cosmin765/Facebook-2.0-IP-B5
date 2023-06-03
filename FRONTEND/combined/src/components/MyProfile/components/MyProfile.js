@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./MyProfile.css"
 import "./Feed.css"
@@ -428,4 +427,5 @@ function handleClickSearchedUser(userId) {
     </>
   );
 };
+
 export default MyProfile;

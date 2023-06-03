@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { getGraphData, getUser } from '../../util';
@@ -34,7 +35,6 @@ function parseGraphData(graphData) {
   return [nodes, links];
 }
 
-
 function ForceGraph() {
   const [graphData, setGraphData] = useState(null);
   const svgRef = useRef(null);
@@ -50,7 +50,6 @@ function ForceGraph() {
   useEffect(() => {
     constructGraph();
   }, []);
-
   useEffect(() => {
     if (graphData) {
       const [nodes, links] = parseGraphData(graphData);

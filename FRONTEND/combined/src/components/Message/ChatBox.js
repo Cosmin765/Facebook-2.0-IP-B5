@@ -399,7 +399,6 @@ function ChatBox() {
                   <span>{`${selectedPersonName}`}</span>
                   <p>{messages[selectedPersonId] ? messages[selectedPersonId].length : 0} Messages</p>
                 </div>
-                <span className={`msg_online_icon_chat ${selectedPersonStatus === 0 ? 'msg_offline' : ''}`} />
               </div>
             </div>
 

@@ -9,7 +9,7 @@ import commentBtn from './icons/comment.svg'
 import shareBtn from './icons/share.svg'
 import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
-import icon6 from './icons/notif.svg';
+import icon6 from './icons/graph.svg';
 import icon7 from './icons/out.svg';
 import { getUserOther, getUserPosts, getFriends, addFriend, getFriendRequests, getFriendRequestsSend, getImage,getUser } from "../../../util";
 import Feed from '../../HomePage/components/homepageComponents/Feed';
@@ -66,6 +66,34 @@ const commentp2 = [
   { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
   { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
   { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." }
+];
+
+import Feed from '../../HomePage/components/homepageComponents/Feed';
+import { Link } from "react-router-dom";
+
+const commentp2 = [
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
+  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."}
 ];
 
 const posts = [
@@ -391,7 +419,7 @@ function handleClickSearchedUser(userId) {
     setModal(!modal);
     setShowComments(false);
     setShowFriends(!showFriends);
-  }
+}
 
 
 
@@ -429,6 +457,7 @@ function handleClickSearchedUser(userId) {
                 <img src={icon7}></img>
                 </Link>
               </div>
+
             </div>
           </div>
 
@@ -450,6 +479,7 @@ function handleClickSearchedUser(userId) {
                 {/* <Feed_account /> */}
                 <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} useCase={'profile'} />
               </div>
+
             </div>
           </div>
         </div>

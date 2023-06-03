@@ -42,7 +42,6 @@ export default function StretchedMenu() {
               <Link to='/graph'>
 
                 <img src={icon5}></img>
-</Link>
               </div>
             </div>
             </div>
