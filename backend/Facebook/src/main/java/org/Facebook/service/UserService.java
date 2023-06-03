@@ -1,5 +1,7 @@
 package org.Facebook.service;
 
+import org.Facebook.common.AdProfileRepository;
+import org.Facebook.common.AdProfileService;
 import org.Facebook.config.AppSecurityConfig;
 import org.Facebook.mapper.UserMapper;
 import org.Facebook.model.dto.UserDto;
@@ -18,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +35,9 @@ public class UserService implements UserDetailsService {
     private FriendshipRepository friendshipRepository;
 
     @Autowired
+    private AdProfileRepository adProfileRepository;
+
+    @Autowired
     private FriendRequestService friendRequestService;
 
     public void registerUser(User user) {
@@ -40,10 +46,15 @@ public class UserService implements UserDetailsService {
         user.setProfile_picture("461OH9a9vwscYS4vw-HyiQOs1bxHftWcSJXSaVYDJZ0=.jpg");
         user.setIsLoggedIn((short) 0);
         userRepository.save(user);
+        adProfileRepository.insertAdProfile(userRepository.findByEmail(user.getEmail()).getId());
     }
 
     public List<UserDto> getUsers() {
         return userRepository.findAll().stream().map(UserMapper::toDto).toList();
+    }
+
+    public User getUser(int id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     public List<User> getFriends(int userId) {
@@ -183,4 +194,18 @@ public class UserService implements UserDetailsService {
         return friendshipRepository.getLoggedFriends(userId);
     }
 
+    public User updateName(Integer id, String firstName, String lastName) {
+        userRepository.updateUserName(id, firstName, lastName);
+        return userRepository.findById(id).get();
+    }
+
+    public User updateBio(Integer id, String bio) {
+        userRepository.updateUserBio(id, bio);
+        return userRepository.findById(id).get();
+    }
+
+    public void updateProfile(String imageString,Integer id){
+
+        userRepository.updateProfilePicture(id,imageString);
+    }
 }

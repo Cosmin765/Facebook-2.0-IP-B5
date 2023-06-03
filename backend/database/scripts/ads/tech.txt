@@ -1,0 +1,29 @@
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Stay Ahead with Cutting-Edge Tech!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Upgrade your gadgets and stay ahead of the curve! Discover the latest technology trends and get your hands on cutting-edge devices.', 'technology, gadgets, innovation, trends', 'https://example.com/technology-deals', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Unleash Your Digital Potential!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Unlock your digital potential with state-of-the-art technology solutions. Embrace the future and experience a new level of innovation.', 'technology, digital, innovation, solutions', 'https://example.com/digital-potential', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Tech Enthusiasts Rejoice!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Calling all tech enthusiasts! Explore our wide range of tech products and accessories to enhance your digital lifestyle.', 'technology, tech enthusiasts, products, accessories', 'https://example.com/tech-enthusiasts', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Upgrade Your Gaming Experience!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Elevate your gaming experience with high-performance gear and immersive accessories. Unleash your full gaming potential today!', 'technology, gaming, gear, accessories', 'https://example.com/gaming-experience', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Transform Your Home with Smart Devices!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Make your home smarter with our range of innovative smart devices. Control and automate your living space for a more convenient lifestyle.', 'technology, smart devices, home automation, lifestyle', 'https://example.com/smart-home-devices', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Revolutionize Your Work with Tech Solutions!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Boost productivity and streamline your workflow with our advanced tech solutions. Stay ahead in your professional life!', 'technology, productivity, work solutions, innovation', 'https://example.com/tech-work-solutions', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Discover the Future of Entertainment!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Immerse yourself in the future of entertainment with our cutting-edge audio and visual solutions. Elevate your entertainment experience!', 'technology, entertainment, audio, visual', 'https://example.com/future-entertainment', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Tech Deals You Cant Resist!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Dont miss out on exclusive tech deals and discounts. Upgrade your devices at unbeatable prices!', 'technology, tech deals, discounts, devices', 'https://example.com/irresistible-tech-deals', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Stay Connected Anywhere, Anytime!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Stay connected wherever you go with our reliable network solutions. Enjoy seamless connectivity on the go!', 'technology, connectivity, network solutions, mobility', 'https://example.com/connected-anywhere', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Explore the Latest Tech Innovations!',1, '47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU=.', 'Stay up to date with the latest tech innovations. Discover breakthrough products that will transform your digital experience.', 'technology, tech innovations, breakthrough, digital experience', 'https://example.com/latest-tech-innovations', 'Global', 'active');

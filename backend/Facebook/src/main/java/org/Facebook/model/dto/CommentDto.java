@@ -16,6 +16,6 @@ import java.util.Date;
 public class CommentDto {
     private Integer id;
     private String content;
-    private User user;
-    private Post post;
+    private Integer userId;
+    private Integer postId;
 }

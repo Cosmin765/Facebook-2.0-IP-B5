@@ -7,24 +7,44 @@ import shareBtn from '../../icons/homepageIcons/share.svg';
 import AddComment from './AddComment';
 import PostImage from './PostImage';
 
-import { getUser, likePost, unlikePost } from '../../../../util';
+import { getUser, likePost, unlikePost , getImage} from '../../../../util';
 
-export default function Card({post, openFriendsMenu, openCommentsMenu}) {
-  const showComments = () => {
-    openCommentsMenu();
-  }
+function Account({ name, picture, uploadDate }) {
+  return (
+    <div className='account'>
+      <img src={picture} alt={name} />
+      <div className='accountDetails'>
+        <p className='name'>{name}</p>
+        <p className='date'>{uploadDate}</p>
+      </div>
+    </div>
+  );
+}
 
+export default function Card({post, openFriendsMenu, openCommentsMenu, commentSectionId, setCommentId, updateFeed}) {
   const sharePressed = () => {
     openFriendsMenu();
   }
 
   const account = post.user;
   account.name = account.firstName + ' ' + account.lastName;
+  const date=new Date(post.createdAt);
 
+  // const loadImage = async () => {
+  //   const img = await getImage(account.profile_picture);
+  //   account.picture = 'data:image/png;base64,' + img;
+  // }
+  // loadImage();
+
+  account.picture = post.user.profile_picture;
+  
+  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  const uploadDate = date.toLocaleDateString('en-GB', options); 
   return (
       <div className='feed_card'>
       <div className='feed_topCard'>
         {/* <ShowAccount account={account}/> */}
+        <Account name={account.name} picture={account.picture} uploadDate={uploadDate} />
         <div className='feed_options'>
           {/* <p>dsfsdf</p> */}
         </div>
@@ -60,7 +80,10 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
         </div>
 
         <div className='feed_comments'>
-          <button className='feed_commentsBtn' onClick={showComments}><img src={commentBtn} alt='like button'/></button>
+          <button className='feed_commentsBtn' onClick={() => {
+            setCommentId(post.id);
+            openCommentsMenu();
+          }}><img src={commentBtn} alt='like button'/></button>
           {post.comments ? <p>{post.comments.length}</p> : <p>0</p>}
         </div>
 
@@ -69,7 +92,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu}) {
         </div>
 
       </div>
-        <AddComment />
+        <AddComment updateFeed={updateFeed} post={post} />
     </div>
     );
 }

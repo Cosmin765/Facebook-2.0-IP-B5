@@ -25,7 +25,6 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
             const newFriendIds = myFriends.map((friend) => friend.id);
 
             const hasFriendsChanged = !arrayEquals(friendIds, newFriendIds);
-            console.log(hasFriendsChanged);
             friendIds = newFriendIds;
 
             if (hasFriendsChanged === true) {
@@ -59,7 +58,6 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
 
     // Utility function to check if two arrays are equal
     function arrayEquals(a, b) {
-        console.log('a'+a.length, 'b'+b.length);
         if (a.length !== b.length) {
             return false;
         }
@@ -69,7 +67,7 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
 
     useEffect(() => {
         updateFriends();
-        const interval = setInterval(updateFriends, 6000);
+        const interval = setInterval(updateFriends, 3000);
         return () => clearInterval(interval);
     }, []);
 
@@ -78,16 +76,10 @@ export default function OnlineFriends({ friends, openAcount, toggle }) {
         setBurgerState(!burgerState);
     }
 
-    // 
-    const goToProfile = () => {
-        alert("Go to profile");
-    }
-    // 
-
     const showFriends = friendsList.map((friend, i) => {
         return (
-            <div key={i} className='feed_friend' onClick={goToProfile}>
-                <Link className='router_link' to='/profile'>    <ShowAccount account={friend.account} />
+            <div key={i} className='feed_friend'>
+                <Link className='router_link' to={`/profile?id=${friend.account.id}`}>    <ShowAccount account={friend.account} />
                 </Link></div>
 
         );

@@ -25,7 +25,6 @@ public class RecommendService {
         Set<String> uniqueKeywords = new HashSet<>();
         uniqueKeywords.addAll(userKeywords.keySet());
         uniqueKeywords.addAll(adKeywords.keySet());
-
         double dotProduct = 0.0;
         double userMagnitude = 1.0;
         double adMagnitude = 1.0;
@@ -36,7 +35,6 @@ public class RecommendService {
             userMagnitude += userCount * userCount;
             adMagnitude += adCount * adCount;
         }
-
         // cosine sim
         double magnitudeProduct = Math.sqrt(userMagnitude) * Math.sqrt(adMagnitude);
         if (magnitudeProduct == 0.0) {
@@ -48,9 +46,9 @@ public class RecommendService {
 
     public List<Ad> getRecommendedAds(Integer userId) {
         Integer adProfileId = adProfileRepository.getAdProfileIdByUserId(userId);
-           /* keywordRepository.addKeyword(1,"eligendi",1,1.0,0.8);
-            keywordRepository.addKeyword(1,"fugifat",2,2.0,0.9);*/
+        System.out.println(adProfileId);
         List<Keyword> keywordList = keywordRepository.getTopKeywordsByAdProfileId(adProfileId);//take top keywords for userId
+
         Map<String, Integer> userKeywords = new HashMap<>();
         for (Keyword keyword : keywordList) {
             String word = keyword.word;
@@ -71,6 +69,14 @@ public class RecommendService {
 
             //iau keywordurile cu cele mai mari scoruri si fac cosine similarity cu fiecare keywords din ads
         }
+
+//        for (Map.Entry<Ad, Double> entry : map.entrySet()) {
+//            Ad ad = entry.getKey();
+//            Double value = entry.getValue();
+//            System.out.println("Ad: " + ad.getId() + " " + ad.getKeywords() + ", Value: " + value);
+//            System.out.println();
+//        }
+
         List<Map.Entry<Ad, Double>> list = new ArrayList<>(map.entrySet());
         list.sort(new Comparator<Map.Entry<Ad, Double>>() {
             @Override
@@ -78,6 +84,8 @@ public class RecommendService {
                 return Double.compare(o2.getValue(), o1.getValue());
             }
         });
+
+
         Map<Ad, Double> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Ad, Double> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());

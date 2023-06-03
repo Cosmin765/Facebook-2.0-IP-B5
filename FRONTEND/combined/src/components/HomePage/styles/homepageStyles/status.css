@@ -2,6 +2,8 @@
     margin: 20px;
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
+
 }
 
 .feed_statusInput{
@@ -12,19 +14,21 @@
     width: 700px;
     margin: 0;
     border-radius: 10px;
-    box-shadow: 2px 5px 5px lightgray;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .feed_input{
     justify-content: center;
-    width: 85%;
+    width: 97%;
     text-align: center;
+    font-weight: 300;
+    font-size: medium;
+    
     background-color: var(--background-clr);
     border-radius: 10px;
     border: none;
-    height: 25px;
+    height: 40px;
 }
 
 .feed_statusInput input:focus{

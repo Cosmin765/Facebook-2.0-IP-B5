@@ -1,0 +1,32 @@
+--5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg
+
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Adopt a Feline Friend!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Find your perfect companion. Adopt a loving cat and bring joy to your home.', 'cat, adopt, feline friend, companion', 'https://example.com/adopt-a-feline-friend', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Spoil Your Cat with Luxury!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Indulge your furry friend with luxurious cat products. Treat them like royalty.', 'cat, spoil, luxury, cat products', 'https://example.com/spoil-your-cat-with-luxury', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Keep Your Cat Happy and Healthy!',1, '5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Discover the best ways to keep your cat happy and healthy. Tips, products, and more!', 'cat, happy cat, healthy cat, tips, products', 'https://example.com/keep-your-cat-happy-healthy', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Cat Toys for Endless Fun!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Entertain your cat with interactive and engaging toys. Keep them entertained for hours.', 'cat, cat toys, fun, interactive toys', 'https://example.com/cat-toys-for-endless-fun', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Find the Perfect Cat Accessories!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Discover a wide range of cat accessories to enhance your cats lifestyle. Choose from stylish and functional options.', 'cat, cat, lifestyle, stylish, functional', 'https://example.com/find-the-perfect-cat-accessories', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Cat Grooming Made Easy!',1, '5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Make grooming a breeze with our cat grooming products. Keep your cat looking and feeling their best.', 'cat, grooming, grooming products, cat care', 'https://example.com/cat-grooming-made-easy', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Healthy Nutrition for Your Cat!',1, '5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Provide your cat with balanced and nutritious meals. Choose the best cat food options for their well-being.', 'cat, nutrition, food', 'https://example.com/healthy-nutrition-for-your-cat', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Create a Cat-Friendly Home!',1, '5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Make your home a safe and welcoming place for your cat. Explore cat-friendly home design ideas.', 'cat, cat, home, design ideas', 'https://example.com/create-a-cat-friendly-home', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Cat Health and Wellness Tips!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Learn how to ensure the well-being of your cat. Get expert advice on cat health and wellness.', 'cat, health, wellness, cat,advice', 'https://example.com/cat-health-and-wellness-tips', 'Global', 'active');
+
+INSERT INTO ads (title, publisher_id ,image_link, content, keywords, link, location, status)
+VALUES ('Cat Training Made Simple!', 1,'5W28_Lue82bKun11EGhJdX16bN4_ft2_iCQYvzRpjp0=.jpg', 'Teach your cat new tricks and behaviors. Explore effective cat training techniques.', 'cat, cat training, tricks, behaviors, training techniques', 'https://example.com/cat-training-made-simple', 'Global', 'active');

@@ -6,25 +6,36 @@
 }
 
 .myprofile_container-profile {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 5% auto;
+   grid-gap: 7px;
     height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
+
+.myprofile_left-profile {
+
+
+    padding: 0;
+
+    
+}
+.myprofile_right-profile {
+    flex-direction: column;
+    
+    padding: 0;
+    
+    width: 100%;
+    height: 100%;
+}
+
 
 body {
     background-color: rgb(241, 229, 255);
 }
 
-.myprofile_container-profile>div {
-    margin: 2px;
-}
 
-.myprofile_right-profile {
-    flex-direction: column;
-    flex: 9;
-    width: 100%;
-    height: 100%;
-}
 
 /* TO BE CHANGED */
 .myprofile_input {
@@ -34,15 +45,13 @@ body {
 }
 
 .myprofile_content-profile {
-    margin-top: 4em;
-    flex: 9;
+    
     width: 100%;
 }
 
 .myprofile_upper-profile {
-    width: 98.5%;
-    height: 19em;
-    margin-bottom: 1em;
+    margin-bottom: 7px;
+    margin-right: 7px;
 }
 
 .myprofile_colored-cover {
@@ -66,14 +75,6 @@ body {
     left: 1em;
 }
 
-.myprofile_profile-name.h2 {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-size: 2em;
-    margin-left: 10em;
-}
 
 .myprofile_buttons-name {
     display: flex;
@@ -83,11 +84,22 @@ body {
     border-radius: .4em;
 }
 
-.myprofile_buttons-name .myprofile_profile-info {
-    margin-left: auto;
-    margin-right: 50em;
+.myprofile_profile-name.h2 {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 2em;
+    margin-left: 10em;
 }
-
+.myprofile_buttons-name .myprofile_profile-info {
+   
+    margin-left:15em;
+}
+.myprofile_change-photo {
+  margin-right:2em;
+  margin-left: auto;
+}
 .myprofile_white-cover button {
     height: 2.1em;
     background: #7703FC;
@@ -152,9 +164,7 @@ body {
     outline: none;
 }
 
-.myprofile_change-photo {
-    margin-right: 2em;
-}
+
 
 .myprofile_buttons {
     flex-direction: row;
@@ -192,26 +202,27 @@ body {
 .myprofile_descriptionTitle{
     font-family: 'Viga';
 }
+.myprofile_top-bar {
+display: flex;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    height: 8%;
+    padding: 3px 0;
+    padding-left: 10px;
+    
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-right: 7px;
+    border-radius: 8px;
+}
 .myprofile_search-profile {
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-grow: 1;
 
     height: 80%;
-    margin: 7px;
-    border-radius: 8px;
-}
-
-.myprofile_left-profile {
-    flex: 1;
-}
-
-.myprofile_right-profile {
-    flex-direction: column;
-    flex: 15;
-    width: 100%;
-    height: 100%;
-    margin-left: 0em;
+    align-items: center;
+    border-radius: 15px;
 }
 
 .myprofile_search_box-profile {
@@ -236,18 +247,6 @@ body {
 
 .myprofile_right_icons-profile img {
     padding: 10px;
-    margin-top: -0.5em;
+   
 }
 
-.myprofile_top-bar {
-    position: absolute;
-    background-color: white;
-    margin-left: 0em;
-    flex: 1;
-    width: 92%;
-    height: 8%;
-    border: none;
-    border-radius: 10px;
-    z-index: 1;
-    box-shadow: 0px 0px 5px lightgray;
-}

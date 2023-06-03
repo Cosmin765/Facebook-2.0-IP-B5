@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByUser(User user);
     List<Comment> findByPost(Post post);
 
+    @Transactional
     @Modifying
     @Query(value = "INSERT INTO comments (post_id, user_id, content, created_at, updated_at) VALUES (:post_id, :user_id, :content, NOW(), NOW())", nativeQuery = true)
     void postComment(@Param("post_id") Integer postId, @Param("user_id") Integer userId, @Param("content") String content);

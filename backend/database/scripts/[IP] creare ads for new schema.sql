@@ -1,4 +1,9 @@
 -- INSERT statements for the ads table
+update ads set image_link='xO1TyJ-B_m8Oejk-bkWW06gtsfUZADwtVQO1wu9SGb0=.jpg' where publisher_id=1;
+select * from ads;
+INSERT INTO ads (publisher_id, title, image_link, content, keywords, link, location, status)
+VALUES (1, 'Adopt a cat!', 'C1NL9QB6Bg5s8JIAckLa3QJESWNJGdxwJxIXNaln2uo=.webp', 'Adopt a cat right now, dont buy', 'cat, cats, kitten', 'https://example.com/limited-time-offer', 'New York', 'active');
+
 INSERT INTO ads (publisher_id, title, image_link, content, keywords, link, location, status)
 VALUES (1, 'Limited Time Offer!', null, 'Get 50% off all products for a limited time only!', 'sale, discount, limited time offer', 'https://example.com/limited-time-offer', 'New York', 'active');
 

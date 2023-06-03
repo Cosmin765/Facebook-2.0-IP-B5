@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MyProfile.css"
 import "./Feed.css"
 import EditProfile from "./EditProfile";
@@ -9,39 +9,66 @@ import commentBtn from './icons/comment.svg'
 import shareBtn from './icons/share.svg'
 import editButton from './icons/edit-pen.svg'
 import icon5 from './icons/search.svg';
-import icon6 from './icons/graph.svg';
+import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
-import { Link } from "react-router-dom";
-
+import { getUser, getUserPosts, getImage } from "../../../util";
 import Feed from '../../HomePage/components/homepageComponents/Feed';
+import { Link } from "react-router-dom";
+const SERVER_ADDRESS = 'http://localhost:8084';
+
+async function getRaw(url, method = 'POST', body = null) {
+  const options = {
+    method,
+    credentials: 'include', // include cookies in the request
+    body
+  };
+  const res = await fetch(url, options);
+  return res;
+}
+
+async function getData(url, method = 'POST', body = null) {
+  const res = await getRaw(url, method, body);
+  const data = await res.json();
+  return data;
+}
+
+
+async function getSuggestions() {
+  const url = new URL(SERVER_ADDRESS + '/suggestions?count=10');
+  return await getData(url, 'GET');
+}
+
+async function getUsers(){
+  return await getData(SERVER_ADDRESS+`/users`,'GET');
+}
 
 const commentp2 = [
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."},
-  {account:{name:'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate:'21.01.2023'}, comment:"The Matrix may have imprisoned me, But I am free inside The Real World."}
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." },
+  { account: { name: 'Andrew Tate', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, comment: "The Matrix may have imprisoned me, But I am free inside The Real World." }
 ];
 
 const posts = [
-  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }, text: 'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture: null, video: 'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp2, link: null},
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }, text: 'Made my historic rap debut (thankfully I didn’t suck😅) Huge shout to all the hip hop & music fans for your HYPE reactions that are straight f*cking fire 🔥🔥🔥🙏🏾👊🏾', picture: null, video: 'https://www.youtube.com/embed/E9T78bT26sk', comments: commentp2, link: null },
   { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '30.02.2023' }, text: 'A lot of blood, sweat, and tears have gone into this career of mine.', picture: require('./img/kevin-hart-feed.jpg'), video: null, comments: commentp2, link: null },
   { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '21.01.2023' }, text: 'The Matrix may have imprisoned me, But I am free inside The Real World.', picture: require('./img/free-tate.jpg'), video: null, comments: commentp2, link: null },
   { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '24.03.2023' }, text: '@ryanReynolds is my best friend :3', picture: null, video: null, comments: commentp2, link: null },
@@ -49,10 +76,10 @@ const posts = [
 ];
 
 const myFriends = [
-  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
-  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
-  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }},
-  {account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' }}
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' } },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' } },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' } },
+  { account: { name: 'Dwayne Johnson', picture: require('./img/dwayne-johnson.jpg'), uploadDate: '02.01.2023' } }
 ];
 
 function Feed_account() {
@@ -132,7 +159,7 @@ function Description({ descriptionText, setDescriptionText }) {
 
   return (
     <div className="myprofile_left-content-profile">
-      <div class="myprofile_profile-info">
+      <div className="myprofile_profile-info">
         <h2 className="myprofile_descriptionTitle">Description</h2>
         <p>{descriptionText}</p>
       </div>
@@ -154,7 +181,7 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 
   return (
     <div className="myprofile_buttons-name">
-      <div class="myprofile_profile-info">
+      <div className="myprofile_profile-info">
         <h2 className="myprofile_name">{nameText}</h2>
       </div>
       <button className="myprofile_change-photo profile_button" onClick={() => setIsEditProfileOpen(true)}> Edit Profile </button>
@@ -172,13 +199,113 @@ function EditProfileFCT({ nameText, setNameText, imageUrl, setImageUrl }) {
 }
 
 const MyProfile = () => {
-  const [name, setName] = useState("Your name");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [description, setDescription] = useState("This is my description.");
+  const [searchText, setSearchText] = useState('');
+  const [filteredFriends, setFilteredFriends] = useState([]);
+ const [existingUsers,setExistingUsers] = useState([]);
+useEffect(() => {
+getUsers().then( 
+    users => {
+        setExistingUsers(users);
+      });
+      
+}, []);
 
+
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    setSearchText(value);
+
+    const filtered = existingUsers.filter((friend) =>
+      (friend.firstName+" "+friend.lastName).toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredFriends(filtered);
+  };
+
+function handleClickSearchedUser(userId) {
+    //alert("Ar trebui sa te duca la profilul persoanei " + userName)
+    
+      getUser()
+        .then(data => {
+          if(data.id.toString()==userId.toString())
+            window.location.href = "http://localhost:3000/myProfile";
+          else
+            window.location.href = "http://localhost:3000/profile?id=" + userId;});
+          
+
+ }
   const [modal, setModal] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showFriends, setShowFriends] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+
+  let i = 0;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if(i) return;
+      i++;
+      try {
+        const data = await getUser();
+        const img = await getImage(data.profile_picture);
+        const base64Image = 'data:image/png;base64,' + img;
+        setProfileImage(base64Image);
+        data.profile_picture = base64Image;
+        setUserData(data);
+        setUserId(data.id);
+
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+
+  
+    if (userId && !posts.length) {
+      getFeedContent(userId)
+        .then(posts => {
+          const updatedPosts = posts.map(post => ({
+            ...post,
+            user: {
+              ...post.user,
+              profile_picture: userData.profile_picture
+            }
+          }));
+  
+          setPosts(updatedPosts);
+        });
+    }
+  }, [userId, userData]); 
+
+  async function getFeedContent(userId) {
+    const posts = await getUserPosts(userId);
+    const content = [...posts];
+    return content;
+  }
+
+  useEffect(() => {
+    const fullName = `${userData.firstName} ${userData.lastName}`;
+    setName(fullName);
+  }, [userData]);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    if (userData.bio) {
+      setDescription(userData.bio);
+    }
+    else {
+      setDescription("This is my description.");
+    }
+  }, [userData]);
 
   const togglePosts = () => {
     setModal(!modal);
@@ -189,13 +316,33 @@ const MyProfile = () => {
     setModal(!modal);
     setShowComments(false);
     setShowFriends(!showFriends);
-}
-
-
-
-
+  }
   const handleNameUpdate = (newName) => {
+    const nameParts = newName.split(' ');
+    if (nameParts.length !== 2) {
+      alert('Invalid name format. Please enter both first name and last name.');
+      return;
+    }
     setName(newName);
+    fetch('http://localhost:8084/updateName', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `name=${newName}`,
+    })
+      .then(response => {
+        alert('Name updated successfully');
+        //  document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        //  document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        //  window.location.href = "/login";
+
+      })
+      .catch(error => {
+
+        alert('Error updating name:', error);
+      });
   };
 
   const handleImageUpdate = (newImageUrl) => {
@@ -203,51 +350,80 @@ const MyProfile = () => {
   };
 
   const handleDescriptionUpdate = (newDescription) => {
+
     setDescription(newDescription);
+    fetch('http://localhost:8084/updateBio', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      credentials: 'include',
+      body: `bio=${newDescription}`,
+    })
+      .then(response => {
+        alert('Description updated successfully');
+        // document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // window.location.href = "/login";
+
+      })
+      .catch(error => {
+
+        alert('Error updating the description:', error);
+      });
   };
 
   return (
     <>
-    <div className={modal ? 'feed_modal' : null}> </div>
-    <div className='myprofile_container-profile'>
-      <div className="myprofile_left-profile">
-        <StretchedMenu />
-      </div>
-      <div className="myprofile_right-profile">
-        <div className="myprofile_top-bar">
-          <div className="myprofile_search-profile">
-            <div className="myprofile_search_box-profile">
-              <img src={icon5} alt="search icon" />
-            </div>
-            <div className="myprofile_right_icons-profile">
-            <Link to='/graph'><img src={icon6}></img></Link>
-              <Link to='/login'><img src={icon7}></img></Link>
-            </div>
-          </div>
+      <div className={modal ? 'feed_modal' : null}> </div>
+      <div className='myprofile_container-profile'>
+        <div className="myprofile_left-profile">
+          <StretchedMenu />
         </div>
-
-        <div className="myprofile_content-profile">
-          <div className="myprofile_upper-profile">
-            <div className="myprofile_colored-cover">
-              <img id="profile-photo" className="myprofile_profile-photo" src={imageUrl} alt="profile" />
-            </div>
-            <div className="myprofile_white-cover">
-              <div className="myprofile_photo-name-profile">
-                <EditProfileFCT nameText={name} setNameText={handleNameUpdate} setImageUrl={handleImageUpdate} />
+        <div className="myprofile_right-profile">
+          <div className="myprofile_top-bar">
+            <div className="myprofile_search-profile">
+            <div  className={searchText !== '' && filteredFriends!==null ?"feed_search_box_activ":"feed_search_box"}>
+                <img src={icon5} alt="search icon" />
+                <input type="text" className="feed_search_box_input " value={searchText} onChange={handleSearch} placeholder="Search users..."/>
+            {searchText !== '' && (
+            <ul className="feed_friend-list">
+        {filteredFriends.map((friend, index) => (
+          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.id)} style={{ cursor: 'pointer' }}>{friend.firstName+" "+friend.lastName}</li>
+        ))}
+      </ul> 
+  )}
+              </div>
+              <div className="myprofile_right_icons-profile">
+               <Link to='/login'> 
+               <img src={icon7} alt="logout icon" />
+              </Link>
               </div>
             </div>
           </div>
-          <div className="myprofile_bottom-profile">
-            <Description descriptionText={description} setDescriptionText={handleDescriptionUpdate} />
 
-            <div className="myprofile_right-content-profile">
-            <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} useCase={'profile'} />
-           
+          <div className="myprofile_content-profile">
+            <div className="myprofile_upper-profile">
+              <div className="myprofile_colored-cover">
+                <img id="profile-photo" className="myprofile_profile-photo" src={userData.profile_picture} alt="profile" />
+              </div>
+              <div className="myprofile_white-cover">
+                <div className="myprofile_photo-name-profile">
+                  <EditProfileFCT nameText={name} setNameText={handleNameUpdate} setImageUrl={handleImageUpdate} />
+                </div>
+              </div>
+            </div>
+            <div className="myprofile_bottom-profile">
+              <Description descriptionText={description} setDescriptionText={handleDescriptionUpdate} />
+
+              <div className="myprofile_right-content-profile">
+                <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} useCase={'profile'} />
+
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

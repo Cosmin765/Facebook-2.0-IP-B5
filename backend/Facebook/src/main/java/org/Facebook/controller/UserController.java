@@ -7,16 +7,21 @@ import org.Facebook.model.entity.Friendship;
 import org.Facebook.model.entity.User;
 import org.Facebook.model.dto.UserDto;
 import org.Facebook.repository.FriendshipRepository;
+import org.Facebook.repository.UserRepository;
+import org.Facebook.service.CloudflareService;
 import org.Facebook.service.FriendRequestService;
 import org.Facebook.service.FriendshipService;
 import org.Facebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
@@ -34,6 +39,8 @@ public class UserController {
     private FriendshipService friendshipService;
     @Autowired
     private FriendshipRepository friendshipRepository;
+    @Autowired
+    private CloudflareService cloudflareService;
 
     @PostMapping(value = "/register")
     @ResponseBody
@@ -58,6 +65,12 @@ public class UserController {
     @ResponseBody
     public List<UserDto> searchUsers(@RequestParam String name) {
         return userService.searchUsers(name).stream().map(UserMapper::toDto).toList();
+    }
+
+    @GetMapping(value = "/user")
+    @ResponseBody
+    public UserDto getUser(@RequestParam int id) {
+        return UserMapper.toDto(userService.getUser(id));
     }
 
     @GetMapping(value = "/suggestions")
@@ -92,6 +105,14 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDto user = UserMapper.toDto((User) auth.getPrincipal());
         return friendRequestService.getFriendRequestsByUser(user).stream().map(FriendRequestMapper::toDto).toList();
+    }
+
+    @GetMapping(value = "/friendRequestsSend")
+    @ResponseBody
+    public List<FriendRequestDto> getFriendRequestsSend() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        return friendRequestService.getFriendRequestsByUserSend(user).stream().map(FriendRequestMapper::toDto).toList();
     }
 
     @PostMapping(value = "/friendRequest")
@@ -146,4 +167,36 @@ public class UserController {
 
         return userDtoList;
     }
+
+    @PostMapping(value = "/updateName")
+    @ResponseBody
+    public UserDto updateName(@RequestParam String name) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        String firstName = name.split(" ")[0];
+        String lastName = name.split(" ")[1];
+        User user1 = userService.updateName(user.getId(), firstName, lastName);
+        Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(user1, user1.getPassword(), user1.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
+        return UserMapper.toDto(user1);
+    }
+
+    @PostMapping(value = "/updateBio")
+    @ResponseBody
+    public UserDto updateBio(@RequestParam String bio) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDto user = UserMapper.toDto((User) auth.getPrincipal());
+        User user1 = userService.updateBio(user.getId(), bio);
+        Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(user1, user1.getPassword(), user1.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
+        return UserMapper.toDto(userService.updateBio(user.getId(), bio));
+    }
+
+    @PostMapping(value = "/updatePicture")
+    @ResponseBody
+    public void updateProfilePic(@RequestParam("file") MultipartFile multipartFile, @RequestParam("id") Integer id) throws Exception{
+        String imageString = cloudflareService.upload(multipartFile);
+        userService.updateProfile(imageString,id);
+    }
+
 }

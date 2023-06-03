@@ -34,7 +34,6 @@ export default function MainContainer_Friend_Request() {
       });
   
       const friendData = await Promise.all(friendPromises);
-      console.log(friendData);
       setFriends(friendData);
     };
   

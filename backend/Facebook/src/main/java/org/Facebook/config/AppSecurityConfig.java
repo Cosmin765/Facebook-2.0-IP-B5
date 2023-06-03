@@ -31,7 +31,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/", "/login", "/getOwnId").permitAll()
-                .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/register","/updatePicture").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("http://localhost:3000/login")

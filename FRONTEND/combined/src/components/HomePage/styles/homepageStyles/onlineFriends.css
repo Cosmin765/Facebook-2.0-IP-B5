@@ -1,7 +1,12 @@
+body{
+    overflow-x: hidden;
+
+}
 .feed_onlineFriends{
-    position: sticky;
+    position: relative;
     overflow-y: scroll;
-    top: 100px;
+    overflow-x: hidden;
+    top: 70px;
     /* height: 80vh; */
     height: calc(100vh - 150px);
     /* height: 100%; */

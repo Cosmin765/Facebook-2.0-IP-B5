@@ -4,6 +4,8 @@ import icon6 from '../icons/graph.svg';
 import icon7 from '../icons/out.svg';
 import { Link } from "react-router-dom";
 import '../styles/topBar.css'
+import { Link } from "react-router-dom";
+import { setUserLogged } from "../../../util";
 
 const SERVER_ADDRESS = 'http://localhost:8084';
 
@@ -35,6 +37,11 @@ async function getSuggestions() {
 async function getUsers(){
   return await getData(SERVER_ADDRESS+`/users`,'GET');
 }
+
+function handleLogout(){
+  setUserLogged(false);
+}
+
 export default function TopBar({notifications, showNotifications}) {
     const [searchText, setSearchText] = useState('');
   const [filteredFriends, setFilteredFriends] = useState([]);
@@ -58,8 +65,17 @@ getUsers().then(
     setFilteredFriends(filtered);
   };
 
-function handleClickSearchedUser(userName) {
-    alert("Ar trebui sa te duca la profilul persoanei " + userName)
+function handleClickSearchedUser(userId) {
+    //alert("Ar trebui sa te duca la profilul persoanei " + userName)
+    
+      getUser()
+        .then(data => {
+          if(data.id.toString()==userId.toString())
+            window.location.href = "http://localhost:3000/myProfile";
+          else
+            window.location.href = "http://localhost:3000/profile?id=" + userId;});
+          
+
  }
 
     return (
@@ -74,15 +90,14 @@ function handleClickSearchedUser(userName) {
             {searchText !== '' && (
             <ul className="feed_friend-list">
         {filteredFriends.map((friend, index) => (
-          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.firstName+" "+friend.lastName)}>{friend.firstName+" "+friend.lastName}</li>
+          <li key={index} className={index === 0 ? 'feed_first-friend' : ''} onClick={()=>handleClickSearchedUser(friend.id)} style={{ cursor: 'pointer' }}>{friend.firstName+" "+friend.lastName}</li>
         ))}
       </ul> 
   )}
                 </div>
                 <div className="feed_right_icons">
-                    {/* notificari */}
-                    <Link to='/graph'><img src={icon6} className="feed_notificationsIcon"></img></Link>
-              <Link to='/login'><img src={icon7}></img></Link>
+                    <Link to='http://localhost:8084/logout' onClick={handleLogout}><img src={icon7} ></img></Link>
+
                 </div>
             </div>
       </div>
