@@ -49,14 +49,10 @@ export default function Homepage() {
     const [posts, setPosts] = useState([]);
     const [myFriends, setFriends] = useState([]);
 
-    const updateFeed = () => {
+    if (!posts.length) {
         getFeedContent().then((posts) => {
             setPosts(posts);
         });
-    }
-
-    if (!posts.length) {
-        updateFeed();
     }
 
     function isIdNotInPairs(id, idImagePairs) {
@@ -95,6 +91,7 @@ export default function Homepage() {
         }
 
         const ads = await getRecommendedAds();
+        console.log(ads);
 
         //const content = [...posts, ...ads.map(adToPostConvert)].sort(() => Math.random() < 0.5 ? 1 : -1);
         const content = [];
@@ -231,7 +228,7 @@ export default function Homepage() {
                 {/* <div className='middlePanel'> */}
                 <div className={onlineFriendsToggle ? 'feed_middlePanel active' : 'feed_middlePanel'}>
                     <Status openPostPopup={openPostPopup} createPost={createPost} />
-                    <Feed updateFeed={updateFeed} posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} />
+                    <Feed posts={posts} togglePosts={togglePosts} showComments={showComments} showFriends={showFriends} toggleFriends={toggleFriends} friends={myFriends} />
                 </div>
 
                 {/* <div className='rightPanel'> */}

@@ -21,7 +21,7 @@ function Account({ name, picture, uploadDate }) {
   );
 }
 
-export default function Card({post, openFriendsMenu, openCommentsMenu, commentSectionId, setCommentId, updateFeed}) {
+export default function Card({post, openFriendsMenu, openCommentsMenu, commentSectionId, setCommentId}) {
   const sharePressed = () => {
     openFriendsMenu();
   }
@@ -92,7 +92,7 @@ export default function Card({post, openFriendsMenu, openCommentsMenu, commentSe
         </div>
 
       </div>
-        <AddComment updateFeed={updateFeed} post={post} />
+        <AddComment post={post} />
     </div>
     );
 }

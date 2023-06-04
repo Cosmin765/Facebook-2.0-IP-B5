@@ -10,7 +10,7 @@ import sendImg from '../../icons/homepageIcons/send.svg';
 import loadImg from '../../icons/homepageIcons/loadImg.svg';
 import { createComment, getImage, getUser } from "../../../../util";
 
-export default function AddComment({post, updateFeed}) {
+export default function AddComment({post}) {
     const [base64, setBase64] = useState('');
 
     const [postDataType, setPostDataType] = useState({
@@ -36,7 +36,6 @@ export default function AddComment({post, updateFeed}) {
         setPostDataType(prevPostDataType => {
             return {...prevPostDataType, typeAreaVal: ''};
         });
-        updateFeed();
     }
 
     const getProfile = async () => {
