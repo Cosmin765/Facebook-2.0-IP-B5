@@ -11,7 +11,7 @@ import Ad from './Ad';
 // style
 import '../../styles/homepageStyles/feed.css'
 
-export default function Feed({togglePosts, posts, showComments, showFriends, toggleFriends, friends}) {
+export default function Feed({togglePosts, posts, showComments, showFriends, toggleFriends, friends, updateFeed}) {
     const [commentSectionId, setCommentSectionId] = useState(0);
 
     const setCommentId = (id) => {
@@ -24,7 +24,7 @@ export default function Feed({togglePosts, posts, showComments, showFriends, tog
 
             <>{post.type == null ? 
             <>
-                <Card post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends} commentSectionId={commentSectionId} setCommentId={setCommentId} />
+                <Card updateFeed={updateFeed} post={post} openCommentsMenu={togglePosts} openFriendsMenu={toggleFriends} commentSectionId={commentSectionId} setCommentId={setCommentId} />
 
                 <div className={showComments ? 'feed_spacer active' : 'feed_spacer'}>
                     <ShowComments comments={post.comments} toggleFunction={togglePosts} showComments={showComments} postId={post.id} commentSectionId={commentSectionId} setCommentId={setCommentSectionId} />
