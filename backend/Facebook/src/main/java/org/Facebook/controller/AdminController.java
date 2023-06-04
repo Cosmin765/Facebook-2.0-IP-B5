@@ -31,6 +31,7 @@ public class AdminController {
         model.addAttribute("graphData", graphData);
         return "graph";
     }
+
     @GetMapping(value = "/graphReact")
     @ResponseBody
     public ResponseEntity<Pair<Set<Pair<UserDto, UserDto>>, Map<Integer, Integer>>> graphReact(@RequestParam int userId, @RequestParam int level) {

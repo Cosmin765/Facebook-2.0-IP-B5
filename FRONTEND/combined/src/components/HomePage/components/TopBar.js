@@ -1,8 +1,8 @@
 import React,{useEffect, useState} from "react";
 import icon5 from '../icons/search.svg';
-import icon6 from '../icons/graph.svg';
+import icon6 from '../icons/notif.svg';
 import icon7 from '../icons/out.svg';
-import { Link } from "react-router-dom";
+
 import '../styles/topBar.css'
 import { Link } from "react-router-dom";
 import { setUserLogged } from "../../../util";
@@ -97,7 +97,6 @@ function handleClickSearchedUser(userId) {
                 </div>
                 <div className="feed_right_icons">
                     <Link to='http://localhost:8084/logout' onClick={handleLogout}><img src={icon7} ></img></Link>
-
                 </div>
             </div>
       </div>

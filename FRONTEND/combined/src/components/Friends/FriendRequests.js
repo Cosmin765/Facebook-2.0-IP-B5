@@ -1,7 +1,7 @@
 
 import './App.css';
 import icon5 from './icons/search.svg';
-import icon6 from './icons/graph.svg';
+import icon6 from './icons/notif.svg';
 import icon7 from './icons/out.svg';
 //import LargeMenu from './large_menu';
 import MainContainer from './main_container'
@@ -10,7 +10,6 @@ import React,{useEffect, useState}  from 'react';
 import MainContainer_Friend_Request from './main_container_friend_request';
 import Sugestions_Friends from './Sugestions_Friends';
 import { Link } from 'react-router-dom';
-
 const SERVER_ADDRESS = 'http://localhost:8084';
 
 async function getRaw(url, method = 'POST', body = null) {
