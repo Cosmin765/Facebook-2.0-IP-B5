@@ -53,15 +53,15 @@ useEffect(() => {
       <div className="mc_buttons">
 
         <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
-          Prieteni
+          Friends
         </button>
         <Link to='/requests'>
           <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
-            Cereri de Prietenie
+Friend Requests
           </button></Link>
         <Link to='/suggestions'>
           <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
-            Sugestii
+            Suggestions
           </button></Link>
       </div>
 

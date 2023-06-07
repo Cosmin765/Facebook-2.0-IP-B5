@@ -103,11 +103,11 @@ color: black;
 
 .mc_add_friend_button {
   background-color: #7C3AED; 
-  display: flex;
-  left: 43%;
-  justify-content: flex-start;
+margin-right: 10px;
+margin-left: auto;
+
   border: transparent;
-  position:relative;
+
   font-family: 'Montserrat';
   color: #fff;
   padding: 10px 20px;
@@ -128,17 +128,17 @@ background-color: magenta;
 .mc_request_buttons{
 position: fixed;
 display: flex;
-transform: translateX(70%);
+transform: translateX(84%);
 
 }
 .mc_add_friend_button2 {
   
   background-color: #7C3AED; 
   display: flex;
-  left: 10%;
-  margin-right: 30px;
-  right: 5%;
-  justify-content: flex-start;
+
+  margin-right: 20px;
+margin-left: auto;
+  justify-content: right;
   border: transparent;
   
   font-family: 'Montserrat';

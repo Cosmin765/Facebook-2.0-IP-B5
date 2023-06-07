@@ -91,14 +91,13 @@ export default function Sugestions_Friends() {
       <div className="mc_buttons">
         <Link to='/friends'>
           <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
-            Prieteni
+            Friends
           </button></Link>
         <Link to='/requests'>
           <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
-            Cereri de Prietenie
-          </button></Link>
+Friend Requests          </button></Link>
         <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
-          Sugestii
+          Suggestions
         </button>
 
 

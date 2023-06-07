@@ -83,14 +83,13 @@ export default function MainContainer_Friend_Request() {
       <div className="mc_buttons">
         <Link to='/friends'>
           <button className={`mc_button ${activeButton === 'prieteni' ? 'active' : ''}`} onClick={handleFriendClick}>
-            Prieteni
+            Friends
           </button></Link>
         <button className={`mc_button ${activeButton === 'cereri' ? 'active' : ''}`} onClick={handleActiveFriend}>
-          Cereri de Prietenie
-        </button>
+Friend Requests        </button>
         <Link to='/suggestions'>
           <button className={`mc_button ${activeButton === 'sugestii' ? 'active' : ''}`} onClick={handleFriendSugestion}>
-            Sugestii
+            Suggestions
           </button></Link>
       </div>
 
